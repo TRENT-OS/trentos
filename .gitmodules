@@ -1,0 +1,4 @@
+[submodule "kernel"]
+	path = kernel
+	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/sel4.git
+	branch = master
