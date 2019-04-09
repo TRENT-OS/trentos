@@ -10,3 +10,7 @@
 	path = projects/util_libs
 	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/util_libs.git
 	branch = master
+[submodule "tools/seL4"]
+	path = tools/seL4
+	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/sel4_tools.git
+	branch = master
