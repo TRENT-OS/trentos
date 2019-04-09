@@ -18,3 +18,7 @@
 	path = projects/sel4_libs
 	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/sel4_libs.git
 	branch = master
+[submodule "tools/camkes"]
+	path = tools/camkes
+	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/camkes-tool.git
+	branch = master
