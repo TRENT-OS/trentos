@@ -2,3 +2,7 @@
 	path = kernel
 	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/sel4.git
 	branch = master
+[submodule "projects/musllibc"]
+	path = projects/musllibc
+	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/musllibc.git
+	branch = sel4
