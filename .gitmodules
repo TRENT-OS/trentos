@@ -22,3 +22,7 @@
 	path = tools/camkes
 	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/camkes-tool.git
 	branch = master
+[submodule "projects/camkes/capdl"]
+	path = projects/camkes/capdl
+	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/capdl.git
+	branch = master
