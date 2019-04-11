@@ -3,4 +3,5 @@
 int run()
 {
     printf("hello world!");
+    return 0;
 }

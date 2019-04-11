@@ -1,0 +1,12 @@
+import <std_connector.camkes>;
+
+import "components/MAIN/MAIN.camkes";
+
+assembly {
+    composition {
+        component MAIN              main;
+    }
+    configuration {
+    }
+}
+
