@@ -1,8 +1,9 @@
 import "../../interfaces/Crypto.camkes";
 
 component CRYPTO {
-    dataport    Buf                 server_dataport;
+    dataport    Buf                 serverDataport;
 
-    provides    CryptoInf           crypto_rpc;
+    provides    CryptoInf           Crypto;
+    provides    CryptoRpcInf        SeosCryptoRpc;
 }
 

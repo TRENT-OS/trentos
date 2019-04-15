@@ -50,7 +50,7 @@ endif()
 DeclareCAmkESComponent(CRYPTO INCLUDES
                             include
                             SOURCES
-                            "components/CRYPTO/instance/crypto_rpc.c"
+                            "components/CRYPTO/instance/Crypto.c"
 )
 set_property(TARGET CAmkESComponent_CRYPTO
 

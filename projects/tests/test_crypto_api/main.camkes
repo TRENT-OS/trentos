@@ -8,8 +8,9 @@ assembly {
         component MAIN              main;
         component CRYPTO            crypto;
 
-        connection seL4SharedData   cryptoData      (from main.crypto_client_dataport, to crypto.server_dataport);
-        connection seL4RPCCall      cryptoRPC       (from main.crypto_rpc, to crypto.crypto_rpc);
+        connection seL4SharedData   cryptoData      (from main.cryptoClientDataport, to crypto.serverDataport);
+        connection seL4RPCCall      cryptoRpc       (from main.Crypto, to crypto.Crypto);
+        connection seL4RPCCall      seosCryptoRpc   (from main.SeosCryptoRpc, to crypto.SeosCryptoRpc);
     }
     configuration {
     }

@@ -3,8 +3,9 @@ import "../../interfaces/Crypto.camkes";
 component MAIN {
     control;
 
-    dataport    Buf         crypto_client_dataport;
+    dataport    Buf             cryptoClientDataport;
 
-    uses        CryptoInf   crypto_rpc;
+    uses        CryptoInf       Crypto;
+    uses        CryptoRpcInf    SeosCryptoRpc;
 }
 

@@ -8,14 +8,14 @@
 int run()
 {
     SeosCryptoClient client;
-    SeosCryptoRpc_Handle rpc_handle = NULL;
+    SeosCryptoRpc_Handle rpcHandle = NULL;
 
     void const* data;
 
-    crypto_rpc_get_instance(&rpc_handle);
-    Debug_LOG_DEBUG("%s: got rpc object %p from server", __func__, rpc_handle);
+    Crypto_getRpcHandle(&rpcHandle);
+    Debug_LOG_DEBUG("%s: got rpc object %p from server", __func__, rpcHandle);
 
-    SeosCryptoClient_ctor(&client, rpc_handle, crypto_client_dataport);
+    SeosCryptoClient_ctor(&client, rpcHandle, cryptoClientDataport);
     SeosCryptoClient_getRandomData(&client, 0, &data, 0);
 
     return 0;
