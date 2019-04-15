@@ -1,10 +1,15 @@
 import <std_connector.camkes>;
 
 import "components/MAIN/MAIN.camkes";
+import "components/CRYPTO/CRYPTO.camkes";
 
 assembly {
     composition {
         component MAIN              main;
+        component CRYPTO            crypto;
+
+        connection seL4SharedData   cryptoData      (from main.crypto_client_dataport, to crypto.server_dataport);
+        connection seL4RPCCall      cryptoRPC       (from main.crypto_rpc, to crypto.crypto_rpc);
     }
     configuration {
     }

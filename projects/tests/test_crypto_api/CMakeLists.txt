@@ -9,6 +9,9 @@ set(ENABLE_LINT ON
     CACHE BOOL "string")
 set(SEOS_LIBS ON
     CACHE BOOL "string" FORCE)
+set(SEOS_LIBS_CRYPTO ON
+    CACHE BOOL "string")
+
 set(DEBUG_CONFIG_H_FILE
         "${CMAKE_SOURCE_DIR}/projects/configs/include/Debug_Config.h"
         CACHE STRING "" FORCE
@@ -27,13 +30,33 @@ endif()
 DeclareCAmkESComponent(MAIN INCLUDES
                             include
                             SOURCES
-                            "src/main.c"
+                            "components/MAIN/src/main.c"
 )
 set_property(TARGET CAmkESComponent_MAIN
 
              APPEND PROPERTY COMPONENT_C_FLAGS
 )
 set_property(TARGET CAmkESComponent_MAIN
+
+             APPEND PROPERTY COMPONENT_LIBS
+             seos_libs
+)
+
+# COMPONENT CRYPTO
+if (ENABLE_LINT)
+    set(CMAKE_C_CPPCHECK "cppcheck;--enable=warning;--inline-suppr")
+    set(CMAKE_C_CLANG_TIDY "clang-tidy;-checks=*")
+endif()
+DeclareCAmkESComponent(CRYPTO INCLUDES
+                            include
+                            SOURCES
+                            "components/CRYPTO/instance/crypto_rpc.c"
+)
+set_property(TARGET CAmkESComponent_CRYPTO
+
+             APPEND PROPERTY COMPONENT_C_FLAGS
+)
+set_property(TARGET CAmkESComponent_CRYPTO
 
              APPEND PROPERTY COMPONENT_LIBS
              seos_libs

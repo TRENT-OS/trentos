@@ -1,0 +1,7 @@
+procedure CryptoInf {
+    include "seos/seos_err.h";
+    include "seos/crypto_rpc.h";
+
+    seos_err_t      get_instance        (inout crypto_rpc_handle_t instance);
+    seos_err_t      get_random_data     (inout crypto_rpc_ctx_t ctx, unsigned int flags, size_t data_len);
+};
