@@ -1,0 +1,19 @@
+import <std_connector.camkes>;
+
+import "components/MAIN/MAIN.camkes";
+import "components/StdOutLogSpooler/StdOutLogSpooler.camkes";
+
+assembly {
+    composition {
+        component MAIN              main;
+        //----------------------------------------------------------------------
+        // Logger
+        //----------------------------------------------------------------------
+        component  StdOutLogSpooler logSpooler;
+        connection seL4SharedData   logfifo_spooler (from main.logFifoDataPort, to logSpooler.logFifoDataPort);
+        connection seL4Notification logAvailable    (from main.logAvailable, to logSpooler.logAvailable);
+    }
+    configuration {
+    }
+}
+

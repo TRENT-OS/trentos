@@ -1,0 +1,8 @@
+component MAIN {
+    include "instance/LogFifoDataPort_t.h";
+    control;
+
+    dataport    LogFifoDataPort_t   logFifoDataPort;
+    emits       LogAvailableEvent   logAvailable;
+}
+
