@@ -63,7 +63,6 @@ pipeline {
                         cd ta/seos_tests
                         pytest -v
                     '''
-                }
             }
         }
     }
