@@ -66,7 +66,10 @@ function run_build_mode()
     BUILD_TYPE=${1:-}
     shift
 
-    TARGET_DIR=${BUILD_TARGET}-${BUILD_TYPE}
+    TEST_NAME=${1:-}
+    shift
+
+    TARGET_DIR=${BUILD_TARGET}-${BUILD_TYPE}-${TEST_NAME}
 
     case "${BUILD_TARGET}" in
         #-------------------------------------
@@ -74,6 +77,7 @@ function run_build_mode()
             CMAKE_TARGET_PARAMS=(
                 -DCROSS_COMPILER_PREFIX=arm-linux-gnueabi-
                 -DKernelARMPlatform=${BUILD_TARGET}
+                -D${TEST_NAME}=ON
             )
             ;;
         #-------------------------------------
@@ -83,6 +87,7 @@ function run_build_mode()
                 -DKernelRiscVPlatform=${BUILD_TARGET}
                 -DKernelArch=riscv
                 -DKernelRiscVSel4Arch=riscv64
+                -D${TEST_NAME}=ON
             )
             ;;
         #-------------------------------------
@@ -106,16 +111,8 @@ function run_build_mode()
 if [[ "${1:-}" == "all" ]]; then
 
     shift
-    run_build_mode zynq7000 Debug -DENABLE_LINT=OFF $@
-    #run_build_mode spike Debug -DENABLE_LINT=OFF $@
-
-    run_build_mode zynq7000 Release -DENABLE_LINT=OFF $@
-    #run_build_mode spike Release -DENABLE_LINT=OFF $@
-
-elif [[ "${1:-}" == "ci" ]]; then
-    shift
-    run_build_mode zynq7000 Debug $@
-    run_build_mode zynq7000 Release  $@
+    run_build_mode zynq7000 Debug HELLO_WORLD $@
+    run_build_mode zynq7000 Debug TEST_SYSLOG $@
 else
-    run_build_mode zynq7000 Debug $@
+    run_build_mode zynq7000 Debug HELLO_WORLD $@
 fi

@@ -41,12 +41,12 @@ with the build artifacts. This leaves the whole source folder unchanged.
 
     # start build with code in sub-folder "src", will create a new folder
     # "build-<target>" with the binaries
-    src/build.sh
+    src/build.sh TEST_NAME
 
     # start simulation. Terminate QEMU with "Crtl+A X". Note that the build
     # platform is still hard-coded in this script, change if another target
     # platform is used.
-    src/run_qemu.sh
+    src/run_qemu.sh TEST_NAME
 
 
 ### Build options
@@ -59,15 +59,7 @@ fix this, within the docker container, go to the folder "build-<target>" and
 run "ccmake ../src". Find the option "ENABLE_LINT" and set it to "OFF". Press
 "g" to re-generate the configuration and exit. Then run the build again.
 
-#### Non-CAmkES builds
-
-Older versions of the sources supported a non-CAmkES build also, but this is
-no longer maintained now. The whole system only works as CAmkES build only. So
-the build options still exists, but will likely to fail badly.
-
-    ./build.sh -DCAMKES=OFF
-
-#### Build all supported platforms
+#### Build all supported tests
 
 To build all supported build, which is Debug and Release at the moment for
 the Zynq7000 platform, the parameter "all" can be used
