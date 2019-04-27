@@ -114,5 +114,5 @@ if [[ "${1:-}" == "all" ]]; then
     run_build_mode zynq7000 Debug HELLO_WORLD $@
     run_build_mode zynq7000 Debug TEST_SYSLOG $@
 else
-    run_build_mode zynq7000 Debug HELLO_WORLD $@
+    run_build_mode zynq7000 Debug $@
 fi
