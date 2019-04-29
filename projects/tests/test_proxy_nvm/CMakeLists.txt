@@ -1,6 +1,22 @@
 cmake_minimum_required(VERSION 3.7.2)
 
-project(tests_hello_world C)
+project(tests_proxy_nvm C)
+
+set(SEOS_LIBS ON
+    CACHE BOOL "string" FORCE)
+
+set(DEBUG_CONFIG_H_FILE
+        "${CMAKE_SOURCE_DIR}/projects/configs/include/Debug_Config.h"
+        CACHE STRING "" FORCE
+)
+set(MEMORY_CONFIG_H_FILE
+        "${CMAKE_SOURCE_DIR}/projects/configs/include/Memory_Config.h"
+        CACHE STRING "" FORCE
+)
+set(LOGS_CONFIG_H_FILE
+        "${CMAKE_SOURCE_DIR}/projects/configs/include/Logs_Config.h"
+        CACHE STRING "" FORCE
+)
 
 # Include cmake helper functions
 include(cmake/helpers.cmake)
@@ -15,18 +31,43 @@ if (ENABLE_LINT)
     set(CMAKE_C_CPPCHECK "cppcheck;--enable=warning;--inline-suppr")
     set(CMAKE_C_CLANG_TIDY "clang-tidy;-checks=*")
 endif()
-DeclareCAmkESComponent(MAIN INCLUDES
-                            include
-                            SOURCES
-                            "src/main.c"
+DeclareCAmkESComponent(MAIN
+    INCLUDES
+        include
+    SOURCES
+        "src/main.c"
+    LIBS
+        seos_libs
 )
-set_property(TARGET CAmkESComponent_MAIN
 
-             APPEND PROPERTY COMPONENT_C_FLAGS
+#-------------------------------------------------------------------------------
+# Component UartDrv
+#-------------------------------------------------------------------------------
+
+DeclareCAmkESComponent(UartDrv
+    SOURCES
+        "components/Uart/src/UartDrv.c"
+        "components/Uart/src/qemu_uart.c"
+    C_FLAGS
+        -Wall -Werror
 )
-set_property(TARGET CAmkESComponent_MAIN
 
-             APPEND PROPERTY COMPONENT_LIBS
+#-------------------------------------------------------------------------------
+# Component ChanMux
+#-------------------------------------------------------------------------------
+
+DeclareCAmkESComponent(ChanMux
+    INCLUDES
+        "../configs/include"
+    SOURCES
+        "components/ChanMux/src/instance/ChanMux_Instance.c"
+    C_FLAGS
+        -Wall -Werror
+        -DSEOS_SOCKET_CONFIG_H_FILE=${SEOS_SOCKET_CONFIG_H_FILE}
+        -DMEMORY_CONFIG_H_FILE=${MEMORY_CONFIG_H_FILE}
+        -DDEBUG_CONFIG_H_FILE=${DEBUG_CONFIG_H_FILE}
+    LIBS
+        seos_libs
 )
 
 #ROOT SERVER

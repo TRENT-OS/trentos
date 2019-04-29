@@ -1,0 +1,16 @@
+import "../../interfaces/UartInf.camkes";
+
+component UartDev {
+    hardware;
+    dataport Buf uartRegBase;
+}
+
+component UartDrv {
+    control;
+
+    dataport Buf            uartRegBase;
+    dataport Buf            inputDataPort;
+
+    provides UartInf        UartDrv;
+    uses     ChanMuxOutInf  Output;
+}
