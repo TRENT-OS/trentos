@@ -5,7 +5,7 @@ component MAIN {
 
     dataport    Buf                 chanMuxDataPort;
 
-    uses        ChanMuxInInf        ChanMux;
+    uses        ChanMuxInInf        ChanMuxRpc;
     consumes    DataAvailableEvent  dataAvailable;
 }
 

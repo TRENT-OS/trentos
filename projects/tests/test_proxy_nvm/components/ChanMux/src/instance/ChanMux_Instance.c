@@ -20,6 +20,30 @@ static const ChanMuxConfig_t cfgChanMux = {
     },
     .channelsFifos = {
         {   // Channel 0
+            .buffer = NULL,
+            .len = 0
+        },
+        {   // Channel 1
+            .buffer = NULL,
+            .len = 0
+        },
+        {   // Channel 2
+            .buffer = NULL,
+            .len = 0
+        },
+        {   // Channel 3
+            .buffer = NULL,
+            .len = 0
+        },
+        {   // Channel 4
+            .buffer = NULL,
+            .len = 0
+        },
+        {   // Channel 5
+            .buffer = NULL,
+            .len = 0
+        },
+        {   // Channel 6
             .buffer = mainFifoBuf,
             .len = sizeof(mainFifoBuf)
         }
@@ -27,6 +51,30 @@ static const ChanMuxConfig_t cfgChanMux = {
 };
 
 const ChannelDataport_t dataports[] = {
+    {
+        .io  = NULL,
+        .len = 0
+    },    
+    {
+        .io  = NULL,
+        .len = 0
+    },    
+    {
+        .io  = NULL,
+        .len = 0
+    },    
+    {
+        .io  = NULL,
+        .len = 0
+    },    
+    {
+        .io  = NULL,
+        .len = 0
+    },    
+    {
+        .io  = NULL,
+        .len = 0
+    },
     {
         .io  = (void**) &mainDataPort,
         .len = PAGE_SIZE
