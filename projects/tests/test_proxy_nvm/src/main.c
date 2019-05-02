@@ -30,10 +30,17 @@ int run()
         return 0;
     }
 
-    size_t written_bytes = ProxyNVM_write(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)(0x12345678), (const char*)buf, sizeof(buf));
-    //size_t read_bytes = ProxyNVM_read(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)(0x12345678), input_buf, sizeof(input_buf));
+    size_t ret_value = ProxyNVM_write(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)(0x12345678), (const char*)buf, sizeof(buf));
 
-    printf("Written bytes: %d\n", written_bytes);
+    if(ret_value == 0){
+        printf("\nWrite operation successful!\n");
 
+    }
+    else
+    {
+        printf("\nWrite operation failed with error code: %d\n", ret_value);
+    }
+    
+    
     return 0;
 }
