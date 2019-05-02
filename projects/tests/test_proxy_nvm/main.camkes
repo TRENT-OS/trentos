@@ -18,7 +18,7 @@ assembly {
         connection  seL4SharedData      uart_dataConnection (from chanMux.outputDataPort, to uartDrv.inputDataPort);
         connection  seL4SharedData      dataConnection      (from main.chanMuxDataPort, to chanMux.mainDataPort);
 
-        connection  seL4Notification    dataAvailableLan    (from chanMux.dataAvailableMain, to main.dataAvailable);
+        connection  seL4Notification    dataAvailableLan    (from chanMux.dataAvailableMain, to main.ChanMuxSignal_dataAvailable);
 
         connection  seL4HardwareMMIO    uart_memio          (from uartDrv.uartRegBase, to uartDev.uartRegBase);
     }
