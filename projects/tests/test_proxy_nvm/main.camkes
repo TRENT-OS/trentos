@@ -11,7 +11,7 @@ assembly {
         component   UartDev          uartDev;
         component   UartDrv          uartDrv;
 
-        connection  seL4RPCCall         main_chanmux        (from main.ChanMux, to chanMux.ChanMuxIn);
+        connection  seL4RPCCall         main_chanmux        (from main.ChanMuxRpc, to chanMux.ChanMuxIn);
         connection  seL4RPCCall         chanmux_uart        (from chanMux.Output, to uartDrv.UartDrv);
         connection  seL4RPCCall         uart_chanmux        (from uartDrv.Output, to chanMux.ChanMuxOut);
 
