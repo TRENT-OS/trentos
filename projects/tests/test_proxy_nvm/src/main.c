@@ -10,8 +10,7 @@ char buf[1074] = {0};
 
 int run()
 {
-    printf("Starting main...\n");
-
+    //INITIALIZATION
     for(int i = 0; i < sizeof(buf); i++){
         buf[i] = i%127;
     }
@@ -29,8 +28,24 @@ int run()
         printf("Failed to construct testProxyNVM!\n");
         return 0;
     }
+    //INITIALIZATION
 
-    size_t ret_value = ProxyNVM_write(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)(0x12345678), (const char*)buf, sizeof(buf));
+
+    //GET_SIZE TEST
+    size_t ret_value = ProxyNVM_getSize(ProxyNVM_TO_NVM(&testProxyNVM));
+
+    if(ret_value >= 0){
+        printf("\nGet_size operation successful!\nSize of the memory: %d\n", ret_value);
+
+    }
+    else{
+        printf("\nGet_size operation failed with error code: %d\n", ret_value);
+    }
+    //GET_SIZE TEST
+
+
+    //WRITE TEST 
+    ret_value = ProxyNVM_write(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)(0x12345678), (const char*)buf, sizeof(buf));
 
     if(ret_value >= 0){
         printf("\nWrite operation successful!\n%d bytes written\n", ret_value);
@@ -39,12 +54,15 @@ int run()
     else{
         printf("\nWrite operation failed with error code: %d\n", ret_value);
     }
+    //WRITE TEST
 
 
     for(int i = 0; i < sizeof(buf); i++){
         buf[i] = 0;
     }
 
+
+    //READ TEST
     ret_value = ProxyNVM_read(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)(0x12e85678), buf, sizeof(buf));
 
     if(ret_value >= 0){
@@ -60,7 +78,7 @@ int run()
     else{
         printf("\nRead operation failed with error code: %d\n", ret_value);
     }
-    
+    //READ TEST
     
     return 0;
 }
