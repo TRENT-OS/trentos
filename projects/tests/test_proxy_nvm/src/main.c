@@ -6,7 +6,7 @@
 ProxyNVM testProxyNVM;
 ChanMuxClient testChanMuxClient;
 
-char buf[1074*2] = {0};
+char buf[1074] = {0};
 
 int run()
 {
@@ -38,6 +38,27 @@ int run()
     }
     else{
         printf("\nWrite operation failed with error code: %d\n", ret_value);
+    }
+
+
+    for(int i = 0; i < sizeof(buf); i++){
+        buf[i] = 0;
+    }
+
+    ret_value = ProxyNVM_read(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)(0x12e85678), buf, sizeof(buf));
+
+    if(ret_value >= 0){
+        printf("\nRead operation successful!\n%d bytes written\nMemory content:\n", ret_value);
+
+        for(int i = 0; i < ret_value; i++){
+            printf(" %02x", buf[i]);
+            if((i + 1) % 20 == 0)
+                printf("\n");
+        }
+        printf("\n\n");
+    }
+    else{
+        printf("\nRead operation failed with error code: %d\n", ret_value);
     }
     
     
