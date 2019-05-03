@@ -32,12 +32,11 @@ int run()
 
     size_t ret_value = ProxyNVM_write(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)(0x12345678), (const char*)buf, sizeof(buf));
 
-    if(ret_value == 0){
-        printf("\nWrite operation successful!\n");
+    if(ret_value >= 0){
+        printf("\nWrite operation successful!\n%d bytes written\n", ret_value);
 
     }
-    else
-    {
+    else{
         printf("\nWrite operation failed with error code: %d\n", ret_value);
     }
     
