@@ -11,4 +11,8 @@ procedure CryptoRpcInf {
     include "seos/SeosCryptoRpc.h";
 
     seos_err_t      getRandomData   (in SeosCryptoRpc_Handle handle, unsigned int flags, size_t data_len);
+    seos_err_t      digestInit      (in SeosCryptoRpc_Handle handle, in SeosCryptoDigest_Algorithm algorithm, in size_t ivLen);
+    void            digestClose     (in SeosCryptoRpc_Handle handle);
+    seos_err_t      digestUpdate    (in SeosCryptoRpc_Handle handle, in size_t len);
+    seos_err_t      digestFinalize  (in SeosCryptoRpc_Handle handle, in size_t len);
 };
