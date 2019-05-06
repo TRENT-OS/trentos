@@ -11,7 +11,6 @@ int run()
 {
     SeosCryptoClient client;
     SeosCryptoRpc_Handle rpcHandle = NULL;
-    SeosCryptoDigest digestCtx;
     seos_err_t err = SEOS_ERROR_GENERIC;
 
     void const* data;
@@ -38,25 +37,26 @@ int run()
 
     Debug_PRINTFLN("%s", "Testing Digest functions..");
 
-    err = SeosCryptoDigest_init(&digestCtx,
-                                SeosCryptoDigest_Algorithm_MD5,
-                                NULL,
-                                0);
-    Debug_ASSERT(err == SEOS_SUCCESS);
+    err = SeosCryptoClient_digestInit(&client,
+                                      SeosCryptoDigest_Algorithm_MD5,
+                                      NULL,
+                                      0);
+    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
     const char* string = "0123456789";
     char* digest = NULL;
     size_t digestSize = 0;
-    err = SeosCryptoDigest_finalize(&digestCtx,
-                                    string,
-                                    strlen(string),
-                                    &digest,
-                                    &digestSize);
+    err = SeosCryptoClient_digestFinalize(&client,
+                                          string,
+                                          strlen(string),
+                                          &digest,
+                                          &digestSize);
     Debug_PRINTF("Printing digest...");
     for (unsigned j = 0; j < digestSize; j++)
     {
         Debug_PRINTF(" 0x%02x", digest[j]);
     }
     Debug_PRINTF("\n");
+
     return 0;
 }
