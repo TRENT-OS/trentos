@@ -61,7 +61,7 @@ pipeline {
                         workspace=`pwd`
                         source ta/ta-env/bin/activate
                         cd ta/seos_tests
-                        pytest -v --workspace_path="${workspace}"
+                        pytest -v -s --workspace_path="${workspace}"
                     '''
             }
         }
