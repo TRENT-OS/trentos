@@ -2,24 +2,32 @@
 
 #include <stdio.h>
 #include <camkes.h>
+#include <string.h>
 
 #include "seos/SeosCryptoClient.h"
+#include "seos/SeosCryptoDigest.h"
 
 int run()
 {
     SeosCryptoClient client;
     SeosCryptoRpc_Handle rpcHandle = NULL;
+    SeosCryptoDigest digestCtx;
+    seos_err_t err = SEOS_ERROR_GENERIC;
 
     void const* data;
 
-    Crypto_getRpcHandle(&rpcHandle);
-    Debug_LOG_DEBUG("%s: got rpc object %p from server", __func__, rpcHandle);
+    err = Crypto_getRpcHandle(&rpcHandle);
+    Debug_ASSERT(err == SEOS_SUCCESS);
+    Debug_LOG_INFO("%s: got rpc object %p from server", __func__, rpcHandle);
 
-    SeosCryptoClient_ctor(&client, rpcHandle, cryptoClientDataport);
+    err = SeosCryptoClient_ctor(&client, rpcHandle, cryptoClientDataport);
+    Debug_ASSERT(err == SEOS_SUCCESS);
 
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 3; i++)
     {
-        SeosCryptoClient_getRandomData(&client, 0, &data, 16);
+        err = SeosCryptoClient_getRandomData(&client, 0, &data, 16);
+        Debug_ASSERT(err == SEOS_SUCCESS);
+
         Debug_PRINTF("Printing random bytes...");
         for (unsigned j = 0; j < 16; j++)
         {
@@ -28,5 +36,27 @@ int run()
         Debug_PRINTF("\n");
     }
 
+    Debug_PRINTFLN("%s", "Testing Digest functions..");
+
+    err = SeosCryptoDigest_init(&digestCtx,
+                                SeosCryptoDigest_Algorithm_MD5,
+                                NULL,
+                                0);
+    Debug_ASSERT(err == SEOS_SUCCESS);
+
+    const char* string = "0123456789";
+    char* digest = NULL;
+    size_t digestSize = 0;
+    err = SeosCryptoDigest_finalize(&digestCtx,
+                                    string,
+                                    strlen(string),
+                                    &digest,
+                                    &digestSize);
+    Debug_PRINTF("Printing digest...");
+    for (unsigned j = 0; j < digestSize; j++)
+    {
+        Debug_PRINTF(" 0x%02x", digest[j]);
+    }
+    Debug_PRINTF("\n");
     return 0;
 }
