@@ -51,7 +51,7 @@ int run()
                                           strlen(string),
                                           &digest,
                                           &digestSize);
-    Debug_PRINTF("Printing digest...");
+    Debug_PRINTF("Printing MD5 digest...");
     for (unsigned j = 0; j < digestSize; j++)
     {
         Debug_PRINTF(" 0x%02x", digest[j]);
