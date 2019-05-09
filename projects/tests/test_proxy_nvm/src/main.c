@@ -21,136 +21,37 @@ ChanMuxClient testChanMuxClient;
 unsigned char out_buf[MEM_SIZE] = {0};
 unsigned char in_buf[MEM_SIZE] = {0};
 
-void Run_testSmallSection(){
+void RunTest(size_t address, size_t length, const char* testName){
     printf("\n\n");
-    for(int i = 0; i < TEST_SMALL_SECTION_LEN; i++){
+    for(int i = 0; i < length; i++){
         out_buf[i] = i%256;
     }
 
-    size_t ret_value = ProxyNVM_write(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)TEST_SMALL_SECTION_ADDR, (const char*)out_buf, (size_t)TEST_SMALL_SECTION_LEN);
-    if(ret_value == TEST_SMALL_SECTION_LEN){
-        Debug_LOG_INFO("\nTEST_SMALL_SECTION: Write succeded!");
+    size_t ret_value = ProxyNVM_write(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)address, (const char*)out_buf, (size_t)length);
+    if(ret_value == length){
+        Debug_LOG_INFO("\n%s: Write succeded!", testName);
     }
     else{
-        Debug_LOG_ERROR("\nTEST_SMALL_SECTION: Write failed!\nTried to write %d bytes but written only %d bytes.", TEST_SMALL_SECTION_LEN, ret_value);
+        Debug_LOG_ERROR("\n%s: Write failed!\nTried to write %d bytes but written only %d bytes.", testName, length, ret_value);
         return;
     }
 
-    ret_value = ProxyNVM_read(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)TEST_SMALL_SECTION_ADDR, (char*)in_buf, (size_t)TEST_SMALL_SECTION_LEN);
-    if(ret_value == TEST_SMALL_SECTION_LEN){
-        Debug_LOG_INFO("\nTEST_SMALL_SECTION: Read succeded!");
+    ret_value = ProxyNVM_read(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)address, (char*)in_buf, (size_t)length);
+    if(ret_value == length){
+        Debug_LOG_INFO("\n%s: Read succeded!", testName);
     }
     else{
-        Debug_LOG_ERROR("\nTEST_SMALL_SECTION: Read failed!\nTried to read %d bytes but read only %d bytes.", TEST_SMALL_SECTION_LEN, ret_value);
+        Debug_LOG_ERROR("\n%s: Read failed!\nTried to read %d bytes but read only %d bytes.", testName, length, ret_value);
         return;
     }
 
-    for(int i = 0; i < TEST_SMALL_SECTION_LEN; i++){
+    for(int i = 0; i < length; i++){
         if(out_buf[i] != in_buf[i]){
-            Debug_LOG_ERROR("\nTEST_SMALL_SECTION: Read values corrupted!\nOn position %d written %02x, but read %02x", i, out_buf[i], in_buf[i]);
+            Debug_LOG_ERROR("\n%s: Read values corrupted!\nOn position %d written %02x, but read %02x", testName, i, out_buf[i], in_buf[i]);
             return;
         }
     }
-    Debug_LOG_INFO("\nTEST_SMALL_SECTION: Read values match the write values!");
-}
-
-void Run_testWholeMem(){
-    printf("\n\n");
-    for(int i = 0; i < TEST_WHOLE_MEM_LEN; i++){
-        out_buf[i] = i%256;
-    }
-
-    size_t ret_value = ProxyNVM_write(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)TEST_WHOLE_MEM_ADDR, (const char*)out_buf, (size_t)TEST_WHOLE_MEM_LEN);
-    if(ret_value == TEST_WHOLE_MEM_LEN){
-        Debug_LOG_INFO("\nTEST_WHOLE_MEM: Write succeded!");
-    }
-    else{
-        Debug_LOG_ERROR("\nTEST_WHOLE_MEM: Write failed!\nTried to write %d bytes but written only %d bytes.", TEST_WHOLE_MEM_LEN, ret_value);
-        return;
-    }
-
-    ret_value = ProxyNVM_read(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)TEST_WHOLE_MEM_ADDR, (char*)in_buf, (size_t)TEST_WHOLE_MEM_LEN);
-    if(ret_value == TEST_WHOLE_MEM_LEN){
-        Debug_LOG_INFO("\nTEST_WHOLE_MEM: Read succeded!");
-    }
-    else{
-        Debug_LOG_ERROR("\nTEST_WHOLE_MEM: Read failed!\nTried to read %d bytes but read only %d bytes.", TEST_WHOLE_MEM_LEN, ret_value);
-        return;
-    }
-
-    for(int i = 0; i < TEST_WHOLE_MEM_LEN; i++){
-        if(out_buf[i] != in_buf[i]){
-            Debug_LOG_ERROR("\nTEST_WHOLE_MEM: Read values corrupted!\nOn position %d written %02x, but read %02x", i, out_buf[i], in_buf[i]);
-            return;
-        }
-    }
-    Debug_LOG_INFO("\nTEST_WHOLE_MEM: Read values match the write values!");
-}
-
-void Run_testSizeOutOfBounds(){
-    printf("\n\n");
-    for(int i = 0; i < TEST_SIZE_OUT_OF_BOUNDS_LEN; i++){
-        out_buf[i] = i%256;
-    }
-
-    size_t ret_value = ProxyNVM_write(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)TEST_SIZE_OUT_OF_BOUNDS_ADDR, (const char*)out_buf, (size_t)TEST_SIZE_OUT_OF_BOUNDS_LEN);
-    if(ret_value == TEST_SIZE_OUT_OF_BOUNDS_LEN){
-        Debug_LOG_INFO("\nTEST_SIZE_OUT_OF_BOUNDS: Write succeded!");
-    }
-    else{
-        Debug_LOG_ERROR("\nTEST_SIZE_OUT_OF_BOUNDS: Write failed!\nTried to write %d bytes but written only %d bytes.", TEST_SIZE_OUT_OF_BOUNDS_LEN, ret_value);
-        return;
-    }
-
-    ret_value = ProxyNVM_read(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)TEST_SIZE_OUT_OF_BOUNDS_ADDR, (char*)in_buf, (size_t)TEST_SIZE_OUT_OF_BOUNDS_LEN);
-    if(ret_value == TEST_SIZE_OUT_OF_BOUNDS_LEN){
-        Debug_LOG_INFO("\nTEST_SIZE_OUT_OF_BOUNDS: Read succeded!");
-    }
-    else{
-        Debug_LOG_ERROR("\nTEST_SIZE_OUT_OF_BOUNDS: Read failed!\nTried to read %d bytes but read only %d bytes.", TEST_SIZE_OUT_OF_BOUNDS_LEN, ret_value);
-        return;
-    }
-
-    for(int i = 0; i < TEST_SIZE_OUT_OF_BOUNDS_LEN; i++){
-        if(out_buf[i] != in_buf[i]){
-            Debug_LOG_ERROR("\nTEST_SIZE_OUT_OF_BOUNDS: Read values corrupted!\nOn position %d written %02x, but read %02x", i, out_buf[i], in_buf[i]);
-            return;
-        }
-    }
-    Debug_LOG_INFO("\nTEST_SIZE_OUT_OF_BOUNDS: Read values match the write values!");
-}
-
-void Run_testAddrOutOfBounds(){
-    printf("\n\n");
-    for(int i = 0; i < TEST_ADDR_OUT_OF_BOUNDS_LEN; i++){
-        out_buf[i] = i%256;
-    }
-
-    size_t ret_value = ProxyNVM_write(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)TEST_ADDR_OUT_OF_BOUNDS_ADDR, (const char*)out_buf, (size_t)TEST_ADDR_OUT_OF_BOUNDS_LEN);
-    if(ret_value == TEST_ADDR_OUT_OF_BOUNDS_LEN){
-        Debug_LOG_INFO("\nTEST_ADDR_OUT_OF_BOUNDS: Write succeded!");
-    }
-    else{
-        Debug_LOG_ERROR("\nTEST_ADDR_OUT_OF_BOUNDS: Write failed!\nTried to write %d bytes but written only %d bytes.", TEST_ADDR_OUT_OF_BOUNDS_LEN, ret_value);
-        return;
-    }
-
-    ret_value = ProxyNVM_read(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)TEST_ADDR_OUT_OF_BOUNDS_ADDR, (char*)in_buf, (size_t)TEST_ADDR_OUT_OF_BOUNDS_LEN);
-    if(ret_value == TEST_ADDR_OUT_OF_BOUNDS_LEN){
-        Debug_LOG_INFO("\nTEST_ADDR_OUT_OF_BOUNDS: Read succeded!");
-    }
-    else{
-        Debug_LOG_ERROR("\nTEST_ADDR_OUT_OF_BOUNDS: Read failed!\nTried to read %d bytes but read only %d bytes.", TEST_ADDR_OUT_OF_BOUNDS_LEN, ret_value);
-        return;
-    }
-
-    for(int i = 0; i < TEST_ADDR_OUT_OF_BOUNDS_LEN; i++){
-        if(out_buf[i] != in_buf[i]){
-            Debug_LOG_ERROR("\nTEST_ADDR_OUT_OF_BOUNDS: Read values corrupted!\nOn position %d written %02x, but read %02x", i, out_buf[i], in_buf[i]);
-            return;
-        }
-    }
-    Debug_LOG_INFO("\nTEST_ADDR_OUT_OF_BOUNDS: Read values match the write values!");
+    Debug_LOG_INFO("\n%s: Read values match the write values!", testName);
 }
 
 int InitProxyNVM(){
@@ -179,10 +80,10 @@ int run()
         return 0;
     }
 
-    Run_testSmallSection();
-    Run_testWholeMem();
-    Run_testSizeOutOfBounds();
-    Run_testAddrOutOfBounds();
+    RunTest(TEST_SMALL_SECTION_ADDR, TEST_SMALL_SECTION_LEN, "TEST SMALL SECTION");
+    RunTest(TEST_WHOLE_MEM_ADDR, TEST_WHOLE_MEM_LEN, "TEST WOLE MEMORY");
+    RunTest(TEST_SIZE_OUT_OF_BOUNDS_ADDR, TEST_SIZE_OUT_OF_BOUNDS_LEN, "TEST SIZE OUT OF BOUNDS");
+    RunTest(TEST_ADDR_OUT_OF_BOUNDS_ADDR, TEST_ADDR_OUT_OF_BOUNDS_LEN, "TEST ADDRESS OUT OF BOUNDS");
     
     return 0;
 }
