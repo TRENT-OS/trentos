@@ -45,6 +45,18 @@ pipeline {
                         source ta-env/bin/activate
                         pip install -r requirements.txt
                     '''
+                echo '####################################### Update MQTT Proxy #######################################'
+                sh  '''#!/bin/bash
+                        if [ -d mqtt_proxy_demo ]; then
+                            cd mqtt_proxy_demo
+                            git pull origin
+                            git submodule update --recursive
+                        else
+                            git clone --recursive -b master ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/mqtt_proxy_demo.git
+                            cd mqtt_proxy_demo
+                        fi
+                        ./build.sh
+                    '''
             }
         }
         stage('test') {
@@ -59,9 +71,10 @@ pipeline {
                 echo '########################################## Testing ##########################################'
                 sh  '''#!/bin/bash
                         workspace=`pwd`
+                        proxy=`pwd`/mqtt_proxy_demo/build/mqtt_proxy
                         source ta/ta-env/bin/activate
                         cd ta/seos_tests
-                        pytest -v -s --workspace_path="${workspace}"
+                        pytest -v -s --workspace_path="${workspace}" --proxy_path="${proxy}"
                     '''
             }
         }
