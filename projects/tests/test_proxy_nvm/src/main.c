@@ -3,7 +3,7 @@
 #include "ChanMux/ChanMuxClient.h"
 #include "camkes.h"
 
-#define MEM_SIZE                        1024*1024        
+#define MEM_SIZE                        1024*128        
 
 #define TEST_SMALL_SECTION_LEN          (MEM_SIZE / PAGE_SIZE) //arbitrary small chunk of data
 #define TEST_WHOLE_MEM_LEN              MEM_SIZE
@@ -15,8 +15,6 @@
 #define TEST_SIZE_OUT_OF_BOUNDS_ADDR    (MEM_SIZE / 2)
 #define TEST_ADDR_OUT_OF_BOUNDS_ADDR    (MEM_SIZE * 2)
 
-#define INITIALIZE_OUT_BUFER(len)       for(int i = 0; i < len; i++) out_buf[i] = i%256
-
 ProxyNVM testProxyNVM;
 ChanMuxClient testChanMuxClient;
 
@@ -25,7 +23,9 @@ unsigned char in_buf[MEM_SIZE] = {0};
 
 void Run_testSmallSection(){
     printf("\n\n");
-    INITIALIZE_OUT_BUFER(TEST_SMALL_SECTION_LEN);
+    for(int i = 0; i < TEST_SMALL_SECTION_LEN; i++){
+        out_buf[i] = i%256;
+    }
 
     size_t ret_value = ProxyNVM_write(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)TEST_SMALL_SECTION_ADDR, (const char*)out_buf, (size_t)TEST_SMALL_SECTION_LEN);
     if(ret_value == TEST_SMALL_SECTION_LEN){
@@ -56,7 +56,9 @@ void Run_testSmallSection(){
 
 void Run_testWholeMem(){
     printf("\n\n");
-    INITIALIZE_OUT_BUFER(TEST_WHOLE_MEM_LEN);
+    for(int i = 0; i < TEST_WHOLE_MEM_LEN; i++){
+        out_buf[i] = i%256;
+    }
 
     size_t ret_value = ProxyNVM_write(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)TEST_WHOLE_MEM_ADDR, (const char*)out_buf, (size_t)TEST_WHOLE_MEM_LEN);
     if(ret_value == TEST_WHOLE_MEM_LEN){
@@ -87,7 +89,9 @@ void Run_testWholeMem(){
 
 void Run_testSizeOutOfBounds(){
     printf("\n\n");
-    INITIALIZE_OUT_BUFER(TEST_SIZE_OUT_OF_BOUNDS_LEN);
+    for(int i = 0; i < TEST_SIZE_OUT_OF_BOUNDS_LEN; i++){
+        out_buf[i] = i%256;
+    }
 
     size_t ret_value = ProxyNVM_write(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)TEST_SIZE_OUT_OF_BOUNDS_ADDR, (const char*)out_buf, (size_t)TEST_SIZE_OUT_OF_BOUNDS_LEN);
     if(ret_value == TEST_SIZE_OUT_OF_BOUNDS_LEN){
@@ -118,7 +122,9 @@ void Run_testSizeOutOfBounds(){
 
 void Run_testAddrOutOfBounds(){
     printf("\n\n");
-    INITIALIZE_OUT_BUFER(TEST_ADDR_OUT_OF_BOUNDS_LEN);
+    for(int i = 0; i < TEST_ADDR_OUT_OF_BOUNDS_LEN; i++){
+        out_buf[i] = i%256;
+    }
 
     size_t ret_value = ProxyNVM_write(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)TEST_ADDR_OUT_OF_BOUNDS_ADDR, (const char*)out_buf, (size_t)TEST_ADDR_OUT_OF_BOUNDS_LEN);
     if(ret_value == TEST_ADDR_OUT_OF_BOUNDS_LEN){
