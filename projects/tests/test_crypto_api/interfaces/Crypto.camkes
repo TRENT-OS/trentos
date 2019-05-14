@@ -15,4 +15,9 @@ procedure CryptoRpcInf {
     void            digestClose     (in SeosCryptoRpc_Handle handle);
     seos_err_t      digestUpdate    (in SeosCryptoRpc_Handle handle, in size_t len);
     seos_err_t      digestFinalize  (in SeosCryptoRpc_Handle handle, in size_t len);
+    seos_err_t      cipherInit      (in SeosCryptoRpc_Handle handle, in SeosCryptoCipher_Algorithm algorithm, in SeosCrypto_KeyHandle keyHandle, in size_t ivLen);
+    void            cipherClose     (in SeosCryptoRpc_Handle handle);
+    seos_err_t      cipherUpdate    (in SeosCryptoRpc_Handle handle, in size_t len);
+    seos_err_t      cipherFinalize  (in SeosCryptoRpc_Handle handle, in size_t len);
+    seos_err_t      keyCreate       (in SeosCryptoRpc_Handle handle, in SeosCryptoCipher_Algorithm algorithm, in unsigned int flags, inout SeosCrypto_KeyHandle pKeyHandle);
 };
