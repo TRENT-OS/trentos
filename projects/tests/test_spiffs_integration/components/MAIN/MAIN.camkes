@@ -1,0 +1,11 @@
+import "../../interfaces/ChanMuxInf.camkes";
+
+component MAIN {
+    control;
+
+    dataport    Buf                 chanMuxDataPort;
+
+    uses        ChanMuxInInf        ChanMuxRpc;
+    consumes    DataAvailableEvent  ChanMuxSignal_dataAvailable;
+}
+
