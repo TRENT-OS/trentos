@@ -72,7 +72,7 @@ testCipherAES(SeosCryptoClient* client)
     };
 
     char    buffer[16];
-    char*   input       = key.bytes;
+    char const*   input = key.bytes;
     size_t  inputSize   = strlen(key.bytes);
     char*   output      = buffer;
     size_t  outputSize  = sizeof(buffer);
@@ -80,7 +80,7 @@ testCipherAES(SeosCryptoClient* client)
     Debug_PRINTFLN("%s", "Testing Cipher functions..");
 
     err = SeosCryptoCipher_init(&scCipher,
-                                SeosCryptoCipher_Algorithm_AES_ENC,
+                                SeosCryptoCipher_Algorithm_AES_EBC_ENC,
                                 &key,
                                 NULL,
                                 0);
@@ -104,7 +104,7 @@ testCipherAES(SeosCryptoClient* client)
     SeosCryptoCipher_close(&scCipher);
 
     err = SeosCryptoCipher_init(&scCipher,
-                                SeosCryptoCipher_Algorithm_AES_DEC,
+                                SeosCryptoCipher_Algorithm_AES_EBC_DEC,
                                 &key,
                                 NULL,
                                 0);
@@ -138,13 +138,13 @@ testCipherAES(SeosCryptoClient* client)
     SeosCrypto_KeyHandle keyHandle;
 
     err = SeosCryptoRpc_keyCreate(client->rpcHandle,
-                                  SeosCryptoCipher_Algorithm_AES_ENC,
+                                  SeosCryptoCipher_Algorithm_AES_EBC_ENC,
                                   SeosCrypto_KEY_FLAGS_128_BIT,
                                   &keyHandle);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
     err = SeosCryptoClient_cipherInit(client,
-                                      SeosCryptoCipher_Algorithm_AES_ENC,
+                                      SeosCryptoCipher_Algorithm_AES_EBC_ENC,
                                       keyHandle,
                                       NULL,
                                       0);
@@ -168,7 +168,7 @@ testCipherAES(SeosCryptoClient* client)
     SeosCryptoClient_cipherClose(client);
 
     err = SeosCryptoClient_cipherInit(client,
-                                      SeosCryptoCipher_Algorithm_AES_DEC,
+                                      SeosCryptoCipher_Algorithm_AES_EBC_DEC,
                                       keyHandle,
                                       NULL,
                                       0);
