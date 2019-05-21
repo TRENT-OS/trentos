@@ -4,6 +4,7 @@ project(tests_proxy_nvm C)
 
 set(SEOS_LIBS ON CACHE BOOL "string" FORCE)
 set(SPIFFS ON CACHE BOOL "string" FORCE)
+set(MBEDTLS ON CACHE BOOL "string" FORCE)
 
 set(DEBUG_CONFIG_H_FILE
         "${CMAKE_SOURCE_DIR}/projects/configs/include/Debug_Config.h"
