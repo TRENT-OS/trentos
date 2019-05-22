@@ -8,7 +8,7 @@ Crypto_getRpcHandle(SeosCryptoRpc_Handle* instance)
     static SeosCrypto    cryptoCore;
     static SeosCryptoRpc the_one;
 
-    seos_err_t retval = SeosCrypto_init(&cryptoCore,
+    seos_err_t retval = SeosCrypto_ctor(&cryptoCore,
                                         malloc, free, NULL, NULL);
     if (SEOS_SUCCESS == retval)
     {

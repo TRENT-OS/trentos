@@ -114,7 +114,7 @@ testCipherAES(SeosCryptoClient* client)
 
     Debug_PRINTFLN("%s", "Testing Cipher functions..");
 
-    err = SeosCryptoCipher_init(&scCipher,
+    err = SeosCryptoCipher_ctor(&scCipher,
                                 SeosCryptoCipher_Algorithm_AES_EBC_ENC,
                                 &key,
                                 NULL,
@@ -136,9 +136,9 @@ testCipherAES(SeosCryptoClient* client)
     }
     Debug_PRINTF("\n");
 
-    SeosCryptoCipher_close(&scCipher);
+    SeosCryptoCipher_dtor(&scCipher);
 
-    err = SeosCryptoCipher_init(&scCipher,
+    err = SeosCryptoCipher_ctor(&scCipher,
                                 SeosCryptoCipher_Algorithm_AES_EBC_DEC,
                                 &key,
                                 NULL,
