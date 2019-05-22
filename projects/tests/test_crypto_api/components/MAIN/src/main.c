@@ -86,7 +86,7 @@ testDigestSHA256(SeosCryptoClient* client)
                                                  sizeof(digest));
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
-    Debug_PRINTF("Printing SHA digest...");
+    Debug_PRINTF("Printing SHA256 digest...");
     for (unsigned j = 0; j < sizeof(digest); j++)
     {
         Debug_PRINTF(" 0x%02x", digest[j]);
