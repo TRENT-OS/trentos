@@ -57,6 +57,41 @@ testDigestMD5(SeosCryptoClient* client)
         Debug_PRINTF(" 0x%02x", digest[j]);
     }
     Debug_PRINTF("\n");
+
+    SeosCryptoClient_digestClose(client);
+}
+
+static void
+testDigestSHA256(SeosCryptoClient* client)
+{
+    seos_err_t err = SEOS_ERROR_GENERIC;
+
+    err = SeosCryptoClient_digestInit(client,
+                                      SeosCryptoDigest_Algorithm_SHA256,
+                                      NULL,
+                                      0);
+    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
+
+    const char* string = "0123456789";
+
+    err = SeosCryptoClient_digestUpdate(client,
+                                        string,
+                                        strlen(string));
+
+    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
+
+    char digest[SeosCryptoDigest_SIZE_SHA256];
+    err = SeosCryptoClient_digestFinalizeNoData2(client,
+                                                 digest,
+                                                 sizeof(digest));
+    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
+
+    Debug_PRINTF("Printing SHA digest...");
+    for (unsigned j = 0; j < sizeof(digest); j++)
+    {
+        Debug_PRINTF(" 0x%02x", digest[j]);
+    }
+    Debug_PRINTF("\n");
 }
 
 static void
@@ -208,6 +243,7 @@ int run()
 
     testRNG(&client);
     testDigestMD5(&client);
+    testDigestSHA256(&client);
     testCipherAES(&client);
 
     return 0;
