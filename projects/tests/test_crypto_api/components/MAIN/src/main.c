@@ -57,6 +57,41 @@ testDigestMD5(SeosCryptoClient* client)
         Debug_PRINTF(" 0x%02x", digest[j]);
     }
     Debug_PRINTF("\n");
+
+    SeosCryptoClient_digestClose(client);
+}
+
+static void
+testDigestSHA256(SeosCryptoClient* client)
+{
+    seos_err_t err = SEOS_ERROR_GENERIC;
+
+    err = SeosCryptoClient_digestInit(client,
+                                      SeosCryptoDigest_Algorithm_SHA256,
+                                      NULL,
+                                      0);
+    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
+
+    const char* string = "0123456789";
+
+    err = SeosCryptoClient_digestUpdate(client,
+                                        string,
+                                        strlen(string));
+
+    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
+
+    char digest[SeosCryptoDigest_SIZE_SHA256];
+    err = SeosCryptoClient_digestFinalizeNoData2(client,
+                                                 digest,
+                                                 sizeof(digest));
+    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
+
+    Debug_PRINTF("Printing SHA256 digest...");
+    for (unsigned j = 0; j < sizeof(digest); j++)
+    {
+        Debug_PRINTF(" 0x%02x", digest[j]);
+    }
+    Debug_PRINTF("\n");
 }
 
 static void
@@ -72,15 +107,15 @@ testCipherAES(SeosCryptoClient* client)
     };
 
     char    buffer[16];
-    char*   input       = key.bytes;
+    char const*   input = key.bytes;
     size_t  inputSize   = strlen(key.bytes);
     char*   output      = buffer;
     size_t  outputSize  = sizeof(buffer);
 
     Debug_PRINTFLN("%s", "Testing Cipher functions..");
 
-    err = SeosCryptoCipher_init(&scCipher,
-                                SeosCryptoCipher_Algorithm_AES_ENC,
+    err = SeosCryptoCipher_ctor(&scCipher,
+                                SeosCryptoCipher_Algorithm_AES_EBC_ENC,
                                 &key,
                                 NULL,
                                 0);
@@ -101,10 +136,10 @@ testCipherAES(SeosCryptoClient* client)
     }
     Debug_PRINTF("\n");
 
-    SeosCryptoCipher_close(&scCipher);
+    SeosCryptoCipher_dtor(&scCipher);
 
-    err = SeosCryptoCipher_init(&scCipher,
-                                SeosCryptoCipher_Algorithm_AES_DEC,
+    err = SeosCryptoCipher_ctor(&scCipher,
+                                SeosCryptoCipher_Algorithm_AES_EBC_DEC,
                                 &key,
                                 NULL,
                                 0);
@@ -138,13 +173,13 @@ testCipherAES(SeosCryptoClient* client)
     SeosCrypto_KeyHandle keyHandle;
 
     err = SeosCryptoRpc_keyCreate(client->rpcHandle,
-                                  SeosCryptoCipher_Algorithm_AES_ENC,
+                                  SeosCryptoCipher_Algorithm_AES_EBC_ENC,
                                   SeosCrypto_KEY_FLAGS_128_BIT,
                                   &keyHandle);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
     err = SeosCryptoClient_cipherInit(client,
-                                      SeosCryptoCipher_Algorithm_AES_ENC,
+                                      SeosCryptoCipher_Algorithm_AES_EBC_ENC,
                                       keyHandle,
                                       NULL,
                                       0);
@@ -168,7 +203,7 @@ testCipherAES(SeosCryptoClient* client)
     SeosCryptoClient_cipherClose(client);
 
     err = SeosCryptoClient_cipherInit(client,
-                                      SeosCryptoCipher_Algorithm_AES_DEC,
+                                      SeosCryptoCipher_Algorithm_AES_EBC_DEC,
                                       keyHandle,
                                       NULL,
                                       0);
@@ -208,6 +243,7 @@ int run()
 
     testRNG(&client);
     testDigestMD5(&client);
+    testDigestSHA256(&client);
     testCipherAES(&client);
 
     return 0;

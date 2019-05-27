@@ -109,13 +109,15 @@ function run_build_mode()
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 if [[ "${1:-}" == "all" ]]; then
-
     shift
     run_build_mode zynq7000 Debug HELLO_WORLD $@
     run_build_mode zynq7000 Debug TEST_SYSLOG $@
     run_build_mode zynq7000 Debug TEST_CRYPTO_API $@
     run_build_mode zynq7000 Debug TEST_PROXY_NVM $@
     run_build_mode zynq7000 Debug TEST_SPIFFS_INTEGRATION $@
+elif [[ "${1:-}" == "clean" ]]; then
+    shift
+    /bin/rm -rf build-*
 else
     run_build_mode zynq7000 Debug $@
 fi
