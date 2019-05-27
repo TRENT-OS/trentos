@@ -20,17 +20,35 @@ static uint8_t spiffs_fds[32*4];
 static uint8_t spiffs_cache_buf[(LOG_PAGE_SIZE+32)*4];
 
 static int32_t spiffsRead(uint32_t addr, uint32_t size, uint8_t *dst) {
-    CryptoBlockDevice_read(&testCryptoBlockDevice, addr, (char*)dst, size);
+    size_t readBytes = CryptoBlockDevice_read(&testCryptoBlockDevice, addr, (char*)dst, size);
+
+    if(readBytes != size){
+      Debug_LOG_ERROR("%s: Tried to read %d bytes, but read %d, from adress %d!", __func__, size, readBytes, addr);
+      return SPIFFS_ERR_INTERNAL;
+    }
+
     return SPIFFS_OK;
 }
 
 static int32_t spiffsWrite(uint32_t addr, uint32_t size, uint8_t *src) {
-    CryptoBlockDevice_write(&testCryptoBlockDevice, addr, (char*)src, size);
+    size_t writtenBytes = CryptoBlockDevice_write(&testCryptoBlockDevice, addr, (char*)src, size);
+
+    if(writtenBytes != size){
+      Debug_LOG_ERROR("%s: Tried to write %d bytes, but written %d, to adress %d!", __func__, size, writtenBytes, addr);
+      return SPIFFS_ERR_INTERNAL;
+    }
+
     return SPIFFS_OK;
 }
 
 static int32_t spiffsErase(uint32_t addr, uint32_t size) {
-    CryptoBlockDevice_erase(&testCryptoBlockDevice, addr, size);
+    size_t erasedBytes = CryptoBlockDevice_erase(&testCryptoBlockDevice, addr, size);
+
+    if(erasedBytes != size){
+      Debug_LOG_ERROR("%s: Tried to erase %d bytes, but erased %d, from adress %d!", __func__, size, erasedBytes, addr);
+      return SPIFFS_ERR_INTERNAL;
+    }
+
     return SPIFFS_OK;
 }
 
@@ -57,7 +75,7 @@ static void printSpiffsContent(){
   printf("\nSPIFFS total available bytes: %d\nSPIFFS used bytes: %d\n", total, used);
 }
 
-static void spiffsMount() {
+static int spiffsMount(){
     spiffs_config cfg;
     cfg.phys_size = 128*1024;           // use 128k of spi flash
     cfg.phys_addr = 0;                  // start spiffs at start of spi flash
@@ -72,33 +90,33 @@ static void spiffsMount() {
     int res = SPIFFS_mount(&fs, &cfg, spiffs_work_buf, spiffs_fds, sizeof(spiffs_fds), spiffs_cache_buf, sizeof(spiffs_cache_buf), 0);
 
     if(res != 0){
-        printf("%s: First try unsuccessful! Unmounting...", __func__);
+        Debug_LOG_INFO("%s: First try unsuccessful! Unmounting...", __func__);
         SPIFFS_unmount(&fs);
-        printf("%s: Formatting...", __func__);
+        Debug_LOG_INFO("%s: Formatting...", __func__);
         SPIFFS_format(&fs);
-        printf("%s: Mounting...", __func__);
+        Debug_LOG_INFO("%s: Mounting...", __func__);
         res = SPIFFS_mount(&fs, &cfg, spiffs_work_buf, spiffs_fds, sizeof(spiffs_fds), spiffs_cache_buf, sizeof(spiffs_cache_buf), 0);
     }
 
-    res == 0 ? printf("%s: Mount successful!", __func__) : printf("%s: Mount failed with error: %i", __func__, res);
+    return res;
 }
 
-static int InitProxyNVM(){
+static bool InitProxyNVM(){
     printf("\n\n");
     bool success = ChanMuxClient_ctor(&testChanMuxClient, 6, (void*)chanMuxDataPort);
 
     if(!success){
         printf("Failed to construct testChanMuxClient!\n");
-        return -1;
+        return false;
     }
 
     success = ProxyNVM_ctor(&testProxyNVM, &testChanMuxClient);
 
     if(!success){
         printf("Failed to construct testProxyNVM!\n");
-        return -1;
+        return false;
     }
-    return 0;
+    return true;
 }
 
 static void runSpiffsTest(){
@@ -149,15 +167,21 @@ static void runSpiffsTest(){
 }
 
 int run(){
-  uint8_t ret = InitProxyNVM();
-  if(ret < 0){
-    printf("Error initializing ProxyNVM!");
+  if(!InitProxyNVM()){
+    Debug_LOG_ERROR("%s: Failed to initialize ProxyNVM!", __func__);
     return 0;
   }
 
-  CryptoBlockDevice_ctor(&testCryptoBlockDevice, ProxyNVM_TO_NVM(&testProxyNVM), ProxyNVM_write, ProxyNVM_read, ProxyNVM_erase);
+  if(!CryptoBlockDevice_ctor(&testCryptoBlockDevice, ProxyNVM_TO_NVM(&testProxyNVM), ProxyNVM_write, ProxyNVM_read, ProxyNVM_erase)){
+    Debug_LOG_ERROR("%s: Failed to initialize CryptoBlockDevice!", __func__);
+    return 0;
+  }
 
-  spiffsMount();
+  if(spiffsMount() != 0){
+    Debug_LOG_ERROR("%s: Failed to initialize spiffs!", __func__);
+    return 0;
+  }
+
   runSpiffsTest();
     
   return 0;
