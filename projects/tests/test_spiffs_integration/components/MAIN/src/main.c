@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "ProxyNVM.h"
-#include "CryptoBlockDevice.h"
+#include "AesNvm.h"
 #include "SeosSpiffs.h"
 #include "ChanMux/ChanMuxClient.h"
 #include "camkes.h"
@@ -9,7 +9,7 @@
 
 ProxyNVM testProxyNVM;
 ChanMuxClient testChanMuxClient;
-CryptoBlockDevice testCryptoBlockDevice;
+AesNvm testAesNvm;
 SeosSpiffs fs;
 
 static bool InitProxyNVM(){
@@ -103,12 +103,12 @@ int run(){
     return 0;
   }
 
-  if(!CryptoBlockDevice_ctor(&testCryptoBlockDevice, ProxyNVM_TO_NVM(&testProxyNVM))){
-    Debug_LOG_ERROR("%s: Failed to initialize CryptoBlockDevice!", __func__);
+  if(!AesNvm_ctor(&testAesNvm, ProxyNVM_TO_NVM(&testProxyNVM))){
+    Debug_LOG_ERROR("%s: Failed to initialize AesNvm!", __func__);
     return 0;
   }
 
-  if(!SeosSpiffs_ctor(&fs, CryptoBlockDevice_TO_NVM(&testCryptoBlockDevice), MEM_SIZE, 0)){
+  if(!SeosSpiffs_ctor(&fs, AesNvm_TO_NVM(&testAesNvm), MEM_SIZE, 0)){
     Debug_LOG_ERROR("%s: Failed to initialize spiffs!", __func__);
     return 0;
   }
