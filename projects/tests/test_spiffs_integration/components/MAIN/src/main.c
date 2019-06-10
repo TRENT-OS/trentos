@@ -51,27 +51,28 @@ int run(){
     return 0;
   }
 
-  char buffer[100] = {0};
+  char buffer[4] = {0};
+  char name[3] = {'f', '0', '\0'};
+  char writeBuf[4] = {'c', '=', '0', '\0'};
 
-  printf("\n\n");
+  for(int i = 0; i < 5; i++){
+    writeBuf[2] = '0' + i;
+    name[1] = '0' + i;
 
-  SpiffsFileStream *spiffsStream = SpiffsFileStreamFactory_create("test", FileStream_OpenMode_W);
-
-  if(SpiffsFileStream_write(SpiffsFileStream_TO_STREAM(spiffsStream), "blabla", strlen("blabla")) < 0){
-    Debug_LOG_ERROR("%s: SpiffsFileStream_write failed!", __func__);
+    printf("\n\n");
+    SpiffsFileStream *spiffsStream = SpiffsFileStreamFactory_create(name, FileStream_OpenMode_W);
+    if(SpiffsFileStream_write(SpiffsFileStream_TO_STREAM(spiffsStream), writeBuf, strlen(writeBuf)) < 0){
+      Debug_LOG_ERROR("%s: SpiffsFileStream_write failed!", __func__);
+    }
+    if(SpiffsFileStream_seek(SpiffsFileStream_TO_FILE_STREAM(spiffsStream), 0, FileStream_SeekMode_Begin) < 0){
+      Debug_LOG_ERROR("%s: SpiffsFileStream_write failed!", __func__);
+    }
+    if(SpiffsFileStream_read(SpiffsFileStream_TO_STREAM(spiffsStream), buffer, strlen(writeBuf)) < 0){
+      Debug_LOG_ERROR("%s: SpiffsFileStream_write failed!", __func__);
+    }
+    SpiffsFileStream_close(SpiffsFileStream_TO_STREAM(spiffsStream));
+    printf("\nRead from file: %s\n", buffer);
   }
-
-  if(SpiffsFileStream_seek(SpiffsFileStream_TO_FILE_STREAM(spiffsStream), 0, FileStream_SeekMode_Begin) < 0){
-    Debug_LOG_ERROR("%s: SpiffsFileStream_write failed!", __func__);
-  }
-
-  if(SpiffsFileStream_read(SpiffsFileStream_TO_STREAM(spiffsStream), buffer, strlen("blabla")) < 0){
-    Debug_LOG_ERROR("%s: SpiffsFileStream_write failed!", __func__);
-  }
-
-  SpiffsFileStream_close(SpiffsFileStream_TO_STREAM(spiffsStream));
-
-  printf("\nRead from file: %s\n", buffer);
     
   return 0;
 }
