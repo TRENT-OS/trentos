@@ -55,23 +55,32 @@ int run(){
   char name[3] = {'f', '0', '\0'};
   char writeBuf[4] = {'c', '=', '0', '\0'};
 
-  for(int i = 0; i < 5; i++){
+  SpiffsFileStream* streams[NUM_MEMORY_ELEMENTS];
+
+  printf("\n--------------------------------------------------------------------------------------\n\n\n");
+
+  for(int i = 0; i < NUM_MEMORY_ELEMENTS; i++){
     writeBuf[2] = '0' + i;
     name[1] = '0' + i;
 
-    printf("\n\n");
-    SpiffsFileStream *spiffsStream = SpiffsFileStreamFactory_create(name, FileStream_OpenMode_W);
-    if(SpiffsFileStream_write(SpiffsFileStream_TO_STREAM(spiffsStream), writeBuf, strlen(writeBuf)) < 0){
+    streams[i] = SpiffsFileStreamFactory_create(name, FileStream_OpenMode_W);
+
+    if(SpiffsFileStream_write(SpiffsFileStream_TO_STREAM(streams[i]), writeBuf, strlen(writeBuf)) < 0){
       Debug_LOG_ERROR("%s: SpiffsFileStream_write failed!", __func__);
     }
-    if(SpiffsFileStream_seek(SpiffsFileStream_TO_FILE_STREAM(spiffsStream), 0, FileStream_SeekMode_Begin) < 0){
+    if(SpiffsFileStream_seek(SpiffsFileStream_TO_FILE_STREAM(streams[i]), 0, FileStream_SeekMode_Begin) < 0){
       Debug_LOG_ERROR("%s: SpiffsFileStream_write failed!", __func__);
     }
-    if(SpiffsFileStream_read(SpiffsFileStream_TO_STREAM(spiffsStream), buffer, strlen(writeBuf)) < 0){
+    if(SpiffsFileStream_read(SpiffsFileStream_TO_STREAM(streams[i]), buffer, strlen(writeBuf)) < 0){
       Debug_LOG_ERROR("%s: SpiffsFileStream_write failed!", __func__);
     }
-    SpiffsFileStream_close(SpiffsFileStream_TO_STREAM(spiffsStream));
-    printf("\nRead from file: %s\n", buffer);
+
+    printf("\nRead from file %d: %s", i, buffer);
+    printf("\n\n\n--------------------------------------------------------------------------------------\n\n\n");
+  }
+
+  for(int i = 0; i < NUM_MEMORY_ELEMENTS; i++){
+    SpiffsFileStream_close(SpiffsFileStream_TO_STREAM(streams[i]));
   }
     
   return 0;
