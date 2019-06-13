@@ -7,7 +7,8 @@
 #include "ChanMux/ChanMuxClient.h"
 #include "camkes.h"
 
-#define MEM_SIZE            1024*128
+#define MEM_SIZE              1024*128
+#define NUM_OF_TEST_STREAMS   3
 
 ProxyNVM testProxyNVM;
 ChanMuxClient testChanMuxClient;
@@ -42,6 +43,10 @@ bool initializeTest(){
   }
 
   streamFactory = SpiffsFileStreamFactory_getInstance(&fs);
+  if(streamFactory == NULL){
+    Debug_LOG_ERROR("%s: Failed to get the SpiffsFileStreamFactory instance!", __func__);
+    return false;
+  }
 
   return true;
 }
@@ -51,19 +56,19 @@ int run(){
     return 0;
   }
 
-  char buffer[4] = {0};
-  char name[3] = {'f', '0', '\0'};
+  char filePath[3] = {'f', '0', '\0'};
   char writeBuf[4] = {'c', '=', '0', '\0'};
+  char readBuf[4] = {0};
 
-  SpiffsFileStream* streams[NUM_MEMORY_ELEMENTS];
+  SpiffsFileStream* streams[NUM_OF_TEST_STREAMS];
 
   printf("\n--------------------------------------------------------------------------------------\n\n\n");
 
-  for(int i = 0; i < NUM_MEMORY_ELEMENTS; i++){
-    writeBuf[2] = '0' + i;
-    name[1] = '0' + i;
+  for(int i = 0; i < NUM_OF_TEST_STREAMS; i++){
+    writeBuf[2] = '0' + i + 1;
+    filePath[1] = '0' + i + 1;
 
-    streams[i] = SpiffsFileStreamFactory_create(name, FileStream_OpenMode_W);
+    streams[i] = SpiffsFileStreamFactory_create(filePath, FileStream_OpenMode_W);
 
     if(SpiffsFileStream_write(SpiffsFileStream_TO_STREAM(streams[i]), writeBuf, strlen(writeBuf)) < 0){
       Debug_LOG_ERROR("%s: SpiffsFileStream_write failed!", __func__);
@@ -71,15 +76,15 @@ int run(){
     if(SpiffsFileStream_seek(SpiffsFileStream_TO_FILE_STREAM(streams[i]), 0, FileStream_SeekMode_Begin) < 0){
       Debug_LOG_ERROR("%s: SpiffsFileStream_write failed!", __func__);
     }
-    if(SpiffsFileStream_read(SpiffsFileStream_TO_STREAM(streams[i]), buffer, strlen(writeBuf)) < 0){
+    if(SpiffsFileStream_read(SpiffsFileStream_TO_STREAM(streams[i]), readBuf, strlen(writeBuf)) < 0){
       Debug_LOG_ERROR("%s: SpiffsFileStream_write failed!", __func__);
     }
 
-    printf("\nRead from file %d: %s", i, buffer);
+    printf("\nRead from file %d: %s", i + 1, readBuf);
     printf("\n\n\n--------------------------------------------------------------------------------------\n\n\n");
   }
 
-  for(int i = 0; i < NUM_MEMORY_ELEMENTS; i++){
+  for(int i = 0; i < NUM_OF_TEST_STREAMS; i++){
     SpiffsFileStream_close(SpiffsFileStream_TO_STREAM(streams[i]));
   }
     
