@@ -22,7 +22,7 @@ bool initializeTest(){
     return false;
   }
 
-  if(!ProxyNVM_ctor(&testProxyNVM, &testChanMuxClient)){
+  if(!ProxyNVM_ctor(&testProxyNVM, &testChanMuxClient, (char*)chanMuxDataPort, PAGE_SIZE)){
     Debug_LOG_ERROR("%s: Failed to construct testProxyNVM!", __func__);
     return false;
   }
@@ -47,6 +47,16 @@ bool initializeTest(){
     Debug_LOG_ERROR("%s: Failed to get the SpiffsFileStreamFactory instance!", __func__);
     return false;
   }
+
+  return true;
+}
+
+bool destroyContext(){
+  ChanMuxClient_dtor(&testChanMuxClient);
+  ProxyNVM_dtor(ProxyNVM_TO_NVM(&testProxyNVM));
+  AesNvm_dtor(AesNvm_TO_NVM(&testAesNvm));
+  SeosSpiffs_dtor(&fs);
+  SpiffsFileStreamFactory_dtor();
 
   return true;
 }
@@ -87,6 +97,10 @@ int run(){
   for(int i = 0; i < NUM_OF_TEST_STREAMS; i++){
     SpiffsFileStream_close(SpiffsFileStream_TO_STREAM(streams[i]));
   }
+
+  destroyContext();
+
+  printf("\nSuccesfully destroyed the context.\n");
     
   return 0;
 }
