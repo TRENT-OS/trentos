@@ -18,8 +18,8 @@ enum {
     CHANNEL_NW_STACK_CTRL,  // 4
     CHANNEL_NW_STACK_DATA,  // 5
     CHANNEL_MAIN_DATA,      // 6
-
-    CHANMUX_NUM_CHANNELS    // 7
+    CHANNEL_MAIN_DATA2,      // 7
+    CHANMUX_NUM_CHANNELS    // 8
 };
 
 #ifdef __cplusplus
