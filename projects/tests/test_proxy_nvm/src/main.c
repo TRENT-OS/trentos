@@ -15,11 +15,13 @@
 #define TEST_SIZE_OUT_OF_BOUNDS_ADDR    (MEM_SIZE / 2)
 #define TEST_ADDR_OUT_OF_BOUNDS_ADDR    (MEM_SIZE * 2)
 
-ProxyNVM testProxyNVM;
-ChanMuxClient testChanMuxClient;
+ProxyNVM testProxyNVM, testProxyNVM2;
+ChanMuxClient testChanMuxClient, testChanMuxClient2;
 
 unsigned char out_buf[MEM_SIZE] = {0};
 unsigned char in_buf[MEM_SIZE] = {0};
+uint8_t chan1 = 6;
+uint8_t chan2 = 7;
 
 void RunTest(size_t address, size_t length, const char* testName){
     printf("\n\n");
@@ -54,27 +56,53 @@ void RunTest(size_t address, size_t length, const char* testName){
     Debug_LOG_INFO("\n%s: Read values match the write values!", testName);
 }
 
-int InitProxyNVM(){
+int InitProxyNVM(uint chan){
     printf("\n\n");
-    bool success = ChanMuxClient_ctor(&testChanMuxClient, 6, (void*)chanMuxDataPort);
+    if (chan == 6){
+    bool success = ChanMuxClient_ctor(&testChanMuxClient, chan, (void*)chanMuxDataPort);
+    
+        if(!success){
+            Debug_LOG_ERROR("Failed to construct testChanMuxClient!\n");
+            return -1;
+        }
 
-    if(!success){
-        Debug_LOG_ERROR("Failed to construct testChanMuxClient!\n");
-        return -1;
+        success = ProxyNVM_ctor(&testProxyNVM, &testChanMuxClient);
+
+        if(!success){
+            Debug_LOG_ERROR("Failed to construct testProxyNVM!\n");
+            return -1;
+        }
+    }
+    else if (chan == 7){
+        bool success = ChanMuxClient_ctor(&testChanMuxClient2, chan, (void*)chanMuxDataPort);
+    
+        if(!success){
+            Debug_LOG_ERROR("Failed to construct testChanMuxClient!\n");
+            return -1;
+        }
+
+        success = ProxyNVM_ctor(&testProxyNVM2, &testChanMuxClient2);
+
+        if(!success){
+            Debug_LOG_ERROR("Failed to construct testProxyNVM!\n");
+            return -1;
+        }
     }
 
-    success = ProxyNVM_ctor(&testProxyNVM, &testChanMuxClient);
-
-    if(!success){
-        Debug_LOG_ERROR("Failed to construct testProxyNVM!\n");
-        return -1;
-    }
     return 0;
 }
 
 int run()
 {
-    uint8_t ret = InitProxyNVM();
+    printf("\n\n");
+    Debug_LOG_INFO("Initializing ProxyNVM! Make sure to initialize the corresponding counterpart.");
+    Debug_LOG_INFO("Initializing ProxyNVM with channel:%d", chan1);
+    uint8_t ret = InitProxyNVM(chan1);
+
+    Debug_LOG_INFO("Initializing ProxyNVM with channel:%d", chan2);
+    ret = InitProxyNVM(chan2);
+    printf("\n\n");
+
     if(ret < 0){
         Debug_LOG_ERROR("Error initializing ProxyNVM!");
         return 0;
