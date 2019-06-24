@@ -26,7 +26,9 @@ set(ENABLE_LINT ON
 
 ImportCamkes()
 
-# COMPONENT MAIN
+#-------------------------------------------------------------------------------
+# Component MAIN
+#-------------------------------------------------------------------------------
 if (ENABLE_LINT)
     set(CMAKE_C_CPPCHECK "cppcheck;--enable=warning;--inline-suppr")
     set(CMAKE_C_CLANG_TIDY "clang-tidy;-checks=*")
@@ -36,6 +38,22 @@ DeclareCAmkESComponent(MAIN
         include
     SOURCES
         "src/main.c"
+    LIBS
+        seos_libs
+)
+
+#-------------------------------------------------------------------------------
+# Component MAIN2
+#-------------------------------------------------------------------------------
+if (ENABLE_LINT)
+    set(CMAKE_C_CPPCHECK "cppcheck;--enable=warning;--inline-suppr")
+    set(CMAKE_C_CLANG_TIDY "clang-tidy;-checks=*")
+endif()
+DeclareCAmkESComponent(MAIN2
+    INCLUDES
+        include
+    SOURCES
+        "src/main2.c"
     LIBS
         seos_libs
 )
