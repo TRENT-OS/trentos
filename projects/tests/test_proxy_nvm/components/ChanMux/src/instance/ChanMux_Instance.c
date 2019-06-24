@@ -20,7 +20,7 @@ static const ChanMuxConfig_t cfgChanMux = {
     },
     .channelsFifos = {
         {   // Channel 0
-            .buffer = NULL,
+            .buffer = NULL,     
             .len = 0
         },
         {   // Channel 1
@@ -44,6 +44,10 @@ static const ChanMuxConfig_t cfgChanMux = {
             .len = 0
         },
         {   // Channel 6
+            .buffer = mainFifoBuf,
+            .len = sizeof(mainFifoBuf)
+        },
+        {   // Channel 7
             .buffer = mainFifoBuf,
             .len = sizeof(mainFifoBuf)
         }
@@ -78,6 +82,10 @@ const ChannelDataport_t dataports[] = {
     {
         .io  = (void**) &mainDataPort,
         .len = PAGE_SIZE
+    },
+    {
+        .io  = (void**) &mainDataPort,
+        .len = PAGE_SIZE 
     }
 };
 
@@ -98,8 +106,10 @@ ChanMux_dataAvailable_emit(unsigned int chanNum)
     {
         case CHANNEL_MAIN_DATA:
             dataAvailableMain_emit();
-        break;
-
+            break;
+        case CHANNEL_MAIN_DATA2:
+            dataAvailableMain_emit();
+            break;
         default:
             Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
             break;
@@ -157,6 +167,10 @@ ChanMuxIn_write(
             dp = &dataports[chanNum];
             break;
         //---------------------------------
+        case CHANNEL_MAIN_DATA2:
+            dp = &dataports[chanNum];
+            break;
+        //---------------------------------
         default:
             Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
             return SEOS_ERROR_ACCESS_DENIED;
@@ -187,10 +201,15 @@ ChanMuxIn_read(
     const ChannelDataport_t* dp = NULL;
     switch (chanNum)
     {
+        
         //---------------------------------
         case CHANNEL_MAIN_DATA:
             dp = &dataports[chanNum];
             break;
+        //---------------------------------
+        case CHANNEL_MAIN_DATA2:
+            dp = &dataports[chanNum];
+            break; 
         //---------------------------------
         default:
             Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
