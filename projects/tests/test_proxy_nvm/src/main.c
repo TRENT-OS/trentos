@@ -28,7 +28,6 @@ void RunTest(size_t address, size_t length, const char* testName){
     for(int i = 0; i < length; i++){
         out_buf[i] = i%256;
     }
-
     size_t ret_value = ProxyNVM_write(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)address, (const char*)out_buf, (size_t)length);
     if(ret_value == length){
         Debug_LOG_INFO("\n%s: Write succeded!", testName);
@@ -78,12 +77,9 @@ int InitProxyNVM(uint chan){
 int run()
 {
     printf("\n\n");
-    Debug_LOG_INFO("Initializing ProxyNVM! Make sure to initialize the corresponding counterpart.");
     Debug_LOG_INFO("Initializing ProxyNVM with channel:%d", chan);
-    printf("\n\n");
 
     uint8_t ret = InitProxyNVM(chan);
-
     
     if(ret < 0){
         Debug_LOG_ERROR("Error initializing ProxyNVM!");
@@ -93,6 +89,7 @@ int run()
     RunTest(TEST_SMALL_SECTION_ADDR, TEST_SMALL_SECTION_LEN, "TEST SMALL SECTION");
     RunTest(TEST_WHOLE_MEM_ADDR, TEST_WHOLE_MEM_LEN, "TEST WHOLE MEMORY");
     RunTest(TEST_SIZE_OUT_OF_BOUNDS_ADDR, TEST_SIZE_OUT_OF_BOUNDS_LEN, "TEST SIZE OUT OF BOUNDS");
-    RunTest(TEST_ADDR_OUT_OF_BOUNDS_ADDR, TEST_ADDR_OUT_OF_BOUNDS_LEN, "TEST ADDRESS OUT OF BOUNDS"); 
+    RunTest(TEST_ADDR_OUT_OF_BOUNDS_ADDR, TEST_ADDR_OUT_OF_BOUNDS_LEN, "TEST ADDRESS OUT OF BOUNDS");
+
     return 0;
 }
