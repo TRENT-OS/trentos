@@ -11,6 +11,21 @@
 # source dir is where this script is located
 DIR_SRC=$(dirname $0)
 
+
+
+#-------------------------------------------------------------------------------
+function run_astyle()
+{
+    #cleanup
+    find . -name '*.astyle' -exec rm {} \;
+    # here it is searched recursively (i.e.: into the submodules folders) checker scripts to execute
+    files=`find . -name 'astyle_check.sh'`
+    for file in $files; do
+        echo "executing $file"
+        echo `$file`
+    done
+}
+
 #-------------------------------------------------------------------------------
 function run_build()
 {
@@ -120,3 +135,10 @@ elif [[ "${1:-}" == "clean" ]]; then
 else
     run_build_mode zynq7000 Debug $@
 fi
+
+RETVAL=$?
+
+echo
+run_astyle
+
+exit $RETVAL

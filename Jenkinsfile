@@ -10,7 +10,7 @@ pipeline {
         stage('build') {
             agent {
                 docker {
-                    image 'camkes_build_env_20190307'
+                    image 'camkes_build_env_20190626'
                     // bind the localtime to avoid problems of gaps between the localtime of the container and the host
                     args '-v /etc/localtime:/etc/localtime:ro'
                 }
@@ -27,16 +27,11 @@ pipeline {
             options { skipDefaultCheckout(true) }
             steps {
                 echo '#################################### Run Astyle Checkers #####################################'
-                // here it is searched recursively (i.e.: into the submodules folders) checker scripts to execute
                 sh  '''#!/bin/bash
-                    workspace=`pwd`
-                    files=`find . -name 'astyle_check.sh'`
-                    for file in $files; do
-                        $workspace/$file
-                        if [ $? -ne 0 ]; then
-                            exit 1
-                        fi
-                    done
+                    files=`find . -name '*.astyle'`
+                    if [ ! -z $files ]; then
+                        exit 1
+                    fi
                  '''
             }
         }
