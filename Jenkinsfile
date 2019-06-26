@@ -7,6 +7,23 @@ pipeline {
                 echo '##################################### Checkout COMPLETED ####################################'
             }
         }
+        stage('astyle_check') {
+            agent any
+            options { skipDefaultCheckout(true) }
+            steps {
+                echo '#################################### Run Astyle Checkers #####################################'
+                sh  '''#!/bin/bash
+                    workspace=`pwd`
+                    files=`find . -name 'astyle_check.sh'`
+                    for file in $files; do
+                        $workspace/$file
+                        if [ $? -ne 0 ]; then
+                            exit 1
+                        fi
+                    done
+                 '''
+            }
+        }
         stage('build') {
             agent {
                 docker {
