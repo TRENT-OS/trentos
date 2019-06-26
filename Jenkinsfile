@@ -7,23 +7,6 @@ pipeline {
                 echo '##################################### Checkout COMPLETED ####################################'
             }
         }
-        stage('astyle_check') {
-            agent any
-            options { skipDefaultCheckout(true) }
-            steps {
-                echo '#################################### Run Astyle Checkers #####################################'
-                sh  '''#!/bin/bash
-                    workspace=`pwd`
-                    files=`find . -name 'astyle_check.sh'`
-                    for file in $files; do
-                        $workspace/$file
-                        if [ $? -ne 0 ]; then
-                            exit 1
-                        fi
-                    done
-                 '''
-            }
-        }
         stage('build') {
             agent {
                 docker {
@@ -37,6 +20,24 @@ pipeline {
                 echo '########################################## Building #########################################'
                 // trigger the build
                 sh './build.sh all'
+            }
+        }
+        stage('astyle_check') {
+            agent any
+            options { skipDefaultCheckout(true) }
+            steps {
+                echo '#################################### Run Astyle Checkers #####################################'
+                // here it is searched recursively (i.e.: into the submodules folders) checker scripts to execute
+                sh  '''#!/bin/bash
+                    workspace=`pwd`
+                    files=`find . -name 'astyle_check.sh'`
+                    for file in $files; do
+                        $workspace/$file
+                        if [ $? -ne 0 ]; then
+                            exit 1
+                        fi
+                    done
+                 '''
             }
         }
         stage('prepare_test') {
