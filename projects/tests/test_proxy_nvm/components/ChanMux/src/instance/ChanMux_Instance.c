@@ -48,8 +48,8 @@ static const ChanMuxConfig_t cfgChanMux = {
             .len = sizeof(mainFifoBuf)
         },
         {   // Channel 7
-            .buffer = mainFifoBuf,
-            .len = sizeof(mainFifoBuf)
+            .buffer = main2FifoBuf,
+            .len = sizeof(main2FifoBuf)
         }
     }
 };
