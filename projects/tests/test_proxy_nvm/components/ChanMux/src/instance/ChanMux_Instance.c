@@ -13,69 +13,79 @@
 static uint8_t mainFifoBuf[PAGE_SIZE];
 static uint8_t main2FifoBuf[PAGE_SIZE];
 
-static const ChanMuxConfig_t cfgChanMux = {
+static const ChanMuxConfig_t cfgChanMux =
+{
     .numChannels = CHANMUX_NUM_CHANNELS,
     .outputDataport = {
         .io  = (void**) &outputDataPort,
         .len = PAGE_SIZE
     },
     .channelsFifos = {
-        {   // Channel 0
-            .buffer = NULL,     
-            .len = 0
-        },
-        {   // Channel 1
+        {
+            // Channel 0
             .buffer = NULL,
             .len = 0
         },
-        {   // Channel 2
+        {
+            // Channel 1
             .buffer = NULL,
             .len = 0
         },
-        {   // Channel 3
+        {
+            // Channel 2
             .buffer = NULL,
             .len = 0
         },
-        {   // Channel 4
+        {
+            // Channel 3
             .buffer = NULL,
             .len = 0
         },
-        {   // Channel 5
+        {
+            // Channel 4
             .buffer = NULL,
             .len = 0
         },
-        {   // Channel 6
+        {
+            // Channel 5
+            .buffer = NULL,
+            .len = 0
+        },
+        {
+            // Channel 6
             .buffer = mainFifoBuf,
             .len = sizeof(mainFifoBuf)
         },
-        {   // Channel 7
+        {
+            // Channel 7
             .buffer = main2FifoBuf,
             .len = sizeof(main2FifoBuf)
         }
     }
 };
 
-const ChannelDataport_t dataports[] = {
+const ChannelDataport_t dataports[] =
+{
     {
         .io  = NULL,
         .len = 0
-    },    
+    },
     {
         .io  = NULL,
         .len = 0
-    },    
+    },
     {
         .io  = NULL,
         .len = 0
-    },    
+    },
     {
         .io  = NULL,
         .len = 0
-    },    
+    },
     {
         .io  = NULL,
         .len = 0
-    },    
+    },
     {
         .io  = NULL,
         .len = 0
@@ -86,7 +96,7 @@ const ChannelDataport_t dataports[] = {
     },
     {
         .io  = (void**) &main2DataPort,
-        .len = PAGE_SIZE 
+        .len = PAGE_SIZE
     }
 };
 
@@ -105,15 +115,15 @@ ChanMux_dataAvailable_emit(unsigned int chanNum)
                     __func__, chanNum);
     switch (chanNum)
     {
-        case CHANNEL_MAIN_DATA:
-            dataAvailableMain_emit();
-            break;
-        case CHANNEL_MAIN_DATA2:
-            dataAvailableMain_emit();
-            break;
-        default:
-            Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
-            break;
+    case CHANNEL_MAIN_DATA:
+        dataAvailableMain_emit();
+        break;
+    case CHANNEL_MAIN_DATA2:
+        dataAvailableMain_emit();
+        break;
+    default:
+        Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
+        break;
     }
 }
 
@@ -163,15 +173,15 @@ ChanMuxIn_write(
     const ChannelDataport_t* dp = NULL;
     switch (chanNum)
     {
-        //---------------------------------
-        case CHANNEL_MAIN_DATA:
-        case CHANNEL_MAIN_DATA2:
-            dp = &dataports[chanNum];
-            break;
-        //---------------------------------
-        default:
-            Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
-            return SEOS_ERROR_ACCESS_DENIED;
+    //---------------------------------
+    case CHANNEL_MAIN_DATA:
+    case CHANNEL_MAIN_DATA2:
+        dp = &dataports[chanNum];
+        break;
+    //---------------------------------
+    default:
+        Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
+        return SEOS_ERROR_ACCESS_DENIED;
     }
 
     Debug_ASSERT( NULL != dp );
@@ -199,17 +209,18 @@ ChanMuxIn_read(
     const ChannelDataport_t* dp = NULL;
     switch (chanNum)
     {
-        
-        //---------------------------------
-        case CHANNEL_MAIN_DATA:
-        case CHANNEL_MAIN_DATA2:
-            dp = &dataports[chanNum];
-            break; 
-        //---------------------------------
-        default:
-            Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
-            return SEOS_ERROR_ACCESS_DENIED;
+
+    //---------------------------------
+    case CHANNEL_MAIN_DATA:
+    case CHANNEL_MAIN_DATA2:
+        dp = &dataports[chanNum];
+        break;
+    //---------------------------------
+    default:
+        Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
+        return SEOS_ERROR_ACCESS_DENIED;
     }
+
 
     Debug_ASSERT( NULL != dp );
     seos_err_t ret = ChanMux_read(ChanMux_getInstance(), chanNum, dp, &len);
