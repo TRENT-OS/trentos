@@ -11,6 +11,7 @@
 #include <camkes.h>
 
 static uint8_t mainFifoBuf[PAGE_SIZE];
+static uint8_t main2FifoBuf[PAGE_SIZE];
 
 static const ChanMuxConfig_t cfgChanMux = {
     .numChannels = CHANMUX_NUM_CHANNELS,
@@ -84,7 +85,7 @@ const ChannelDataport_t dataports[] = {
         .len = PAGE_SIZE
     },
     {
-        .io  = (void**) &mainDataPort,
+        .io  = (void**) &main2DataPort,
         .len = PAGE_SIZE 
     }
 };
@@ -164,9 +165,6 @@ ChanMuxIn_write(
     {
         //---------------------------------
         case CHANNEL_MAIN_DATA:
-            dp = &dataports[chanNum];
-            break;
-        //---------------------------------
         case CHANNEL_MAIN_DATA2:
             dp = &dataports[chanNum];
             break;
@@ -204,9 +202,6 @@ ChanMuxIn_read(
         
         //---------------------------------
         case CHANNEL_MAIN_DATA:
-            dp = &dataports[chanNum];
-            break;
-        //---------------------------------
         case CHANNEL_MAIN_DATA2:
             dp = &dataports[chanNum];
             break; 
