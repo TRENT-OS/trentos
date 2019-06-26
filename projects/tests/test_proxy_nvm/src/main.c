@@ -63,7 +63,7 @@ int InitProxyNVM(){
         return -1;
     }
 
-    success = ProxyNVM_ctor(&testProxyNVM, &testChanMuxClient);
+    success = ProxyNVM_ctor(&testProxyNVM, &testChanMuxClient, (char*)chanMuxDataPort, PAGE_SIZE);
 
     if(!success){
         Debug_LOG_ERROR("Failed to construct testProxyNVM!\n");
