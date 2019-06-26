@@ -14,7 +14,7 @@ ProxyNVM testProxyNVM;
 ChanMuxClient testChanMuxClient;
 AesNvm testAesNvm;
 SeosSpiffs fs;
-SpiffsFileStreamFactory *streamFactory;
+FileStreamFactory *streamFactory;
 
 bool initializeTest(){
   if(!ChanMuxClient_ctor(&testChanMuxClient, 6, (void*)chanMuxDataPort)){
@@ -42,7 +42,7 @@ bool initializeTest(){
     return false;
   }
 
-  streamFactory = SpiffsFileStreamFactory_getInstance(&fs);
+  streamFactory = SpiffsFileStreamFactory_TO_FILE_STREAM_FACTORY(SpiffsFileStreamFactory_getInstance(&fs));
   if(streamFactory == NULL){
     Debug_LOG_ERROR("%s: Failed to get the SpiffsFileStreamFactory instance!", __func__);
     return false;
@@ -70,7 +70,7 @@ int run(){
   char writeBuf[4] = {'c', '=', '0', '\0'};
   char readBuf[4] = {0};
 
-  SpiffsFileStream* streams[NUM_OF_TEST_STREAMS];
+  FileStream* streams[NUM_OF_TEST_STREAMS];
 
   printf("\n--------------------------------------------------------------------------------------\n\n\n");
 
@@ -78,16 +78,16 @@ int run(){
     writeBuf[2] = '0' + i + 1;
     filePath[1] = '0' + i + 1;
 
-    streams[i] = SpiffsFileStreamFactory_create(filePath, FileStream_OpenMode_W);
+    streams[i] = streamFactory->vtable->create(streamFactory, filePath, FileStream_OpenMode_W);
 
-    if(SpiffsFileStream_write(SpiffsFileStream_TO_STREAM(streams[i]), writeBuf, strlen(writeBuf)) < 0){
-      Debug_LOG_ERROR("%s: SpiffsFileStream_write failed!", __func__);
+    if(streams[i]->vtable->parent.write(FileStream_TO_STREAM(streams[i]), writeBuf, strlen(writeBuf)) < 0){
+      Debug_LOG_ERROR("%s: FileStream_write failed!", __func__);
     }
-    if(SpiffsFileStream_seek(SpiffsFileStream_TO_FILE_STREAM(streams[i]), 0, FileStream_SeekMode_Begin) < 0){
-      Debug_LOG_ERROR("%s: SpiffsFileStream_write failed!", __func__);
+    if(streams[i]->vtable->seek(streams[i], 0, FileStream_SeekMode_Begin) < 0){
+      Debug_LOG_ERROR("%s: FileStream_write failed!", __func__);
     }
-    if(SpiffsFileStream_read(SpiffsFileStream_TO_STREAM(streams[i]), readBuf, strlen(writeBuf)) < 0){
-      Debug_LOG_ERROR("%s: SpiffsFileStream_write failed!", __func__);
+    if(streams[i]->vtable->parent.read(FileStream_TO_STREAM(streams[i]), readBuf, strlen(writeBuf)) < 0){
+      Debug_LOG_ERROR("%s: FileStream_write failed!", __func__);
     }
 
     printf("\nRead from file %d: %s", i + 1, readBuf);
@@ -95,7 +95,7 @@ int run(){
   }
 
   for(int i = 0; i < NUM_OF_TEST_STREAMS; i++){
-    SpiffsFileStream_close(SpiffsFileStream_TO_STREAM(streams[i]));
+    streamFactory->vtable->destroy(streamFactory, streams[i]);
   }
 
   destroyContext();
