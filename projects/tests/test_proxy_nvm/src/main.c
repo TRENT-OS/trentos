@@ -34,12 +34,12 @@ void RunTest(size_t address, size_t length, const char* testName)
                                       (size_t)address, (const char*)out_buf, (size_t)length);
     if (ret_value == length)
     {
-        Debug_LOG_INFO("\n%s: Write succeded!", testName);
+        Debug_LOG_INFO("\nChannel %d: %s: Write succeded!", chan, testName);
     }
     else
     {
-        Debug_LOG_ERROR("\n%s: Write failed!\nTried to write %d bytes but written only %d bytes.",
-                        testName, length, ret_value);
+        Debug_LOG_ERROR("\nChannel %d: %s: Write failed!\nTried to write %d bytes but written only %d bytes.",
+                        chan, testName, length, ret_value);
         return;
     }
 
@@ -47,12 +47,12 @@ void RunTest(size_t address, size_t length, const char* testName)
                               (char*)in_buf, (size_t)length);
     if (ret_value == length)
     {
-        Debug_LOG_INFO("\n%s: Read succeded!", testName);
+        Debug_LOG_INFO("\nChannel %d: %s: Read succeded!", chan, testName);
     }
     else
     {
-        Debug_LOG_ERROR("\n%s: Read failed!\nTried to read %d bytes but read only %d bytes.",
-                        testName, length, ret_value);
+        Debug_LOG_ERROR("\nChannel %d: %s: Read failed!\nTried to read %d bytes but read only %d bytes.",
+                        chan, testName, length, ret_value);
         return;
     }
 
@@ -60,12 +60,12 @@ void RunTest(size_t address, size_t length, const char* testName)
     {
         if (out_buf[i] != in_buf[i])
         {
-            Debug_LOG_ERROR("\n%s: Read values corrupted!\nOn position %d written %02x, but read %02x",
-                            testName, i, out_buf[i], in_buf[i]);
+            Debug_LOG_ERROR("\nChannel %d: %s: Read values corrupted!\nOn position %d written %02x, but read %02x",
+                            chan, testName, i, out_buf[i], in_buf[i]);
             return;
         }
     }
-    Debug_LOG_INFO("\n%s: Read values match the write values!", testName);
+    Debug_LOG_INFO("\nChannel %d: %s: Read values match the write values!", chan, testName);
 }
 
 int InitProxyNVM(uint chan)
