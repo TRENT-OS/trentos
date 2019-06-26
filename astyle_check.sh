@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 cd "$(dirname "$0")"
 
@@ -26,6 +26,13 @@ ASTYLE_SETTINGS_LINUX_KERNEL_SPACE="--style=1tbs \
 
 # Alter this line to change configuration
 ASTYLE_PARAMETERS=${ASTYLE_SETTINGS_LINUX_USER_SPACE}
+
+if [ ! -z "$1" ] && [ $1 = "--help" ]; then
+    echo "If you run the script without arguments only the files involved in the last commit are checks."
+    echo "Otherwise you can use the argument list of this script to specify the files you want to check."
+    echo "e.g.: ./astyle_check.sh \`git status -s | cut -c4- | grep -i '\.c$\|\.cpp$\|\.hpp$\|\.h$'\`"
+    exit 0
+fi
 
 against=HEAD~1
 
@@ -69,8 +76,12 @@ case `$ASTYLE --version 2> /dev/null` in
 esac
 
 RETVAL=0
+files=$@
 
-files=$(git diff-index --diff-filter=ACMR --name-only -r --cached $against -- | grep -i '\.c$\|\.cpp$\|\.hpp$\|\.h$')
+if [ -z "$files" ]; then
+    files=$(git diff-index --diff-filter=ACMR --name-only -r --cached $against -- | grep -i '\.c$\|\.cpp$\|\.hpp$\|\.h$')
+fi
+
 for file in $files; do
     x=`echo $file`
     if test "x$x" != "x"; then
