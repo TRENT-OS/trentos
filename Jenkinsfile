@@ -10,7 +10,7 @@ pipeline {
         stage('build') {
             agent {
                 docker {
-                    image 'camkes_build_env_20190307'
+                    image 'camkes_build_env_20190626'
                     // bind the localtime to avoid problems of gaps between the localtime of the container and the host
                     args '-v /etc/localtime:/etc/localtime:ro'
                 }
@@ -20,6 +20,19 @@ pipeline {
                 echo '########################################## Building #########################################'
                 // trigger the build
                 sh './build.sh all'
+            }
+        }
+        stage('astyle_check') {
+            agent any
+            options { skipDefaultCheckout(true) }
+            steps {
+                echo '#################################### Run Astyle Checkers #####################################'
+                sh  '''#!/bin/bash
+                    files=`find . -name '*.astyle'`
+                    if [ ! -z $files ]; then
+                        exit 1
+                    fi
+                 '''
             }
         }
         stage('prepare_test') {
