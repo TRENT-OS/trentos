@@ -113,22 +113,22 @@ int run(){
     size_t ret = Stream_available(FileStream_TO_STREAM(streams[i]));
     if(ret == sizeof(writeBuf) - 1)
     {
-      Debug_LOG_DEBUG("\n\nAvailable space in file %d is equal to file size\n", i);
+      Debug_LOG_DEBUG("\n\nAvailable space in file %d is equal to file size\n", i + 1);
     }
     else
     {
-      Debug_LOG_ERROR("%s: File %d, expected available space = %d, but available space is = %d", __func__, i, sizeof(writeBuf) - 1, ret);
+      Debug_LOG_ERROR("%s: File %d, expected available space = %d, but available space is = %d", __func__, i + 1, sizeof(writeBuf) - 1, ret);
     }
 
     streams[i] = SpiffsFileStream_reOpen(streams[i], FileStream_OpenMode_r);
 
     if(Stream_write(FileStream_TO_STREAM(streams[i]), writeBuf, strlen(writeBuf)) <= 0)
     {
-      Debug_LOG_DEBUG("\n\nFile %d, unsuccesful write to read-only file!\n", i);
+      Debug_LOG_DEBUG("\n\nFile %d, unsuccesful write to read-only file!\n", i + 1);
     }
     else
     {
-      Debug_LOG_ERROR("\n\nFile %d, write to read-only file succeded!\n", i);
+      Debug_LOG_ERROR("\n\nFile %d, write to read-only file succeded!\n", i + 1);
     }
 
     if(FileStream_seek(streams[i], 0, FileStream_SeekMode_Begin) <= 0)
@@ -154,11 +154,11 @@ int run(){
     seos_err_t err = FileStream_error(streams[i]);
     if(err == SEOS_SUCCESS)
     {
-      Debug_LOG_DEBUG("\n\nFile %d has no errors!\n", i);
+      Debug_LOG_DEBUG("\n\nFile %d has no errors!\n", i + 1);
     }
     else
     {
-      Debug_LOG_DEBUG("\n\nError %d on file %d!\n", err, i);
+      Debug_LOG_DEBUG("\n\nError %d on file %d!\n", err, i + 1);
     }
 
     Debug_LOG_DEBUG("\n\nRead from file %d: %s\n", i + 1, readBuf);
