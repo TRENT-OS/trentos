@@ -78,15 +78,15 @@ int run(){
     writeBuf[2] = '0' + i + 1;
     filePath[1] = '0' + i + 1;
 
-    streams[i] = streamFactory->vtable->create(streamFactory, filePath, FileStream_OpenMode_W);
+    streams[i] = FileStreamFactory_create(streamFactory, filePath, FileStream_OpenMode_W);
 
-    if(streams[i]->vtable->parent.write(FileStream_TO_STREAM(streams[i]), writeBuf, strlen(writeBuf)) < 0){
+    if(Stream_write(FileStream_TO_STREAM(streams[i]), writeBuf, strlen(writeBuf)) < 0){
       Debug_LOG_ERROR("%s: FileStream_write failed!", __func__);
     }
-    if(streams[i]->vtable->seek(streams[i], 0, FileStream_SeekMode_Begin) < 0){
+    if(FileStream_seek(streams[i], 0, FileStream_SeekMode_Begin) < 0){
       Debug_LOG_ERROR("%s: FileStream_write failed!", __func__);
     }
-    if(streams[i]->vtable->parent.read(FileStream_TO_STREAM(streams[i]), readBuf, strlen(writeBuf)) < 0){
+    if(Stream_read(FileStream_TO_STREAM(streams[i]), readBuf, strlen(writeBuf)) < 0){
       Debug_LOG_ERROR("%s: FileStream_write failed!", __func__);
     }
 
@@ -95,7 +95,7 @@ int run(){
   }
 
   for(int i = 0; i < NUM_OF_TEST_STREAMS; i++){
-    streamFactory->vtable->destroy(streamFactory, streams[i]);
+    FileStreamFactory_destroy(streamFactory, streams[i]);
   }
 
   destroyContext();
