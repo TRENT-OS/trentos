@@ -185,7 +185,25 @@ ChanMuxIn_write(
     }
 
     Debug_ASSERT( NULL != dp );
+
+    uint8_t ret_value = m_lock();
+
+    if (ret_value < 0)
+    {
+        Debug_LOG_ERROR("Couldn't place lock on ChanMux_write!");
+        return 0;
+    }
+
     seos_err_t ret = ChanMux_write(ChanMux_getInstance(), chanNum, dp, &len);
+
+    ret_value = m_unlock();
+
+    if (ret_value < 0)
+    {
+        Debug_LOG_ERROR("Couldn't unlock ChanMux_write!");
+        return 0;
+    }
+
     *lenWritten = len;
 
     Debug_LOG_TRACE("%s(): channel %u, lenWritten %u", __func__, chanNum, len);
