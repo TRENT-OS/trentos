@@ -57,7 +57,7 @@ fi
 for file in $files; do
     x=`echo $file`
     OUT_FILE=$file.astyle
-    if test "x$x" != "x"; then
+    if [ ! -z "$x" ]; then
         $ASTYLE ${ASTYLE_PARAMETERS} <$file >"$OUT_FILE"
         diff $file "$file.astyle" > /dev/null
         if [ $? != 0 ]; then
