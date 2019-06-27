@@ -1,3 +1,7 @@
+/**
+ * Copyright (C) 2019, Hensoldt Cyber GmbH
+ */
+
 /*
     Note: this module represents functionality of the UART contained on the zynq7000 platform.
     It has been created to provide a communication channel between a "host" process in Linux

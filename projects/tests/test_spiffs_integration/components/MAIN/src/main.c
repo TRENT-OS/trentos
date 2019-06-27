@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2019, Hensoldt Cyber GmbH
+ */
 #include <stdio.h>
 #include "ProxyNVM.h"
 #include "AesNvm.h"
