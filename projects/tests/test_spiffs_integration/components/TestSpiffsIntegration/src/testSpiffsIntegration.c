@@ -142,7 +142,7 @@ int run()
         streams[i] = SpiffsFileStream_reOpen(streams[i], FileStream_OpenMode_r);
 
         if (Stream_write(FileStream_TO_STREAM(streams[i]), writeBuf,
-                         strlen(writeBuf)) <= 0)
+                         strlen(writeBuf)) <= 0 && FileStream_error(streams[i]) != SEOS_SUCCESS)
         {
             Debug_LOG_DEBUG("\n\nFile %d, unsuccesful write to read-only file!\n", i + 1);
         }
