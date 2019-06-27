@@ -84,17 +84,18 @@ fi
 
 for file in $files; do
     x=`echo $file`
+    OUT_FILE=$file.astyle
     if test "x$x" != "x"; then
-        $ASTYLE ${ASTYLE_PARAMETERS} <$file >"$file.astyle"
+        $ASTYLE ${ASTYLE_PARAMETERS} <$file >"$OUT_FILE"
         diff $file "$file.astyle" > /dev/null
         if [ $? != 0 ]; then
             RETVAL=1
             echo "File $file is not style compliant"
             # Remove trailing spaces
-            sed -i 's/[[:space:]]*$//' "$file.astyle"
-            $ASTYLE ${ASTYLE_PARAMETERS} "$file.astyle"
+            sed -i 's/[[:space:]]*$//' "$OUT_FILE"
+            $ASTYLE ${ASTYLE_PARAMETERS} "$OUT_FILE"
         else
-            rm "$file.astyle"
+            rm "$OUT_FILE"
         fi
     fi
 done
