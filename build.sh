@@ -18,7 +18,7 @@ function run_astyle()
 {
     #cleanup
     find . -name '*.astyle' -exec rm {} \;
-    # here it is searched recursively (i.e.: into the submodules folders) checker scripts to execute
+    # search recursively in all subfolders, they might be git submodules that come with their own astyle_check.sh file
     files=`find . -name 'astyle_check.sh'`
     for file in $files; do
         echo "executing $file"
