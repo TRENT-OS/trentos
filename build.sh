@@ -138,7 +138,9 @@ fi
 
 RETVAL=$?
 
-echo
-run_astyle
+if [ $RETVAL == 0 ]; then
+    echo
+    run_astyle
+fi
 
 exit $RETVAL
