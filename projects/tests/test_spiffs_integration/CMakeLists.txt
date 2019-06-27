@@ -27,16 +27,16 @@ set(ENABLE_LINT ON
 
 ImportCamkes()
 
-# COMPONENT MAIN
+# COMPONENT TestSpiffsIntegration
 if (ENABLE_LINT)
     set(CMAKE_C_CPPCHECK "cppcheck;--enable=warning;--inline-suppr")
     set(CMAKE_C_CLANG_TIDY "clang-tidy;-checks=*")
 endif()
-DeclareCAmkESComponent(MAIN
+DeclareCAmkESComponent(TestSpiffsIntegration
     INCLUDES
         include
     SOURCES
-        "components/MAIN/src/main.c"
+        "components/TestSpiffsIntegration/src/testSpiffsIntegration.c"
     LIBS
         seos_libs
 )
