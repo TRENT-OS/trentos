@@ -7,8 +7,9 @@
 #include "ChanMux/ChanMuxClient.h"
 #include "camkes.h"
 
-#define MEM_SIZE              1024*128
+#define NVM_PARTITION_SIZE    (1024*128)
 #define NUM_OF_TEST_STREAMS   3
+#define CHANMUX_NVM_CHANNEL   6
 
 ProxyNVM testProxyNVM;
 ChanMuxClient testChanMuxClient;
@@ -17,7 +18,7 @@ SeosSpiffs fs;
 FileStreamFactory *streamFactory;
 
 bool initializeTest(){
-  if(!ChanMuxClient_ctor(&testChanMuxClient, 6, (void*)chanMuxDataPort)){
+  if(!ChanMuxClient_ctor(&testChanMuxClient, CHANMUX_NVM_CHANNEL, (void*)chanMuxDataPort)){
     Debug_LOG_ERROR("%s: Failed to construct testChanMuxClient!", __func__);
     return false;
   }
@@ -32,13 +33,14 @@ bool initializeTest(){
     return false;
   }
 
-  if(!SeosSpiffs_ctor(&fs, AesNvm_TO_NVM(&testAesNvm), MEM_SIZE, 0)){
+  if(!SeosSpiffs_ctor(&fs, AesNvm_TO_NVM(&testAesNvm), NVM_PARTITION_SIZE, 0)){
     Debug_LOG_ERROR("%s: Failed to initialize spiffs!", __func__);
     return false;
   }
 
-  if(SeosSpiffs_mount(&fs) != SEOS_SUCCESS){
-    Debug_LOG_ERROR("%s: Failed to mount spiffs!", __func__);
+  seos_err_t ret = SeosSpiffs_mount(&fs);
+  if(ret != SEOS_SUCCESS){
+    Debug_LOG_ERROR("%s: spiffs mount failed with error code %d!", __func__, ret);
     return false;
   }
 
@@ -63,6 +65,7 @@ bool destroyContext(){
 
 int run(){
   if(!initializeTest()){
+    Debug_LOG_ERROR("%s: Failed to initialize the test!", __func__);
     return 0;
   }
 
@@ -72,8 +75,13 @@ int run(){
 
   FileStream* streams[NUM_OF_TEST_STREAMS];
 
-  printf("\n--------------------------------------------------------------------------------------\n\n\n");
+  Debug_LOG_DEBUG("\n--------------------------------------------------------------------------------------\n\n\n");
 
+  // Performing the following test for NUM_OF_TEST_STREAMS filestreams:
+  //    1) create a filestream with a path: "fX" (X is the number of the file)
+  //    2) write dummy data to it ("c=X")
+  //    3) position the ponter to the begining of the file
+  //    4) read the written data
   for(int i = 0; i < NUM_OF_TEST_STREAMS; i++){
     writeBuf[2] = '0' + i + 1;
     filePath[1] = '0' + i + 1;
@@ -90,17 +98,18 @@ int run(){
       Debug_LOG_ERROR("%s: FileStream_write failed!", __func__);
     }
 
-    printf("\nRead from file %d: %s", i + 1, readBuf);
-    printf("\n\n\n--------------------------------------------------------------------------------------\n\n\n");
+    Debug_LOG_DEBUG("\nRead from file %d: %s", i + 1, readBuf);
+    Debug_LOG_DEBUG("\n\n\n--------------------------------------------------------------------------------------\n\n\n");
   }
 
+  // Closing all of the opened files
   for(int i = 0; i < NUM_OF_TEST_STREAMS; i++){
     FileStreamFactory_destroy(streamFactory, streams[i]);
   }
 
   destroyContext();
 
-  printf("\nSuccesfully destroyed the context.\n");
+  Debug_LOG_DEBUG("\nSuccesfully destroyed the context.\n");
     
   return 0;
 }
