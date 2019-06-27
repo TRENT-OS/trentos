@@ -63,8 +63,6 @@ for file in $files; do
         if [ $? != 0 ]; then
             RETVAL=1
             echo "File $file is not style compliant"
-            # Remove trailing spaces
-            sed -i 's/[[:space:]]*$//' "$OUT_FILE"
             $ASTYLE ${ASTYLE_PARAMETERS} "$OUT_FILE"
         else
             rm "$OUT_FILE"
