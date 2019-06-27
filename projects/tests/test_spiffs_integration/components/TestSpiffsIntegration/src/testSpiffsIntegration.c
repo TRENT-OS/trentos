@@ -84,13 +84,13 @@ int run(){
   // Performing the following test for NUM_OF_TEST_STREAMS filestreams:
   //    1)  create a filestream with a path: "fX" (X is the number of the file)
   //    2)  write dummy data to it ("c=X")
-  //    3)  position the ponter to the begining of the file
+  //    3)  position the pointer to the beginning of the file
   //    4)  check the available space on the file
   //    5)  reopen the file as read-only
   //    6)  try to write to read-only file and verify this will result in an error
-  //    7)  position the ponter to the begining of the file
+  //    7)  position the pointer to the beginning of the file
   //    8)  read the written data
-  //    9)  position the ponter to the begining of the file
+  //    9)  position the pointer to the beginning of the file
   //    10) read just the first part of the file (up to the first delimiter)
   //    11) check that there are no errors on the file
   for(int i = 0; i < NUM_OF_TEST_STREAMS; i++){
