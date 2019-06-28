@@ -90,6 +90,7 @@ int run()
     char writeBuf[8] = {'c', '=', '0', ',', 'b', '=', '0', '\0'};
     char readBuf[8] = {0};
     char getBuf[4] = {0};
+    size_t retValue = 0;
 
     FileStream* streams[NUM_OF_TEST_STREAMS];
 
@@ -113,22 +114,27 @@ int run()
         writeBuf[6] = '0' + i + 1;
         filePath[1] = '0' + i + 1;
 
+        // todo =>   think about reordering the tests from less complex to more complex functions
+        //           and in a way we do not execute unnecessary tests (not executing a read from file)
+        //           if the write failed
+
         streams[i] = FileStreamFactory_create(streamFactory, filePath,
                                               FileStream_OpenMode_W);
 
-        if (Stream_write(FileStream_TO_STREAM(streams[i]), writeBuf,
-                         strlen(writeBuf)) <= 0)
+        retValue = Stream_write(FileStream_TO_STREAM(streams[i]), writeBuf, strlen(writeBuf));
+        if (retValue != strlen(writeBuf))
         {
-            Debug_LOG_ERROR("%s: Stream_write failed!", __func__);
+            Debug_LOG_ERROR("%s: Stream_write failed! Return value: %d", __func__, retValue);
         }
 
-        if (FileStream_seek(streams[i], 0, FileStream_SeekMode_Begin) <= 0)
+        retValue = FileStream_seek(streams[i], 0, FileStream_SeekMode_Begin);
+        if (retValue != 0)
         {
-            Debug_LOG_ERROR("%s: FileStream_seek failed!", __func__);
+            Debug_LOG_ERROR("%s: FileStream_seek failed! Return value: %d", __func__, retValue);
         }
 
-        size_t ret = Stream_available(FileStream_TO_STREAM(streams[i]));
-        if (ret == sizeof(writeBuf) - 1)
+        retValue = Stream_available(FileStream_TO_STREAM(streams[i]));
+        if (retValue == sizeof(writeBuf) - 1)
         {
             Debug_LOG_DEBUG("\n\nAvailable space in file %d is equal to file size\n",
                             i + 1);
@@ -136,41 +142,44 @@ int run()
         else
         {
             Debug_LOG_ERROR("%s: File %d, expected available space = %d, but available space is = %d",
-                            __func__, i + 1, sizeof(writeBuf) - 1, ret);
+                            __func__, i + 1, sizeof(writeBuf) - 1, retValue);
         }
 
         streams[i] = SpiffsFileStream_reOpen(streams[i], FileStream_OpenMode_r);
 
-        if (Stream_write(FileStream_TO_STREAM(streams[i]), writeBuf,
-                         strlen(writeBuf)) <= 0 && FileStream_error(streams[i]) != SEOS_SUCCESS)
+        retValue = Stream_write(FileStream_TO_STREAM(streams[i]), writeBuf,
+                         strlen(writeBuf));
+        if (retValue == 0 && FileStream_error(streams[i]) != SEOS_SUCCESS)
         {
             Debug_LOG_DEBUG("\n\nFile %d, unsuccesful write to read-only file!\n", i + 1);
         }
         else
         {
-            Debug_LOG_ERROR("\n\nFile %d, write to read-only file succeded!\n", i + 1);
+            Debug_LOG_ERROR("\n\nFile %d, write to read-only file succeded! Return value: %d\n", i + 1, retValue);
         }
 
-        if (FileStream_seek(streams[i], 0, FileStream_SeekMode_Begin) <= 0)
+        retValue = FileStream_seek(streams[i], 0, FileStream_SeekMode_Begin);
+        if (retValue != 0)
         {
-            Debug_LOG_ERROR("%s: FileStream_seek failed!", __func__);
+            Debug_LOG_ERROR("%s: FileStream_seek failed! Return value: %d", __func__, retValue);
         }
 
-        if (Stream_read(FileStream_TO_STREAM(streams[i]), readBuf,
-                        strlen(writeBuf)) <= 0)
+        retValue = Stream_read(FileStream_TO_STREAM(streams[i]), readBuf, strlen(writeBuf));
+        if (retValue != strlen(writeBuf))
         {
-            Debug_LOG_ERROR("%s: Stream_read failed!", __func__);
+            Debug_LOG_ERROR("%s: Stream_read failed! Return value: %d", __func__, retValue);
         }
 
-        if (FileStream_seek(streams[i], 0, FileStream_SeekMode_Begin) <= 0)
+        retValue = FileStream_seek(streams[i], 0, FileStream_SeekMode_Begin);
+        if (retValue != 0)
         {
-            Debug_LOG_ERROR("%s: FileStream_seek failed!", __func__);
+            Debug_LOG_ERROR("%s: FileStream_seek failed! Return value: %d", __func__, retValue);
         }
 
-        if (Stream_get(FileStream_TO_STREAM(streams[i]), getBuf, sizeof(getBuf), ",",
-                       0) < 0)
+        retValue = Stream_get(FileStream_TO_STREAM(streams[i]), getBuf, sizeof(getBuf), ",", 0);
+        if (retValue < 0)
         {
-            Debug_LOG_ERROR("%s: Stream_get failed!", __func__);
+            Debug_LOG_ERROR("%s: Stream_get failed! Return value: %d", __func__, retValue);
         }
 
         seos_err_t err = FileStream_error(streams[i]);
