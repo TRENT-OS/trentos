@@ -121,16 +121,19 @@ int run()
         streams[i] = FileStreamFactory_create(streamFactory, filePath,
                                               FileStream_OpenMode_W);
 
-        retValue = Stream_write(FileStream_TO_STREAM(streams[i]), writeBuf, strlen(writeBuf));
+        retValue = Stream_write(FileStream_TO_STREAM(streams[i]), writeBuf,
+                                strlen(writeBuf));
         if (retValue != strlen(writeBuf))
         {
-            Debug_LOG_ERROR("%s: Stream_write failed! Return value: %d", __func__, retValue);
+            Debug_LOG_ERROR("%s: Stream_write failed! Return value: %d", __func__,
+                            retValue);
         }
 
         retValue = FileStream_seek(streams[i], 0, FileStream_SeekMode_Begin);
         if (retValue != 0)
         {
-            Debug_LOG_ERROR("%s: FileStream_seek failed! Return value: %d", __func__, retValue);
+            Debug_LOG_ERROR("%s: FileStream_seek failed! Return value: %d", __func__,
+                            retValue);
         }
 
         retValue = Stream_available(FileStream_TO_STREAM(streams[i]));
@@ -148,23 +151,26 @@ int run()
         streams[i] = SpiffsFileStream_reOpen(streams[i], FileStream_OpenMode_r);
 
         retValue = Stream_write(FileStream_TO_STREAM(streams[i]), writeBuf,
-                         strlen(writeBuf));
+                                strlen(writeBuf));
         if (retValue == 0 && FileStream_error(streams[i]) != SEOS_SUCCESS)
         {
             Debug_LOG_DEBUG("\n\nFile %d, unsuccesful write to read-only file!\n", i + 1);
         }
         else
         {
-            Debug_LOG_ERROR("\n\nFile %d, write to read-only file succeded! Return value: %d\n", i + 1, retValue);
+            Debug_LOG_ERROR("\n\nFile %d, write to read-only file succeded! Return value: %d\n",
+                            i + 1, retValue);
         }
 
         retValue = FileStream_seek(streams[i], 0, FileStream_SeekMode_Begin);
         if (retValue != 0)
         {
-            Debug_LOG_ERROR("%s: FileStream_seek failed! Return value: %d", __func__, retValue);
+            Debug_LOG_ERROR("%s: FileStream_seek failed! Return value: %d", __func__,
+                            retValue);
         }
 
-        retValue = Stream_read(FileStream_TO_STREAM(streams[i]), readBuf, strlen(writeBuf));
+        retValue = Stream_read(FileStream_TO_STREAM(streams[i]), readBuf,
+                               strlen(writeBuf));
         if (retValue != strlen(writeBuf))
         {
             Debug_LOG_ERROR("%s: Stream_read failed! Return value: %d", __func__, retValue);
@@ -173,10 +179,12 @@ int run()
         retValue = FileStream_seek(streams[i], 0, FileStream_SeekMode_Begin);
         if (retValue != 0)
         {
-            Debug_LOG_ERROR("%s: FileStream_seek failed! Return value: %d", __func__, retValue);
+            Debug_LOG_ERROR("%s: FileStream_seek failed! Return value: %d", __func__,
+                            retValue);
         }
 
-        retValue = Stream_get(FileStream_TO_STREAM(streams[i]), getBuf, sizeof(getBuf), ",", 0);
+        retValue = Stream_get(FileStream_TO_STREAM(streams[i]), getBuf, sizeof(getBuf),
+                              ",", 0);
         if (retValue < 0)
         {
             Debug_LOG_ERROR("%s: Stream_get failed! Return value: %d", __func__, retValue);
