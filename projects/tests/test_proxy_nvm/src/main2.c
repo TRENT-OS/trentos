@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
 #include "ProxyNVM.h"
 #include "ChanMux/ChanMuxClient.h"
 #include "camkes.h"
@@ -22,6 +20,7 @@ ChanMuxClient testChanMuxClient;
 
 unsigned char out_buf[MEM_SIZE] = {0};
 unsigned char in_buf[MEM_SIZE] = {0};
+
 uint8_t chan = 7;
 
 void RunTest(size_t address, size_t length, const char* testName)
@@ -31,8 +30,10 @@ void RunTest(size_t address, size_t length, const char* testName)
     {
         out_buf[i] = i % 256;
     }
+
     size_t ret_value = ProxyNVM_write(ProxyNVM_TO_NVM(&testProxyNVM),
                                       (size_t)address, (const char*)out_buf, (size_t)length);
+
     if (ret_value == length)
     {
         Debug_LOG_INFO("\nChannel %d: %s: Write succeded!", chan, testName);
@@ -66,8 +67,7 @@ void RunTest(size_t address, size_t length, const char* testName)
             return;
         }
     }
-    Debug_LOG_INFO("\nChannel %d: %s: Read values match the write values!", chan,
-                   testName);
+    Debug_LOG_INFO("\nChannel %d: %s: Read values match the write values!", chan, testName);
 }
 
 int InitProxyNVM(uint chan)
@@ -82,7 +82,7 @@ int InitProxyNVM(uint chan)
         return -1;
     }
 
-    success = ProxyNVM_ctor(&testProxyNVM, &testChanMuxClient);
+    success = ProxyNVM_ctor(&testProxyNVM, &testChanMuxClient, (char*)chanMuxDataPort, PAGE_SIZE);
 
     if (!success)
     {
@@ -110,5 +110,6 @@ int run()
     RunTest(TEST_WHOLE_MEM_ADDR, TEST_WHOLE_MEM_LEN, "TEST WHOLE MEMORY");
     RunTest(TEST_SIZE_OUT_OF_BOUNDS_ADDR, TEST_SIZE_OUT_OF_BOUNDS_LEN, "TEST SIZE OUT OF BOUNDS");
     RunTest(TEST_ADDR_OUT_OF_BOUNDS_ADDR, TEST_ADDR_OUT_OF_BOUNDS_LEN, "TEST ADDRESS OUT OF BOUNDS");
+
     return 0;
 }
