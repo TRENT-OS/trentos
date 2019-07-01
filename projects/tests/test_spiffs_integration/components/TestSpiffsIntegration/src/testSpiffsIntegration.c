@@ -114,6 +114,8 @@ int run()
         writeBuf[6] = '0' + i + 1;
         filePath[1] = '0' + i + 1;
 
+        size_t writeLength = strlen(writeBuf);
+
         // todo =>   think about reordering the tests from less complex to more complex functions
         //           and in a way we do not execute unnecessary tests (not executing a read from file)
         //           if the write failed
@@ -122,8 +124,8 @@ int run()
                                               FileStream_OpenMode_W);
 
         retValue = Stream_write(FileStream_TO_STREAM(streams[i]), writeBuf,
-                                strlen(writeBuf));
-        if (retValue != strlen(writeBuf))
+                                writeLength);
+        if (retValue != writeLength)
         {
             Debug_LOG_ERROR("%s: Stream_write failed! Return value: %d", __func__,
                             retValue);
@@ -151,15 +153,16 @@ int run()
         streams[i] = SpiffsFileStream_reOpen(streams[i], FileStream_OpenMode_r);
 
         retValue = Stream_write(FileStream_TO_STREAM(streams[i]), writeBuf,
-                                strlen(writeBuf));
-        if (retValue == 0 && FileStream_error(streams[i]) != SEOS_SUCCESS)
+                                writeLength);
+        seos_err_t err = FileStream_error(streams[i]);
+        if (retValue == 0 && err != SEOS_SUCCESS)
         {
             Debug_LOG_DEBUG("\n\nFile %d, unsuccesful write to read-only file!\n", i + 1);
         }
         else
         {
-            Debug_LOG_ERROR("\n\nFile %d, write to read-only file succeded! Return value: %d\n",
-                            i + 1, retValue);
+            Debug_LOG_ERROR("\n\nFile %d, write to read-only file succeded! Return value: %d, file error: %d\n",
+                            i + 1, retValue, err);
         }
 
         retValue = FileStream_seek(streams[i], 0, FileStream_SeekMode_Begin);
@@ -170,8 +173,8 @@ int run()
         }
 
         retValue = Stream_read(FileStream_TO_STREAM(streams[i]), readBuf,
-                               strlen(writeBuf));
-        if (retValue != strlen(writeBuf))
+                               writeLength);
+        if (retValue != writeLength)
         {
             Debug_LOG_ERROR("%s: Stream_read failed! Return value: %d", __func__, retValue);
         }
@@ -190,7 +193,7 @@ int run()
             Debug_LOG_ERROR("%s: Stream_get failed! Return value: %d", __func__, retValue);
         }
 
-        seos_err_t err = FileStream_error(streams[i]);
+        err = FileStream_error(streams[i]);
         if (err == SEOS_SUCCESS)
         {
             Debug_LOG_DEBUG("\n\nFile %d has no errors!\n", i + 1);
