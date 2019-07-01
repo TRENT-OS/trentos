@@ -136,9 +136,16 @@ ChanMux_getInstance(void)
     static ChanMux* self = NULL;
     static Channel_t channels[CHANMUX_NUM_CHANNELS];
 
+    static const ChanMux_MuxInf muxinf = {
+        .lock = Mutex_lock,
+        .unlock = Mutex_unlock,
+    };
+
+
     if ((NULL == self) && ChanMux_ctor(&theOne,
                                        channels,
                                        ChanMux_config_getConfig(),
+                                       &muxinf,
                                        ChanMux_dataAvailable_emit,
                                        Output_write))
     {
@@ -186,23 +193,7 @@ ChanMuxIn_write(
 
     Debug_ASSERT( NULL != dp );
 
-    uint8_t ret_value = m_lock();
-
-    if (ret_value < 0)
-    {
-        Debug_LOG_ERROR("Couldn't place lock on ChanMux_write!");
-        return 0;
-    }
-
     seos_err_t ret = ChanMux_write(ChanMux_getInstance(), chanNum, dp, &len);
-
-    ret_value = m_unlock();
-
-    if (ret_value < 0)
-    {
-        Debug_LOG_ERROR("Couldn't unlock ChanMux_write!");
-        return 0;
-    }
 
     *lenWritten = len;
 

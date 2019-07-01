@@ -20,5 +20,5 @@ component ChanMux {
 
     //-------------------------------------------------
     // Synchronization Primitives
-    has mutex m;
+    has mutex Mutex;
 }
