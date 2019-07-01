@@ -141,7 +141,6 @@ ChanMux_getInstance(void)
         .unlock = Mutex_unlock,
     };
 
-
     if ((NULL == self) && ChanMux_ctor(&theOne,
                                        channels,
                                        ChanMux_config_getConfig(),
@@ -151,7 +150,7 @@ ChanMux_getInstance(void)
     {
         self = &theOne;
     }
-
+    
     return self;
 }
 
