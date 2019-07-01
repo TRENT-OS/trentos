@@ -96,20 +96,10 @@ int run()
 
     Debug_LOG_DEBUG("\n--------------------------------------------------------------------------------------\n\n\n");
 
-    // Performing the following test for NUM_OF_TEST_STREAMS filestreams:
-    //    1)  create a filestream with a path: "fX" (X is the number of the file)
-    //    2)  write dummy data to it ("c=X")
-    //    3)  position the pointer to the beginning of the file
-    //    4)  check the available space on the file
-    //    5)  reopen the file as read-only
-    //    6)  try to write to read-only file and verify this will result in an error
-    //    7)  position the pointer to the beginning of the file
-    //    8)  read the written data
-    //    9)  position the pointer to the beginning of the file
-    //    10) read just the first part of the file (up to the first delimiter)
-    //    11) check that there are no errors on the file
+    // Performing the tests for NUM_OF_TEST_STREAMS filestreams:
     for (int i = 0; i < NUM_OF_TEST_STREAMS; i++)
     {
+        // creating the dummy data and the file name according to the index
         writeBuf[2] = '0' + i + 1;
         writeBuf[6] = '0' + i + 1;
         filePath[1] = '0' + i + 1;
@@ -120,9 +110,11 @@ int run()
         //           and in a way we do not execute unnecessary tests (not executing a read from file)
         //           if the write failed
 
+        //    1)  create a filestream with a path: "fX" (X is the number of the file)
         streams[i] = FileStreamFactory_create(streamFactory, filePath,
                                               FileStream_OpenMode_W);
 
+        //    2)  write dummy data to it ("c=X")
         retValue = Stream_write(FileStream_TO_STREAM(streams[i]), writeBuf,
                                 writeLength);
         if (retValue != writeLength)
@@ -131,6 +123,7 @@ int run()
                             retValue);
         }
 
+        //    3)  position the pointer to the beginning of the file
         retValue = FileStream_seek(streams[i], 0, FileStream_SeekMode_Begin);
         if (retValue != 0)
         {
@@ -138,6 +131,9 @@ int run()
                             retValue);
         }
 
+        //    4)  check that the available space on the file and that it is
+        //        equal to the size of the write buffer (the pointer is at the
+        //        beginning of the file and it's size is sizeof(writeBuf))
         retValue = Stream_available(FileStream_TO_STREAM(streams[i]));
         if (retValue == sizeof(writeBuf) - 1)
         {
@@ -150,12 +146,15 @@ int run()
                             __func__, i + 1, sizeof(writeBuf) - 1, retValue);
         }
 
+        //    5)  reopen the file as read-only
         streams[i] = SpiffsFileStream_reOpen(streams[i], FileStream_OpenMode_r);
 
+        //    6)  try to write to read-only file and verify this will result in an error
+        //        currently we only have SEOS_ERROR_GENERIC => todo: expand error messages
         retValue = Stream_write(FileStream_TO_STREAM(streams[i]), writeBuf,
                                 writeLength);
         seos_err_t err = FileStream_error(streams[i]);
-        if (retValue == 0 && err != SEOS_SUCCESS)
+        if (retValue == 0 && err == SEOS_ERROR_GENERIC)
         {
             Debug_LOG_DEBUG("\n\nFile %d, unsuccesful write to read-only file!\n", i + 1);
         }
@@ -165,6 +164,7 @@ int run()
                             i + 1, retValue, err);
         }
 
+        //    7)  position the pointer to the beginning of the file
         retValue = FileStream_seek(streams[i], 0, FileStream_SeekMode_Begin);
         if (retValue != 0)
         {
@@ -172,6 +172,7 @@ int run()
                             retValue);
         }
 
+        //    8)  read the entire written data
         retValue = Stream_read(FileStream_TO_STREAM(streams[i]), readBuf,
                                writeLength);
         if (retValue != writeLength)
@@ -179,6 +180,7 @@ int run()
             Debug_LOG_ERROR("%s: Stream_read failed! Return value: %d", __func__, retValue);
         }
 
+        //    9)  position the pointer to the beginning of the file
         retValue = FileStream_seek(streams[i], 0, FileStream_SeekMode_Begin);
         if (retValue != 0)
         {
@@ -186,6 +188,7 @@ int run()
                             retValue);
         }
 
+        //    10) read just the first part of the file (up to the first delimiter)
         retValue = Stream_get(FileStream_TO_STREAM(streams[i]), getBuf, sizeof(getBuf),
                               ",", 0);
         if (retValue < 0)
@@ -193,6 +196,7 @@ int run()
             Debug_LOG_ERROR("%s: Stream_get failed! Return value: %d", __func__, retValue);
         }
 
+        //    11) check that there are no errors on the file
         err = FileStream_error(streams[i]);
         if (err == SEOS_SUCCESS)
         {
