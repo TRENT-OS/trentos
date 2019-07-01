@@ -136,7 +136,8 @@ ChanMux_getInstance(void)
     static ChanMux* self = NULL;
     static Channel_t channels[CHANMUX_NUM_CHANNELS];
 
-    static const ChanMux_MuxInf muxinf = {
+    static const ChanMux_MuxInf muxinf =
+    {
         .lock = Mutex_lock,
         .unlock = Mutex_unlock,
     };
@@ -150,7 +151,7 @@ ChanMux_getInstance(void)
     {
         self = &theOne;
     }
-    
+
     return self;
 }
 
