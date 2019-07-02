@@ -1,0 +1,17 @@
+/**
+ * Copyright (C) 2019, Hensoldt Cyber GmbH
+ */
+
+// write returns either SEOS_SUCCESS or SEOS_ERROR_BUFFER_TOO_SMALL
+// read  returns either SEOS_SUCCESS or SEOS_ERROR_INSUFFICIENT_SPACE
+
+procedure ChanMuxInInf {
+    include <seos_err.h>;
+
+    seos_err_t  write   (in unsigned chan, in size_t len, out size_t written);
+    seos_err_t  read    (in unsigned chan, in size_t len, out size_t read);
+};
+
+procedure ChanMuxOutInf {
+    void takeByte(char byte);
+}
