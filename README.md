@@ -59,8 +59,8 @@ fix this, within the docker container, go to the folder "build-<target>" and
 run "ccmake ../src". Find the option "ENABLE_LINT" and set it to "OFF". Press
 "g" to re-generate the configuration and exit. Then run the build again.
 This can also be done directly with the command:
-
-   ./build.sh all -DENABLE_LINT=OFF
+	
+    # ./build.sh all -DENABLE_LINT=OFF
 
 #### Build all supported tests
 
