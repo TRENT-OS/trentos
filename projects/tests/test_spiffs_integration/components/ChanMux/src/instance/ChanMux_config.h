@@ -10,7 +10,8 @@
 extern "C" {
 #endif
 
-enum {
+enum
+{
     CHANNEL_LAN_DATA,       // 0
     CHANNEL_WAN_DATA,       // 1
     CHANNEL_LAN_CTRL,       // 2
