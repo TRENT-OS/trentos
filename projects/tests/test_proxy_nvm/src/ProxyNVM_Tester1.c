@@ -3,7 +3,8 @@
 #include "ChanMux/ChanMuxClient.h"
 #include "camkes.h"
 
-#define MEM_SIZE                        1024*128
+#define MEM_SIZE                        (1024*128)
+#define CHANMUX_NVM_CHANNEL             6
 
 #define TEST_SMALL_SECTION_LEN          (MEM_SIZE / PAGE_SIZE) //arbitrary small chunk of data
 #define TEST_WHOLE_MEM_LEN              MEM_SIZE
@@ -21,40 +22,39 @@ ChanMuxClient testChanMuxClient;
 unsigned char out_buf[MEM_SIZE] = {0};
 unsigned char in_buf[MEM_SIZE] = {0};
 
-uint8_t chan = 7;
 
 void RunTest(size_t address, size_t length, const char* testName)
 {
     printf("\n\n");
-    for (int i = 0; i < length; i++)
+    for (u_int i = 0; i < length; i++)
     {
-        out_buf[i] = i % 256;
+        out_buf[i] = (char)i;
     }
 
     size_t ret_value = ProxyNVM_write(ProxyNVM_TO_NVM(&testProxyNVM),
-                                      (size_t)address, (const char*)out_buf, (size_t)length);
+                                      address, (const char*)out_buf, length);
 
     if (ret_value == length)
     {
-        Debug_LOG_INFO("\nChannel %d: %s: Write succeded!", chan, testName);
+        Debug_LOG_INFO("\nChannel %d: %s: Write succeded!", CHANMUX_NVM_CHANNEL, testName);
     }
     else
     {
         Debug_LOG_ERROR("\nChannel %d: %s: Write failed!\nTried to write %d bytes but written only %d bytes.",
-                        chan, testName, length, ret_value);
+                        CHANMUX_NVM_CHANNEL, testName, length, ret_value);
         return;
     }
 
-    ret_value = ProxyNVM_read(ProxyNVM_TO_NVM(&testProxyNVM), (size_t)address,
-                              (char*)in_buf, (size_t)length);
+    ret_value = ProxyNVM_read(ProxyNVM_TO_NVM(&testProxyNVM), address,
+                              (char*)in_buf, length);
     if (ret_value == length)
     {
-        Debug_LOG_INFO("\nChannel %d: %s: Read succeded!", chan, testName);
+        Debug_LOG_INFO("\nChannel %d: %s: Read succeded!", CHANMUX_NVM_CHANNEL, testName);
     }
     else
     {
         Debug_LOG_ERROR("\nChannel %d: %s: Read failed!\nTried to read %d bytes but read only %d bytes.",
-                        chan, testName, length, ret_value);
+                        CHANMUX_NVM_CHANNEL, testName, length, ret_value);
         return;
     }
 
@@ -63,28 +63,27 @@ void RunTest(size_t address, size_t length, const char* testName)
         if (out_buf[i] != in_buf[i])
         {
             Debug_LOG_ERROR("\nChannel %d: %s: Read values corrupted!\nOn position %d written %02x, but read %02x",
-                            chan, testName, i, out_buf[i], in_buf[i]);
+                            CHANMUX_NVM_CHANNEL, testName, i, out_buf[i], in_buf[i]);
             return;
         }
     }
-    Debug_LOG_INFO("\nChannel %d: %s: Read values match the write values!", chan, testName);
+    Debug_LOG_INFO("\nChannel %d: %s: Read values match the write values!", CHANMUX_NVM_CHANNEL, testName);
 }
 
-int InitProxyNVM(uint chan)
+int InitProxyNVM(size_t chan)
 {
     printf("\n\n");
-    bool success = ChanMuxClient_ctor(&testChanMuxClient, chan,
-                                      (void*)chanMuxDataPort);
+    bool isSuccess = ChanMuxClient_ctor(&testChanMuxClient, chan, chanMuxDataPort);
 
-    if (!success)
+    if (!isSuccess)
     {
         Debug_LOG_ERROR("Failed to construct testChanMuxClient!\n");
         return -1;
     }
 
-    success = ProxyNVM_ctor(&testProxyNVM, &testChanMuxClient, (char*)chanMuxDataPort, PAGE_SIZE);
+    isSuccess = ProxyNVM_ctor(&testProxyNVM, &testChanMuxClient, (char*)chanMuxDataPort, PAGE_SIZE);
 
-    if (!success)
+    if (!isSuccess)
     {
         Debug_LOG_ERROR("Failed to construct testProxyNVM!\n");
         return -1;
@@ -96,13 +95,14 @@ int InitProxyNVM(uint chan)
 int run()
 {
     printf("\n\n");
-    Debug_LOG_INFO("Initializing ProxyNVM with channel:%d", chan);
+    Debug_LOG_INFO("Initializing ProxyNVM with channel:%d", CHANMUX_NVM_CHANNEL);
 
-    uint8_t ret = InitProxyNVM(chan);
+    int ret_value = InitProxyNVM(CHANMUX_NVM_CHANNEL);
 
-    if (ret < 0)
+    if (ret_value < 0)
     {
-        Debug_LOG_ERROR("Error initializing ProxyNVM!");
+        Debug_LOG_ERROR("%s(): channel %u: Error initializing ProxyNVM! Errno:%d",
+                        __func__, CHANMUX_NVM_CHANNEL, ret_value);
         return 0;
     }
 
@@ -112,4 +112,5 @@ int run()
     RunTest(TEST_ADDR_OUT_OF_BOUNDS_ADDR, TEST_ADDR_OUT_OF_BOUNDS_LEN, "TEST ADDRESS OUT OF BOUNDS");
 
     return 0;
+    
 }
