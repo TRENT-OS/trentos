@@ -36,7 +36,8 @@ void RunTest(size_t address, size_t length, const char* testName)
 
     if (ret_value == length)
     {
-        Debug_LOG_INFO("\nChannel %d: %s: Write succeded!", CHANMUX_NVM_CHANNEL, testName);
+        Debug_LOG_INFO("\nChannel %d: %s: Write succeded!", CHANMUX_NVM_CHANNEL,
+                       testName);
     }
     else
     {
@@ -49,7 +50,8 @@ void RunTest(size_t address, size_t length, const char* testName)
                               (char*)in_buf, length);
     if (ret_value == length)
     {
-        Debug_LOG_INFO("\nChannel %d: %s: Read succeded!", CHANMUX_NVM_CHANNEL, testName);
+        Debug_LOG_INFO("\nChannel %d: %s: Read succeded!", CHANMUX_NVM_CHANNEL,
+                       testName);
     }
     else
     {
@@ -67,7 +69,8 @@ void RunTest(size_t address, size_t length, const char* testName)
             return;
         }
     }
-    Debug_LOG_INFO("\nChannel %d: %s: Read values match the write values!", CHANMUX_NVM_CHANNEL, testName);
+    Debug_LOG_INFO("\nChannel %d: %s: Read values match the write values!",
+                   CHANMUX_NVM_CHANNEL, testName);
 }
 
 int InitProxyNVM(size_t chan)
@@ -81,7 +84,8 @@ int InitProxyNVM(size_t chan)
         return -1;
     }
 
-    isSuccess = ProxyNVM_ctor(&testProxyNVM, &testChanMuxClient, (char*)chanMuxDataPort, PAGE_SIZE);
+    isSuccess = ProxyNVM_ctor(&testProxyNVM, &testChanMuxClient,
+                              (char*)chanMuxDataPort, PAGE_SIZE);
 
     if (!isSuccess)
     {
@@ -108,9 +112,11 @@ int run()
 
     RunTest(TEST_SMALL_SECTION_ADDR, TEST_SMALL_SECTION_LEN, "TEST SMALL SECTION");
     RunTest(TEST_WHOLE_MEM_ADDR, TEST_WHOLE_MEM_LEN, "TEST WHOLE MEMORY");
-    RunTest(TEST_SIZE_OUT_OF_BOUNDS_ADDR, TEST_SIZE_OUT_OF_BOUNDS_LEN, "TEST SIZE OUT OF BOUNDS");
-    RunTest(TEST_ADDR_OUT_OF_BOUNDS_ADDR, TEST_ADDR_OUT_OF_BOUNDS_LEN, "TEST ADDRESS OUT OF BOUNDS");
+    RunTest(TEST_SIZE_OUT_OF_BOUNDS_ADDR, TEST_SIZE_OUT_OF_BOUNDS_LEN,
+            "TEST SIZE OUT OF BOUNDS");
+    RunTest(TEST_ADDR_OUT_OF_BOUNDS_ADDR, TEST_ADDR_OUT_OF_BOUNDS_LEN,
+            "TEST ADDRESS OUT OF BOUNDS");
 
     return 0;
-    
+
 }
