@@ -10,8 +10,8 @@
 #include "assert.h"
 #include <camkes.h>
 
-static uint8_t mainFifoBuf[PAGE_SIZE];
-static uint8_t main2FifoBuf[PAGE_SIZE];
+static uint8_t proxyNVM_Tester1FifoBuf[PAGE_SIZE];
+static uint8_t proxyNVM_Tester2FifoBuf[PAGE_SIZE];
 
 static const ChanMuxConfig_t cfgChanMux =
 {
@@ -53,13 +53,13 @@ static const ChanMuxConfig_t cfgChanMux =
         },
         {
             // Channel 6
-            .buffer = mainFifoBuf,
-            .len = sizeof(mainFifoBuf)
+            .buffer = proxyNVM_Tester1FifoBuf,
+            .len = sizeof(proxyNVM_Tester1FifoBuf)
         },
         {
             // Channel 7
-            .buffer = main2FifoBuf,
-            .len = sizeof(main2FifoBuf)
+            .buffer = proxyNVM_Tester2FifoBuf,
+            .len = sizeof(proxyNVM_Tester2FifoBuf)
         }
     }
 };
@@ -91,11 +91,11 @@ const ChannelDataport_t dataports[] =
         .len = 0
     },
     {
-        .io  = (void**) &mainDataPort,
+        .io  = (void**) &proxyNVM_Tester1DataPort,
         .len = PAGE_SIZE
     },
     {
-        .io  = (void**) &main2DataPort,
+        .io  = (void**) &proxyNVM_Tester2DataPort,
         .len = PAGE_SIZE
     }
 };
@@ -115,10 +115,8 @@ ChanMux_dataAvailable_emit(unsigned int chanNum)
                     __func__, chanNum);
     switch (chanNum)
     {
-    case CHANNEL_MAIN_DATA:
-        dataAvailableMain_emit();
-        break;
-    case CHANNEL_MAIN_DATA2:
+    case CHANNEL_NVM_USER1_DATA:
+    case CHANNEL_NVM_USER2_DATA:
         dataAvailableMain_emit();
         break;
     default:
@@ -181,8 +179,8 @@ ChanMuxIn_write(
     switch (chanNum)
     {
     //---------------------------------
-    case CHANNEL_MAIN_DATA:
-    case CHANNEL_MAIN_DATA2:
+    case CHANNEL_NVM_USER1_DATA:
+    case CHANNEL_NVM_USER2_DATA:
         dp = &dataports[chanNum];
         break;
     //---------------------------------
@@ -220,8 +218,8 @@ ChanMuxIn_read(
     {
 
     //---------------------------------
-    case CHANNEL_MAIN_DATA:
-    case CHANNEL_MAIN_DATA2:
+    case CHANNEL_NVM_USER1_DATA:
+    case CHANNEL_NVM_USER2_DATA:
         dp = &dataports[chanNum];
         break;
     //---------------------------------

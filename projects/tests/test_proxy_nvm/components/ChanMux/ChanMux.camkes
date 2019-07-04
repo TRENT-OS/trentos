@@ -6,11 +6,11 @@ component ChanMux {
     emits     DataAvailableEvent  dataAvailableMain;
     provides  ChanMuxInInf        ChanMuxIn;
     //-------------------------------------------------
-    // interface to MAIN
-    dataport  Buf                 mainDataPort;
+    // interface to ProxyNVM_Tester1
+    dataport  Buf                 proxyNVM_Tester1DataPort;
     //-------------------------------------------------
-    // interface to MAIN2
-    dataport  Buf                 main2DataPort;
+    // interface to ProxyNVM_Tester2
+    dataport  Buf                 proxyNVM_Tester2DataPort;
     
     //-------------------------------------------------
     // MUX Uart interface

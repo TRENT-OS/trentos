@@ -1,29 +1,29 @@
 import <std_connector.camkes>;
 
-import "components/MAIN/MAIN.camkes";
-import "components/MAIN2/MAIN2.camkes";
+import "components/ProxyNVM_Tester1/ProxyNVM_Tester1.camkes";
+import "components/ProxyNVM_Tester2/ProxyNVM_Tester2.camkes";
 import "components/ChanMux/ChanMux.camkes";
 import "components/Uart/Uart.camkes";
 
 assembly {
     composition {
-        component   MAIN             main;
-        component   MAIN2            main2;
+        component   ProxyNVM_Tester1   tester1;
+        component   ProxyNVM_Tester2   tester2;
         component   ChanMux          chanMux;
         component   UartDev          uartDev;
         component   UartDrv          uartDrv;
 
-        connection  seL4RPCCall         main_chanmux        (from main.ChanMuxRpc, to chanMux.ChanMuxIn);
-        connection  seL4RPCCall         main2_chanmux       (from main2.ChanMuxRpc, to chanMux.ChanMuxIn);
+        connection  seL4RPCCall         tester1_chanmux     (from tester1.ChanMuxRpc, to chanMux.ChanMuxIn);
+        connection  seL4RPCCall         tester2_chanmux     (from tester2.ChanMuxRpc, to chanMux.ChanMuxIn);
         connection  seL4RPCCall         chanmux_uart        (from chanMux.Output, to uartDrv.UartDrv);
         connection  seL4RPCCall         uart_chanmux        (from uartDrv.Output, to chanMux.ChanMuxOut);
 
         connection  seL4SharedData      uart_dataConnection (from chanMux.outputDataPort, to uartDrv.inputDataPort);
-        connection  seL4SharedData      dataConnection      (from main.chanMuxDataPort, to chanMux.mainDataPort);
-        connection  seL4SharedData      dataConnection2      (from main2.chanMuxDataPort, to chanMux.main2DataPort);
+        connection  seL4SharedData      dataConnection      (from tester1.chanMuxDataPort, to chanMux.proxyNVM_Tester1DataPort);
+        connection  seL4SharedData      dataConnection2     (from tester2.chanMuxDataPort, to chanMux.proxyNVM_Tester2DataPort);
 
-        connection  seL4Notification    dataAvailableLan    (from chanMux.dataAvailableMain, to main.ChanMuxSignal_dataAvailable);
-        connection  seL4Notification    dataAvailableLan2   (from chanMux.dataAvailableMain, to main2.ChanMuxSignal_dataAvailable);
+        connection  seL4Notification    dataAvailableLan    (from chanMux.dataAvailableMain, to tester1.ChanMuxSignal_dataAvailable);
+        connection  seL4Notification    dataAvailableLan2   (from chanMux.dataAvailableMain, to tester2.ChanMuxSignal_dataAvailable);
 
         connection  seL4HardwareMMIO    uart_memio          (from uartDrv.uartRegBase, to uartDev.uartRegBase);
     }

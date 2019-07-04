@@ -27,33 +27,33 @@ set(ENABLE_LINT ON
 ImportCamkes()
 
 #-------------------------------------------------------------------------------
-# Component MAIN
+# Component ProxyNVM_Tester1
 #-------------------------------------------------------------------------------
 if (ENABLE_LINT)
     set(CMAKE_C_CPPCHECK "cppcheck;--enable=warning;--inline-suppr")
     set(CMAKE_C_CLANG_TIDY "clang-tidy;-checks=*")
 endif()
-DeclareCAmkESComponent(MAIN
+DeclareCAmkESComponent(ProxyNVM_Tester1
     INCLUDES
         include
     SOURCES
-        "src/main.c"
+        "src/ProxyNVM_Tester1.c"
     LIBS
         seos_libs
 )
 
 #-------------------------------------------------------------------------------
-# Component MAIN2
+# Component ProxyNVM_Tester2
 #-------------------------------------------------------------------------------
 if (ENABLE_LINT)
     set(CMAKE_C_CPPCHECK "cppcheck;--enable=warning;--inline-suppr")
     set(CMAKE_C_CLANG_TIDY "clang-tidy;-checks=*")
 endif()
-DeclareCAmkESComponent(MAIN2
+DeclareCAmkESComponent(ProxyNVM_Tester2
     INCLUDES
         include
     SOURCES
-        "src/main2.c"
+        "src/ProxyNVM_Tester2.c"
     LIBS
         seos_libs
 )
