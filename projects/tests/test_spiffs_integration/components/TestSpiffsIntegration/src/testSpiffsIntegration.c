@@ -215,7 +215,8 @@ int run()
     // Closing all of the opened files
     for (int i = 0; i < NUM_OF_TEST_STREAMS; i++)
     {
-        FileStreamFactory_destroy(streamFactory, streams[i], 1 << FileStream_DeleteFlags_CLOSE);
+        FileStreamFactory_destroy(streamFactory, streams[i],
+                                  1 << FileStream_DeleteFlags_CLOSE);
     }
 
     destroyContext();

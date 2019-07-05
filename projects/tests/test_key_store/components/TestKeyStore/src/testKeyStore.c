@@ -105,11 +105,11 @@ int run()
 
     // create the key that is to be imported to the keyStore
     seos_err_t err = SeosCryptoKey_ctor(&writeKey,
-                             NULL,
-                             SeosCryptoCipher_Algorithm_AES_CBC_ENC,
-                             1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER,
-                             MASTER_KEY_BYTES,
-                             MASTER_KEY_SIZE * 8);
+                                        NULL,
+                                        SeosCryptoCipher_Algorithm_AES_CBC_ENC,
+                                        1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER,
+                                        MASTER_KEY_BYTES,
+                                        MASTER_KEY_SIZE * 8);
 
     if (err != SEOS_SUCCESS)
     {
@@ -126,11 +126,9 @@ int run()
                         __func__, err);
         return 0;
     }
-    else
-    {
-        Debug_LOG_DEBUG("\n\nThe key is succesfully imported!\n");
-    }
-    
+    Debug_LOG_DEBUG("\n\nThe key is succesfully imported!\n");
+
+
     // get the size of the imported key (to be used before the getKey to allocate memory
     // if the user does not know the size of the key)
     err = SeosKeyStore_getKeySizeBytes(&keyStore, MASTER_KEY_NAME, &keysize);
@@ -140,18 +138,15 @@ int run()
                         __func__, err);
         return 0;
     }
-    else
+    // check if the size returnd by getSize is correct
+    if (keysize != MASTER_KEY_SIZE)
     {
-        // check if the size returnd by getSize is correct
-        if(keysize != MASTER_KEY_SIZE)
-        {
-            Debug_LOG_ERROR("%s: Expected keySize is %d, but the read keySize is %d! Exiting test...",
-                            __func__, MASTER_KEY_SIZE, keysize);
-            return 0;
-        }
-        Debug_LOG_DEBUG("\n\nThe keySize is succesfully read!\n");
+        Debug_LOG_ERROR("%s: Expected keySize is %d, but the read keySize is %d! Exiting test...",
+                        __func__, MASTER_KEY_SIZE, keysize);
+        return 0;
     }
-    
+    Debug_LOG_DEBUG("\n\nThe keySize is succesfully read!\n");
+
     // read the imported key
     err = SeosKeyStore_getKey(&keyStore, MASTER_KEY_NAME, &readKey, keyBytes);
     if (err != SEOS_SUCCESS)
@@ -160,17 +155,15 @@ int run()
                         __func__, err);
         return 0;
     }
-    else
+    // check if the key data is correct
+    if (strcmp(MASTER_KEY_BYTES, readKey.bytes) != 0
+        || readKey.lenBits != MASTER_KEY_SIZE * 8)
     {
-        // check if the key data is correct
-        if(strcmp(MASTER_KEY_BYTES, readKey.bytes) != 0 || readKey.lenBits != MASTER_KEY_SIZE*8)
-        {
-            Debug_LOG_ERROR("%s: Read key data is not correct!\n    Key bytes => %s\n    Key lenBits => %d\nExiting test...",
-                            __func__, readKey.bytes, readKey.lenBits);
-            return 0;
-        }
-        Debug_LOG_DEBUG("\n\nThe key data is succesfully read!\n");
+        Debug_LOG_ERROR("%s: Read key data is not correct!\n    Key bytes => %s\n    Key lenBits => %d\nExiting test...",
+                        __func__, readKey.bytes, readKey.lenBits);
+        return 0;
     }
+    Debug_LOG_DEBUG("\n\nThe key data is succesfully read!\n");
 
     // delete the key
     err = SeosKeyStore_deleteKey(&keyStore, MASTER_KEY_NAME);
@@ -189,11 +182,7 @@ int run()
                         __func__, err);
         return 0;
     }
-    else
-    {
-        Debug_LOG_DEBUG("\n\nThe key is succesfully deleted!\n");
-    }
-    
+    Debug_LOG_DEBUG("\n\nThe key is succesfully deleted!\n");
 
     return 0;
 }
