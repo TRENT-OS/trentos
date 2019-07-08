@@ -7,6 +7,7 @@
 #include "seos/SeosCryptoClient.h"
 #include "seos/SeosCryptoDigest.h"
 #include "seos/SeosCryptoCipher.h"
+#include "testSignatureRsa.h"
 
 static void
 testRNG(SeosCryptoClient* client)
@@ -252,6 +253,7 @@ int run()
     testDigestMD5(&client);
     testDigestSHA256(&client);
     testCipherAES(&client);
+    testSignatureRSA(&client);
 
     return 0;
 }
