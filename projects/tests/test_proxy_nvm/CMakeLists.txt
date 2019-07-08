@@ -38,6 +38,7 @@ DeclareCAmkESComponent(ProxyNVM_Tester1
         include
     SOURCES
         "src/ProxyNVM_Tester1.c"
+        "src/ProxyNVM_common.c"
     LIBS
         seos_libs
 )
@@ -54,6 +55,7 @@ DeclareCAmkESComponent(ProxyNVM_Tester2
         include
     SOURCES
         "src/ProxyNVM_Tester2.c"
+        "src/ProxyNVM_common.c"
     LIBS
         seos_libs
 )
