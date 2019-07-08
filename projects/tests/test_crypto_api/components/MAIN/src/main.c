@@ -103,7 +103,7 @@ testCipherAES(SeosCryptoClient* client)
 
     SeosCryptoKey key;
 
-    err = SeosCryptoKey_ctor(&key,
+    err = SeosCryptoKey_init(&key,
                              NULL,
                              SeosCryptoCipher_Algorithm_AES_EBC_ENC,
                              BitMap_MASK_OF_BIT(SeosCryptoKey_Flags_IS_ALGO_CIPHER),
@@ -119,7 +119,7 @@ testCipherAES(SeosCryptoClient* client)
 
     Debug_PRINTFLN("%s", "Testing Cipher functions..");
 
-    err = SeosCryptoCipher_ctor(&scCipher,
+    err = SeosCryptoCipher_init(&scCipher,
                                 SeosCryptoCipher_Algorithm_AES_EBC_ENC,
                                 &key,
                                 NULL,
@@ -142,9 +142,9 @@ testCipherAES(SeosCryptoClient* client)
     }
     Debug_PRINTF("\n");
 
-    SeosCryptoCipher_dtor(&scCipher);
+    SeosCryptoCipher_deInit(&scCipher);
 
-    err = SeosCryptoCipher_ctor(&scCipher,
+    err = SeosCryptoCipher_init(&scCipher,
                                 SeosCryptoCipher_Algorithm_AES_EBC_DEC,
                                 &key,
                                 NULL,
@@ -246,7 +246,7 @@ int run()
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
     Debug_LOG_INFO("%s: got rpc object %p from server", __func__, rpcHandle);
 
-    err = SeosCryptoClient_ctor(&client, rpcHandle, cryptoClientDataport);
+    err = SeosCryptoClient_init(&client, rpcHandle, cryptoClientDataport);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
     testRNG(&client);

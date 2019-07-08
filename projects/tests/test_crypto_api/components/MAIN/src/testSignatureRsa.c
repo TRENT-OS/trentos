@@ -124,13 +124,13 @@ testSignatureRSA(SeosCryptoClient* client)
                         sizeof(SeosCrypto_RANDOM_SEED_STR) - 1 );
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
-    err = SeosCryptoRng_ctor(&scRng,
+    err = SeosCryptoRng_init(&scRng,
                              &rng,
                              (SeosCryptoRng_ImplRngFunc)
                              seos_rng_get_prng_bytes);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
-    err = SeosCryptoKey_ctorRsaPrivate(&privateKey,
+    err = SeosCryptoKey_initRsaPrivate(&privateKey,
                                        &mbedtls_rsa,
                                        n, sizeof(n),
                                        e, sizeof(e),
@@ -139,14 +139,14 @@ testSignatureRSA(SeosCryptoClient* client)
                                        q, sizeof(q));
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
-    err = SeosCryptoKey_ctorRsaPublic(&publicKey,
+    err = SeosCryptoKey_initRsaPublic(&publicKey,
                                       &mbedtls_rsa,
                                       n, sizeof(n),
                                       e, sizeof(e));
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
     // construct a signature object with the private key to sign
-    err = SeosCryptoSignature_ctor(&scSignature,
+    err = SeosCryptoSignature_init(&scSignature,
                                    SeosCryptoSignature_Algorithm_RSA_PKCS1,
                                    &privateKey,
                                    &scRng,
