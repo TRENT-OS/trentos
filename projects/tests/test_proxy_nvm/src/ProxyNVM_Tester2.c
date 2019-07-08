@@ -32,32 +32,36 @@ int run()
 
     bool isSuccess;
 
-    isSuccess = ProxyNVMTest_run(TEST_SMALL_SECTION_ADDR, TEST_SMALL_SECTION_LEN, "TEST SMALL SECTION");
+    isSuccess = ProxyNVMTest_run(TEST_SMALL_SECTION_ADDR, TEST_SMALL_SECTION_LEN,
+                                 "TEST SMALL SECTION");
     if (!isSuccess)
     {
         Debug_LOG_ERROR("Failed TEST SMALL SECTION!\n");
     }
 
-    isSuccess = ProxyNVMTest_run(TEST_WHOLE_MEM_ADDR, TEST_WHOLE_MEM_LEN, "TEST WHOLE MEMORY");
+    isSuccess = ProxyNVMTest_run(TEST_WHOLE_MEM_ADDR, TEST_WHOLE_MEM_LEN,
+                                 "TEST WHOLE MEMORY");
     if (!isSuccess)
     {
         Debug_LOG_ERROR("Failed TEST WHOLE MEMORY!\n");
     }
 
-    isSuccess = ProxyNVMTest_run(TEST_SIZE_OUT_OF_BOUNDS_ADDR, TEST_SIZE_OUT_OF_BOUNDS_LEN,
-            "TEST SIZE OUT OF BOUNDS");
+    isSuccess = ProxyNVMTest_run(TEST_SIZE_OUT_OF_BOUNDS_ADDR,
+                                 TEST_SIZE_OUT_OF_BOUNDS_LEN,
+                                 "TEST SIZE OUT OF BOUNDS");
     if (!isSuccess)
     {
         Debug_LOG_ERROR("Failed TEST SIZE OUT OF BOUNDS!\n");
     }
 
-    isSuccess = ProxyNVMTest_run(TEST_ADDR_OUT_OF_BOUNDS_ADDR, TEST_ADDR_OUT_OF_BOUNDS_LEN,
-            "TEST ADDRESS OUT OF BOUNDS");
+    isSuccess = ProxyNVMTest_run(TEST_ADDR_OUT_OF_BOUNDS_ADDR,
+                                 TEST_ADDR_OUT_OF_BOUNDS_LEN,
+                                 "TEST ADDRESS OUT OF BOUNDS");
     if (!isSuccess)
     {
         Debug_LOG_ERROR("Failed TEST ADDRESS OUT OF BOUNDS!\n");
     }
- 
+
     return 0;
 
 }
