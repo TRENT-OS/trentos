@@ -29,7 +29,7 @@ pipeline {
                 echo '####################################### Astyle Check ########################################'
                 sh  '''#!/bin/bash
                     files=`find . -name '*.astyle'`
-                    if [ ! -z $files ]; then
+                    if [ ! -z "$files" ]; then
                         exit 1
                     fi
                  '''
