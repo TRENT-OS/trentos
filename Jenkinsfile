@@ -7,6 +7,20 @@ pipeline {
                 echo '##################################### Checkout COMPLETED ####################################'
             }
         }
+        stage('build_doc') {
+            agent {
+                docker {
+                    image 'camkes_build_env_20190709'
+                    // bind the localtime to avoid problems of gaps between the localtime of the container and the host
+                    args '-v /etc/localtime:/etc/localtime:ro'
+                }
+            }
+            options { skipDefaultCheckout(true) }
+            steps {
+                echo '############################## Building SeOS Documentation ##################################'
+                sh 'cd projects/libs/seos_libs && doxygen'
+            }
+        }
         stage('build') {
             agent {
                 docker {
