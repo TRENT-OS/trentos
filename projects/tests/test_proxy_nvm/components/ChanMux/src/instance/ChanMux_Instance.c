@@ -10,73 +10,92 @@
 #include "assert.h"
 #include <camkes.h>
 
-static uint8_t mainFifoBuf[PAGE_SIZE];
+static uint8_t proxyNVM_Tester1FifoBuf[PAGE_SIZE];
+static uint8_t proxyNVM_Tester2FifoBuf[PAGE_SIZE];
 
-static const ChanMuxConfig_t cfgChanMux = {
+static const ChanMuxConfig_t cfgChanMux =
+{
     .numChannels = CHANMUX_NUM_CHANNELS,
     .outputDataport = {
         .io  = (void**) &outputDataPort,
         .len = PAGE_SIZE
     },
     .channelsFifos = {
-        {   // Channel 0
+        {
+            // Channel 0
             .buffer = NULL,
             .len = 0
         },
-        {   // Channel 1
+        {
+            // Channel 1
             .buffer = NULL,
             .len = 0
         },
-        {   // Channel 2
+        {
+            // Channel 2
             .buffer = NULL,
             .len = 0
         },
-        {   // Channel 3
+        {
+            // Channel 3
             .buffer = NULL,
             .len = 0
         },
-        {   // Channel 4
+        {
+            // Channel 4
             .buffer = NULL,
             .len = 0
         },
-        {   // Channel 5
+        {
+            // Channel 5
             .buffer = NULL,
             .len = 0
         },
-        {   // Channel 6
-            .buffer = mainFifoBuf,
-            .len = sizeof(mainFifoBuf)
+        {
+            // Channel 6
+            .buffer = proxyNVM_Tester1FifoBuf,
+            .len = sizeof(proxyNVM_Tester1FifoBuf)
+        },
+        {
+            // Channel 7
+            .buffer = proxyNVM_Tester2FifoBuf,
+            .len = sizeof(proxyNVM_Tester2FifoBuf)
         }
     }
 };
 
-const ChannelDataport_t dataports[] = {
-    {
-        .io  = NULL,
-        .len = 0
-    },    
-    {
-        .io  = NULL,
-        .len = 0
-    },    
-    {
-        .io  = NULL,
-        .len = 0
-    },    
-    {
-        .io  = NULL,
-        .len = 0
-    },    
-    {
-        .io  = NULL,
-        .len = 0
-    },    
+const ChannelDataport_t dataports[] =
+{
     {
         .io  = NULL,
         .len = 0
     },
     {
-        .io  = (void**) &mainDataPort,
+        .io  = NULL,
+        .len = 0
+    },
+    {
+        .io  = NULL,
+        .len = 0
+    },
+    {
+        .io  = NULL,
+        .len = 0
+    },
+    {
+        .io  = NULL,
+        .len = 0
+    },
+    {
+        .io  = NULL,
+        .len = 0
+    },
+    {
+        .io  = (void**) &proxyNVM_Tester1DataPort,
+        .len = PAGE_SIZE
+    },
+    {
+        .io  = (void**) &proxyNVM_Tester2DataPort,
         .len = PAGE_SIZE
     }
 };
@@ -96,13 +115,13 @@ ChanMux_dataAvailable_emit(unsigned int chanNum)
                     __func__, chanNum);
     switch (chanNum)
     {
-        case CHANNEL_MAIN_DATA:
-            dataAvailableMain_emit();
+    case CHANNEL_NVM_USER1_DATA:
+    case CHANNEL_NVM_USER2_DATA:
+        dataAvailableMain_emit();
         break;
-
-        default:
-            Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
-            break;
+    default:
+        Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
+        break;
     }
 }
 
@@ -115,9 +134,16 @@ ChanMux_getInstance(void)
     static ChanMux* self = NULL;
     static Channel_t channels[CHANMUX_NUM_CHANNELS];
 
+    static const ChanMux_MuxInf muxinf =
+    {
+        .lock = Mutex_lock,
+        .unlock = Mutex_unlock,
+    };
+
     if ((NULL == self) && ChanMux_ctor(&theOne,
                                        channels,
                                        ChanMux_config_getConfig(),
+                                       &muxinf,
                                        ChanMux_dataAvailable_emit,
                                        Output_write))
     {
@@ -152,18 +178,21 @@ ChanMuxIn_write(
     const ChannelDataport_t* dp = NULL;
     switch (chanNum)
     {
-        //---------------------------------
-        case CHANNEL_MAIN_DATA:
-            dp = &dataports[chanNum];
-            break;
-        //---------------------------------
-        default:
-            Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
-            return SEOS_ERROR_ACCESS_DENIED;
+    //---------------------------------
+    case CHANNEL_NVM_USER1_DATA:
+    case CHANNEL_NVM_USER2_DATA:
+        dp = &dataports[chanNum];
+        break;
+    //---------------------------------
+    default:
+        Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
+        return SEOS_ERROR_ACCESS_DENIED;
     }
 
     Debug_ASSERT( NULL != dp );
+
     seos_err_t ret = ChanMux_write(ChanMux_getInstance(), chanNum, dp, &len);
+
     *lenWritten = len;
 
     Debug_LOG_TRACE("%s(): channel %u, lenWritten %u", __func__, chanNum, len);
@@ -187,15 +216,18 @@ ChanMuxIn_read(
     const ChannelDataport_t* dp = NULL;
     switch (chanNum)
     {
-        //---------------------------------
-        case CHANNEL_MAIN_DATA:
-            dp = &dataports[chanNum];
-            break;
-        //---------------------------------
-        default:
-            Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
-            return SEOS_ERROR_ACCESS_DENIED;
+
+    //---------------------------------
+    case CHANNEL_NVM_USER1_DATA:
+    case CHANNEL_NVM_USER2_DATA:
+        dp = &dataports[chanNum];
+        break;
+    //---------------------------------
+    default:
+        Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
+        return SEOS_ERROR_ACCESS_DENIED;
     }
+
 
     Debug_ASSERT( NULL != dp );
     seos_err_t ret = ChanMux_read(ChanMux_getInstance(), chanNum, dp, &len);
