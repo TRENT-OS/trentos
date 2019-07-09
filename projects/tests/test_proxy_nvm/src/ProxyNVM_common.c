@@ -21,7 +21,7 @@ static unsigned char in_buf[MEM_SIZE] = {0};
 
 int ProxyNVMTest_init(unsigned int chan)
 {
-    
+
     bool isSuccess = ChanMuxClient_ctor(&testChanMuxClient, chan, chanMuxDataPort);
 
     if (!isSuccess)
