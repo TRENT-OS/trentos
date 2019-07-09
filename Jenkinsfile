@@ -26,7 +26,7 @@ pipeline {
             agent any
             options { skipDefaultCheckout(true) }
             steps {
-                echo '#################################### Run Astyle Checkers #####################################'
+                echo '####################################### Astyle Check ########################################'
                 sh  '''#!/bin/bash
                     files=`find . -name '*.astyle'`
                     if [ ! -z $files ]; then
@@ -51,7 +51,8 @@ pipeline {
                             git pull origin
                             git submodule update --recursive
                         else
-                            git clone --recursive -b master ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/ta.git
+                            BRANCH=`git describe --contains --all HEAD | cut -d/ -f3`
+                            git clone --recursive -b $BRANCH ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/ta.git
                             cd ta
                             python3 -m venv ta-env
                         fi
@@ -65,7 +66,8 @@ pipeline {
                             git pull origin
                             git submodule update --recursive
                         else
-                            git clone --recursive -b master ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/mqtt_proxy_demo.git
+                            BRANCH=`git describe --contains --all HEAD | cut -d/ -f3`
+                            git clone --recursive -b $BRANCH ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/mqtt_proxy_demo.git
                             cd mqtt_proxy_demo
                         fi
                         ./build.sh
