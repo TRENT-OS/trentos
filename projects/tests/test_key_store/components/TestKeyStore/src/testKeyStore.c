@@ -14,9 +14,13 @@
 
 #define NVM_PARTITION_SIZE    (1024*128)
 #define CHANMUX_NVM_CHANNEL   6
+
 #define MASTER_KEY_BYTES      "f131830db44c54742fc3f3265f0f1a0cf131830db44c54742fc3f3265f0f1a0c"
 #define MASTER_KEY_NAME       "MasterKey"
 #define MASTER_KEY_SIZE       64
+
+#define GENERATED_KEY_NAME    "GeneratedKey"
+#define GENERATED_KEY_SIZE    256
 
 ProxyNVM testProxyNVM;
 ChanMuxClient testChanMuxClient;
@@ -100,8 +104,19 @@ int run()
 
     SeosCryptoKey writeKey;
     SeosCryptoKey readKey;
+    SeosCryptoKey generatedKey;
     char keyBytes[MASTER_KEY_SIZE + 1] = {0};
+    char newKeyWriteBytes[GENERATED_KEY_SIZE + 1] = {0};
+    char newKeyReadBytes[GENERATED_KEY_SIZE + 1] = {0};
     size_t keysize = 0;
+
+    SeosKeyStore_KeyType keyType;
+
+    SeosKeyStore_KeyTypeCtor(&keyType,
+                                NULL,
+                                SeosCryptoCipher_Algorithm_AES_EBC_ENC,
+                                1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER,
+                                MASTER_KEY_SIZE * 8);
 
     // create the key that is to be imported to the keyStore
     seos_err_t err = SeosCryptoKey_ctor(&writeKey,
@@ -148,7 +163,7 @@ int run()
     Debug_LOG_DEBUG("\n\nThe keySize is succesfully read!\n");
 
     // read the imported key
-    err = SeosKeyStore_getKey(&keyStore, MASTER_KEY_NAME, &readKey, keyBytes);
+    err = SeosKeyStore_getKey(&keyStore, MASTER_KEY_NAME, &readKey, keyBytes, &keyType);
     if (err != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("%s: SeosKeyStore_getKey failed with error code %d!",
@@ -175,7 +190,7 @@ int run()
     }
 
     // check if the key is actaully deleted by verifying that the getKey results in an error
-    err = SeosKeyStore_getKey(&keyStore, MASTER_KEY_NAME, &readKey, keyBytes);
+    err = SeosKeyStore_getKey(&keyStore, MASTER_KEY_NAME, &readKey, keyBytes, &keyType);
     if (err != SEOS_ERROR_NOT_FOUND)
     {
         Debug_LOG_ERROR("%s: Expected to receive a SEOS_ERROR_NOT_FOUND after reading the deleted key, but received an err code: %d! Exiting test...",
@@ -183,6 +198,37 @@ int run()
         return 0;
     }
     Debug_LOG_DEBUG("\n\nThe key is succesfully deleted!\n");
+
+    // generate new key
+    err = SeosKeyStore_generateKey(&keyStore, &generatedKey, GENERATED_KEY_NAME, newKeyWriteBytes, &keyType);
+    if (err != SEOS_SUCCESS)
+    {
+        Debug_LOG_ERROR("%s: SeosKeyStore_generateKey failed with error code %d!",
+                        __func__, err);
+        return 0;
+    }
+    Debug_LOG_DEBUG("\n\nThe generated key:\n   Bytes = ");
+    for (size_t i = 0; i < generatedKey.lenBits / 8; i++)
+    {
+        printf("%02x ", generatedKey.bytes[i]);
+    }
+    printf("\n  Length = %d\n", generatedKey.lenBits);
+
+    // read the generated key
+    err = SeosKeyStore_getKey(&keyStore, GENERATED_KEY_NAME, &readKey, newKeyReadBytes, &keyType);
+    if (err != SEOS_SUCCESS)
+    {
+        Debug_LOG_ERROR("%s: SeosKeyStore_getKey failed with error code %d!",
+                        __func__, err);
+        return 0;
+    }
+    // check if the key data is correct
+    Debug_LOG_DEBUG("\n\nThe read key:\n   Bytes = ");
+    for (size_t i = 0; i < readKey.lenBits / 8; i++)
+    {
+        printf("%02x ", readKey.bytes[i]);
+    }
+    printf("\n  Length = %d\n", readKey.lenBits);
 
     return 0;
 }
