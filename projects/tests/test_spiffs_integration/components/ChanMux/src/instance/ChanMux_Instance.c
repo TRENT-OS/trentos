@@ -105,13 +105,13 @@ ChanMux_dataAvailable_emit(unsigned int chanNum)
                     __func__, chanNum);
     switch (chanNum)
     {
-        case CHANNEL_MAIN_DATA:
-            dataAvailableMain_emit();
+    case CHANNEL_MAIN_DATA:
+        dataAvailableMain_emit();
         break;
 
-        default:
-            Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
-            break;
+    default:
+        Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
+        break;
     }
 }
 
