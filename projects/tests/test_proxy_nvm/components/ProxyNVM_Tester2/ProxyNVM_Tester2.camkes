@@ -1,6 +1,6 @@
 import "../../interfaces/ChanMuxInf.camkes";
 
-component MAIN {
+component ProxyNVM_Tester2 {
     control;
 
     dataport    Buf                 chanMuxDataPort;

@@ -124,10 +124,16 @@ ChanMux_getInstance(void)
     static ChanMux* self = NULL;
     static Channel_t channels[CHANMUX_NUM_CHANNELS];
 
+    static const ChanMux_MuxInf muxinf =
+    {
+        .lock = Mutex_lock,
+        .unlock = Mutex_unlock,
+    };
+
     if ((NULL == self) && ChanMux_ctor(&theOne,
                                        channels,
                                        ChanMux_config_getConfig(),
-                                       NULL,
+                                       &muxinf,
                                        ChanMux_dataAvailable_emit,
                                        Output_write))
     {
