@@ -115,23 +115,13 @@ ChanMux_dataAvailable_emit(unsigned int chanNum)
                     __func__, chanNum);
     switch (chanNum)
     {
-        <<< <<< < HEAD
-    case CHANNEL_MAIN_DATA:
-        dataAvailableMain_emit();
-        break;
-
-    default:
-        Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
-        break;
-        == == == =
-        case CHANNEL_NVM_USER1_DATA:
+    case CHANNEL_NVM_USER1_DATA:
     case CHANNEL_NVM_USER2_DATA:
         dataAvailableMain_emit();
         break;
     default:
         Debug_LOG_ERROR("%s(): invalid channel %u", __func__, chanNum);
         break;
-        >>> >>> > integration
     }
 }
 
@@ -153,11 +143,7 @@ ChanMux_getInstance(void)
     if ((NULL == self) && ChanMux_ctor(&theOne,
                                        channels,
                                        ChanMux_config_getConfig(),
-                                       <<< <<< < HEAD
-                                       NULL,
-                                       == == == =
-                                           &muxinf,
-                                       >>>>>>> integration
+                                       &muxinf,
                                        ChanMux_dataAvailable_emit,
                                        Output_write))
     {
@@ -192,13 +178,9 @@ ChanMuxIn_write(
     const ChannelDataport_t* dp = NULL;
     switch (chanNum)
     {
-        //---------------------------------
-        <<< <<< < HEAD
-    case CHANNEL_MAIN_DATA:
-        == == == =
-        case CHANNEL_NVM_USER1_DATA:
+    //---------------------------------
+    case CHANNEL_NVM_USER1_DATA:
     case CHANNEL_NVM_USER2_DATA:
-        >>>>>>> integration
         dp = &dataports[chanNum];
         break;
     //---------------------------------
@@ -234,15 +216,9 @@ ChanMuxIn_read(
     const ChannelDataport_t* dp = NULL;
     switch (chanNum)
     {
-        <<< <<< < HEAD
     //---------------------------------
-    case CHANNEL_MAIN_DATA:
-        == == == =
-
-        //---------------------------------
-        case CHANNEL_NVM_USER1_DATA:
+    case CHANNEL_NVM_USER1_DATA:
     case CHANNEL_NVM_USER2_DATA:
-        >>>>>>> integration
         dp = &dataports[chanNum];
         break;
     //---------------------------------
