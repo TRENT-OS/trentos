@@ -1,3 +1,7 @@
+/**
+ * Copyright (C) 2019, Hensoldt Cyber GmbH
+ *
+ */
 #include "seos/SeosCryptoClient.h"
 #include "seos/SeosCryptoSignature.h"
 
