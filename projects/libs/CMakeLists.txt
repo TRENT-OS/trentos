@@ -4,10 +4,6 @@ if (SEOS_LIBS)
     add_subdirectory(seos_libs)
 endif()
 
-if (MBEDTLS)
-    add_subdirectory(mbedtls)
-endif()
-
 if (SEOS_MQTT)
     add_subdirectory(seos_mqtt)
 endif()
