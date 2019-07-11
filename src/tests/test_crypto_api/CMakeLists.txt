@@ -31,6 +31,7 @@ DeclareCAmkESComponent(MAIN INCLUDES
                             include
                             SOURCES
                             "components/MAIN/src/main.c"
+                            "components/MAIN/src/testSignatureRsa.c"
 )
 set_property(TARGET CAmkESComponent_MAIN
 
