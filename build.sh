@@ -19,7 +19,6 @@ function prepare_layout()
 {
     files=`ls $SRC_DIR`
     for file in $files; do
-        echo "linking $SRC_DIR/$file to $PROJECTS_DIR"
         ln -sf $SRC_DIR/$file $PROJECTS_DIR
     done
 }
@@ -32,8 +31,7 @@ function run_astyle()
     # search recursively in all subfolders, they might be git submodules that come with their own astyle_check.sh file
     files=`find . -name 'astyle_check.sh'`
     for file in $files; do
-        echo "executing $file"
-        echo `$file`
+        ($file)
     done
 }
 
