@@ -7,10 +7,24 @@ pipeline {
                 echo '##################################### Checkout COMPLETED ####################################'
             }
         }
+        stage('build_doc') {
+            agent {
+                docker {
+                    image 'camkes_build_env_20190709'
+                    // bind the localtime to avoid problems of gaps between the localtime of the container and the host
+                    args '-v /etc/localtime:/etc/localtime:ro'
+                }
+            }
+            options { skipDefaultCheckout(true) }
+            steps {
+                echo '############################## Building SeOS Documentation ##################################'
+                sh 'cd projects/libs/seos_libs && doxygen'
+            }
+        }
         stage('build') {
             agent {
                 docker {
-                    image 'camkes_build_env_20190626'
+                    image 'camkes_build_env_20190709'
                     // bind the localtime to avoid problems of gaps between the localtime of the container and the host
                     args '-v /etc/localtime:/etc/localtime:ro'
                 }
@@ -26,10 +40,10 @@ pipeline {
             agent any
             options { skipDefaultCheckout(true) }
             steps {
-                echo '#################################### Run Astyle Checkers #####################################'
+                echo '####################################### Astyle Check ########################################'
                 sh  '''#!/bin/bash
                     files=`find . -name '*.astyle'`
-                    if [ ! -z $files ]; then
+                    if [ ! -z "$files" ]; then
                         exit 1
                     fi
                  '''
@@ -51,7 +65,8 @@ pipeline {
                             git pull origin
                             git submodule update --recursive
                         else
-                            git clone --recursive -b master ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/ta.git
+                            BRANCH=`git describe --contains --all HEAD | cut -d/ -f3`
+                            git clone --recursive -b $BRANCH ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/ta.git
                             cd ta
                             python3 -m venv ta-env
                         fi
@@ -65,7 +80,8 @@ pipeline {
                             git pull origin
                             git submodule update --recursive
                         else
-                            git clone --recursive -b master ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/mqtt_proxy_demo.git
+                            BRANCH=`git describe --contains --all HEAD | cut -d/ -f3`
+                            git clone --recursive -b $BRANCH ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/mqtt_proxy_demo.git
                             cd mqtt_proxy_demo
                         fi
                         ./build.sh

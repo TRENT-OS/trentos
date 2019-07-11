@@ -100,11 +100,15 @@ testCipherAES(SeosCryptoClient* client)
     SeosCryptoCipher scCipher;
     seos_err_t err = SEOS_ERROR_GENERIC;
 
-    static const SeosCrypto_Key key =
-    {
-        .bytes = "0123456789ABCDEF",
-        .sizeBits = 128
-    };
+    SeosCryptoKey key;
+
+    err = SeosCryptoKey_ctor(&key,
+                             NULL,
+                             SeosCryptoCipher_Algorithm_AES_EBC_ENC,
+                             BitMap_MASK_OF_BIT(SeosCryptoKey_Flags_IS_ALGO_CIPHER),
+                             "0123456789ABCDEF",
+                             128);
+    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     char    buffer[16];
     char const*   input = key.bytes;
@@ -117,6 +121,7 @@ testCipherAES(SeosCryptoClient* client)
     err = SeosCryptoCipher_ctor(&scCipher,
                                 SeosCryptoCipher_Algorithm_AES_EBC_ENC,
                                 &key,
+                                NULL,
                                 NULL,
                                 0);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
@@ -141,6 +146,7 @@ testCipherAES(SeosCryptoClient* client)
     err = SeosCryptoCipher_ctor(&scCipher,
                                 SeosCryptoCipher_Algorithm_AES_EBC_DEC,
                                 &key,
+                                NULL,
                                 NULL,
                                 0);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
@@ -174,7 +180,8 @@ testCipherAES(SeosCryptoClient* client)
 
     err = SeosCryptoRpc_keyCreate(client->rpcHandle,
                                   SeosCryptoCipher_Algorithm_AES_EBC_ENC,
-                                  SeosCrypto_KEY_FLAGS_128_BIT,
+                                  BitMap_MASK_OF_BIT(SeosCryptoKey_Flags_IS_ALGO_CIPHER),
+                                  128,
                                   &keyHandle);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 

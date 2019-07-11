@@ -3,12 +3,15 @@ import "../../interfaces/UartInf.camkes";
 
 component ChanMux {
 
-    //-------------------------------------------------
-    // interface to MAIN
-    dataport  Buf                 mainDataPort;
     emits     DataAvailableEvent  dataAvailableMain;
     provides  ChanMuxInInf        ChanMuxIn;
-
+    //-------------------------------------------------
+    // interface to ProxyNVM_Tester1
+    dataport  Buf                 proxyNVM_Tester1DataPort;
+    //-------------------------------------------------
+    // interface to ProxyNVM_Tester2
+    dataport  Buf                 proxyNVM_Tester2DataPort;
+    
     //-------------------------------------------------
     // MUX Uart interface
     dataport  Buf                 outputDataPort;
