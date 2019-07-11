@@ -22,23 +22,18 @@ set(MEMORY_CONFIG_H_FILE
 )
 ImportCamkes()
 
-# COMPONENT MAIN
+# COMPONENT TEST_CRYPTO
 if (ENABLE_LINT)
     set(CMAKE_C_CPPCHECK "cppcheck;--enable=warning;--inline-suppr")
     set(CMAKE_C_CLANG_TIDY "clang-tidy;-checks=*")
 endif()
-DeclareCAmkESComponent(MAIN INCLUDES
+DeclareCAmkESComponent(TEST_CRYPTO INCLUDES
                             include
                             SOURCES
-                            "components/MAIN/src/main.c"
-                            "components/MAIN/src/testSignatureRsa.c"
+                            "components/TEST_CRYPTO/src/test_crypto.c"
+                            "components/TEST_CRYPTO/src/testSignatureRsa.c"
 )
-set_property(TARGET CAmkESComponent_MAIN
-
-             APPEND PROPERTY COMPONENT_C_FLAGS
-)
-set_property(TARGET CAmkESComponent_MAIN
-
+set_property(TARGET CAmkESComponent_TEST_CRYPTO
              APPEND PROPERTY COMPONENT_LIBS
              seos_libs
 )

@@ -1,16 +1,16 @@
 import <std_connector.camkes>;
 
-import "components/MAIN/MAIN.camkes";
+import "components/TEST_CRYPTO/TEST_CRYPTO.camkes";
 import "components/CRYPTO/CRYPTO.camkes";
 
 assembly {
     composition {
-        component MAIN              main;
+        component TEST_CRYPTO       test_crypto ;
         component CRYPTO            crypto;
 
-        connection seL4SharedData   cryptoData      (from main.cryptoClientDataport, to crypto.serverDataport);
-        connection seL4RPCCall      cryptoRpc       (from main.Crypto, to crypto.Crypto);
-        connection seL4RPCCall      seosCryptoRpc   (from main.SeosCryptoRpc, to crypto.SeosCryptoRpc);
+        connection seL4SharedData   cryptoData      (from test_crypto.cryptoClientDataport, to crypto.serverDataport);
+        connection seL4RPCCall      cryptoRpc       (from test_crypto.Crypto, to crypto.Crypto);
+        connection seL4RPCCall      seosCryptoRpc   (from test_crypto.SeosCryptoRpc, to crypto.SeosCryptoRpc);
     }
     configuration {
     }
