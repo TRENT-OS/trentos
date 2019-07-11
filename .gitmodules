@@ -1,7 +1,3 @@
-[submodule "projects/musllibc"]
-	path = projects/musllibc
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/musllibc.git
-	branch = sel4
 [submodule "projects/util_libs"]
 	path = projects/util_libs
 	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/util_libs.git
