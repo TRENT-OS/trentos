@@ -216,7 +216,6 @@ ChanMuxIn_read(
     const ChannelDataport_t* dp = NULL;
     switch (chanNum)
     {
-
     //---------------------------------
     case CHANNEL_NVM_USER1_DATA:
     case CHANNEL_NVM_USER2_DATA:
