@@ -1,7 +1,3 @@
-[submodule "projects/camkes/capdl"]
-	path = projects/camkes/capdl
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/capdl.git
-	branch = master
 [submodule "projects/project_libs"]
 	path = projects/project_libs
 	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/projects_libs.git
