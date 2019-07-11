@@ -1,7 +1,3 @@
-[submodule "projects/libs/seos_libs"]
-	path = projects/libs/seos_libs
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/seos_libs.git
-	branch = master
 [submodule "projects/libs/uart_socket"]
 	path = projects/libs/uart_socket
 	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/uart_socket.git
