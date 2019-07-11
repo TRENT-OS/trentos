@@ -9,9 +9,20 @@
 #-------------------------------------------------------------------------------
 
 # source dir is where this script is located
-DIR_SRC=$(dirname $0)
+BUILD_SCRIPT_DIR=$(cd `dirname $0` && pwd)
+SEOS_SANDBOX_DIR="$BUILD_SCRIPT_DIR/seos_sandbox"
+PROJECTS_DIR="$SEOS_SANDBOX_DIR/projects"
+SRC_DIR="$BUILD_SCRIPT_DIR/src"
 
-
+#-------------------------------------------------------------------------------
+function prepare_layout()
+{
+    files=`ls $SRC_DIR`
+    for file in $files; do
+        echo "linking $SRC_DIR/$file to $PROJECTS_DIR"
+        ln -sf $SRC_DIR/$file $PROJECTS_DIR
+    done
+}
 
 #-------------------------------------------------------------------------------
 function run_astyle()
@@ -49,12 +60,12 @@ function run_build()
             cd ${BUILD_DIR}
 
             CMAKE_PARAMS=(
-                -DCMAKE_TOOLCHAIN_FILE=../${DIR_SRC}/kernel/gcc.cmake
+                -DCMAKE_TOOLCHAIN_FILE=${SEOS_SANDBOX_DIR}/kernel/gcc.cmake
                 -DLibLwip=OFF
                 -DKernelVerificationBuild=OFF
             )
 
-            cmake ${CMAKE_PARAMS[@]} $@ -G Ninja ../${DIR_SRC}
+            cmake ${CMAKE_PARAMS[@]} $@ -G Ninja ${SEOS_SANDBOX_DIR}
 
             # must run cmake multiple times, so config settings propagate properly
             echo "re-run cmake (1/2)"
@@ -123,6 +134,8 @@ function run_build_mode()
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
+prepare_layout
+
 if [[ "${1:-}" == "all" ]]; then
     shift
     run_build_mode zynq7000 Debug HELLO_WORLD $@
