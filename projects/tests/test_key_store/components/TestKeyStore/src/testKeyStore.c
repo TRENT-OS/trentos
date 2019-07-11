@@ -34,7 +34,7 @@ typedef struct KeyStoreContext
     SeosSpiffs fs;
     FileStreamFactory* fileStreamFactory;
     SeosKeyStore keyStore;
-}KeyStoreContext;
+} KeyStoreContext;
 
 /* Private functions prototypes ----------------------------------------------*/
 bool KeyStoreContext_ctor(KeyStoreContext* keyStoreCtx, uint8_t channelNum);
@@ -65,10 +65,10 @@ int run()
     SeosKeyStore_KeyType keyType;
 
     SeosKeyStore_KeyTypeCtor(&keyType,
-                                NULL,
-                                SeosCryptoCipher_Algorithm_AES_EBC_ENC,
-                                1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER,
-                                MASTER_KEY_SIZE * 8);
+                             NULL,
+                             SeosCryptoCipher_Algorithm_AES_EBC_ENC,
+                             1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER,
+                             MASTER_KEY_SIZE * 8);
 
     // create the key that is to be imported to the keyStore
     seos_err_t err = SeosCryptoKey_ctor(&writeKey,
@@ -86,7 +86,8 @@ int run()
     }
 
     // import the created key
-    err = SeosKeyStore_importKey(&(keyStoreCtx_1.keyStore), MASTER_KEY_NAME, &writeKey);
+    err = SeosKeyStore_importKey(&(keyStoreCtx_1.keyStore), MASTER_KEY_NAME,
+                                 &writeKey);
     if (err != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("%s: SeosKeyStore_importKey failed with error code %d!",
@@ -98,7 +99,8 @@ int run()
 
     // get the size of the imported key (to be used before the getKey to allocate memory
     // if the user does not know the size of the key)
-    err = SeosKeyStore_getKeySizeBytes(&(keyStoreCtx_1.keyStore), MASTER_KEY_NAME, &keysize);
+    err = SeosKeyStore_getKeySizeBytes(&(keyStoreCtx_1.keyStore), MASTER_KEY_NAME,
+                                       &keysize);
     if (err != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("%s: SeosKeyStore_getKeySizeBytes failed with error code %d!",
@@ -115,7 +117,8 @@ int run()
     Debug_LOG_DEBUG("\n\nThe keySize is succesfully read!\n");
 
     // read the imported key
-    err = SeosKeyStore_getKey(&(keyStoreCtx_1.keyStore), MASTER_KEY_NAME, &readKey, keyBytes, &keyType);
+    err = SeosKeyStore_getKey(&(keyStoreCtx_1.keyStore), MASTER_KEY_NAME, &readKey,
+                              keyBytes, &keyType);
     if (err != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("%s: SeosKeyStore_getKey failed with error code %d!",
@@ -142,7 +145,8 @@ int run()
     }
 
     // check if the key is actaully deleted by verifying that the getKey results in an error
-    err = SeosKeyStore_getKey(&(keyStoreCtx_1.keyStore), MASTER_KEY_NAME, &readKey, keyBytes, &keyType);
+    err = SeosKeyStore_getKey(&(keyStoreCtx_1.keyStore), MASTER_KEY_NAME, &readKey,
+                              keyBytes, &keyType);
     if (err != SEOS_ERROR_NOT_FOUND)
     {
         Debug_LOG_ERROR("%s: Expected to receive a SEOS_ERROR_NOT_FOUND after reading the deleted key, but received an err code: %d! Exiting test...",
@@ -152,7 +156,8 @@ int run()
     Debug_LOG_DEBUG("\n\nThe key is succesfully deleted!\n");
 
     // generate new key
-    err = SeosKeyStore_generateKey(&(keyStoreCtx_1.keyStore), &generatedKey, GENERATED_KEY_NAME, newKeyWriteBytes, &keyType);
+    err = SeosKeyStore_generateKey(&(keyStoreCtx_1.keyStore), &generatedKey,
+                                   GENERATED_KEY_NAME, newKeyWriteBytes, &keyType);
     if (err != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("%s: SeosKeyStore_generateKey failed with error code %d!",
@@ -167,7 +172,8 @@ int run()
     printf("\n  Length = %d\n", generatedKey.lenBits);
 
     // read the generated key
-    err = SeosKeyStore_getKey(&(keyStoreCtx_1.keyStore), GENERATED_KEY_NAME, &readKey, newKeyReadBytes, &keyType);
+    err = SeosKeyStore_getKey(&(keyStoreCtx_1.keyStore), GENERATED_KEY_NAME,
+                              &readKey, newKeyReadBytes, &keyType);
     if (err != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("%s: SeosKeyStore_getKey failed with error code %d!",
@@ -193,38 +199,46 @@ bool KeyStoreContext_ctor(KeyStoreContext* keyStoreCtx, uint8_t channelNum)
     if (!ChanMuxClient_ctor(&(keyStoreCtx->chanMuxClient), channelNum,
                             (void*)chanMuxDataPort))
     {
-        Debug_LOG_ERROR("%s: Failed to construct chanMuxClient, channel %d!", __func__, channelNum);
+        Debug_LOG_ERROR("%s: Failed to construct chanMuxClient, channel %d!", __func__,
+                        channelNum);
         return false;
     }
 
-    if (!ProxyNVM_ctor(&(keyStoreCtx->proxyNVM), &(keyStoreCtx->chanMuxClient), (char*)chanMuxDataPort,
+    if (!ProxyNVM_ctor(&(keyStoreCtx->proxyNVM), &(keyStoreCtx->chanMuxClient),
+                       (char*)chanMuxDataPort,
                        PAGE_SIZE))
     {
-        Debug_LOG_ERROR("%s: Failed to construct proxyNVM, channel %d!", __func__, channelNum);
+        Debug_LOG_ERROR("%s: Failed to construct proxyNVM, channel %d!", __func__,
+                        channelNum);
         return false;
     }
 
-    if (!AesNvm_ctor(&(keyStoreCtx->aesNvm), ProxyNVM_TO_NVM(&(keyStoreCtx->proxyNVM))))
+    if (!AesNvm_ctor(&(keyStoreCtx->aesNvm),
+                     ProxyNVM_TO_NVM(&(keyStoreCtx->proxyNVM))))
     {
-        Debug_LOG_ERROR("%s: Failed to initialize AesNvm, channel %d!", __func__, channelNum);
+        Debug_LOG_ERROR("%s: Failed to initialize AesNvm, channel %d!", __func__,
+                        channelNum);
         return false;
     }
 
-    if (!SeosSpiffs_ctor(&(keyStoreCtx->fs), AesNvm_TO_NVM(&(keyStoreCtx->aesNvm)), NVM_PARTITION_SIZE, 0))
+    if (!SeosSpiffs_ctor(&(keyStoreCtx->fs), AesNvm_TO_NVM(&(keyStoreCtx->aesNvm)),
+                         NVM_PARTITION_SIZE, 0))
     {
-        Debug_LOG_ERROR("%s: Failed to initialize spiffs, channel %d!", __func__, channelNum);
+        Debug_LOG_ERROR("%s: Failed to initialize spiffs, channel %d!", __func__,
+                        channelNum);
         return false;
     }
 
     seos_err_t ret = SeosSpiffs_mount(&(keyStoreCtx->fs));
     if (ret != SEOS_SUCCESS)
     {
-        Debug_LOG_ERROR("%s: spiffs mount failed with error code %d, channel %d!", __func__, ret, channelNum);
+        Debug_LOG_ERROR("%s: spiffs mount failed with error code %d, channel %d!",
+                        __func__, ret, channelNum);
         return false;
     }
 
     keyStoreCtx->fileStreamFactory = SpiffsFileStreamFactory_TO_FILE_STREAM_FACTORY(
-                        SpiffsFileStreamFactory_getInstance(&(keyStoreCtx->fs)));
+                                         SpiffsFileStreamFactory_getInstance(&(keyStoreCtx->fs)));
     if (keyStoreCtx->fileStreamFactory == NULL)
     {
         Debug_LOG_ERROR("%s: Failed to get the SpiffsFileStreamFactory instance, channel %d!",
@@ -232,9 +246,11 @@ bool KeyStoreContext_ctor(KeyStoreContext* keyStoreCtx, uint8_t channelNum)
         return false;
     }
 
-    if (!SeosKeyStore_ctor(&(keyStoreCtx->keyStore), keyStoreCtx->fileStreamFactory))
+    if (!SeosKeyStore_ctor(&(keyStoreCtx->keyStore),
+                           keyStoreCtx->fileStreamFactory))
     {
-        Debug_LOG_ERROR("%s: Failed to initialize the key store, channel %d!", __func__, channelNum);
+        Debug_LOG_ERROR("%s: Failed to initialize the key store, channel %d!", __func__,
+                        channelNum);
         return false;
     }
 
