@@ -1,4 +1,0 @@
-[submodule "seos_sandbox"]
-	path = seos_sandbox
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/seos_sandbox.git
-	branch = SEOS-325
