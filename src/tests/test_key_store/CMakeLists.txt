@@ -4,7 +4,8 @@ project(tests_proxy_nvm C)
 
 set(SEOS_LIBS ON CACHE BOOL "string" FORCE)
 set(SPIFFS ON CACHE BOOL "string" FORCE)
-set(SEOS_LIBS_CRYPTO ON CACHE BOOL "string")
+set(SEOS_CRYPTO_LIB ON CACHE BOOL "string" FORCE)
+set(SEOS_CRYPTO_IMPL_MBEDTLS ON CACHE BOOL "string")
 
 set(DEBUG_CONFIG_H_FILE
         "${CMAKE_SOURCE_DIR}/projects/configs/include/Debug_Config.h"
@@ -39,8 +40,8 @@ DeclareCAmkESComponent(TestKeyStore
         "components/TestKeyStore/src/testKeyStore.c"
     LIBS
         seos_libs
+        seos_crypto
 )
-
 #-------------------------------------------------------------------------------
 # Component UartDrv
 #-------------------------------------------------------------------------------
