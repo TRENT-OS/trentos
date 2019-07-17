@@ -1,40 +1,4 @@
-[submodule "kernel"]
-	path = kernel
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/sel4.git
-	branch = master
-[submodule "projects/musllibc"]
-	path = projects/musllibc
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/musllibc.git
-	branch = sel4
-[submodule "projects/util_libs"]
-	path = projects/util_libs
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/util_libs.git
-	branch = master
-[submodule "tools/seL4"]
-	path = tools/seL4
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/sel4_tools.git
-	branch = master
-[submodule "projects/sel4_libs"]
-	path = projects/sel4_libs
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/sel4_libs.git
-	branch = master
-[submodule "tools/camkes"]
-	path = tools/camkes
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/camkes-tool.git
-	branch = master
-[submodule "projects/camkes/capdl"]
-	path = projects/camkes/capdl
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/capdl.git
-	branch = master
-[submodule "projects/project_libs"]
-	path = projects/project_libs
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ext/projects_libs.git
-	branch = master
-[submodule "projects/libs/seos_libs"]
-	path = projects/libs/seos_libs
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/seos_libs.git
-	branch = master
-[submodule "projects/libs/uart_socket"]
-	path = projects/libs/uart_socket
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/uart_socket.git
-	branch = master
+[submodule "seos_sandbox"]
+	path = seos_sandbox
+	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/seos/sandbox.git
+	branch = SEOS-339

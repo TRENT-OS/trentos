@@ -1,6 +1,6 @@
 import "../../interfaces/Crypto.camkes";
 
-component MAIN {
+component TEST_CRYPTO {
     control;
 
     dataport    Buf             cryptoClientDataport;
