@@ -150,11 +150,10 @@ int run()
         streams[i] = SpiffsFileStream_reOpen(streams[i], FileStream_OpenMode_r);
 
         //    6)  try to write to read-only file and verify this will result in an error
-        //        currently we only have SEOS_ERROR_GENERIC => todo: expand error messages
         retValue = Stream_write(FileStream_TO_STREAM(streams[i]), writeBuf,
                                 writeLength);
         seos_err_t err = FileStream_error(streams[i]);
-        if (retValue == 0 && err == SEOS_ERROR_GENERIC)
+        if (retValue == 0 && err == SEOS_ERROR_ACCESS_DENIED)
         {
             Debug_LOG_DEBUG("\n\nFile %d, unsuccesful write to read-only file!\n", i + 1);
         }
@@ -215,7 +214,8 @@ int run()
     // Closing all of the opened files
     for (int i = 0; i < NUM_OF_TEST_STREAMS; i++)
     {
-        FileStreamFactory_destroy(streamFactory, streams[i]);
+        FileStreamFactory_destroy(streamFactory, streams[i],
+                                  1 << FileStream_DeleteFlags_CLOSE);
     }
 
     destroyContext();
