@@ -72,7 +72,7 @@ DeclareCAmkESComponent(ChanMux
 )
 
 #ROOT SERVER
-DeclareCAmkESRootserver(main.camkes)
+DeclareCAmkESRootserver(testKeyStoreTopLevel.camkes)
 GenerateCAmkESRootServer()
 
 set(IMAGE_NAME capdl-loader-image-arm-${KernelARMPlatform})
