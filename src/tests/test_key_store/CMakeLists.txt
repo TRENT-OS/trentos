@@ -1,11 +1,12 @@
 cmake_minimum_required(VERSION 3.7.2)
 
-project(tests_proxy_nvm C)
+project(tests_key_store C)
 
 set(SEOS_LIBS ON CACHE BOOL "string" FORCE)
 set(SPIFFS ON CACHE BOOL "string" FORCE)
-set(SEOS_CRYPTO_LIB ON CACHE BOOL "string")
+set(SEOS_CRYPTO_LIB ON CACHE BOOL "string" FORCE)
 set(SEOS_CRYPTO_IMPL_MBEDTLS ON CACHE BOOL "string")
+set(SEOS_KEYSTORE ON CACHE BOOL "string")
 
 set(DEBUG_CONFIG_H_FILE
         "${CMAKE_SOURCE_DIR}/projects/configs/include/Debug_Config.h"
@@ -28,21 +29,21 @@ set(ENABLE_LINT ON
 
 ImportCamkes()
 
-# COMPONENT TestSpiffsIntegration
+# COMPONENT TestKeyStore
 if (ENABLE_LINT)
     set(CMAKE_C_CPPCHECK "cppcheck;--enable=warning;--inline-suppr")
     set(CMAKE_C_CLANG_TIDY "clang-tidy;-checks=*")
 endif()
-DeclareCAmkESComponent(TestSpiffsIntegration
+DeclareCAmkESComponent(TestKeyStore
     INCLUDES
         include
     SOURCES
-        "components/TestSpiffsIntegration/src/testSpiffsIntegration.c"
+        "components/TestKeyStore/src/testKeyStore.c"
     LIBS
         seos_libs
         seos_crypto
+        seos_keystore
 )
-
 #-------------------------------------------------------------------------------
 # Component UartDrv
 #-------------------------------------------------------------------------------
@@ -74,7 +75,7 @@ DeclareCAmkESComponent(ChanMux
 )
 
 #ROOT SERVER
-DeclareCAmkESRootserver(main.camkes)
+DeclareCAmkESRootserver(testKeyStoreTopLevel.camkes)
 GenerateCAmkESRootServer()
 
 set(IMAGE_NAME capdl-loader-image-arm-${KernelARMPlatform})

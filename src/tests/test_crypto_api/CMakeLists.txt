@@ -9,7 +9,9 @@ set(ENABLE_LINT ON
     CACHE BOOL "string")
 set(SEOS_LIBS ON
     CACHE BOOL "string" FORCE)
-set(SEOS_LIBS_CRYPTO ON
+set(SEOS_CRYPTO_COMPONENT ON
+    CACHE BOOL "string")
+set(SEOS_CRYPTO_IMPL_MBEDTLS ON
     CACHE BOOL "string")
 
 set(DEBUG_CONFIG_H_FILE
@@ -36,6 +38,7 @@ DeclareCAmkESComponent(TEST_CRYPTO INCLUDES
 set_property(TARGET CAmkESComponent_TEST_CRYPTO
              APPEND PROPERTY COMPONENT_LIBS
              seos_libs
+             seos_crypto
 )
 
 # COMPONENT CRYPTO
@@ -47,7 +50,6 @@ DeclareCAmkESComponent(CRYPTO INCLUDES
                             include
                             SOURCES
                             "components/CRYPTO/instance/Crypto.c"
-                            "${CMAKE_SOURCE_DIR}/projects/libs/seos_libs/src/seos/SeosCryptoRpc.c"
 )
 set_property(TARGET CAmkESComponent_CRYPTO
 
@@ -57,6 +59,7 @@ set_property(TARGET CAmkESComponent_CRYPTO
 
              APPEND PROPERTY COMPONENT_LIBS
              seos_libs
+             seos_crypto
 )
 
 #ROOT SERVER
