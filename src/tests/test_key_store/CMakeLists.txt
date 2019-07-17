@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.7.2)
 
-project(tests_proxy_nvm C)
+project(tests_key_store C)
 
 set(SEOS_LIBS ON CACHE BOOL "string" FORCE)
 set(SPIFFS ON CACHE BOOL "string" FORCE)
