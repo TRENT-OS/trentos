@@ -18,6 +18,8 @@
 #define CHANMUX_NVM_CHANNEL_1   6
 #define CHANMUX_NVM_CHANNEL_2   7
 
+#define KEY_STORE_INSTANCE_NAME "KeyStore1"
+
 #define MASTER_KEY_BYTES        "f131830db44c54742fc3f3265f0f1a0cf131830db44c54742fc3f3265f0f1a0c"
 #define MASTER_KEY_NAME         "MasterKey"
 #define MASTER_KEY_SIZE         64
@@ -41,7 +43,7 @@ typedef struct KeyStoreContext
 /* Private functions prototypes ----------------------------------------------*/
 bool KeyStoreContext_ctor(KeyStoreContext* keyStoreCtx, uint8_t channelNum,
                           void* dataport);
-bool KeyStoreContext_dtor(KeyStoreContext* keyStoreCtx);
+void KeyStoreContext_dtor(KeyStoreContext* keyStoreCtx);
 seos_err_t testKeyDataRetreival(SeosKeyStore* keyStore,
                                 SeosKeyStore_KeyType* keyType,
                                 const char* keyName,
@@ -150,6 +152,9 @@ int run()
     }
     Debug_LOG_DEBUG("\n\nThe generated key data is succesfully read!\n");
 
+    SeosKeyStore_KeyTypeDtor(&keyType);
+    KeyStoreContext_dtor(&keyStoreCtx_1);
+
     return 0;
 }
 
@@ -206,7 +211,8 @@ bool KeyStoreContext_ctor(KeyStoreContext* keyStoreCtx, uint8_t channelNum,
     }
 
     if (!SeosKeyStore_ctor(&(keyStoreCtx->keyStore),
-                           keyStoreCtx->fileStreamFactory))
+                           keyStoreCtx->fileStreamFactory,
+                           KEY_STORE_INSTANCE_NAME))
     {
         Debug_LOG_ERROR("%s: Failed to initialize the key store, channel %d!", __func__,
                         channelNum);
@@ -216,7 +222,7 @@ bool KeyStoreContext_ctor(KeyStoreContext* keyStoreCtx, uint8_t channelNum,
     return true;
 }
 
-bool KeyStoreContext_dtor(KeyStoreContext* keyStoreCtx)
+void KeyStoreContext_dtor(KeyStoreContext* keyStoreCtx)
 {
     ChanMuxClient_dtor(&(keyStoreCtx->chanMuxClient));
     ProxyNVM_dtor(ProxyNVM_TO_NVM(&(keyStoreCtx->proxyNVM)));
@@ -224,8 +230,6 @@ bool KeyStoreContext_dtor(KeyStoreContext* keyStoreCtx)
     SeosSpiffs_dtor(&(keyStoreCtx->fs));
     FileStreamFactory_dtor(keyStoreCtx->fileStreamFactory);
     SeosKeyStore_dtor(&(keyStoreCtx->keyStore));
-
-    return true;
 }
 
 seos_err_t testKeyDataRetreival(SeosKeyStore* keyStore,
