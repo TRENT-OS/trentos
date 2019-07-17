@@ -6,6 +6,7 @@ set(SEOS_LIBS ON CACHE BOOL "string" FORCE)
 set(SPIFFS ON CACHE BOOL "string" FORCE)
 set(SEOS_CRYPTO_LIB ON CACHE BOOL "string" FORCE)
 set(SEOS_CRYPTO_IMPL_MBEDTLS ON CACHE BOOL "string")
+set(SEOS_KEYSTORE ON CACHE BOOL "string")
 
 set(DEBUG_CONFIG_H_FILE
         "${CMAKE_SOURCE_DIR}/projects/configs/include/Debug_Config.h"
@@ -41,6 +42,7 @@ DeclareCAmkESComponent(TestKeyStore
     LIBS
         seos_libs
         seos_crypto
+        seos_keystore
 )
 #-------------------------------------------------------------------------------
 # Component UartDrv
