@@ -1,0 +1,19 @@
+/* @TAG(DATA61_BSD) */
+/*
+ * Advanced CAmkES tutorial: device driver.
+ */
+import "../../../interfaces/timer.camkes";
+
+component Timerbase{
+    hardware;
+    dataport Buf reg;
+    emits DataAvailable irq;
+}
+
+component Timer {
+    dataport Buf         reg;
+    consumes DataAvailable  irq;
+
+    provides timer_inf     hello;
+    has semaphore           sem;
+}

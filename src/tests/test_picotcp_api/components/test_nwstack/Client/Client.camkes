@@ -1,0 +1,14 @@
+/* @TAG(DATA61_BSD) */
+/*
+ * CAmkES tutorial part 1: components with RPC. Client part.
+ */
+
+import "../../../interfaces/timer.camkes";
+
+component Client {
+    control;
+    uses   timer_inf                hello;
+    
+    emits  NwStack_DataAvailable    e_timeout_nwstacktick;
+//    emits  NwStack_DataAvailable_2  e_timeout_nwstacktick_2;
+}

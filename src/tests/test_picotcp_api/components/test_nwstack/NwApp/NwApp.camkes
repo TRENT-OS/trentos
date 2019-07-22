@@ -1,0 +1,8 @@
+import "../../../interfaces/NwStackInf.camkes";
+
+component NwApp {
+  control;  
+  uses      NwStackInf          NwStackIf;
+  dataport  Buf                 NwAppDataPort;
+  consumes  NwStack_Initdone    c_initdone;
+}

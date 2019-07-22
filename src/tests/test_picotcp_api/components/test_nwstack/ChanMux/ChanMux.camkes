@@ -1,0 +1,30 @@
+import "../../../interfaces/ChanMuxInf.camkes";
+import "../../../interfaces/UartInf.camkes";
+
+
+component ChanMux {
+
+    provides       ChanMuxNwStackInf        ChanMuxNwStack;
+    //-------------------------------------------------
+    // Network Stack interface
+    dataport       Buf                      nwStackDataPort;
+    dataport       Buf                      nwStackCtrlDataPort;
+    emits          NwStack_DataAvailable    e_read_nwstacktick;
+
+
+    //-------------------------------------------------
+    // Network Stack 2 interface
+//    dataport       Buf                      nwStackDataPort_2;
+//    dataport       Buf                      nwStackCtrlDataPort_2;
+//    emits          NwStack_DataAvailable_2  e_read_nwstacktick_2;
+    
+
+
+
+    //-------------------------------------------------
+    // MUX Uart interface
+    dataport      Buf                       outputDataPort;
+    uses          UartInf                   Output;
+    provides      ChanMuxOutInf             ChanMuxOut;
+    
+}

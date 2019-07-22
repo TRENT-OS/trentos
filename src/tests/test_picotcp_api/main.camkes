@@ -1,0 +1,95 @@
+import <std_connector.camkes>;
+
+import "components/test_nwstack/ChanMux/ChanMux.camkes";
+import "components/test_nwstack/NwStack/NwStack.camkes";
+import "components/test_nwstack/NwApp/NwApp.camkes";
+import "components/test_nwstack/Client/Client.camkes";
+import "components/test_nwstack/Timer/Timer.camkes";
+import "components/test_nwstack/Uart/Uart.camkes";
+
+assembly {
+    composition {
+
+        //----------------------------------------------------------------------
+        // Network Stack
+        //----------------------------------------------------------------------
+        component  NwStack          nwStack;
+        connection seL4RPCCall      nwStack_chanmux     (from nwStack.ChanMux, to chanMux.ChanMuxNwStack);
+
+
+        //----------------------------------------------------------------------
+        // Network Stack App
+        //----------------------------------------------------------------------
+        component  NwApp            nwApp;
+        connection seL4RPCCall      NwApp_nwStack       (from nwApp.NwStackIf, to nwStack.NwStackIf);
+
+
+        //----------------------------------------------------------------------
+        // MUX
+        //----------------------------------------------------------------------
+        component ChanMux           chanMux;
+        
+        //----------------------------------------------------------------------
+        // OUTPUT
+        //----------------------------------------------------------------------
+        
+        connection seL4RPCCall      chanmux_uart        (from chanMux.Output, to uartDrv.UartDrv);
+        connection seL4SharedData   uart_dataConnection (from chanMux.outputDataPort, to uartDrv.inputDataPort);
+        
+    
+        //----------------------------------------------------------------------
+        // TIMER
+        //----------------------------------------------------------------------
+  
+        component Timerbase timerbase;
+        component Timer timer;
+        component Client client;
+
+        connection seL4HardwareMMIO timer_mem(from timer.reg, to timerbase.reg);
+        connection seL4HardwareInterrupt timer_irq(from timerbase.irq, to timer.irq);
+        /* timer interface connection */
+
+        connection seL4RPCCall hello_timer(from client.hello, to timer.hello);
+
+
+        // Channel Network Stack
+        connection seL4SharedData         NwStack_dataConnection   (from nwStack.chanMuxDataPort,         to chanMux.nwStackDataPort);
+        connection seL4SharedData         NwStack_ctrlConnection   (from nwStack.chanMuxCtrlDataPort,     to chanMux.nwStackCtrlDataPort);
+        connection seL4SharedData         NwApp_dataConnection     (from nwApp.NwAppDataPort,             to nwStack.NwAppDataPort);
+        connection seL4NotificationNative NwStackdataAvail1        (from chanMux.e_read_nwstacktick,      to nwStack.c_nwstacktick);
+        connection seL4NotificationNative NwStackdataAvail2        (from nwStack.e_write_nwstacktick,     to nwStack.c_nwstacktick);
+        connection seL4NotificationNative NwStackdataAvail3        (from client.e_timeout_nwstacktick,    to nwStack.c_nwstacktick);
+        connection seL4Notification       NwStackEventsRxd1        (from nwStack.e_write,                 to nwStack.c_write);
+        connection seL4Notification       NwStackEventsRxd2        (from nwStack.e_read,                  to nwStack.c_read);
+        connection seL4Notification       NwAppInitDone            (from nwStack.e_initdone,              to nwApp.c_initdone);
+        
+        
+        //----------------------------------------------------------------------
+        // UART
+        //----------------------------------------------------------------------
+        component  UartDev          uartDev;
+        component  UartDrv          uartDrv;
+        connection seL4HardwareMMIO uart_memio          (from uartDrv.uartRegBase, to uartDev.uartRegBase);
+        connection seL4RPCCall      uart_chanmux        (from uartDrv.Output, to chanMux.ChanMuxOut);
+        
+        
+        
+    }
+    configuration {
+        uartDev.uartRegBase_paddr  = 0xE0000000;
+    uartDev.uartRegBase_size   = 0x1000;
+    uartDrv.inputDataPort       = "R";
+    
+    
+    timerbase.reg_paddr = 0xF8001000;   // paddr of mmio registers
+    timerbase.reg_size = 0x1000;        // size of mmio registers
+    timerbase.irq_irq_number = 42;      // timer irq number
+
+
+   /* assign an initial value to semaphore */
+
+    timer.sem_value = 0;
+    
+    }
+}
+

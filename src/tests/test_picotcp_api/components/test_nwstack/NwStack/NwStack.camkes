@@ -1,0 +1,33 @@
+
+import "../../../interfaces/ChanMuxInf.camkes";
+import "../../../interfaces/NwStackInf.camkes";
+
+component NwStack {
+    control;
+
+    dataport    Buf                     chanMuxDataPort;
+    dataport    Buf                     chanMuxCtrlDataPort;
+    uses        ChanMuxNwStackInf       ChanMux;
+
+    /* Below interface is for applications using Nw stack TCP/IP  */
+
+    provides    NwStackInf              NwStackIf;
+    dataport    Buf                     NwAppDataPort;
+    
+    /* List of signal emits and consumed */
+    /* e - emit and c - consume */
+    
+    emits       NwStack_Initdone        e_initdone;   /* consumed by app */
+
+    emits       NwStack_WrEv            e_write;
+    consumes    NwStack_WrEv            c_write;
+
+    emits       NwStack_RdEv            e_read;
+    consumes    NwStack_RdEv            c_read;
+
+    emits       NwStack_DataAvailable   e_write_nwstacktick;
+    consumes    NwStack_DataAvailable   c_nwstacktick;
+    
+}
+
+
