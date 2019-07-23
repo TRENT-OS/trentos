@@ -19,6 +19,7 @@ pipeline {
             steps {
                 echo '############################## Building SeOS Documentation ##################################'
                 sh 'cd seos_sandbox/projects/libs/seos_libs && doxygen'
+                sh 'cd seos_sandbox/projects/libs/seos_crypto && doxygen'
             }
         }
         stage('build') {

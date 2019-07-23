@@ -1,0 +1,25 @@
+/**
+ * Copyright (C) 2019, Hensoldt Cyber GmbH
+ */
+
+import "../../interfaces/ChanMuxInf.camkes";
+import "../../interfaces/UartInf.camkes";
+
+component ChanMux {
+
+    //-------------------------------------------------
+    // interface to MAIN
+    dataport  Buf                 mainDataPort;
+    emits     DataAvailableEvent  dataAvailableMain;
+    provides  ChanMuxInInf        ChanMuxIn;
+
+    //-------------------------------------------------
+    // MUX Uart interface
+    dataport  Buf                 outputDataPort;
+    uses      UartInf             Output;
+    provides  ChanMuxOutInf       ChanMuxOut;
+
+    //-------------------------------------------------
+    // Synchronization Primitives
+    has mutex Mutex;
+}

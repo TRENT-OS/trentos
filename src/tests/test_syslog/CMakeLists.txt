@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.7.2)
 
-project(tests_crypto_api C)
+project(tests_syslog C)
 
 # Include cmake helper functions
 include(cmake/helpers.cmake)
