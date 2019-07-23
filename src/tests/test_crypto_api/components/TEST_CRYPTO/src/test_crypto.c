@@ -121,7 +121,7 @@ testCipherAES(SeosCryptoApi* cryptoApi)
     SeosCrypto_KeyHandle keyHandle;
     SeosCrypto_CipherHandle handle;
 
-    char * input = "0123456789ABCDEF";
+    char* input = "0123456789ABCDEF";
     char buff[16];
     void* output = buff;
     size_t outputSize = sizeof(buff);
