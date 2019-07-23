@@ -11,13 +11,15 @@ procedure CryptoRpcInf {
     include "seos/SeosCryptoRpc.h";
 
     seos_err_t      getRandomData   (in SeosCryptoRpc_Handle handle, unsigned int flags, size_t salt_len, size_t data_len);
-    seos_err_t      digestInit      (in SeosCryptoRpc_Handle handle, out SeosCrypto_DigestHandle digestHandle, in SeosCryptoDigest_Algorithm algorithm, in size_t ivLen);
-    void            digestClose     (in SeosCryptoRpc_Handle handle, in SeosCrypto_DigestHandle digestHandle);
+    seos_err_t      digestInit      (in SeosCryptoRpc_Handle handle, out SeosCrypto_DigestHandle digestHandle, in unsigned int algorithm, in size_t ivLen);
+    seos_err_t      digestClose     (in SeosCryptoRpc_Handle handle, in SeosCrypto_DigestHandle digestHandle);
     seos_err_t      digestUpdate    (in SeosCryptoRpc_Handle handle, in SeosCrypto_DigestHandle digestHandle, in size_t len);
     seos_err_t      digestFinalize  (in SeosCryptoRpc_Handle handle, in SeosCrypto_DigestHandle digestHandle, in size_t len);
-    seos_err_t      cipherInit      (in SeosCryptoRpc_Handle handle, in SeosCryptoCipher_Algorithm algorithm, in SeosCrypto_KeyHandle keyHandle, in size_t ivLen);
-    void            cipherClose     (in SeosCryptoRpc_Handle handle);
-    seos_err_t      cipherUpdate    (in SeosCryptoRpc_Handle handle, in size_t len);
-    seos_err_t      cipherFinalize  (in SeosCryptoRpc_Handle handle, in size_t len);
-    seos_err_t      keyCreate       (in SeosCryptoRpc_Handle handle, in SeosCryptoCipher_Algorithm algorithm, in unsigned int flags, in size_t lenBits, inout SeosCrypto_KeyHandle pKeyHandle);
+    seos_err_t      keyGenerate     (in SeosCryptoRpc_Handle handle, out SeosCrypto_KeyHandle pKeyHandle, in unsigned int algorithm, in unsigned int flags, in size_t lenBits);
+    seos_err_t      keyImport       (in SeosCryptoRpc_Handle handle, out SeosCrypto_KeyHandle pKeyHandle, in unsigned int algorithm, in unsigned int flags, in size_t lenBits);
+    seos_err_t      keyClose        (in SeosCryptoRpc_Handle handle, in SeosCrypto_KeyHandle pKeyHandle);
+    seos_err_t      cipherInit      (in SeosCryptoRpc_Handle handle, out SeosCrypto_CipherHandle pCipherHandle, in unsigned int algorithm, in SeosCrypto_KeyHandle keyHandle, in size_t ivLen);
+    seos_err_t      cipherClose     (in SeosCryptoRpc_Handle handle, in SeosCrypto_CipherHandle pCipherHandle);
+    seos_err_t      cipherUpdate    (in SeosCryptoRpc_Handle handle, in SeosCrypto_CipherHandle pCipherHandle, in size_t len);
+    seos_err_t      cipherFinalize  (in SeosCryptoRpc_Handle handle, in SeosCrypto_CipherHandle pCipherHandle, in size_t len);
 };
