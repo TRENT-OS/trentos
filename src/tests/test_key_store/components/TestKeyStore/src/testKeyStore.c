@@ -8,9 +8,7 @@
 #include "SeosSpiffs.h"
 #include "SpiffsFileStream.h"
 #include "SpiffsFileStreamFactory.h"
-#include "SeosKeyStore.h"
-#include "SeosCryptoDigest.h"
-#include "SeosCryptoCipher.h"
+#include "SeosKeyStoreApi.h"
 #include "camkes.h"
 
 /* Defines -------------------------------------------------------------------*/
@@ -37,14 +35,17 @@ typedef struct KeyStoreContext
     AesNvm aesNvm;
     SeosSpiffs fs;
     FileStreamFactory* fileStreamFactory;
+    SeosCrypto cryptoCore;
+    SeosCryptoApi cryptoApi;
     SeosKeyStore keyStore;
+    SeosKeyStoreApi keyStoreApi;
 } KeyStoreContext;
 
 /* Private functions prototypes ----------------------------------------------*/
 bool KeyStoreContext_ctor(KeyStoreContext* keyStoreCtx, uint8_t channelNum,
                           void* dataport);
 void KeyStoreContext_dtor(KeyStoreContext* keyStoreCtx);
-seos_err_t testKeyDataRetreival(SeosKeyStore* keyStore,
+seos_err_t testKeyDataRetreival(SeosKeyStoreApi* keyStoreApi,
                                 const char* keyName,
                                 size_t expectedKeySize,
                                 const char* expectedKeyData);
@@ -63,38 +64,27 @@ int run()
         return 0;
     }
 
-    SeosCryptoKey masterKey;
-    SeosCryptoKey generatedKey;
-    char generatedKeyBytes[MAX_KEY_LEN] = {0};
-
-    // create the key that is to be imported to the keyStore
-    seos_err_t err = SeosCryptoKey_init(&masterKey,
-                                        NULL,
-                                        SeosCryptoCipher_Algorithm_AES_CBC_ENC,
-                                        1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER,
-                                        MASTER_KEY_BYTES,
-                                        MASTER_KEY_SIZE * 8);
-    if (err != SEOS_SUCCESS)
-    {
-        Debug_LOG_ERROR("%s: SeosCryptoKey_init failed to construct the key with error code %d!",
-                        __func__, err);
-        return 0;
-    }
+    SeosCryptoKey* masterKey;
+    SeosCryptoKey* generatedKey;
 
     // import the created key
-    err = SeosKeyStore_importKey(&(keyStoreCtx_1.keyStore),
-                                 MASTER_KEY_NAME,
-                                 &masterKey);
+    seos_err_t err = SeosKeyStoreApi_importKey(&(keyStoreCtx_1.keyStoreApi),
+                                               (void**)&masterKey,
+                                               MASTER_KEY_NAME,
+                                               MASTER_KEY_BYTES,
+                                               SeosCryptoCipher_Algorithm_AES_CBC_ENC,
+                                               1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER,
+                                               MASTER_KEY_SIZE * 8);
     if (err != SEOS_SUCCESS)
     {
-        Debug_LOG_ERROR("%s: SeosKeyStore_importKey failed with error code %d!",
+        Debug_LOG_ERROR("%s: SeosKeyStoreApi_importKey failed with error code %d!",
                         __func__, err);
         return 0;
     }
     Debug_LOG_DEBUG("\n\nThe master key is succesfully imported!\n");
 
     // read the master key
-    err = testKeyDataRetreival(&(keyStoreCtx_1.keyStore),
+    err = testKeyDataRetreival(&(keyStoreCtx_1.keyStoreApi),
                                MASTER_KEY_NAME,
                                MASTER_KEY_SIZE,
                                MASTER_KEY_BYTES);
@@ -107,16 +97,17 @@ int run()
     Debug_LOG_DEBUG("\n\nThe master key data is succesfully read!\n");
 
     // delete the master key
-    err = SeosKeyStore_deleteKey(&(keyStoreCtx_1.keyStore), MASTER_KEY_NAME);
+    err = SeosKeyStoreApi_deleteKey(&(keyStoreCtx_1.keyStoreApi), &masterKey,
+                                    MASTER_KEY_NAME);
     if (err != SEOS_SUCCESS)
     {
-        Debug_LOG_ERROR("%s: SeosKeyStore_deleteKey failed with error code %d!",
+        Debug_LOG_ERROR("%s: SeosKeyStoreApi_deleteKey failed with error code %d!",
                         __func__, err);
         return 0;
     }
 
     // check if the key is actaully deleted by verifying that the getKey results in an error
-    err = testKeyDataRetreival(&(keyStoreCtx_1.keyStore),
+    err = testKeyDataRetreival(&(keyStoreCtx_1.keyStoreApi),
                                MASTER_KEY_NAME,
                                MASTER_KEY_SIZE,
                                MASTER_KEY_BYTES);
@@ -129,25 +120,24 @@ int run()
     Debug_LOG_DEBUG("\n\nThe master key is succesfully deleted!\n");
 
     // generate new key
-    err = SeosKeyStore_generateKey(&(keyStoreCtx_1.keyStore),
-                                   &generatedKey,
-                                   GENERATED_KEY_NAME,
-                                   SeosCryptoCipher_Algorithm_AES_CBC_ENC,
-                                   1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER,
-                                   GENERATED_KEY_SIZE * 8,
-                                   generatedKeyBytes);
+    err = SeosKeyStoreApi_generateKey(&(keyStoreCtx_1.keyStoreApi),
+                                      (void*)&generatedKey,
+                                      GENERATED_KEY_NAME,
+                                      SeosCryptoCipher_Algorithm_AES_CBC_ENC,
+                                      1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER,
+                                      GENERATED_KEY_SIZE * 8);
     if (err != SEOS_SUCCESS)
     {
-        Debug_LOG_ERROR("%s: SeosKeyStore_generateKey failed with error code %d!",
+        Debug_LOG_ERROR("%s: SeosKeyStoreApi_generateKey failed with error code %d!",
                         __func__, err);
         return 0;
     }
 
     // read the generated key
-    err = testKeyDataRetreival(&(keyStoreCtx_1.keyStore),
+    err = testKeyDataRetreival(&(keyStoreCtx_1.keyStoreApi),
                                GENERATED_KEY_NAME,
                                GENERATED_KEY_SIZE,
-                               generatedKey.bytes);
+                               generatedKey->bytes);
     if (err != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("%s: testKeyDataRetreival failed with error code %d!",
@@ -212,13 +202,40 @@ bool KeyStoreContext_ctor(KeyStoreContext* keyStoreCtx, uint8_t channelNum,
                         __func__, channelNum);
         return false;
     }
+    ret = SeosCrypto_init(&(keyStoreCtx->cryptoCore), malloc, free, NULL, NULL);
+    if (ret != SEOS_SUCCESS)
+    {
+        Debug_LOG_ERROR("%s: SeosCrypto_init failed with error code %d",
+                        __func__, ret);
+        return false;
+    }
+
+    ret = SeosCryptoApi_initAsLocal(&(keyStoreCtx->cryptoApi),
+                                    &(keyStoreCtx->cryptoCore));
+    if (ret != SEOS_SUCCESS)
+    {
+        Debug_LOG_ERROR("%s: SeosCryptoApi_initAsLocal failed with error code %d",
+                        __func__, ret);
+        return false;
+    }
 
     if (!SeosKeyStore_ctor(&(keyStoreCtx->keyStore),
                            keyStoreCtx->fileStreamFactory,
+                           &(keyStoreCtx->cryptoApi),
                            KEY_STORE_INSTANCE_NAME))
     {
-        Debug_LOG_ERROR("%s: Failed to initialize the key store, channel %d!", __func__,
-                        channelNum);
+        Debug_LOG_ERROR("%s: SeosKeyStore_ctor failed with error code %d!", __func__,
+                        ret);
+        return false;
+    }
+
+    ret = SeosKeyStoreApi_initAsLocal(&(keyStoreCtx->keyStoreApi),
+                                      &(keyStoreCtx->keyStore));
+    if (ret != SEOS_SUCCESS)
+    {
+        Debug_LOG_ERROR("%s: SeosKeyStoreApi_initAsLocal failed with error code %d!",
+                        __func__,
+                        ret);
         return false;
     }
 
@@ -233,58 +250,41 @@ void KeyStoreContext_dtor(KeyStoreContext* keyStoreCtx)
     SeosSpiffs_dtor(&(keyStoreCtx->fs));
     FileStreamFactory_dtor(keyStoreCtx->fileStreamFactory);
     SeosKeyStore_dtor(&(keyStoreCtx->keyStore));
+    SeosCrypto_deInit(&(keyStoreCtx->cryptoCore));
+    SeosCryptoApi_deInit(&(keyStoreCtx->cryptoApi));
+    SeosKeyStoreApi_deInit(&(keyStoreCtx->keyStoreApi));
 }
 
-seos_err_t testKeyDataRetreival(SeosKeyStore* keyStore,
+seos_err_t testKeyDataRetreival(SeosKeyStoreApi* keyStoreApi,
                                 const char* keyName,
                                 size_t expectedKeySize,
                                 const char* expectedKeyData)
 {
     seos_err_t err = SEOS_SUCCESS;
-    size_t keySize = 0;
-    SeosCryptoKey readKey;
-    char keyBytes[MAX_KEY_LEN] = {0};
-
-    // get the size of the imported key (to be used before the getKey to allocate memory
-    // if the user does not know the size of the key)
-    err = SeosKeyStore_getKeySizeBytes(keyStore, keyName, &keySize);
-    if (err != SEOS_SUCCESS)
-    {
-        Debug_LOG_ERROR("%s: SeosKeyStore_getKeySizeBytes failed with error code %d!",
-                        __func__, err);
-        return err;
-    }
-    // check if the size returnd by getSize is correct
-    if (keySize != expectedKeySize)
-    {
-        Debug_LOG_ERROR("%s: Expected keySize is %d, but the read keySize is %d! Exiting test...",
-                        __func__, expectedKeySize, keySize);
-        return SEOS_ERROR_GENERIC;
-    }
+    SeosCryptoKey* readKey;
     // read the imported key
-    err = SeosKeyStore_getKey(keyStore, keyName, &readKey,
-                              keyBytes);
+    err = SeosKeyStoreApi_getKey(keyStoreApi, (void*)&readKey, keyName);
     if (err != SEOS_SUCCESS)
     {
-        Debug_LOG_ERROR("%s: SeosKeyStore_getKey failed with error code %d!",
+        Debug_LOG_ERROR("%s: SeosKeyStoreApi_getKey failed with error code %d!",
                         __func__, err);
         return err;
     }
     // check if the key data is correct
-    if (memcmp(expectedKeyData, readKey.bytes, expectedKeySize) != 0
-        || readKey.lenBits != expectedKeySize * 8
-        || readKey.algorithm != SeosCryptoCipher_Algorithm_AES_CBC_ENC
-        || readKey.flags != 1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER)
+    if (memcmp(expectedKeyData, readKey->bytes, expectedKeySize) != 0
+        || readKey->lenBits != expectedKeySize * 8
+        || readKey->algorithm != SeosCryptoCipher_Algorithm_AES_CBC_ENC
+        || readKey->flags != 1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER)
     {
         Debug_LOG_ERROR("%s: Read key data is not correct!", __func__);
         Debug_LOG_DEBUG("\n\n   Read bytes = ");
-        for (size_t i = 0; i < readKey.lenBits / 8; i++)
+        for (size_t i = 0; i < readKey->lenBits / 8; i++)
         {
-            printf("%02x ", readKey.bytes[i]);
+            printf("%02x ", readKey->bytes[i]);
         }
-        printf("\n  Read length = %d\n", readKey.lenBits);
-        printf("\n  Read algorithm = %d\n", readKey.algorithm);
-        printf("\n  Read flags = %d\n", readKey.flags);
+        printf("\n  Read length = %d\n", readKey->lenBits);
+        printf("\n  Read algorithm = %d\n", readKey->algorithm);
+        printf("\n  Read flags = %d\n", readKey->flags);
 
         Debug_LOG_DEBUG("\n\n   Expected bytes = ");
         for (size_t i = 0; i < expectedKeySize; i++)
