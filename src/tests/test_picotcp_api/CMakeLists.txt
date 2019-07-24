@@ -61,6 +61,31 @@ DeclareCAmkESComponent(NwStack
         seos_nwcore
 )
 
+#-------------------------------------------------------------------------------
+# Component NwStack 2
+#-------------------------------------------------------------------------------
+#[[
+if (ENABLE_LINT)
+    set(CMAKE_C_CPPCHECK "cppcheck;--enable=warning;--inline-suppr")
+    set(CMAKE_C_CLANG_TIDY "clang-tidy;-checks=*")
+endif()
+set(LOGS_CONFIG_H_FILE
+        "${CMAKE_SOURCE_DIR}/projects/configs/include/Logs_Config.h"
+        CACHE STRING "" FORCE
+
+
+DeclareCAmkESComponent(NwStack2
+    INCLUDES
+
+    SOURCES
+        "components/test_nwstack/NwStack2/src/NwCamkes2.c"
+    C_FLAGS
+        -Wall -Werror   
+    LIBS
+        seos_libs
+        seos_nwcore
+)
+]]
 
 #-------------------------------------------------------------------------------
 # Component NwAPP
