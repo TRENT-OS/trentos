@@ -39,7 +39,7 @@ testDigestMD5(SeosCryptoApi* cryptoApi)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
 
-    SeosCrypto_DigestHandle handle;
+    SeosCryptoApi_DigestHandle handle;
 
     err = SeosCryptoApi_digestInit(cryptoApi,
                                    &handle,
@@ -76,7 +76,7 @@ testDigestSHA256(SeosCryptoApi* cryptoApi)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
 
-    SeosCrypto_DigestHandle handle;
+    SeosCryptoApi_DigestHandle handle;
 
     err = SeosCryptoApi_digestInit(cryptoApi,
                                    &handle,
@@ -118,8 +118,8 @@ testCipherAES(SeosCryptoApi* cryptoApi)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
 
-    SeosCrypto_KeyHandle keyHandle;
-    SeosCrypto_CipherHandle handle;
+    SeosCryptoApi_KeyHandle keyHandle;
+    SeosCryptoApi_CipherHandle handle;
 
     char* input = "0123456789ABCDEF";
     char buff[16];
@@ -196,8 +196,8 @@ int run()
 {
     SeosCrypto cryptoCtx;
     SeosCryptoClient client;
-    SeosCryptoApi apiLocal;
-    SeosCryptoApi apiRpc;
+    SeosCryptoApi* apiLocal;
+    SeosCryptoApi* apiRpc;
     SeosCryptoRpc_Handle rpcHandle = NULL;
     seos_err_t err = SEOS_ERROR_GENERIC;
 
@@ -211,23 +211,20 @@ int run()
     err = SeosCrypto_init(&cryptoCtx, malloc, free, NULL, NULL);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
-    err = SeosCryptoApi_initAsLocal(&apiLocal, &cryptoCtx);
-    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
+    apiLocal    = SeosCrypto_TO_SEOS_CRYPTO_API(&cryptoCtx);
+    apiRpc      = SeosCryptoClient_TO_SEOS_CRYPTO_API(&client);
 
-    err = SeosCryptoApi_initAsRpc(&apiRpc, &client);
-    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
+    testRNG(apiLocal);
+    testRNG(apiRpc);
 
-    testRNG(&apiLocal);
-    testRNG(&apiRpc);
+    testDigestMD5(apiLocal);
+    testDigestMD5(apiRpc);
 
-    testDigestMD5(&apiLocal);
-    testDigestMD5(&apiRpc);
+    testDigestSHA256(apiLocal);
+    testDigestSHA256(apiRpc);
 
-    testDigestSHA256(&apiLocal);
-    testDigestSHA256(&apiRpc);
-
-    testCipherAES(&apiLocal);
-    testCipherAES(&apiRpc);
+    testCipherAES(apiLocal);
+    testCipherAES(apiRpc);
 
     testSignatureRSA(&client);
 
