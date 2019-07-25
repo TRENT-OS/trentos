@@ -48,14 +48,15 @@ testDigestMD5(SeosCryptoApi* cryptoApi)
                                    0);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
-    const char* string = "0123456789";
+    const char* data        = "0123456789";
+    const size_t dataLen    = strlen(data);
     char buff[SeosCryptoDigest_SIZE_MD5];
     void*  digest = buff;
     size_t digestSize = sizeof(buff);
     err = SeosCryptoApi_digestFinalize(cryptoApi,
                                        handle,
-                                       string,
-                                       strlen(string),
+                                       data,
+                                       dataLen,
                                        &digest,
                                        &digestSize);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
@@ -85,12 +86,13 @@ testDigestSHA256(SeosCryptoApi* cryptoApi)
                                    0);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
-    const char* string = "0123456789";
+    const char* data = "0123456789";
+    size_t dataLen = strlen(data);
 
     err = SeosCryptoApi_digestUpdate(cryptoApi,
                                      handle,
-                                     string,
-                                     strlen(string));
+                                     data,
+                                     dataLen);
 
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
@@ -121,7 +123,9 @@ testCipherAES(SeosCryptoApi* cryptoApi)
     SeosCryptoApi_KeyHandle keyHandle;
     SeosCryptoApi_CipherHandle handle;
 
-    char* input = "0123456789ABCDEF";
+    const char*  data   = "0123456789ABCDEF";
+    size_t dataLen      = strlen(data);
+
     char buff[16];
     void* output = buff;
     size_t outputSize = sizeof(buff);
@@ -143,12 +147,12 @@ testCipherAES(SeosCryptoApi* cryptoApi)
 
     err = SeosCryptoApi_cipherUpdate(cryptoApi,
                                      handle,
-                                     input,
-                                     strlen(input),
+                                     data,
+                                     dataLen,
                                      &output,
                                      &outputSize);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
-    Debug_ASSERT(outputSize == strlen(input));
+    Debug_ASSERT(outputSize == dataLen);
 
     Debug_PRINTF("Printing AES ciphered data ...");
     for (unsigned j = 0; j < outputSize; j++)
@@ -167,13 +171,14 @@ testCipherAES(SeosCryptoApi* cryptoApi)
                                    NULL, 0);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
-    input   = output;
+    data    = output;
+    dataLen = outputSize;
     output  = NULL;
 
     err = SeosCryptoApi_cipherUpdate(cryptoApi,
                                      handle,
-                                     input,
-                                     outputSize,
+                                     data,
+                                     dataLen,
                                      &output,
                                      &outputSize);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
