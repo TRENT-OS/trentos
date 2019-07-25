@@ -4,7 +4,7 @@ project(tests_proxy_nvm C)
 
 set(SEOS_LIBS ON CACHE BOOL "string" FORCE)
 set(SPIFFS ON CACHE BOOL "string" FORCE)
-set(SEOS_CRYPTO_LIB ON CACHE BOOL "string")
+set(SEOS_CRYPTO ON CACHE BOOL "string")
 set(SEOS_CRYPTO_IMPL_MBEDTLS ON CACHE BOOL "string")
 
 set(DEBUG_CONFIG_H_FILE
