@@ -4,15 +4,18 @@
 #include <camkes.h>
 #include <string.h>
 
-#include "seos/SeosCryptoClient.h"
-#include "seos/SeosCryptoDigest.h"
-#include "seos/SeosCryptoCipher.h"
-#include "testSignatureRsa.h"
-#include "SeosCryptoApi.h"
+#include "SeosCryptoClient.h"
+#include "SeosCryptoDigest.h"
+#include "SeosCryptoCipher.h"
+
 #include "LibMem/BitmapAllocator.h"
 
+#include "testSignatureRsa.h"
+
+#include "SeosCryptoApi.h"
+
 static void
-testRNG(SeosCryptoApi* cryptoApi)
+testRNG(SeosCryptoCtx* cryptoApi)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
     char data[16];
@@ -35,11 +38,11 @@ testRNG(SeosCryptoApi* cryptoApi)
 }
 
 static void
-testDigestMD5(SeosCryptoApi* cryptoApi)
+testDigestMD5(SeosCryptoCtx* cryptoApi)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
 
-    SeosCryptoApi_DigestHandle handle;
+    SeosCrypto_DigestHandle handle;
 
     err = SeosCryptoApi_digestInit(cryptoApi,
                                    &handle,
@@ -73,11 +76,11 @@ testDigestMD5(SeosCryptoApi* cryptoApi)
 }
 
 static void
-testDigestSHA256(SeosCryptoApi* cryptoApi)
+testDigestSHA256(SeosCryptoCtx* cryptoApi)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
 
-    SeosCryptoApi_DigestHandle handle;
+    SeosCrypto_DigestHandle handle;
 
     err = SeosCryptoApi_digestInit(cryptoApi,
                                    &handle,
@@ -116,12 +119,12 @@ testDigestSHA256(SeosCryptoApi* cryptoApi)
 }
 
 static void
-testCipherAES(SeosCryptoApi* cryptoApi)
+testCipherAES(SeosCryptoCtx* cryptoApi)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
 
-    SeosCryptoApi_KeyHandle keyHandle;
-    SeosCryptoApi_CipherHandle handle;
+    SeosCrypto_KeyHandle keyHandle;
+    SeosCrypto_CipherHandle handle;
 
     const char*  data   = "0123456789ABCDEF";
     size_t dataLen      = strlen(data);
@@ -201,8 +204,8 @@ int run()
 {
     SeosCrypto cryptoCtx;
     SeosCryptoClient client;
-    SeosCryptoApi* apiLocal;
-    SeosCryptoApi* apiRpc;
+    SeosCryptoCtx* apiLocal;
+    SeosCryptoCtx* apiRpc;
     SeosCryptoRpc_Handle rpcHandle = NULL;
     seos_err_t err = SEOS_ERROR_GENERIC;
 
@@ -216,8 +219,8 @@ int run()
     err = SeosCrypto_init(&cryptoCtx, malloc, free, NULL, NULL);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
-    apiLocal    = SeosCrypto_TO_SEOS_CRYPTO_API(&cryptoCtx);
-    apiRpc      = SeosCryptoClient_TO_SEOS_CRYPTO_API(&client);
+    apiLocal    = SeosCrypto_TO_SEOS_CRYPTO_CTX(&cryptoCtx);
+    apiRpc      = SeosCryptoClient_TO_SEOS_CRYPTO_CTX(&client);
 
     testRNG(apiLocal);
     testRNG(apiRpc);

@@ -2,8 +2,8 @@
  * Copyright (C) 2019, Hensoldt Cyber GmbH
  *
  */
-#include "seos/SeosCryptoClient.h"
-#include "seos/SeosCryptoSignature.h"
+#include "SeosCryptoClient.h"
+#include "SeosCryptoSignature.h"
 
 #include "mbedtls/rsa.h"
 #include "mbedtls/asn1.h"
