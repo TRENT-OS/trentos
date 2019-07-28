@@ -2,7 +2,9 @@ import <std_connector.camkes>;
 
 import "components/test_nwstack/ChanMux/ChanMux.camkes";
 import "components/test_nwstack/NwStack/NwStack.camkes";
+import "components/test_nwstack/NwStack2/NwStack_2.camkes";
 import "components/test_nwstack/NwApp/NwApp.camkes";
+import "components/test_nwstack/NwApp2/NwApp_2.camkes";
 import "components/test_nwstack/Client/Client.camkes";
 import "components/test_nwstack/Timer/Timer.camkes";
 import "components/test_nwstack/Uart/Uart.camkes";
@@ -21,7 +23,21 @@ assembly {
         // Network Stack App
         //----------------------------------------------------------------------
         component  NwApp            nwApp;
-        connection seL4RPCCall      NwApp_nwStack       (from nwApp.NwStackIf, to nwStack.NwStackIf);
+       connection seL4RPCCall      NwApp_nwStack       (from nwApp.NwStackIf, to nwStack.NwStackIf);
+
+
+        //----------------------------------------------------------------------
+        // Network Stack 2
+        //----------------------------------------------------------------------
+        component  NwStack_2        nwStack_2;
+        connection seL4RPCCall      nwStack_chanmux_2     (from nwStack_2.ChanMux, to chanMux.ChanMuxNwStack);
+
+
+        //----------------------------------------------------------------------
+        // Network Stack App 2
+        //----------------------------------------------------------------------
+        component  NwApp_2          nwApp_2;
+        connection seL4RPCCall      NwApp_nwStack_2       (from nwApp_2.NwStackIf, to nwStack_2.NwStackIf);
 
 
         //----------------------------------------------------------------------
@@ -62,6 +78,20 @@ assembly {
         connection seL4Notification       NwStackEventsRxd1        (from nwStack.e_write,                 to nwStack.c_write);
         connection seL4Notification       NwStackEventsRxd2        (from nwStack.e_read,                  to nwStack.c_read);
         connection seL4Notification       NwAppInitDone            (from nwStack.e_initdone,              to nwApp.c_initdone);
+
+
+        // Channel Network Stack 2
+        connection seL4SharedData         NwStack_dataConnection_2 (from nwStack_2.chanMuxDataPort_2,     to chanMux.nwStackDataPort_2);
+        connection seL4SharedData         NwStack_ctrlConnection_2 (from nwStack_2.chanMuxCtrlDataPort_2, to chanMux.nwStackCtrlDataPort_2);
+        connection seL4SharedData         NwApp_dataConnection_2   (from nwApp_2.NwAppDataPort_2,         to nwStack_2.NwAppDataPort_2);
+        connection seL4NotificationNative NwStackdataAvail1_2      (from chanMux.e_read_nwstacktick_2,    to nwStack_2.c_nwstacktick_2);
+        connection seL4NotificationNative NwStackdataAvail2_2      (from nwStack_2.e_write_nwstacktick_2, to nwStack_2.c_nwstacktick_2);
+        connection seL4NotificationNative NwStackdataAvail3_2      (from client.e_timeout_nwstacktick_2,  to nwStack_2.c_nwstacktick_2);
+        connection seL4Notification       NwStackEventsRxd1_2      (from nwStack_2.e_write_2,             to nwStack_2.c_write_2);
+        connection seL4Notification       NwStackEventsRxd2_2      (from nwStack_2.e_read_2,              to nwStack_2.c_read_2);
+        connection seL4Notification       NwStackEventsRxd3_2      (from nwStack_2.e_conn_2,              to nwStack_2.c_conn_2);
+        connection seL4Notification       NwAppInitDone_2          (from nwStack_2.e_initdone_2,          to nwApp_2.c_initdone_2);
+
         
         
         //----------------------------------------------------------------------

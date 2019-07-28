@@ -19,9 +19,9 @@ static uint8_t wanCtrFifoBuf[128];
 
 static uint8_t nwFifoBuf[PAGE_SIZE];
 static uint8_t nwCtrFifoBuf[128];
-/*
+
 static uint8_t nwFifoBuf_2[PAGE_SIZE];
-static uint8_t nwCtrFifoBuf_2[128]; */
+static uint8_t nwCtrFifoBuf_2[128];
 
 static const ChanMuxConfig_t cfgChanMux = {
     .numChannels = CHANMUX_NUM_CHANNELS,
@@ -62,19 +62,14 @@ static const ChanMuxConfig_t cfgChanMux = {
         },
 
         {   //channel 7
-          //  .buffer = nwCtrFifoBuf_2,
-          //  .len = sizeof(nwCtrFifoBuf_2)
-            .buffer = NULL,
-            .len = 0,
+            .buffer = nwCtrFifoBuf_2,
+            .len = sizeof(nwCtrFifoBuf_2)
 
         },
 
         {   //channel 8
-          //  .buffer = nwFifoBuf_2,
-          //  .len = sizeof(nwFifoBuf_2)
-            .buffer = NULL,
-            .len = 0,
-
+            .buffer = nwFifoBuf_2,
+            .len = sizeof(nwFifoBuf_2)
         }
 
     }
@@ -118,14 +113,12 @@ const ChannelDataport_t dataports[] = {
     },
 
     {
-       // .io  = (void**) &nwStackCtrlDataPort_2,
-        .io  = NULL,
+        .io  = (void**) &nwStackCtrlDataPort_2,
         .len = PAGE_SIZE
     },
 
     {
-       // .io  = (void**) &nwStackDataPort_2,
-        .io  = NULL,
+        .io  = (void**) &nwStackDataPort_2,
         .len = PAGE_SIZE
     }
 
@@ -176,7 +169,7 @@ ChanMux_dataAvailable_emit(
             //---------------------------------
         case CHANNEL_NW_STACK_DATA_2:
         case CHANNEL_NW_STACK_CTRL_2:
-       //     e_read_nwstacktick_2_emit();
+            e_read_nwstacktick_2_emit();
             break;
 
 

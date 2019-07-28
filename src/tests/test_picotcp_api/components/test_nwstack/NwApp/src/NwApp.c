@@ -3,6 +3,9 @@
 #include <string.h>
 #include "LibDebug/Debug.h"
 #include "seos_socket.h"
+//#include "SeosNwStack.h"
+
+
 
 #define HTTP_PORT 80
 
@@ -10,13 +13,12 @@ int run()
 {
 
     Debug_LOG_INFO("Waiting in Nw App....\n");
-    c_initdone_wait();
+    c_initdone_wait();                    // wait until Nw stack is initialized
     Debug_LOG_INFO("Starting Nw App...\n");
 
     char buffer[4096];
     int w_size=0;
 
-   // char pszRequest[100]={0};
 
 
     int socket= NwStackIf_socket(AF_INET,SOCK_STREAM);  // SOCK_DGRAM
@@ -33,13 +35,9 @@ int run()
         Debug_LOG_INFO("NwApp socket connect failure. %s\n",__FUNCTION__);
         Debug_ASSERT(0);
     }
-    //char HostAddress[]="93.184.216.34";
-    //sprintf(pszRequest, "GET / HTTP/1.0\r\nHost: %s\r\nConnection: close\r\n\r\n",HostAddress);
-
     const char * request = "GET / HTTP/1.0\r\nHost: example.com\r\nConnection: close\r\n\r\n";
 
     memcpy(NwAppDataPort, request, strlen(request));
-
 
     while(w_size < strlen(request))
     {
@@ -50,7 +48,6 @@ int run()
              Debug_ASSERT(0);
          }
     }
-
 
 
     Debug_LOG_INFO("NwApp socket read start. %s\n",__FUNCTION__);

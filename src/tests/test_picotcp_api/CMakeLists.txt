@@ -27,6 +27,7 @@ set(LOGS_CONFIG_H_FILE
         CACHE STRING "" FORCE
 )
 
+
 # Include cmake helper functions
 include(cmake/helpers.cmake)
 
@@ -64,17 +65,15 @@ DeclareCAmkESComponent(NwStack
 #-------------------------------------------------------------------------------
 # Component NwStack 2
 #-------------------------------------------------------------------------------
-#[[
+
+
 if (ENABLE_LINT)
     set(CMAKE_C_CPPCHECK "cppcheck;--enable=warning;--inline-suppr")
     set(CMAKE_C_CLANG_TIDY "clang-tidy;-checks=*")
 endif()
-set(LOGS_CONFIG_H_FILE
-        "${CMAKE_SOURCE_DIR}/projects/configs/include/Logs_Config.h"
-        CACHE STRING "" FORCE
 
 
-DeclareCAmkESComponent(NwStack2
+DeclareCAmkESComponent(NwStack_2
     INCLUDES
 
     SOURCES
@@ -85,7 +84,8 @@ DeclareCAmkESComponent(NwStack2
         seos_libs
         seos_nwcore
 )
-]]
+
+
 
 #-------------------------------------------------------------------------------
 # Component NwAPP
@@ -99,13 +99,14 @@ DeclareCAmkESComponent(NwApp
         -Wall -Werror
     LIBS
         seos_libs
+        #seos_nwcore
 )
 
 
 #-------------------------------------------------------------------------------
 # Component NwAPP 2
 #-------------------------------------------------------------------------------
-#[[DeclareCAmkESComponent(NwApp_2
+DeclareCAmkESComponent(NwApp_2
     INCLUDES
     
     SOURCES
@@ -114,9 +115,10 @@ DeclareCAmkESComponent(NwApp
         -Wall -Werror
     LIBS
         seos_libs
+        #seos_nwcore
         
 )
-]]
+
 #-------------------------------------------------------------------------------
 # Component ChanMux
 #-------------------------------------------------------------------------------

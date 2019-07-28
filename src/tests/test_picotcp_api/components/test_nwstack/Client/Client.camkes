@@ -10,5 +10,5 @@ component Client {
     uses   timer_inf                hello;
     
     emits  NwStack_DataAvailable    e_timeout_nwstacktick;
-//    emits  NwStack_DataAvailable_2  e_timeout_nwstacktick_2;
+    emits  NwStack_DataAvailable_2  e_timeout_nwstacktick_2;
 }

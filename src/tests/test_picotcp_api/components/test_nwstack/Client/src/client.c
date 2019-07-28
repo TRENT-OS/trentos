@@ -20,7 +20,7 @@ int run(void) {
     {
         hello_sleep(MSECS_TO_SLEEP);
         e_timeout_nwstacktick_emit();
- //       e_timeout_nwstacktick_2_emit();
+        e_timeout_nwstacktick_2_emit();
     }
 
      return 0;

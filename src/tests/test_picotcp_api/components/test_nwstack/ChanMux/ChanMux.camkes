@@ -14,10 +14,10 @@ component ChanMux {
 
     //-------------------------------------------------
     // Network Stack 2 interface
-//    dataport       Buf                      nwStackDataPort_2;
-//    dataport       Buf                      nwStackCtrlDataPort_2;
-//    emits          NwStack_DataAvailable_2  e_read_nwstacktick_2;
-    
+    dataport       Buf                      nwStackDataPort_2;
+    dataport       Buf                      nwStackCtrlDataPort_2;
+    emits          NwStack_DataAvailable_2  e_read_nwstacktick_2; 
+  
 
 
 
