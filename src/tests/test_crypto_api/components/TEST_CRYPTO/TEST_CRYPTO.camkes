@@ -1,11 +1,18 @@
+/**
+ * Copyright (C) 2019, Hensoldt Cyber GmbH
+ */
 import "../../interfaces/Crypto.camkes";
+import "../../interfaces/ChanMuxInf.camkes";
 
 component TEST_CRYPTO {
     control;
 
     dataport    Buf             cryptoClientDataport;
-
     uses        CryptoInf       Crypto;
     uses        CryptoRpcInf    SeosCryptoRpc;
+
+    dataport    Buf                 chanMuxDataPort;
+    uses        ChanMuxInInf        ChanMuxRpc;
+    consumes    DataAvailableEvent  ChanMuxSignal_dataAvailable;
 }
 

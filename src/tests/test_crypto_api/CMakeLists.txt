@@ -13,6 +13,10 @@ set(SEOS_CRYPTO ON
     CACHE BOOL "string")
 set(SEOS_CRYPTO_IMPL_MBEDTLS ON
     CACHE BOOL "string")
+set(SEOS_KEYSTORE ON 
+    CACHE BOOL "string")
+set(SPIFFS ON 
+    CACHE BOOL "string" FORCE)
 
 set(DEBUG_CONFIG_H_FILE
         "${CMAKE_SOURCE_DIR}/projects/configs/include/Debug_Config.h"
@@ -34,11 +38,13 @@ DeclareCAmkESComponent(TEST_CRYPTO INCLUDES
                             SOURCES
                             "components/TEST_CRYPTO/src/test_crypto.c"
                             "components/TEST_CRYPTO/src/testSignatureRsa.c"
+                            "components/TEST_CRYPTO/src/testKeyStore.c"
 )
 set_property(TARGET CAmkESComponent_TEST_CRYPTO
              APPEND PROPERTY COMPONENT_LIBS
              seos_libs
              seos_crypto
+             seos_keystore
 )
 
 # COMPONENT CRYPTO
@@ -61,6 +67,36 @@ set_property(TARGET CAmkESComponent_CRYPTO
              APPEND PROPERTY COMPONENT_LIBS
              seos_libs
              seos_crypto
+)
+
+#-------------------------------------------------------------------------------
+# Component UartDrv
+#-------------------------------------------------------------------------------
+
+DeclareCAmkESComponent(UartDrv
+    SOURCES
+        "components/Uart/src/UartDrv.c"
+        "components/Uart/src/qemu_uart.c"
+    C_FLAGS
+        -Wall -Werror
+)
+
+#-------------------------------------------------------------------------------
+# Component ChanMux
+#-------------------------------------------------------------------------------
+
+DeclareCAmkESComponent(ChanMux
+    INCLUDES
+        "../configs/include"
+    SOURCES
+        "components/ChanMux/src/instance/ChanMux_Instance.c"
+    C_FLAGS
+        -Wall -Werror
+        -DSEOS_SOCKET_CONFIG_H_FILE=${SEOS_SOCKET_CONFIG_H_FILE}
+        -DMEMORY_CONFIG_H_FILE=${MEMORY_CONFIG_H_FILE}
+        -DDEBUG_CONFIG_H_FILE=${DEBUG_CONFIG_H_FILE}
+    LIBS
+        seos_libs
 )
 
 #ROOT SERVER

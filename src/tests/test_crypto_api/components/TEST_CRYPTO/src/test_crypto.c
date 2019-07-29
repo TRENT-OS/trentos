@@ -11,8 +11,13 @@
 #include "LibMem/BitmapAllocator.h"
 
 #include "testSignatureRsa.h"
+#include "testKeyStore.h"
 
 #include "SeosCryptoApi.h"
+
+/* Defines -------------------------------------------------------------------*/
+#define NVM_CHANNEL_NUMBER      (6)
+#define KEY_STORE_INSTANCE_NAME "KeyStore1"
 
 static void
 testRNG(SeosCryptoCtx* cryptoCtx)
@@ -235,6 +240,34 @@ int run()
     testCipherAES(apiRpc);
 
     testSignatureRSA(&client);
+
+    /***************************** KeyStore test *******************************/
+    KeyStoreContext keyStoreCtx;
+    SeosKeyStore keyStore;
+
+    if (!keyStoreContext_ctor(&keyStoreCtx, NVM_CHANNEL_NUMBER,
+                              (void*)chanMuxDataPort))
+    {
+        Debug_LOG_ERROR("%s: Failed to initialize the test!", __func__);
+        return 0;
+    }
+
+    err = SeosKeyStore_init(&keyStore,
+                            keyStoreCtx.fileStreamFactory,
+                            &(keyStoreCtx.cryptoCore),
+                            KEY_STORE_INSTANCE_NAME);
+
+    if (err != SEOS_SUCCESS)
+    {
+        Debug_LOG_ERROR("%s: SeosKeyStore_init failed with error code %d!", __func__,
+                        err);
+        return false;
+    }
+
+    testKeyStoreLocally(keyStore);
+
+    SeosKeyStore_deInit(&(keyStore.parent));
+    keyStoreContext_dtor(&keyStoreCtx);
 
     return 0;
 }
