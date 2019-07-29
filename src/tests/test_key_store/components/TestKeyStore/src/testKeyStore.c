@@ -8,6 +8,7 @@
 #include "SeosSpiffs.h"
 #include "SpiffsFileStream.h"
 #include "SpiffsFileStreamFactory.h"
+#include "SeosKeyStore.h"
 #include "SeosKeyStoreApi.h"
 #include "camkes.h"
 
@@ -37,7 +38,6 @@ typedef struct KeyStoreContext
     FileStreamFactory* fileStreamFactory;
     SeosCrypto cryptoCore;
     SeosKeyStore keyStore;
-    SeosKeyStoreApi keyStoreApi;
 } KeyStoreContext;
 
 /* Private functions prototypes ----------------------------------------------*/
@@ -67,7 +67,7 @@ int run()
     SeosCryptoKey* generatedKey;
 
     // import the created key
-    seos_err_t err = SeosKeyStoreApi_importKey(&(keyStoreCtx_1.keyStoreApi),
+    seos_err_t err = SeosKeyStoreApi_importKey(&(SeosKeyStore_TO_SEOS_KEY_STORE_API(keyStoreCtx_1.keyStore)),
                                                &masterKey,
                                                MASTER_KEY_NAME,
                                                MASTER_KEY_BYTES,
@@ -83,7 +83,7 @@ int run()
     Debug_LOG_DEBUG("\n\nThe master key is succesfully imported!\n");
 
     // read the master key
-    err = testKeyDataRetreival(&(keyStoreCtx_1.keyStoreApi),
+    err = testKeyDataRetreival(&(SeosKeyStore_TO_SEOS_KEY_STORE_API(keyStoreCtx_1.keyStore)),
                                MASTER_KEY_NAME,
                                MASTER_KEY_SIZE,
                                MASTER_KEY_BYTES);
@@ -96,7 +96,7 @@ int run()
     Debug_LOG_DEBUG("\n\nThe master key data is succesfully read!\n");
 
     // delete the master key
-    err = SeosKeyStoreApi_deleteKey(&(keyStoreCtx_1.keyStoreApi), masterKey,
+    err = SeosKeyStoreApi_deleteKey(&(SeosKeyStore_TO_SEOS_KEY_STORE_API(keyStoreCtx_1.keyStore)), masterKey,
                                     MASTER_KEY_NAME);
     if (err != SEOS_SUCCESS)
     {
@@ -106,7 +106,7 @@ int run()
     }
 
     // check if the key is actaully deleted by verifying that the getKey results in an error
-    err = testKeyDataRetreival(&(keyStoreCtx_1.keyStoreApi),
+    err = testKeyDataRetreival(&(SeosKeyStore_TO_SEOS_KEY_STORE_API(keyStoreCtx_1.keyStore)),
                                MASTER_KEY_NAME,
                                MASTER_KEY_SIZE,
                                MASTER_KEY_BYTES);
@@ -119,7 +119,7 @@ int run()
     Debug_LOG_DEBUG("\n\nThe master key is succesfully deleted!\n");
 
     // generate new key
-    err = SeosKeyStoreApi_generateKey(&(keyStoreCtx_1.keyStoreApi),
+    err = SeosKeyStoreApi_generateKey(&(SeosKeyStore_TO_SEOS_KEY_STORE_API(keyStoreCtx_1.keyStore)),
                                       &generatedKey,
                                       GENERATED_KEY_NAME,
                                       SeosCryptoCipher_Algorithm_AES_CBC_ENC,
@@ -133,7 +133,7 @@ int run()
     }
 
     // read the generated key
-    err = testKeyDataRetreival(&(keyStoreCtx_1.keyStoreApi),
+    err = testKeyDataRetreival(&(SeosKeyStore_TO_SEOS_KEY_STORE_API(keyStoreCtx_1.keyStore)),
                                GENERATED_KEY_NAME,
                                GENERATED_KEY_SIZE,
                                generatedKey->bytes);
@@ -209,22 +209,14 @@ bool KeyStoreContext_ctor(KeyStoreContext* keyStoreCtx, uint8_t channelNum,
         return false;
     }
 
-    if (!SeosKeyStore_ctor(&(keyStoreCtx->keyStore),
+    ret = SeosKeyStore_init(&(keyStoreCtx->keyStore),
                            keyStoreCtx->fileStreamFactory,
                            &(keyStoreCtx->cryptoCore),
-                           KEY_STORE_INSTANCE_NAME))
-    {
-        Debug_LOG_ERROR("%s: SeosKeyStore_ctor failed with error code %d!", __func__,
-                        ret);
-        return false;
-    }
+                           KEY_STORE_INSTANCE_NAME);
 
-    ret = SeosKeyStoreApi_initAsLocal(&(keyStoreCtx->keyStoreApi),
-                                      &(keyStoreCtx->keyStore));
     if (ret != SEOS_SUCCESS)
     {
-        Debug_LOG_ERROR("%s: SeosKeyStoreApi_initAsLocal failed with error code %d!",
-                        __func__,
+        Debug_LOG_ERROR("%s: SeosKeyStore_init failed with error code %d!", __func__,
                         ret);
         return false;
     }
@@ -239,9 +231,8 @@ void KeyStoreContext_dtor(KeyStoreContext* keyStoreCtx)
     AesNvm_dtor(AesNvm_TO_NVM(&(keyStoreCtx->aesNvm)));
     SeosSpiffs_dtor(&(keyStoreCtx->fs));
     FileStreamFactory_dtor(keyStoreCtx->fileStreamFactory);
-    SeosKeyStore_dtor(&(keyStoreCtx->keyStore));
-    SeosCrypto_deInit(&(keyStoreCtx->cryptoCore));
-    SeosKeyStoreApi_deInit(&(keyStoreCtx->keyStoreApi));
+    SeosKeyStore_deInit(&(keyStoreCtx->keyStore.parent));
+    SeosCrypto_deInit(&(keyStoreCtx->cryptoCore.parent));
 }
 
 seos_err_t testKeyDataRetreival(SeosKeyStoreApi* keyStoreApi,
