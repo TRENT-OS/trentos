@@ -15,14 +15,14 @@
 #include "SeosCryptoApi.h"
 
 static void
-testRNG(SeosCryptoCtx* cryptoApi)
+testRNG(SeosCryptoCtx* cryptoCtx)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
     char data[16];
 
     for (int i = 0; i < 3; i++)
     {
-        err = SeosCryptoApi_getRandomData(cryptoApi,
+        err = SeosCryptoApi_getRandomData(cryptoCtx,
                                           0, // flags
                                           i > 0 ? data : NULL, sizeof(data), // salt buffer
                                           data, sizeof(data));
@@ -38,13 +38,13 @@ testRNG(SeosCryptoCtx* cryptoApi)
 }
 
 static void
-testDigestMD5(SeosCryptoCtx* cryptoApi)
+testDigestMD5(SeosCryptoCtx* cryptoCtx)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
 
     SeosCrypto_DigestHandle handle;
 
-    err = SeosCryptoApi_digestInit(cryptoApi,
+    err = SeosCryptoApi_digestInit(cryptoCtx,
                                    &handle,
                                    SeosCryptoDigest_Algorithm_MD5,
                                    NULL,
@@ -56,7 +56,7 @@ testDigestMD5(SeosCryptoCtx* cryptoApi)
     char buff[SeosCryptoDigest_SIZE_MD5];
     void*  digest = buff;
     size_t digestSize = sizeof(buff);
-    err = SeosCryptoApi_digestFinalize(cryptoApi,
+    err = SeosCryptoApi_digestFinalize(cryptoCtx,
                                        handle,
                                        data,
                                        dataLen,
@@ -71,18 +71,18 @@ testDigestMD5(SeosCryptoCtx* cryptoApi)
     }
     Debug_PRINTF("\n");
 
-    err = SeosCryptoApi_digestClose(cryptoApi, handle);
+    err = SeosCryptoApi_digestClose(cryptoCtx, handle);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 }
 
 static void
-testDigestSHA256(SeosCryptoCtx* cryptoApi)
+testDigestSHA256(SeosCryptoCtx* cryptoCtx)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
 
     SeosCrypto_DigestHandle handle;
 
-    err = SeosCryptoApi_digestInit(cryptoApi,
+    err = SeosCryptoApi_digestInit(cryptoCtx,
                                    &handle,
                                    SeosCryptoDigest_Algorithm_SHA256,
                                    NULL,
@@ -92,7 +92,7 @@ testDigestSHA256(SeosCryptoCtx* cryptoApi)
     const char* data = "0123456789";
     size_t dataLen = strlen(data);
 
-    err = SeosCryptoApi_digestUpdate(cryptoApi,
+    err = SeosCryptoApi_digestUpdate(cryptoCtx,
                                      handle,
                                      data,
                                      dataLen);
@@ -101,7 +101,7 @@ testDigestSHA256(SeosCryptoCtx* cryptoApi)
 
     void*   digest      = NULL;
     size_t  digestSize  = 0;
-    err = SeosCryptoApi_digestFinalize(cryptoApi,
+    err = SeosCryptoApi_digestFinalize(cryptoCtx,
                                        handle,
                                        NULL, 0,
                                        &digest, &digestSize);
@@ -114,12 +114,12 @@ testDigestSHA256(SeosCryptoCtx* cryptoApi)
     }
     Debug_PRINTF("\n");
 
-    err = SeosCryptoApi_digestClose(cryptoApi, handle);
+    err = SeosCryptoApi_digestClose(cryptoCtx, handle);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 }
 
 static void
-testCipherAES(SeosCryptoCtx* cryptoApi)
+testCipherAES(SeosCryptoCtx* cryptoCtx)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
 
@@ -133,7 +133,7 @@ testCipherAES(SeosCryptoCtx* cryptoApi)
     void* output = buff;
     size_t outputSize = sizeof(buff);
 
-    err = SeosCryptoApi_keyImport(cryptoApi,
+    err = SeosCryptoApi_keyImport(cryptoCtx,
                                   &keyHandle,
                                   SeosCryptoCipher_Algorithm_AES_EBC_ENC,
                                   BitMap_MASK_OF_BIT(SeosCryptoKey_Flags_IS_ALGO_CIPHER),
@@ -141,14 +141,14 @@ testCipherAES(SeosCryptoCtx* cryptoApi)
                                   128);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
-    err = SeosCryptoApi_cipherInit(cryptoApi,
+    err = SeosCryptoApi_cipherInit(cryptoCtx,
                                    &handle,
                                    SeosCryptoCipher_Algorithm_AES_EBC_ENC,
                                    keyHandle,
                                    NULL, 0);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
-    err = SeosCryptoApi_cipherUpdate(cryptoApi,
+    err = SeosCryptoApi_cipherUpdate(cryptoCtx,
                                      handle,
                                      data,
                                      dataLen,
@@ -164,10 +164,10 @@ testCipherAES(SeosCryptoCtx* cryptoApi)
     }
     Debug_PRINTF("\n");
 
-    err = SeosCryptoApi_cipherClose(cryptoApi, handle);
+    err = SeosCryptoApi_cipherClose(cryptoCtx, handle);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
-    err = SeosCryptoApi_cipherInit(cryptoApi,
+    err = SeosCryptoApi_cipherInit(cryptoCtx,
                                    &handle,
                                    SeosCryptoCipher_Algorithm_AES_EBC_DEC,
                                    keyHandle,
@@ -178,7 +178,7 @@ testCipherAES(SeosCryptoCtx* cryptoApi)
     dataLen = outputSize;
     output  = NULL;
 
-    err = SeosCryptoApi_cipherUpdate(cryptoApi,
+    err = SeosCryptoApi_cipherUpdate(cryptoCtx,
                                      handle,
                                      data,
                                      dataLen,
@@ -193,10 +193,10 @@ testCipherAES(SeosCryptoCtx* cryptoApi)
     }
     Debug_PRINTF("\n");
 
-    err = SeosCryptoApi_cipherClose(cryptoApi, handle);
+    err = SeosCryptoApi_cipherClose(cryptoCtx, handle);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
-    err = SeosCryptoApi_keyClose(cryptoApi, keyHandle);
+    err = SeosCryptoApi_keyClose(cryptoCtx, keyHandle);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 }
 
