@@ -23,7 +23,7 @@ assembly {
         // Network Stack App
         //----------------------------------------------------------------------
         component  NwApp            nwApp;
-       connection seL4RPCCall      NwApp_nwStack       (from nwApp.NwStackIf, to nwStack.NwStackIf);
+       connection seL4RPCCall      NwApp_nwStack       (from nwApp.seos_nw_if, to nwStack.seos_nw_if);
 
 
         //----------------------------------------------------------------------
@@ -37,7 +37,7 @@ assembly {
         // Network Stack App 2
         //----------------------------------------------------------------------
         component  NwApp_2          nwApp_2;
-        connection seL4RPCCall      NwApp_nwStack_2       (from nwApp_2.NwStackIf, to nwStack_2.NwStackIf);
+        connection seL4RPCCall      NwApp_nwStack_2       (from nwApp_2.seos_nw_if, to nwStack_2.seos_nw_if);
 
 
         //----------------------------------------------------------------------

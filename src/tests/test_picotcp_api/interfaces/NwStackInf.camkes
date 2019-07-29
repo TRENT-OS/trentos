@@ -1,6 +1,6 @@
 /* Apps Interface for NW Stack api */
 procedure NwStackInf {
-    int    socket       (  in int domain, in int type);
+    int    socket       ( in int domain, in int type);
     int    close        ( void );
     int    write        ( in int len );
     int    read         ( in int len );
@@ -8,6 +8,5 @@ procedure NwStackInf {
     int    accept       ( in uint16_t port );
     int    listen       ( in int backlog );
     int    bind         ( in uint16_t port );
-    void   App_init     ( in string p);
    
 };

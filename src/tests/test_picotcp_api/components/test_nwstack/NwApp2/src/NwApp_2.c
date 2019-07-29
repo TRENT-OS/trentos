@@ -1,10 +1,7 @@
-//#include "NwStack_2.h"
 #include <camkes.h>
 #include <string.h>
 #include "LibDebug/Debug.h"
 #include "seos_socket.h"
-//#include "SeosNwStack.h"
-
 
 #define APP2_PORT 88
 
@@ -20,7 +17,7 @@ int run()
    // char pszRequest[100]={0};
 
 
-    int socket= NwStackIf_socket(AF_INET,SOCK_STREAM);  // SOCK_DGRAM;
+    int socket= seos_nw_if_socket(AF_INET,SOCK_STREAM);  // SOCK_DGRAM;
 
     if(socket<0)
     {
@@ -29,22 +26,22 @@ int run()
     }
 
     Debug_LOG_INFO("NwApp 2 socket Accept start. %s, socket=%d\n",__FUNCTION__,socket);
-    uint16_t listen_port = 0;
+    uint16_t listen_port = 5555;
 
-    if(NwStackIf_bind(listen_port) < 0)  // connect google.com , 172.217.22.46)
+    if(seos_nw_if_bind(listen_port) < 0)  // connect google.com , 172.217.22.46)
     {
         Debug_LOG_INFO("NwApp 2 socket bind failure. %s\n",__FUNCTION__);
         Debug_ASSERT(0);
     }
 
-    if(NwStackIf_listen(1) < 0)
+    if(seos_nw_if_listen(1) < 0)
     {
        Debug_LOG_INFO("NwApp 2 socket listen failure. %s\n",__FUNCTION__);
        Debug_ASSERT(0);
     }
 
     uint16_t port = 0;
-    if(NwStackIf_accept(port) < 0)
+    if(seos_nw_if_accept(port) < 0)
     {
        Debug_LOG_INFO("NwApp 2 socket accept failure. %s\n",__FUNCTION__);
        Debug_ASSERT(0);
@@ -56,7 +53,7 @@ int run()
    {
 
        bzero(buffer,4096);
-       n =  NwStackIf_read(4096);
+       n =  seos_nw_if_read(4096);
 
        if(n<0)
        {
@@ -78,7 +75,7 @@ int run()
 
        memcpy(NwAppDataPort_2, buffer,n);
 
-       if(NwStackIf_write(n) <= 0)
+       if(seos_nw_if_write(n) <= 0)
        {
            Debug_LOG_INFO("App-2 error write back echo data %d\n",(int)strlen(buffer));
            break;
@@ -90,9 +87,7 @@ int run()
 
    }
 
-
-
-    if(NwStackIf_close() <0)
+    if(seos_nw_if_close() <0)
     {
        Debug_LOG_INFO("NwApp 2 socket close failure. %s\n",__FUNCTION__);
        Debug_ASSERT(0);

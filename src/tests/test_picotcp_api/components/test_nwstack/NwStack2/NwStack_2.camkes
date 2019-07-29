@@ -12,7 +12,7 @@ component NwStack_2 {
 
     /* Below interface is for applications using the Nw Stack 2  */
 
-    provides   NwStackInf                 NwStackIf;
+    provides   NwStackInf                 seos_nw_if;
     dataport   Buf                        NwAppDataPort_2;
   
     /* List of signal emits and consumed */

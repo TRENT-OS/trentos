@@ -2,7 +2,7 @@ import "../../../interfaces/NwStackInf.camkes";
 
 component NwApp_2 {
   control;  
-  uses       NwStackInf         NwStackIf;
+  uses       NwStackInf         seos_nw_if;
   dataport   Buf                NwAppDataPort_2;
   
   /* Signals e- emit and c - consumes */

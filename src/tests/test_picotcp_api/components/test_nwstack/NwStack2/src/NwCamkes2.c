@@ -4,21 +4,14 @@
  *  Copyright (C) 2019, Hensoldt Cyber GmbH
  *
  */
-#include <camkes.h>
-#include <string.h>
-#include "LibDebug/Debug.h"
-#include "SeosNwStack.h"
-
-
+#include "NwCamkes2.h"
 
 int run()
 {
     Debug_LOG_INFO("starting network stack as Server...\n");
     int ret;
-    int instance=1; /* For server */
 
-
-    nw_camkes_glue nw_inst_1 =
+     nw_camkes_signal_glue  nw_signal_1 =
             {
                .e_write_emit        =  e_write_2_emit,
                .e_read_emit         =  e_read_2_emit,
@@ -31,7 +24,7 @@ int run()
                .c_nwstacktick_wait  =  c_nwstacktick_2_wait,
             };
 
-    nw_chanmux_ports_glue nw_data_1 =
+     nw_ports_glue nw_data_1 =
     {
             .ChanMuxDataPort = chanMuxDataPort_2,
             .ChanMuxCtrlPort = chanMuxCtrlDataPort_2,
@@ -39,10 +32,17 @@ int run()
 
     };
 
+      Seos_nw_camkes_info nw_camkes_1 =
+      {
+          &nw_signal_1,
+          &nw_data_1,
+          SEOS_NWSTACK_AS_SERVER
+      };
+
 
     // should never return as this starts pico_stack_tick().
 
-    ret = Seos_NwStack_init(instance,&nw_inst_1, &nw_data_1);
+    ret = Seos_NwStack_init(&nw_camkes_1);
 
     if(ret<0)  // is possible when proxy does not run with use_tap =1 param. Just print and exit
     {

@@ -8,7 +8,7 @@
 /* generated header for our component */
 #include <camkes.h>
 
-#define MSECS_TO_SLEEP   500
+#define MSECS_TO_SLEEP   200
 
 /* run the control thread */
 int run(void) {
