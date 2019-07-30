@@ -9,9 +9,8 @@
 int run()
 {
 
-    Debug_LOG_INFO("Waiting in Nw App....\n");
-    c_initdone_wait();                    // wait until Nw stack is initialized
-    Debug_LOG_INFO("Starting Nw App...\n");
+    seos_nw_if_init();                    // Nw stack is initialized
+    Debug_LOG_INFO("Starting App as Client...\n");
 
     char buffer[4096];
     int w_size=0;
@@ -52,29 +51,29 @@ int run()
     while(1)
    {
 
-     bzero(buffer,4096);
-     int n = seos_nw_if_read(4096);
+        bzero(buffer,4096);
+        int n = seos_nw_if_read(4096);
 
-     if(n<0)
-     {
-         Debug_LOG_INFO("NwApp socket read failure. %s\n",__FUNCTION__);
-         Debug_ASSERT(0);
-     }
+        if(n<0)
+        {
+            Debug_LOG_INFO("NwApp socket read failure. %s\n",__FUNCTION__);
+            Debug_ASSERT(0);
+        }
 
-     if(n==0)
-     {
-         break;
-     }
+        if(n==0)
+        {
+            break;
+        }
 
-     memcpy(buffer, NwAppDataPort, n);
-     Debug_LOG_INFO("%d\n",(int)strlen(buffer));
-     Debug_LOG_INFO("%s\n",buffer);
+        memcpy(buffer, NwAppDataPort, n);
+        Debug_LOG_INFO("%d\n",(int)strlen(buffer));
+        Debug_LOG_INFO("%s\n",buffer);
    }
 
     if(seos_nw_if_close() <0)
     {
-       Debug_LOG_INFO("NwApp socket close failure. %s\n",__FUNCTION__);
-       Debug_ASSERT(0);
+        Debug_LOG_INFO("NwApp socket close failure. %s\n",__FUNCTION__);
+        Debug_ASSERT(0);
     }
 
     return 0;

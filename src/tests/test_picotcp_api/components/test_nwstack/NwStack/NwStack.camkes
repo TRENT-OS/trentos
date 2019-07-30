@@ -18,7 +18,8 @@ component NwStack {
     /* List of signal emits and consumed */
     /* e - emit and c - consume */
     
-    emits       NwStack_Initdone        e_initdone;   /* consumed by app */
+    emits       NwStack_Initdone        e_initdone;   /* actually consumed by app */
+    consumes    NwStack_Initdone        c_initdone;
 
     emits       NwStack_WrEv            e_write;
     consumes    NwStack_WrEv            c_write;

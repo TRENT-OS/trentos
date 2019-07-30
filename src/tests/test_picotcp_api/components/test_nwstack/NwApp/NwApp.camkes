@@ -4,5 +4,4 @@ component NwApp {
   control;  
   uses      NwStackInf          seos_nw_if;
   dataport  Buf                 NwAppDataPort;
-  consumes  NwStack_Initdone    c_initdone;
 }

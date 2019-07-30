@@ -8,9 +8,8 @@
 int run()
 {
 
-    printf("Waiting in App2 ....\n");
-    c_initdone_2_wait();
-    printf("starting App2...\n");
+    seos_nw_if_init();    // Nw Stack is initialised
+    printf("starting App as Server...\n");
 
     char buffer[4096];
 

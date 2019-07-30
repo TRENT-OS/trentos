@@ -18,7 +18,8 @@ component NwStack_2 {
     /* List of signal emits and consumed */
     /* e - emit and c - consume and 2 - 2nd instance of NwStack  */     
     
-    emits      NwStack_Initdone_2         e_initdone_2;
+    emits      NwStack_Initdone_2         e_initdone_2;      /* Actually consumed by app */
+    consumes   NwStack_Initdone_2         c_initdone_2;
 
     emits      NwStack_WrEv_2             e_write_2;
     consumes   NwStack_WrEv_2             c_write_2; 

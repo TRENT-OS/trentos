@@ -22,6 +22,7 @@ int run()
                .e_write_nwstacktick =  e_write_nwstacktick_emit,
                .c_nwstacktick_wait  =  c_nwstacktick_wait,
                .e_initdone          =  e_initdone_emit,
+               .c_initdone          =  c_initdone_wait
             };
     nw_ports_glue nw_data_0 =
     {

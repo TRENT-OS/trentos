@@ -6,6 +6,4 @@ component NwApp_2 {
   dataport   Buf                NwAppDataPort_2;
   
   /* Signals e- emit and c - consumes */
-  
-  consumes NwStack_Initdone_2   c_initdone_2;
 }

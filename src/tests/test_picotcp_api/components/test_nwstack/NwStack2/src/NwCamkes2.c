@@ -14,14 +14,15 @@ int run()
      nw_camkes_signal_glue  nw_signal_1 =
             {
                .e_write_emit        =  e_write_2_emit,
-               .e_read_emit         =  e_read_2_emit,
-               .e_conn_emit         =  e_conn_2_emit,
-               .e_write_nwstacktick =  e_write_nwstacktick_2_emit,
-               .e_initdone          =  e_initdone_2_emit,
                .c_write_wait        =  c_write_2_wait,
+               .e_read_emit         =  e_read_2_emit,
                .c_read_wait         =  c_read_2_wait,
+               .e_conn_emit         =  e_conn_2_emit,
                .c_conn_wait         =  c_conn_2_wait,
+               .e_write_nwstacktick =  e_write_nwstacktick_2_emit,
                .c_nwstacktick_wait  =  c_nwstacktick_2_wait,
+               .e_initdone          =  e_initdone_2_emit,
+               .c_initdone          =  c_initdone_2_wait
             };
 
      nw_ports_glue nw_data_1 =

@@ -8,5 +8,6 @@ procedure NwStackInf {
     int    accept       ( in uint16_t port );
     int    listen       ( in int backlog );
     int    bind         ( in uint16_t port );
+    void   init         ( void);
    
 };

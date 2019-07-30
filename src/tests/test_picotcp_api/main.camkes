@@ -77,7 +77,7 @@ assembly {
         connection seL4NotificationNative NwStackdataAvail3        (from client.e_timeout_nwstacktick,    to nwStack.c_nwstacktick);
         connection seL4Notification       NwStackEventsRxd1        (from nwStack.e_write,                 to nwStack.c_write);
         connection seL4Notification       NwStackEventsRxd2        (from nwStack.e_read,                  to nwStack.c_read);
-        connection seL4Notification       NwAppInitDone            (from nwStack.e_initdone,              to nwApp.c_initdone);
+        connection seL4Notification       NwAppInitDone            (from nwStack.e_initdone,              to nwStack.c_initdone);
 
 
         // Channel Network Stack 2
@@ -90,7 +90,7 @@ assembly {
         connection seL4Notification       NwStackEventsRxd1_2      (from nwStack_2.e_write_2,             to nwStack_2.c_write_2);
         connection seL4Notification       NwStackEventsRxd2_2      (from nwStack_2.e_read_2,              to nwStack_2.c_read_2);
         connection seL4Notification       NwStackEventsRxd3_2      (from nwStack_2.e_conn_2,              to nwStack_2.c_conn_2);
-        connection seL4Notification       NwAppInitDone_2          (from nwStack_2.e_initdone_2,          to nwApp_2.c_initdone_2);
+        connection seL4Notification       NwAppInitDone_2          (from nwStack_2.e_initdone_2,          to nwStack_2.c_initdone_2);
 
         
         
