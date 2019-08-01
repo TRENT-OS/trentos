@@ -1,13 +1,15 @@
 /* Apps Interface for NW Stack api */
 procedure NwStackInf {
-    int    socket       ( in int domain, in int type);
-    int    close        ( void );
-    int    write        ( in int len );
-    int    read         ( in int len );
-    int    connect      ( in string serverName, in int port );
-    int    accept       ( in uint16_t port );
-    int    listen       ( in int backlog );
-    int    bind         ( in uint16_t port );
-    void   init         ( void);
+ 
+    include <seos_err.h>;
+ seos_err_t    socket       ( in int domain, in int type);
+ seos_err_t    close        ( in int handle );
+ seos_err_t    write        ( in int handle,in int len );
+ seos_err_t    read         ( in int handle,in int len );
+ seos_err_t    connect      ( in int handle, in string serverName, in int port );
+ seos_err_t    accept       ( in int handle,in uint16_t port );
+ seos_err_t    listen       ( in int handle,in int backlog );
+ seos_err_t    bind         ( in int handle,in uint16_t port );
+ void          init         ( void);
    
 };

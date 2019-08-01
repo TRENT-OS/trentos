@@ -1,10 +1,13 @@
 /*
- *  SEOS Netwrok Stack CAmkES wrapper
+ *  SEOS Network Stack CAmkES wrapper
  *
  *  Copyright (C) 2019, Hensoldt Cyber GmbH
  *
  */
-#include "NwCamkes2.h"
+#include <camkes.h>
+#include <string.h>
+#include "LibDebug/Debug.h"
+#include "SeosNwStack.h"
 
 int run()
 {

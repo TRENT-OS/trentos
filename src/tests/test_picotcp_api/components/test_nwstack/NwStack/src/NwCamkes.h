@@ -1,6 +1,9 @@
 #pragma once
+/*
+ *  SEOS Network Stack CAmkES wrapper
+ *
+ *  Copyright (C) 2019, Hensoldt Cyber GmbH
+ *
+ */
 
-#include <camkes.h>
-#include <string.h>
-#include "LibDebug/Debug.h"
-#include "SeosNwStack.h"
+

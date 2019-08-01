@@ -99,7 +99,6 @@ DeclareCAmkESComponent(NwApp
         -Wall -Werror
     LIBS
         seos_libs
-        #seos_nwcore
 )
 
 
@@ -115,7 +114,6 @@ DeclareCAmkESComponent(NwApp_2
         -Wall -Werror
     LIBS
         seos_libs
-        #seos_nwcore
         
 )
 

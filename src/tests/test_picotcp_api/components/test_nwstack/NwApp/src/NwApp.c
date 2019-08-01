@@ -1,3 +1,9 @@
+/*
+ *  SEOS Network Stack CAmkES App as client
+ *
+ *  Copyright (C) 2019, Hensoldt Cyber GmbH
+ *
+ */
 #include <camkes.h>
 #include <string.h>
 #include "LibDebug/Debug.h"
@@ -26,7 +32,7 @@ int run()
     }
     Debug_LOG_INFO("NwApp socket connect start. %s, socket=%d\n",__FUNCTION__,socket);
 
-    if(seos_nw_if_connect("93.184.216.34",HTTP_PORT) < 0)  // connect example.com
+    if(seos_nw_if_connect(socket,"93.184.216.34",HTTP_PORT) < 0)  // connect example.com
     {
         Debug_LOG_INFO("NwApp socket connect failure. %s\n",__FUNCTION__);
         Debug_ASSERT(0);
@@ -37,7 +43,7 @@ int run()
 
     while(w_size < strlen(request))
     {
-         w_size = seos_nw_if_write(strlen(request));
+         w_size = seos_nw_if_write(socket,strlen(request));
          if(w_size <0)
          {
              Debug_LOG_INFO("NwApp socket write failure. %s\n",__FUNCTION__);
@@ -52,7 +58,7 @@ int run()
    {
 
         bzero(buffer,4096);
-        int n = seos_nw_if_read(4096);
+        int n = seos_nw_if_read(socket,4096);
 
         if(n<0)
         {
@@ -70,7 +76,7 @@ int run()
         Debug_LOG_INFO("%s\n",buffer);
    }
 
-    if(seos_nw_if_close() <0)
+    if(seos_nw_if_close(socket) <0)
     {
         Debug_LOG_INFO("NwApp socket close failure. %s\n",__FUNCTION__);
         Debug_ASSERT(0);
