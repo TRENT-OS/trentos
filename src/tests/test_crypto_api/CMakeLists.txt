@@ -9,7 +9,7 @@ set(ENABLE_LINT ON
     CACHE BOOL "string")
 set(SEOS_LIBS ON
     CACHE BOOL "string" FORCE)
-set(SEOS_CRYPTO_COMPONENT ON
+set(SEOS_CRYPTO ON
     CACHE BOOL "string")
 set(SEOS_CRYPTO_IMPL_MBEDTLS ON
     CACHE BOOL "string")
@@ -50,6 +50,7 @@ DeclareCAmkESComponent(CRYPTO INCLUDES
                             include
                             SOURCES
                             "components/CRYPTO/instance/Crypto.c"
+                            "../../libs/seos_crypto/src/SeosCryptoRpc.c"
 )
 set_property(TARGET CAmkESComponent_CRYPTO
 

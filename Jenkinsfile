@@ -1,10 +1,24 @@
 pipeline {
     agent none
+    options {
+        skipDefaultCheckout true
+    }
     stages {
+        stage('workspace_cleanup') {
+            agent any
+            when {
+                   expression { return (env.BRANCH_NAME == 'integration' || env.BRANCH_NAME == 'master')  }
+            }
+            steps {
+                echo '##################################### Workspace Cleanup ####################################'
+                cleanWs()
+            }
+        }
         stage('checkout') {
             agent any
             steps {
-                echo '##################################### Checkout COMPLETED ####################################'
+                echo '######################################### Checkout #########################################'
+                checkout scm
             }
         }
         stage('build_doc') {
