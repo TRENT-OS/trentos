@@ -12,7 +12,7 @@ component NwStack {
 
     /* Below interface is for applications using Nw stack TCP/IP  */
 
-    provides    NwStackInf              seos_nw_if;
+    provides    NwStackInf              seos;
     dataport    Buf                     NwAppDataPort;
     
     /* List of signal emits and consumed */

@@ -2,14 +2,16 @@
 procedure NwStackInf {
  
     include <seos_err.h>;
- seos_err_t    socket       ( in int domain, in int type);
- seos_err_t    close        ( in int handle );
- seos_err_t    write        ( in int handle,in int len );
- seos_err_t    read         ( in int handle,in int len );
- seos_err_t    connect      ( in int handle, in string serverName, in int port );
- seos_err_t    accept       ( in int handle,in uint16_t port );
- seos_err_t    listen       ( in int handle,in int backlog );
- seos_err_t    bind         ( in int handle,in uint16_t port );
- void          init         ( void);
+    include <seos_socket.h>;
+    
+ seos_err_t    socket_create ( in int domain, in int type, inout seos_socket_handle_t pHandle );
+ seos_err_t    socket_close  ( in seos_socket_handle_t handle );
+ int           socket_write  ( in seos_socket_handle_t handle,in int len );
+ int           socket_read   ( in seos_socket_handle_t handle,in int len );
+ seos_err_t    socket_connect( in seos_socket_handle_t handle,in string serverName, in int port );
+ seos_err_t    socket_accept ( in seos_socket_handle_t handle,in uint16_t port );
+ seos_err_t    socket_listen ( in seos_socket_handle_t handle,in int backlog );
+ seos_err_t    socket_bind   ( in seos_socket_handle_t handle,in uint16_t port );
+ void          network_init  ( void);
    
 };

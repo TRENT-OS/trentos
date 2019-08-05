@@ -14,8 +14,8 @@
 
 int run()
 {
-
-    seos_nw_if_init();                    // Nw stack is initialized
+    seos_socket_handle_t socket;
+    seos_network_init();                    // Nw stack is initialized
     Debug_LOG_INFO("Starting App as Client...\n");
 
     char buffer[4096];
@@ -23,16 +23,16 @@ int run()
 
 
 
-    int socket= seos_nw_if_socket(AF_INET,SOCK_STREAM);  // SOCK_DGRAM
+    seos_err_t err = seos_socket_create(AF_INET,SOCK_STREAM, &socket);  // SOCK_DGRAM
 
-    if(socket < 0)
+    if(err < 0)
     {
         Debug_LOG_INFO("NwApp socket creation failure. %s\n",__FUNCTION__);
         Debug_ASSERT(0);
     }
     Debug_LOG_INFO("NwApp socket connect start. %s, socket=%d\n",__FUNCTION__,socket);
 
-    if(seos_nw_if_connect(socket,"93.184.216.34",HTTP_PORT) < 0)  // connect example.com
+    if(seos_socket_connect(socket,"93.184.216.34",HTTP_PORT) < 0)  // connect example.com
     {
         Debug_LOG_INFO("NwApp socket connect failure. %s\n",__FUNCTION__);
         Debug_ASSERT(0);
@@ -43,7 +43,7 @@ int run()
 
     while(w_size < strlen(request))
     {
-         w_size = seos_nw_if_write(socket,strlen(request));
+         w_size = seos_socket_write(socket,strlen(request));
          if(w_size <0)
          {
              Debug_LOG_INFO("NwApp socket write failure. %s\n",__FUNCTION__);
@@ -58,7 +58,7 @@ int run()
    {
 
         bzero(buffer,4096);
-        int n = seos_nw_if_read(socket,4096);
+        int n = seos_socket_read(socket,4096);
 
         if(n<0)
         {
@@ -76,7 +76,7 @@ int run()
         Debug_LOG_INFO("%s\n",buffer);
    }
 
-    if(seos_nw_if_close(socket) <0)
+    if(seos_socket_close(socket) <0)
     {
         Debug_LOG_INFO("NwApp socket close failure. %s\n",__FUNCTION__);
         Debug_ASSERT(0);

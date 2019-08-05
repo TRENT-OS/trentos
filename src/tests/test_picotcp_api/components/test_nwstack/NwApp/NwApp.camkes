@@ -2,6 +2,6 @@ import "../../../interfaces/NwStackInf.camkes";
 
 component NwApp {
   control;  
-  uses      NwStackInf          seos_nw_if;
+  uses      NwStackInf          seos;
   dataport  Buf                 NwAppDataPort;
 }

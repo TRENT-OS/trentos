@@ -13,8 +13,9 @@
 
 int run()
 {
+    seos_socket_handle_t socket;
 
-    seos_nw_if_init();    // Nw Stack is initialised
+    seos_network_init();    // Nw Stack is initialised
     printf("starting App as Server...\n");
 
     char buffer[4096];
@@ -22,9 +23,9 @@ int run()
    // char pszRequest[100]={0};
 
 
-    int socket= seos_nw_if_socket(AF_INET,SOCK_STREAM);  // SOCK_DGRAM;
+    seos_err_t err= seos_socket_create(AF_INET,SOCK_STREAM, &socket);  // SOCK_DGRAM;
 
-    if(socket<0)
+    if(err<0)
     {
         Debug_LOG_INFO("NwApp 2 socket creation failure. %s\n",__FUNCTION__);
         Debug_ASSERT(0);
@@ -33,20 +34,20 @@ int run()
     Debug_LOG_INFO("NwApp 2 socket Accept start. %s, socket=%d\n",__FUNCTION__,socket);
     uint16_t listen_port = 5555;
 
-    if(seos_nw_if_bind(socket,listen_port) < 0)  // connect google.com , 172.217.22.46)
+    if(seos_socket_bind(socket,listen_port) < 0)  // connect google.com , 172.217.22.46)
     {
         Debug_LOG_INFO("NwApp 2 socket bind failure. %s\n",__FUNCTION__);
         Debug_ASSERT(0);
     }
 
-    if(seos_nw_if_listen(socket,1) < 0)
+    if(seos_socket_listen(socket,1) < 0)
     {
        Debug_LOG_INFO("NwApp 2 socket listen failure. %s\n",__FUNCTION__);
        Debug_ASSERT(0);
     }
 
     uint16_t port = 0;
-    if(seos_nw_if_accept(socket,port) < 0)
+    if(seos_socket_accept(socket,port) < 0)
     {
        Debug_LOG_INFO("NwApp 2 socket accept failure. %s\n",__FUNCTION__);
        Debug_ASSERT(0);
@@ -58,7 +59,7 @@ int run()
    {
 
        bzero(buffer,4096);
-       n =  seos_nw_if_read(socket,4096);
+       n =  seos_socket_read(socket,4096);
 
        if(n<0)
        {
@@ -80,7 +81,7 @@ int run()
 
        memcpy(NwAppDataPort_2, buffer,n);
 
-       if(seos_nw_if_write(socket,n) <= 0)
+       if(seos_socket_write(socket,n) <= 0)
        {
            Debug_LOG_INFO("App-2 error write back echo data %d\n",(int)strlen(buffer));
            break;
@@ -92,7 +93,7 @@ int run()
 
    }
 
-    if(seos_nw_if_close(socket) <0)
+    if(seos_socket_close(socket) <0)
     {
        Debug_LOG_INFO("NwApp 2 socket close failure. %s\n",__FUNCTION__);
        Debug_ASSERT(0);
