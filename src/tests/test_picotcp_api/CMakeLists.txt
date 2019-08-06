@@ -54,7 +54,7 @@ DeclareCAmkESComponent(NwStack
     INCLUDES
 
     SOURCES
-        "components/test_nwstack/NwStack/src/NwCamkes.c"
+        "components/test_nwstack/NwStack/instance/Nw.c"
     C_FLAGS
         -Wall -Werror   
     LIBS
@@ -77,7 +77,7 @@ DeclareCAmkESComponent(NwStack_2
     INCLUDES
 
     SOURCES
-        "components/test_nwstack/NwStack2/src/NwCamkes2.c"
+        "components/test_nwstack/NwStack2/instance/Nw2.c"
     C_FLAGS
         -Wall -Werror   
     LIBS
@@ -94,9 +94,11 @@ DeclareCAmkESComponent(NwApp
     INCLUDES
         
     SOURCES
-        "components/test_nwstack/NwApp/src/NwApp.c"
+        "components/test_nwstack/test_NwApp/src/Client_App.c"
+        "components/test_nwstack/test_NwApp/src/seos_nw_api_interface.c"
     C_FLAGS
         -Wall -Werror
+        -DCLIENT_CONFIG=1
     LIBS
         seos_libs
 )
@@ -109,9 +111,11 @@ DeclareCAmkESComponent(NwApp_2
     INCLUDES
     
     SOURCES
-        "components/test_nwstack/NwApp2/src/NwApp_2.c"
+        "components/test_nwstack/test_NwApp2/src/Server_App.c"
+        "components/test_nwstack/test_NwApp2/src/seos_nw_api_interface.c"
     C_FLAGS
         -Wall -Werror
+        -DSERVER_CONFIG=1
     LIBS
         seos_libs
         

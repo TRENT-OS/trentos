@@ -9,7 +9,7 @@ procedure NwStackInf {
  int           socket_write  ( in seos_socket_handle_t handle,in int len );
  int           socket_read   ( in seos_socket_handle_t handle,in int len );
  seos_err_t    socket_connect( in seos_socket_handle_t handle,in string serverName, in int port );
- seos_err_t    socket_accept ( in seos_socket_handle_t handle,in uint16_t port );
+ seos_err_t    socket_accept ( in seos_socket_handle_t handle,inout seos_socket_handle_t pClient, in uint16_t port );
  seos_err_t    socket_listen ( in seos_socket_handle_t handle,in int backlog );
  seos_err_t    socket_bind   ( in seos_socket_handle_t handle,in uint16_t port );
  void          network_init  ( void);

@@ -8,7 +8,7 @@
 #include <string.h>
 #include "LibDebug/Debug.h"
 #include "SeosNwStack.h"
-
+#include "seos_socket.h"
 
 int run()
 {
