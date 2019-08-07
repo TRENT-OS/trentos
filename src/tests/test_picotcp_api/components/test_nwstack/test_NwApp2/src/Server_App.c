@@ -61,14 +61,14 @@ int run()
     }
     Debug_LOG_INFO("Launching Server echo server\n");
 
-    int n ;
+    int n = 4096;
     while(1)
    {
 
        bzero(buffer,4096);
-       n =  Seos_socket_read(client_socket, buffer, 4096);
+       seos_err_t err =  Seos_socket_read(client_socket, buffer, &n);
 
-       if(n<0)
+       if(err<0)
        {
          Debug_LOG_INFO(" Server socket read failure. %s\n",__FUNCTION__);
          Debug_ASSERT(0);
@@ -85,7 +85,7 @@ int run()
        Debug_LOG_INFO("Server write back echo data %d\n",(int)strlen(buffer));
 
 
-       if(Seos_socket_write(client_socket,buffer, n) <= 0)
+       if(Seos_socket_write(client_socket,buffer, &n) < 0)
        {
            Debug_LOG_INFO("App-2 error write back echo data %d\n",(int)strlen(buffer));
            break;

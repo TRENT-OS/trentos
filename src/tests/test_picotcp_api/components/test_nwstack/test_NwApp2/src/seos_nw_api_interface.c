@@ -16,7 +16,7 @@
 typedef struct _app_nw_ports_glue_t
 {
     void *Appdataport;
-}app_ports_glue ;
+ }app_ports_glue ;
 
  app_ports_glue app_port, *pAppPort ;
 
@@ -27,7 +27,8 @@ typedef struct _app_nw_ports_glue_t
  *
  */
 
-seos_err_t Seos_NwAPP_RT(Seos_nw_context ctx)
+seos_err_t
+Seos_NwAPP_RT(Seos_nw_context ctx)
 {
 
     seos_network_init();  // Initialise NW stack.
@@ -49,64 +50,84 @@ seos_err_t Seos_NwAPP_RT(Seos_nw_context ctx)
  *
  */
 
-seos_err_t Seos_socket_create(Seos_nw_context ctx, int domain, int type, seos_socket_handle_t *pHandle )
+seos_err_t
+Seos_socket_create(Seos_nw_context ctx,
+                   int domain,
+                   int type,
+                   seos_socket_handle_t *pHandle )
 {
-
     seos_err_t err = seos_socket_create(domain,type, pHandle);
     return err;
-
 }
 
 
-seos_err_t Seos_socket_close(seos_socket_handle_t handle)
+seos_err_t
+Seos_socket_close(seos_socket_handle_t handle)
 {
     seos_err_t err = seos_socket_close(handle);
     return err;
 }
 
 
-seos_err_t Seos_socket_connect(seos_socket_handle_t handle, const char* name, int port)
+seos_err_t
+Seos_socket_connect(seos_socket_handle_t handle,
+                    const char* name,
+                    int port)
 {
-    seos_err_t err = seos_socket_connect(handle, name, port);
+    seos_err_t err =  seos_socket_connect(handle, name, port);
     return err;
 }
 
 
-int  Seos_socket_write(seos_socket_handle_t handle, void * buf, int len)
+seos_err_t
+Seos_socket_write(seos_socket_handle_t handle,
+                  void * buf,
+                  int* plen)
 {
-    memcpy(pAppPort->Appdataport, buf , len);
-    int written = seos_socket_write(handle,len);
+    memcpy(pAppPort->Appdataport, buf , *plen);
+    seos_err_t err = seos_socket_write(handle,plen);
 
-    return written;
+    return err;
 }
 
 
-seos_err_t  Seos_socket_bind(seos_socket_handle_t handle, uint16_t port)
+seos_err_t
+Seos_socket_bind(seos_socket_handle_t handle,
+                 uint16_t port)
 {
     seos_err_t err = seos_socket_bind(handle, port);
     return err;
 
 }
 
-seos_err_t  Seos_socket_listen(seos_socket_handle_t handle, int backlog)
+seos_err_t
+Seos_socket_listen(seos_socket_handle_t handle,
+                   int backlog)
 {
     seos_err_t err = seos_socket_listen(handle,1);
     return err;
 
 }
 
-seos_err_t  Seos_socket_accept(seos_socket_handle_t handle, seos_socket_handle_t *pClientHandle, uint16_t port)
+seos_err_t
+Seos_socket_accept(seos_socket_handle_t handle,
+                   seos_socket_handle_t *pClientHandle,
+                   uint16_t port)
 {
     seos_err_t err = seos_socket_accept(handle, pClientHandle, port);
     return err;
 
 }
 
-int  Seos_socket_read(seos_socket_handle_t handle, void *buf, int len)
+seos_err_t
+Seos_socket_read(seos_socket_handle_t handle,
+                 void *buf,
+                 int* plen)
 {
-    int read = seos_socket_read(handle,len);
-    memcpy(buf, pAppPort->Appdataport, read);
-    return read;
+    seos_err_t err = seos_socket_read(handle,plen);
+    memcpy(buf, pAppPort->Appdataport, *plen);
+    return err;
+
 }
 
 
@@ -116,4 +137,14 @@ int  Seos_socket_read(seos_socket_handle_t handle, void *buf, int len)
  *
  *  TBD
  */
+
+
+/* App as a server. Unify the API's into single API
+ *
+ * App can call this API directly.
+ *
+ *
+ */
+
+//seos_err_t Seos_socket_as_server()
 

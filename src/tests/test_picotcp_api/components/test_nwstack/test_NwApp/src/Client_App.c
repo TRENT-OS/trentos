@@ -20,6 +20,7 @@ extern seos_err_t Seos_NwAPP_RT(Seos_nw_context ctx);
 
 int run()
 {
+    int len;
     Seos_NwAPP_RT(NULL);   // Must be actullay called by SEOS Runtime
 
     seos_socket_handle_t socket;
@@ -27,8 +28,6 @@ int run()
     Debug_LOG_INFO("Starting App as Client...\n");
 
     char buffer[4096];
-    int w_size=0;
-
 
 
     seos_err_t err = Seos_socket_create(NULL,AF_INET,SOCK_STREAM, &socket);  // SOCK_DGRAM
@@ -49,38 +48,41 @@ int run()
     const char * request = "GET / HTTP/1.0\r\nHost: example.com\r\nConnection: close\r\n\r\n";
 
     memcpy(buffer, request, strlen(request));
+    len = strlen(request);
 
-    while(w_size < strlen(request))
-    {
-         w_size = Seos_socket_write(socket, buffer, strlen(request));
-         if(w_size <0)
+    do {
+         seos_err_t err = Seos_socket_write(socket, buffer, &len);
+         if(err <0)
          {
              Debug_LOG_INFO("Client socket write failure. %s\n",__FUNCTION__);
              Debug_ASSERT(0);
          }
-    }
+       } while(len < strlen(request));
 
 
     Debug_LOG_INFO("Client socket read Webpage start. %s\n",__FUNCTION__);
+
+    len = 4096;
 
     while(1)
    {
 
         bzero(buffer,4096);
-        int n = Seos_socket_read(socket, buffer, 4096);
+        seos_err_t err = Seos_socket_read(socket, buffer, &len);
 
-        if(n<0)
+        if(err<0)
         {
             Debug_LOG_INFO("Client socket read failure. %s\n",__FUNCTION__);
             Debug_ASSERT(0);
         }
 
-        if(n==0)
+        if(len==0)
         {
+            Debug_LOG_INFO(" Client app read completed..\n");
             break;
         }
 
-        Debug_LOG_INFO("%d\n",(int)strlen(buffer));
+        Debug_LOG_INFO("Buffer read length %d\n",(int)strlen(buffer));
         Debug_LOG_INFO("%s\n",buffer);
    }
 
