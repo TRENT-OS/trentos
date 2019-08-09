@@ -12,6 +12,7 @@
 #include "LibDebug/Debug.h"
 #include "seos_socket.h"
 
+#include "seos_nw_api.h"
 
 typedef struct _app_nw_ports_glue_t
 {
@@ -131,6 +132,55 @@ Seos_socket_read(seos_socket_handle_t handle,
 }
 
 
+/* App as a server. Unify the API's into single API
+ *
+ * App can call this API directly.
+ *
+ */
+seos_err_t
+Seos_server_socket_create(Seos_nw_context ctx,
+                          seos_nw_server_struct* pServer)
+{
+    seos_err_t err = seos_socket_create(pServer->domain, pServer->type,
+                                        &(pServer->server_handle));
+
+    if (err < 0)
+    {
+        Debug_LOG_INFO("Error in server socket create.!!");
+        return err;
+    }
+
+    err = seos_socket_bind(pServer->server_handle, pServer->listen_port);
+    if (err < 0)
+    {
+        Debug_LOG_INFO("Error in server socket bind.!!");
+        return err;
+    }
+
+
+    err = seos_socket_listen(pServer->server_handle, pServer->backlog);
+    if (err < 0)
+    {
+        Debug_LOG_INFO("Error in server socket listen.!!");
+        return err;
+    }
+
+
+    uint16_t port = 0;
+    err = seos_socket_accept(pServer->server_handle, &(pServer->client_handle),
+                             port);
+
+    if (err < 0)
+    {
+        Debug_LOG_INFO("Error in server socket accept.!!");
+        return err;
+    }
+
+    return err;
+
+}
+
+
 /* App as client. Unify the API's into single API
  *
  *  App can call this API directly
@@ -138,13 +188,28 @@ Seos_socket_read(seos_socket_handle_t handle,
  *  TBD
  */
 
+seos_err_t
+Seos_client_socket_create(Seos_nw_context ctx,
+                          seos_nw_client_struct* pSocket)
+{
+    seos_err_t err = seos_socket_create(pSocket->domain, pSocket->type,
+                                        &pSocket->handle);
 
-/* App as a server. Unify the API's into single API
- *
- * App can call this API directly.
- *
- *
- */
+    if (err < 0)
+    {
+        Debug_LOG_INFO("Error in  socket create.!!");
+        return err;
+    }
 
-//seos_err_t Seos_socket_as_server()
+    err =  seos_socket_connect(pSocket->handle, pSocket->name, pSocket->port);
+
+    if (err < 0)
+    {
+        Debug_LOG_INFO("Error in  socket connect.!!");
+        return err;
+    }
+
+    return err;
+
+}
 

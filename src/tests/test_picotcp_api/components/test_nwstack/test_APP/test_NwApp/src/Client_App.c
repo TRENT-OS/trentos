@@ -21,33 +21,29 @@ extern seos_err_t Seos_NwAPP_RT(Seos_nw_context ctx);
 int run()
 {
     int len;
-    Seos_NwAPP_RT(NULL);   // Must be actullay called by SEOS Runtime
+    char buffer[4096];
 
-    seos_socket_handle_t socket;
+    seos_nw_client_struct socket =
+    {
+        .domain = AF_INET,
+        .type   = SOCK_STREAM,
+        .name   = "93.184.216.34",
+        .port   = HTTP_PORT
+    };
+
+    Seos_NwAPP_RT(NULL);   // Must be actullay called by SEOS Runtime
 
     Debug_LOG_INFO("Starting App as Client...\n");
 
-    char buffer[4096];
 
-
-    seos_err_t err = Seos_socket_create(NULL, AF_INET, SOCK_STREAM,
-                                        &socket); // SOCK_DGRAM
+    seos_err_t err = Seos_client_socket_create(NULL, &socket);
 
     if (err < 0)
     {
-        Debug_LOG_INFO("Client App socket creation failure. %s\n", __FUNCTION__);
-        Debug_ASSERT(0);
+        Debug_LOG_INFO("Error creating App socket...\n");
     }
 
-    Debug_LOG_INFO("Client socket connect start. %s, socket=%d\n", __FUNCTION__,
-                   socket);
 
-    if (Seos_socket_connect(socket, "93.184.216.34",
-                            HTTP_PORT) < 0) // connect example.com
-    {
-        Debug_LOG_INFO("Client socket connect failure. %s\n", __FUNCTION__);
-        Debug_ASSERT(0);
-    }
     const char* request =
         "GET / HTTP/1.0\r\nHost: example.com\r\nConnection: close\r\n\r\n";
 
@@ -56,7 +52,7 @@ int run()
 
     do
     {
-        seos_err_t err = Seos_socket_write(socket, buffer, &len);
+        seos_err_t err = Seos_socket_write(socket.handle, buffer, &len);
         if (err < 0)
         {
             Debug_LOG_INFO("Client socket write failure. %s\n", __FUNCTION__);
@@ -74,7 +70,7 @@ int run()
     {
 
         bzero(buffer, 4096);
-        seos_err_t err = Seos_socket_read(socket, buffer, &len);
+        seos_err_t err = Seos_socket_read(socket.handle, buffer, &len);
 
         if (err < 0)
         {
@@ -92,7 +88,7 @@ int run()
         Debug_LOG_INFO("%s\n", buffer);
     }
 
-    if (Seos_socket_close(socket) < 0)
+    if (Seos_socket_close(socket.handle) < 0)
     {
         Debug_LOG_INFO("Client socket close failure. %s\n", __FUNCTION__);
         Debug_ASSERT(0);

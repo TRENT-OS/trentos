@@ -13,6 +13,31 @@
  */
 #pragma once
 
+
+typedef struct _Seos_NW_Server_t
+{
+    int domain;                         //  can be AF_INET
+    int type;                           //  can be SOCK_STREAM
+    uint16_t listen_port;               // port to listen to e.g. 5555
+    int backlog;                        // number of connections accepted (currently fixed =1)
+    seos_socket_handle_t server_handle; // socket handle for server
+    seos_socket_handle_t
+    client_handle; // socket handle of incoming connection. This must be used for read/write
+
+} seos_nw_server_struct;
+
+
+typedef struct _Seos_NW_Client_t
+{
+    int domain;                     // can be AF_INET
+    int type;                       // can be SOCK_STREAM
+    const char* name;               // IP addr to connect to
+    uint16_t port;                  // e.g. HTTP port 80
+    seos_socket_handle_t handle;    // socket handle
+
+} seos_nw_client_struct;
+
+
 /**
  * @brief Creates a network socket. The socket gets created and can then be used for read or write data.
  *
@@ -141,4 +166,34 @@ seos_err_t
 Seos_socket_read(seos_socket_handle_t handle,
                  void* buf,
                  int* len);
+
+
+
+/**
+ * @brief Create a socket and connect to it
+
+ * @param Seos_nw_context ctx (required). Passed by App which is the run time context received by APP.
+
+ * @param seos_nw_client_struct. Must be filled by app. Please see the struct for details
+ *
+ * @return  SEOS_SUCCESS or SEOS_ERROR
+ */
+
+seos_err_t
+Seos_client_socket_create(Seos_nw_context ctx,
+                          seos_nw_client_struct* pSocket);
+
+/**
+ * @brief Create a server socket and accept an incoming connection
+
+ * @param Seos_nw_context ctx (required). Passed by App which is the run time context received by APP.
+
+ * @param seos_nw_server_struct. Must be filled by app. Please see the struct for details
+ *
+ * @return  SEOS_SUCCESS or SEOS_ERROR
+ */
+
+seos_err_t
+Seos_server_socket_create(Seos_nw_context ctx,
+                          seos_nw_server_struct* pServer);
 
