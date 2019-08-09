@@ -24,16 +24,16 @@
  *
  * @return Socket handle which is an integer and this handle will be used for all further communications over network.
  *         As of now the handle is for a single App/Thread per stack.
-           
+
    SEOS_ERROR in case if there was an error creating a socket.
  *
  */
 
 seos_err_t
 Seos_socket_create(Seos_nw_context ctx,
-                               int domain,
-                               int type,
-                               seos_socket_handle_t *pHandle );
+                   int domain,
+                   int type,
+                   seos_socket_handle_t* pHandle );
 
 /**
  * @brief Closes a network socket. Once the close is done no further socket communication is possible.
@@ -50,7 +50,7 @@ Seos_socket_close(seos_socket_handle_t handle);
 /**
  * @brief Connect a network socket. Connect to an IP addr and port
  *
- * @param handle. Used to create/open socket 
+ * @param handle. Used to create/open socket
 
  * @param name. Connect to an IP addresss, such as "192.168.82.45"
 
@@ -68,7 +68,7 @@ Seos_socket_connect(seos_socket_handle_t handle,
  * @brief Write to a network socket. Write data to a socket after connecting. Copy the data to be written
  *        in the CamkES App dataport.
  *
- * @param handle. Used to create/open socket 
+ * @param handle. Used to create/open socket
  *
  * @param buf. Buffer containing data to be written
 
@@ -79,13 +79,13 @@ Seos_socket_connect(seos_socket_handle_t handle,
  */
 seos_err_t
 Seos_socket_write(seos_socket_handle_t handle,
-                  void * buf,
+                  void* buf,
                   int* len);
 
 /**
  * @brief Bind to a network port. This is useful when the Network stack is working as Server.
 
- * @param handle. Used to create/open socket 
+ * @param handle. Used to create/open socket
  *
  * @param port. Port to which you want to bind.
  *
@@ -99,13 +99,13 @@ Seos_socket_bind(seos_socket_handle_t handle,
 /**
  * @brief Listen for incoming connections. This is useful when the Network stack is working as Server.
  *
- * @param handle. Used to create/open socket 
+ * @param handle. Used to create/open socket
 
  * @param backlog. Indicates how many incoming connections is possible (for now it is only 1 connection)
  *
  * @return SEOS_SUCCESS or SEOS_ERROR
  */
- 
+
 seos_err_t
 Seos_socket_listen(seos_socket_handle_t handle,
                    int backlog);
@@ -113,7 +113,7 @@ Seos_socket_listen(seos_socket_handle_t handle,
 /**
  * @brief Accept for incoming connections. This is useful when the Network stack is working as Server.
  *
- * @param handle. Used to create/open socket 
+ * @param handle. Used to create/open socket
 
  * @param port. Indicates which port you want to accept from.
  *
@@ -122,7 +122,7 @@ Seos_socket_listen(seos_socket_handle_t handle,
 
 seos_err_t
 Seos_socket_accept(seos_socket_handle_t handle,
-                   seos_socket_handle_t *pClient,
+                   seos_socket_handle_t* pClient,
                    uint16_t port);
 
 /**
@@ -139,6 +139,6 @@ Seos_socket_accept(seos_socket_handle_t handle,
 
 seos_err_t
 Seos_socket_read(seos_socket_handle_t handle,
-                 void * buf,
+                 void* buf,
                  int* len);
 

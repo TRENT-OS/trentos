@@ -27,82 +27,85 @@ int run()
 
     char buffer[4096];
 
-   // char pszRequest[100]={0};
+    // char pszRequest[100]={0};
 
 
-    seos_err_t err= Seos_socket_create(NULL,AF_INET,SOCK_STREAM, &socket);  // SOCK_DGRAM;
+    seos_err_t err = Seos_socket_create(NULL, AF_INET, SOCK_STREAM,
+                                        &socket); // SOCK_DGRAM;
 
-    if(err<0)
+    if (err < 0)
     {
-        Debug_LOG_INFO("Server socket creation failure. %s\n",__FUNCTION__);
+        Debug_LOG_INFO("Server socket creation failure. %s\n", __FUNCTION__);
         Debug_ASSERT(0);
     }
 
-    Debug_LOG_INFO("Seos socket Accept start. %s, socket=%d\n",__FUNCTION__,socket);
+    Debug_LOG_INFO("Seos socket Accept start. %s, socket=%d\n", __FUNCTION__,
+                   socket);
     uint16_t listen_port = 5555;
 
-    if(Seos_socket_bind(socket,listen_port) < 0)  // connect google.com , 172.217.22.46)
+    if (Seos_socket_bind(socket,
+                         listen_port) < 0) // connect google.com , 172.217.22.46)
     {
-        Debug_LOG_INFO("Server socket bind failure. %s\n",__FUNCTION__);
+        Debug_LOG_INFO("Server socket bind failure. %s\n", __FUNCTION__);
         Debug_ASSERT(0);
     }
 
-    if(Seos_socket_listen(socket,1) < 0)
+    if (Seos_socket_listen(socket, 1) < 0)
     {
-       Debug_LOG_INFO("Server socket listen failure. %s\n",__FUNCTION__);
-       Debug_ASSERT(0);
+        Debug_LOG_INFO("Server socket listen failure. %s\n", __FUNCTION__);
+        Debug_ASSERT(0);
     }
 
     uint16_t port = 0;
-    if(Seos_socket_accept(socket,&client_socket, port) < 0)
+    if (Seos_socket_accept(socket, &client_socket, port) < 0)
     {
-       Debug_LOG_INFO("Server socket accept failure. %s\n",__FUNCTION__);
-       Debug_ASSERT(0);
+        Debug_LOG_INFO("Server socket accept failure. %s\n", __FUNCTION__);
+        Debug_ASSERT(0);
     }
     Debug_LOG_INFO("Launching Server echo server\n");
 
     int n = 4096;
-    while(1)
-   {
-
-       bzero(buffer,4096);
-       seos_err_t err =  Seos_socket_read(client_socket, buffer, &n);
-
-       if(err<0)
-       {
-         Debug_LOG_INFO(" Server socket read failure. %s\n",__FUNCTION__);
-         Debug_ASSERT(0);
-       }
-
-       if(n==0)
-       {
-         break;
-       }
-
-       Debug_LOG_INFO("%d\n",(int)strlen(buffer));
-       Debug_LOG_INFO("%s\n",buffer);
-
-       Debug_LOG_INFO("Server write back echo data %d\n",(int)strlen(buffer));
-
-
-       if(Seos_socket_write(client_socket,buffer, &n) < 0)
-       {
-           Debug_LOG_INFO("App-2 error write back echo data %d\n",(int)strlen(buffer));
-           break;
-       }
-       else
-       {
-           break;
-       }
-
-   }
-
-    if(Seos_socket_close(socket) <0)
+    while (1)
     {
-       Debug_LOG_INFO("NwApp 2 socket close failure. %s\n",__FUNCTION__);
-       Debug_ASSERT(0);
+
+        bzero(buffer, 4096);
+        seos_err_t err =  Seos_socket_read(client_socket, buffer, &n);
+
+        if (err < 0)
+        {
+            Debug_LOG_INFO(" Server socket read failure. %s\n", __FUNCTION__);
+            Debug_ASSERT(0);
+        }
+
+        if (n == 0)
+        {
+            break;
+        }
+
+        Debug_LOG_INFO("%d\n", (int)strlen(buffer));
+        Debug_LOG_INFO("%s\n", buffer);
+
+        Debug_LOG_INFO("Server write back echo data %d\n", (int)strlen(buffer));
+
+
+        if (Seos_socket_write(client_socket, buffer, &n) < 0)
+        {
+            Debug_LOG_INFO("App-2 error write back echo data %d\n", (int)strlen(buffer));
+            break;
+        }
+        else
+        {
+            break;
+        }
+
+    }
+
+    if (Seos_socket_close(socket) < 0)
+    {
+        Debug_LOG_INFO("NwApp 2 socket close failure. %s\n", __FUNCTION__);
+        Debug_ASSERT(0);
     }
 
 
-   return 0;
+    return 0;
 }

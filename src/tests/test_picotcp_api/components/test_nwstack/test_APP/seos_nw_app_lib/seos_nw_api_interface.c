@@ -15,10 +15,10 @@
 
 typedef struct _app_nw_ports_glue_t
 {
-    void *Appdataport;
- }app_ports_glue ;
+    void* Appdataport;
+} app_ports_glue ;
 
- app_ports_glue app_port, *pAppPort ;
+app_ports_glue app_port, *pAppPort ;
 
 
 
@@ -39,7 +39,7 @@ Seos_NwAPP_RT(Seos_nw_context ctx)
 #elif defined(SERVER_CONFIG)
     pAppPort->Appdataport = NwAppDataPort_2;
 #else
-    #error "Not configured as Client or Server!!!"
+#error "Not configured as Client or Server!!!"
 #endif
     return SEOS_SUCCESS;
 
@@ -54,9 +54,9 @@ seos_err_t
 Seos_socket_create(Seos_nw_context ctx,
                    int domain,
                    int type,
-                   seos_socket_handle_t *pHandle )
+                   seos_socket_handle_t* pHandle )
 {
-    seos_err_t err = seos_socket_create(domain,type, pHandle);
+    seos_err_t err = seos_socket_create(domain, type, pHandle);
     return err;
 }
 
@@ -81,11 +81,11 @@ Seos_socket_connect(seos_socket_handle_t handle,
 
 seos_err_t
 Seos_socket_write(seos_socket_handle_t handle,
-                  void * buf,
+                  void* buf,
                   int* plen)
 {
-    memcpy(pAppPort->Appdataport, buf , *plen);
-    seos_err_t err = seos_socket_write(handle,plen);
+    memcpy(pAppPort->Appdataport, buf, *plen);
+    seos_err_t err = seos_socket_write(handle, plen);
 
     return err;
 }
@@ -104,14 +104,14 @@ seos_err_t
 Seos_socket_listen(seos_socket_handle_t handle,
                    int backlog)
 {
-    seos_err_t err = seos_socket_listen(handle,1);
+    seos_err_t err = seos_socket_listen(handle, 1);
     return err;
 
 }
 
 seos_err_t
 Seos_socket_accept(seos_socket_handle_t handle,
-                   seos_socket_handle_t *pClientHandle,
+                   seos_socket_handle_t* pClientHandle,
                    uint16_t port)
 {
     seos_err_t err = seos_socket_accept(handle, pClientHandle, port);
@@ -121,10 +121,10 @@ Seos_socket_accept(seos_socket_handle_t handle,
 
 seos_err_t
 Seos_socket_read(seos_socket_handle_t handle,
-                 void *buf,
+                 void* buf,
                  int* plen)
 {
-    seos_err_t err = seos_socket_read(handle,plen);
+    seos_err_t err = seos_socket_read(handle, plen);
     memcpy(buf, pAppPort->Appdataport, *plen);
     return err;
 
