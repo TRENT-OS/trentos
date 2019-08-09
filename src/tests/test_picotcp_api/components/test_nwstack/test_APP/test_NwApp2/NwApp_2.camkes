@@ -1,4 +1,4 @@
-import "../../../interfaces/NwStackInf.camkes";
+import "../../../../interfaces/NwStackInf.camkes";
 
 component NwApp_2 {
   control;  

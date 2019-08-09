@@ -1,10 +1,10 @@
 import <std_connector.camkes>;
 
 import "components/test_nwstack/ChanMux/ChanMux.camkes";
-import "components/test_nwstack/NwStack/NwStack.camkes";
-import "components/test_nwstack/NwStack2/NwStack_2.camkes";
-import "components/test_nwstack/test_NwApp/NwApp.camkes";
-import "components/test_nwstack/test_NwApp2/NwApp_2.camkes";
+import "components/test_nwstack/NwStack/NW1/NwStack.camkes";
+import "components/test_nwstack/NwStack/NW2/NwStack_2.camkes";
+import "components/test_nwstack/test_APP/test_NwApp/NwApp.camkes";
+import "components/test_nwstack/test_APP/test_NwApp2/NwApp_2.camkes";
 import "components/test_nwstack/Client/Client.camkes";
 import "components/test_nwstack/Timer/Timer.camkes";
 import "components/test_nwstack/Uart/Uart.camkes";

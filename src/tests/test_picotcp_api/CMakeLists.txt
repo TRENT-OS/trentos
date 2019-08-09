@@ -54,12 +54,12 @@ DeclareCAmkESComponent(NwStack
     INCLUDES
 
     SOURCES
-        "components/test_nwstack/NwStack/instance/Nw.c"
+        "components/test_nwstack/NwStack/NW1/instance/Nw.c"
     C_FLAGS
         -Wall -Werror   
     LIBS
         seos_libs
-        seos_nwcore
+        seos_nw_lib
 )
 
 #-------------------------------------------------------------------------------
@@ -77,14 +77,13 @@ DeclareCAmkESComponent(NwStack_2
     INCLUDES
 
     SOURCES
-        "components/test_nwstack/NwStack2/instance/Nw2.c"
+        "components/test_nwstack/NwStack/NW2/instance/Nw2.c"
     C_FLAGS
         -Wall -Werror   
     LIBS
         seos_libs
-        seos_nwcore
+        seos_nw_lib
 )
-
 
 
 #-------------------------------------------------------------------------------
@@ -92,33 +91,33 @@ DeclareCAmkESComponent(NwStack_2
 #-------------------------------------------------------------------------------
 DeclareCAmkESComponent(NwApp
     INCLUDES
-        
+        "components/test_nwstack/test_APP/include"
     SOURCES
-        "components/test_nwstack/test_NwApp/src/Client_App.c"
-        "components/test_nwstack/test_NwApp/src/seos_nw_api_interface.c"
+        "components/test_nwstack/test_APP/test_NwApp/src/Client_App.c"
+        "components/test_nwstack/test_APP/seos_nw_app_lib/seos_nw_api_interface.c"
     C_FLAGS
         -Wall -Werror
         -DCLIENT_CONFIG=1
     LIBS
         seos_libs
+        #seos_nw_app_lib
 )
-
 
 #-------------------------------------------------------------------------------
 # Component NwAPP 2
 #-------------------------------------------------------------------------------
 DeclareCAmkESComponent(NwApp_2
     INCLUDES
-    
+        "components/test_nwstack/test_APP/include"
     SOURCES
-        "components/test_nwstack/test_NwApp2/src/Server_App.c"
-        "components/test_nwstack/test_NwApp2/src/seos_nw_api_interface.c"
+        "components/test_nwstack/test_APP/test_NwApp2/src/Server_App.c"
+        "components/test_nwstack/test_APP/seos_nw_app_lib/seos_nw_api_interface.c"
     C_FLAGS
         -Wall -Werror
         -DSERVER_CONFIG=1
     LIBS
         seos_libs
-        
+        #seos_nw_app_lib
 )
 
 #-------------------------------------------------------------------------------

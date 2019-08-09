@@ -1,6 +1,6 @@
 
-import "../../../interfaces/ChanMuxInf.camkes";
-import "../../../interfaces/NwStackInf.camkes";
+import "../../../../interfaces/ChanMuxInf.camkes";
+import "../../../../interfaces/NwStackInf.camkes";
 
 component NwStack {
     control;
