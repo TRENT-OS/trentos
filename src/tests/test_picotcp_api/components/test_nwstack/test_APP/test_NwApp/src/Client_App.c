@@ -23,7 +23,7 @@ int run()
     int len;
     char buffer[4096];
 
-    seos_nw_client_struct socket =
+    seos_nw_client_struct cli_socket =
     {
         .domain = AF_INET,
         .type   = SOCK_STREAM,
@@ -31,12 +31,14 @@ int run()
         .port   = HTTP_PORT
     };
 
+    seos_socket_handle_t handle;
+
     Seos_NwAPP_RT(NULL);   // Must be actullay called by SEOS Runtime
 
     Debug_LOG_INFO("Starting App as Client...\n");
 
 
-    seos_err_t err = Seos_client_socket_create(NULL, &socket);
+    seos_err_t err = Seos_client_socket_create(NULL, &cli_socket, &handle);
 
     if (err < 0)
     {
@@ -52,7 +54,7 @@ int run()
 
     do
     {
-        seos_err_t err = Seos_socket_write(socket.handle, buffer, &len);
+        seos_err_t err = Seos_socket_write(handle, buffer, &len);
         if (err < 0)
         {
             Debug_LOG_INFO("Client socket write failure. %s\n", __FUNCTION__);
@@ -70,7 +72,7 @@ int run()
     {
 
         bzero(buffer, 4096);
-        seos_err_t err = Seos_socket_read(socket.handle, buffer, &len);
+        seos_err_t err = Seos_socket_read(handle, buffer, &len);
 
         if (err < 0)
         {
@@ -88,7 +90,7 @@ int run()
         Debug_LOG_INFO("%s\n", buffer);
     }
 
-    if (Seos_socket_close(socket.handle) < 0)
+    if (Seos_socket_close(handle) < 0)
     {
         Debug_LOG_INFO("Client socket close failure. %s\n", __FUNCTION__);
         Debug_ASSERT(0);

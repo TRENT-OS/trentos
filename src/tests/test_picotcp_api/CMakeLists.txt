@@ -94,13 +94,12 @@ DeclareCAmkESComponent(NwApp
         "components/test_nwstack/test_APP/include"
     SOURCES
         "components/test_nwstack/test_APP/test_NwApp/src/Client_App.c"
-        "components/test_nwstack/test_APP/seos_nw_app_lib/seos_nw_api_interface.c"
+        "components/test_nwstack/test_APP/network-client-lib/seos_nw_api_interface.c"
     C_FLAGS
         -Wall -Werror
         -DCLIENT_CONFIG=1
     LIBS
         seos_libs
-        #seos_nw_app_lib
 )
 
 #-------------------------------------------------------------------------------
@@ -111,13 +110,12 @@ DeclareCAmkESComponent(NwApp_2
         "components/test_nwstack/test_APP/include"
     SOURCES
         "components/test_nwstack/test_APP/test_NwApp2/src/Server_App.c"
-        "components/test_nwstack/test_APP/seos_nw_app_lib/seos_nw_api_interface.c"
+        "components/test_nwstack/test_APP/network-client-lib/seos_nw_api_interface.c"
     C_FLAGS
         -Wall -Werror
         -DSERVER_CONFIG=1
     LIBS
         seos_libs
-        #seos_nw_app_lib
 )
 
 #-------------------------------------------------------------------------------
