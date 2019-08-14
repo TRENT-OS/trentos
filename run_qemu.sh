@@ -7,7 +7,7 @@ QEMU_PARAMS=(
     -machine xilinx-zynq-a9
     -m size=512M
     -nographic
-    -S
+    -S   # freeze on startup to allow proxy to connect to PTY
     -s
     -serial pty
     -serial mon:stdio
