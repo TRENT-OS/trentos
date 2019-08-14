@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 TEST_NAME=${1:-}
 if [ -z ${TEST_NAME} ]; then
