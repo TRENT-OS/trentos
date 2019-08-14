@@ -42,7 +42,7 @@ int run()
 
     if (err < 0)
     {
-        Debug_LOG_INFO("Error creating App socket...\n");
+        Debug_LOG_INFO("Error creating App socket...error:%d\n",err);
     }
 
 
@@ -57,7 +57,7 @@ int run()
         seos_err_t err = Seos_socket_write(handle, buffer, &len);
         if (err < 0)
         {
-            Debug_LOG_INFO("Client socket write failure. %s\n", __FUNCTION__);
+            Debug_LOG_INFO("Client socket write failure. %s, error:%d\n", __FUNCTION__,err);
             Debug_ASSERT(0);
         }
     }
@@ -71,12 +71,12 @@ int run()
     while (1)
     {
 
-        bzero(buffer, 4096);
+        memset(buffer, 0, 4096);
         seos_err_t err = Seos_socket_read(handle, buffer, &len);
 
         if (err < 0)
         {
-            Debug_LOG_INFO("Client socket read failure. %s\n", __FUNCTION__);
+            Debug_LOG_INFO("Client socket read failure. %s, error:%d\n", __FUNCTION__,err);
             Debug_ASSERT(0);
         }
 
@@ -86,13 +86,14 @@ int run()
             break;
         }
 
-        Debug_LOG_INFO("Buffer read length %d\n", (int)strlen(buffer));
+        Debug_LOG_INFO("Buffer read length %d\n", len);
         Debug_LOG_INFO("%s\n", buffer);
     }
 
-    if (Seos_socket_close(handle) < 0)
+    err = Seos_socket_close(handle); 
+    if ( err < 0)
     {
-        Debug_LOG_INFO("Client socket close failure. %s\n", __FUNCTION__);
+        Debug_LOG_INFO("Client socket close failure. %s, error :%d\n", __FUNCTION__,err);
         Debug_ASSERT(0);
     }
 

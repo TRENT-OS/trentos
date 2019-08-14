@@ -44,7 +44,7 @@ int run()
 
     if (err < 0)
     {
-        Debug_LOG_INFO("Error creating Server socket. Exiting !!!\n");
+        Debug_LOG_INFO("Error creating Server socket. Exiting error:%d !!!\n",err);
         return -1;
     }
 
@@ -54,7 +54,7 @@ int run()
     err = Seos_socket_accept(seos_nw_server_handle, &seos_socket_handle);
     if (err < 0)
     {
-        Debug_LOG_INFO("Error accepting incoming socket connection. Exiting !!!\n");
+        Debug_LOG_INFO("Error accepting incoming socket connection. Exiting, error : %d !!!\n",err);
         return -1;
     }
 
@@ -62,12 +62,12 @@ int run()
     while (1)
     {
 
-        bzero(buffer, 4096);
+        memset(buffer,0,4096);
         err =  Seos_socket_read(seos_socket_handle, buffer, &n);
 
         if (err < 0)
         {
-            Debug_LOG_INFO(" Server socket read failure. %s\n", __FUNCTION__);
+            Debug_LOG_INFO(" Server socket read failure. %s, error: %d \n", __FUNCTION__,err);
             Debug_ASSERT(0);
         }
 
@@ -76,37 +76,37 @@ int run()
             break;
         }
 
-        Debug_LOG_INFO("%d\n", (int)strlen(buffer));
+        Debug_LOG_INFO("buffer read len = %d\n", n);
         Debug_LOG_INFO("%s\n", buffer);
 
-        Debug_LOG_INFO("Server write back echo data %d\n", (int)strlen(buffer));
+        Debug_LOG_INFO("Server write back echo data %d\n", n);
 
 
-        if (Seos_socket_write(seos_socket_handle, buffer, &n) < 0)
+        err = Seos_socket_write(seos_socket_handle, buffer, &n);
+        
+        if(err < 0)
         {
-            Debug_LOG_INFO("App-2 error write back echo data %d\n", (int)strlen(buffer));
-            break;
+            Debug_LOG_INFO("App-2 error write back echo data %d, error code:%d\n", n,err);
+            
         }
-        else
-        {
-            break;
-        }
-
+         break;
     }
 
 
-    if (Seos_socket_close(seos_socket_handle) < 0)
+    err = Seos_socket_close(seos_socket_handle);
+    if(err < 0)
     {
-        Debug_LOG_INFO("NwApp 2 socket client handle close failure. %s\n",
-                       __FUNCTION__);
+        Debug_LOG_INFO("NwApp 2 socket client handle close failure. %s error code:%d\n",
+                       __FUNCTION__,err);
         Debug_ASSERT(0);
     }
 
 
-    if (Seos_server_socket_close(seos_nw_server_handle) < 0)
+    err = Seos_server_socket_close(seos_nw_server_handle);
+    if(err < 0)
     {
-        Debug_LOG_INFO("NwApp 2 socket server handle close failure. %s\n",
-                       __FUNCTION__);
+        Debug_LOG_INFO("NwApp 2 socket server handle close failure. %s, error code: %d\n",
+                       __FUNCTION__,err);
         Debug_ASSERT(0);
     }
 

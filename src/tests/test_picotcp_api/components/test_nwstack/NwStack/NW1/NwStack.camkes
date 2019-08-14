@@ -1,3 +1,9 @@
+/*
+ *  SEOS Network Stack CAmkES instance 1
+ *
+ *  Copyright (C) 2019, Hensoldt Cyber GmbH
+ *
+ */
 
 import "../../../../interfaces/ChanMuxInf.camkes";
 import "../../../../interfaces/NwStackInf.camkes";

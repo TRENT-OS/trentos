@@ -1,11 +1,12 @@
-/* @TAG(DATA61_BSD) */
 /*
- * CAmkES tutorial part 1: components with RPC. Client part.
+ *  SEOS Network Stack CAmkES App for timer client
+ *
+ *  Copyright (C) 2019, Hensoldt Cyber GmbH
+ *
  */
 
 #include <stdio.h>
 
-/* generated header for our component */
 #include <camkes.h>
 
 #define MSECS_TO_SLEEP   500
@@ -16,9 +17,9 @@ int run(void) {
     printf("------Sleep for %d mseconds------\n", MSECS_TO_SLEEP);
 
     while(1)
-    /* invoke the RPC function */
+
     {
-        hello_sleep(MSECS_TO_SLEEP);
+        toutinf_sleep(MSECS_TO_SLEEP);
         e_timeout_nwstacktick_emit();
         e_timeout_nwstacktick_2_emit();
     }

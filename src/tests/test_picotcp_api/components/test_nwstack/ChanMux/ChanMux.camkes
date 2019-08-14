@@ -1,3 +1,9 @@
+/*
+ *  SEOS Network Stack Chanmux camkes
+ *
+ *  Copyright (C) 2019, Hensoldt Cyber GmbH
+ *
+ */
 import "../../../interfaces/ChanMuxInf.camkes";
 import "../../../interfaces/UartInf.camkes";
 

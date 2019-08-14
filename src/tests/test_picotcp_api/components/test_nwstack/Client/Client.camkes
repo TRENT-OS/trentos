@@ -1,13 +1,15 @@
-/* @TAG(DATA61_BSD) */
 /*
- * CAmkES tutorial part 1: components with RPC. Client part.
+ *  SEOS timer client
+ *
+ *  Copyright (C) 2019, Hensoldt Cyber GmbH
+ *
  */
 
 import "../../../interfaces/timer.camkes";
 
 component Client {
     control;
-    uses   timer_inf                hello;
+    uses   timer_inf                toutinf;
     
     emits  NwStack_DataAvailable    e_timeout_nwstacktick;
     emits  NwStack_DataAvailable_2  e_timeout_nwstacktick_2;
