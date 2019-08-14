@@ -7,9 +7,13 @@ import "../../interfaces/ChanMuxInf.camkes";
 component TEST_CRYPTO {
     control;
 
-    dataport    Buf             cryptoClientDataport;
-    uses        CryptoInf       Crypto;
-    uses        CryptoRpcInf    SeosCryptoRpc;
+    dataport    Buf                 cryptoClientDataport;
+    uses        CryptoInf           Crypto;
+    uses        CryptoRpcInf        SeosCryptoRpc;
+
+    dataport    Buf                 keyStoreClientDataport;
+    uses        KeyStoreInf         KeyStore;
+    uses        KeyStoreRpcInf      SeosKeyStoreRpc;  
 
     dataport    Buf                 chanMuxDataPort;
     uses        ChanMuxInInf        ChanMuxRpc;

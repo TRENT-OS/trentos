@@ -12,7 +12,7 @@ Crypto_getRpcHandle(SeosCryptoRpc_Handle* instance)
                                         malloc, free, NULL, NULL);
     if (SEOS_SUCCESS == retval)
     {
-        retval = SeosCryptoRpc_init(&the_one, &cryptoCore, serverDataport);
+        retval = SeosCryptoRpc_init(&the_one, &cryptoCore, cryptoServerDataport);
         *instance = &the_one;
 
         if (SEOS_SUCCESS == retval)

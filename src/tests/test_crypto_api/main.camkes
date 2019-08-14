@@ -16,20 +16,28 @@ assembly {
         component   UartDev             uartDev;
         component   UartDrv             uartDrv;
 
-        connection  seL4RPCCall         main_chanmux        (from test_crypto.ChanMuxRpc, to chanMux.ChanMuxIn);
-        connection  seL4RPCCall         chanmux_uart        (from chanMux.Output, to uartDrv.UartDrv);
-        connection  seL4RPCCall         uart_chanmux        (from uartDrv.Output, to chanMux.ChanMuxOut);
+        connection  seL4RPCCall         main_chanmux            (from test_crypto.ChanMuxRpc, to chanMux.ChanMuxIn);
+        connection  seL4RPCCall         crypto_chanmux          (from crypto.ChanMuxRpc, to chanMux.ChanMuxIn);
 
-        connection  seL4SharedData      uart_dataConnection (from chanMux.outputDataPort, to uartDrv.inputDataPort);
-        connection  seL4SharedData      dataConnection      (from test_crypto.chanMuxDataPort, to chanMux.mainDataPort);
+        connection  seL4RPCCall         chanmux_uart            (from chanMux.Output, to uartDrv.UartDrv);
+        connection  seL4RPCCall         uart_chanmux            (from uartDrv.Output, to chanMux.ChanMuxOut);
 
-        connection  seL4Notification    dataAvailableLan    (from chanMux.dataAvailableMain, to test_crypto.ChanMuxSignal_dataAvailable);
+        connection  seL4SharedData      uart_dataConnection     (from chanMux.outputDataPort, to uartDrv.inputDataPort);
+        connection  seL4SharedData      mainDataConnection      (from test_crypto.chanMuxDataPort, to chanMux.mainDataPort);
+        connection  seL4SharedData      cryptoDataConnection    (from crypto.chanMuxDataPort, to chanMux.mainDataPort);
 
-        connection  seL4HardwareMMIO    uart_memio          (from uartDrv.uartRegBase, to uartDev.uartRegBase);
+        connection  seL4Notification    dataAvailableMain       (from chanMux.dataAvailableMain, to test_crypto.ChanMuxSignal_dataAvailable);
+        connection  seL4Notification    dataAvailableCrypto     (from chanMux.dataAvailableMain, to crypto.ChanMuxSignal_dataAvailable);
 
-        connection seL4SharedData       cryptoData      (from test_crypto.cryptoClientDataport, to crypto.serverDataport);
-        connection seL4RPCCall          cryptoRpc       (from test_crypto.Crypto, to crypto.Crypto);
-        connection seL4RPCCall          seosCryptoRpc   (from test_crypto.SeosCryptoRpc, to crypto.SeosCryptoRpc);
+        connection  seL4HardwareMMIO    uart_memio              (from uartDrv.uartRegBase, to uartDev.uartRegBase);
+
+        connection seL4SharedData       cryptoData              (from test_crypto.cryptoClientDataport, to crypto.cryptoServerDataport);
+        connection seL4RPCCall          cryptoRpc               (from test_crypto.Crypto, to crypto.Crypto);
+        connection seL4RPCCall          seosCryptoRpc           (from test_crypto.SeosCryptoRpc, to crypto.SeosCryptoRpc);
+
+        connection seL4SharedData       keyStoreData            (from test_crypto.keyStoreClientDataport, to crypto.keyStoreServerDataport);
+        connection seL4RPCCall          keyStoreRpc             (from test_crypto.KeyStore, to crypto.KeyStore);
+        connection seL4RPCCall          seosKeyStoreRpc         (from test_crypto.SeosKeyStoreRpc, to crypto.SeosKeyStoreRpc);
     }
     configuration {
         uartDev.uartRegBase_paddr  = 0xE0000000;
