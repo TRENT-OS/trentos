@@ -12,11 +12,12 @@
 #define MSECS_TO_SLEEP   500
 
 /* run the control thread */
-int run(void) {
+int run(void)
+{
     printf("Starting the client\n");
     printf("------Sleep for %d mseconds------\n", MSECS_TO_SLEEP);
 
-    while(1)
+    while (1)
 
     {
         toutinf_sleep(MSECS_TO_SLEEP);
@@ -24,5 +25,5 @@ int run(void) {
         e_timeout_nwstacktick_2_emit();
     }
 
-     return 0;
+    return 0;
 }

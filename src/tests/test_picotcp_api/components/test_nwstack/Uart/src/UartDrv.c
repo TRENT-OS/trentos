@@ -1,5 +1,5 @@
 /*
- *  SEOS UART driver 
+ *  SEOS UART driver
  *
  *  Copyright (C) 2019, Hensoldt Cyber GmbH
  *

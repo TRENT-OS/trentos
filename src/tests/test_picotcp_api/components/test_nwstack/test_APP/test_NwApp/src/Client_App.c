@@ -21,6 +21,7 @@ extern seos_err_t Seos_NwAPP_RT(Seos_nw_context ctx);
 int run()
 {
     int len;
+    int len2;
     char buffer[4096];
 
     seos_nw_client_struct cli_socket =
@@ -42,26 +43,28 @@ int run()
 
     if (err < 0)
     {
-        Debug_LOG_INFO("Error creating App socket...error:%d\n",err);
+        Debug_LOG_INFO("Error creating App socket...error:%d\n", err);
     }
 
 
     const char* request =
         "GET / HTTP/1.0\r\nHost: example.com\r\nConnection: close\r\n\r\n";
 
-    memcpy(buffer, request, strlen(request));
-    len = strlen(request);
+    len = len2 = strlen(request);
+    memcpy(buffer, request, len);
+
 
     do
     {
         seos_err_t err = Seos_socket_write(handle, buffer, &len);
         if (err < 0)
         {
-            Debug_LOG_INFO("Client socket write failure. %s, error:%d\n", __FUNCTION__,err);
+            Debug_LOG_INFO("Client socket write failure. %s, error:%d\n", __FUNCTION__,
+                           err);
             Debug_ASSERT(0);
         }
     }
-    while (len < strlen(request));
+    while (len < len2);
 
 
     Debug_LOG_INFO("Client socket read Webpage start. %s\n", __FUNCTION__);
@@ -76,7 +79,7 @@ int run()
 
         if (err < 0)
         {
-            Debug_LOG_INFO("Client socket read failure. %s, error:%d\n", __FUNCTION__,err);
+            Debug_LOG_INFO("Client socket read failure. %s, error:%d\n", __FUNCTION__, err);
             Debug_ASSERT(0);
         }
 
@@ -90,10 +93,11 @@ int run()
         Debug_LOG_INFO("%s\n", buffer);
     }
 
-    err = Seos_socket_close(handle); 
+    err = Seos_socket_close(handle);
     if ( err < 0)
     {
-        Debug_LOG_INFO("Client socket close failure. %s, error :%d\n", __FUNCTION__,err);
+        Debug_LOG_INFO("Client socket close failure. %s, error :%d\n", __FUNCTION__,
+                       err);
         Debug_ASSERT(0);
     }
 

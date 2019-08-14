@@ -1,6 +1,6 @@
 /*
 *
- *  QEMU UART 
+ *  QEMU UART
  *
  *  Copyright (C) 2019, Hensoldt Cyber GmbH
  */

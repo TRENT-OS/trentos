@@ -24,7 +24,8 @@ ttc_t timer_drv;
  * when a new interrupt arrives then it must re-register itself.  Or it can
  * also register a different handler.
  */
-void irq_handle(void) {
+void irq_handle(void)
+{
     int error;
 
 
@@ -45,7 +46,8 @@ void irq_handle(void) {
 
 }
 
-void toutinf__init() {
+void toutinf__init()
+{
     /* Structure of the timer configuration in platsupport library */
     ttc_config_t config;
 
@@ -64,7 +66,8 @@ void toutinf__init() {
 
 }
 
-void toutinf_sleep(int msec) {
+void toutinf_sleep(int msec)
+{
 
     ttc_set_timeout(&timer_drv, msec * NS_IN_MSEC, false);
 
