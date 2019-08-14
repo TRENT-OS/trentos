@@ -11,7 +11,7 @@ QEMU_PARAMS=(
     -s
     -serial pty
     -serial mon:stdio
-    -kernel $IMAGE_PATH
+    -kernel ${IMAGE_PATH}
 )
 
 qemu-system-arm  ${QEMU_PARAMS[@]}
