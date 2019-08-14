@@ -1,5 +1,11 @@
 #!/bin/bash -e
 
+TEST_NAME=${1:-}
+if [ -z ${TEST_NAME} ]; then
+    echo "ERROR: missing test name"
+    exit 1
+fi
+
 # default is the zynq7000 platform
 IMAGE_PATH=build-zynq7000-Debug-${TEST_NAME}/images/capdl-loader-image-arm-zynq7000
 if [ ! -f ${IMAGE_PATH} ]; then
