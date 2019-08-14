@@ -15,6 +15,8 @@
 
 #include "SeosCryptoApi.h"
 
+#include "SeosKeyStoreClient.h"
+
 /* Defines -------------------------------------------------------------------*/
 #define NVM_CHANNEL_NUMBER      (6)
 #define KEY_STORE_INSTANCE_NAME "KeyStore1"

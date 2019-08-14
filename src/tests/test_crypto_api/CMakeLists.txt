@@ -58,7 +58,7 @@ DeclareCAmkESComponent(CRYPTO INCLUDES
                             "components/CRYPTO/instance/Crypto.c"
                             "components/CRYPTO/instance/KeyStore.c"
                             "../../libs/seos_crypto/src/SeosCryptoRpc.c"
-                            "../../libs/seos_keystore/src/seos/SeosKeyStoreRpc.c"
+                            "../../libs/seos_keystore/src/SeosKeyStoreRpc.c"
 )
 set_property(TARGET CAmkESComponent_CRYPTO
 

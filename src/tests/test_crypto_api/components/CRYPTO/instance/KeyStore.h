@@ -11,7 +11,6 @@
 #include "SeosKeyStore.h"
 #include "SeosKeyStoreClient.h"
 #include "SeosKeyStoreRpc.h"
-#include "SeosKeyStoreApi.h"
 
 typedef struct KeyStoreContext
 {

@@ -9,9 +9,7 @@
 #include "SpiffsFileStream.h"
 #include "SpiffsFileStreamFactory.h"
 #include "SeosKeyStore.h"
-#include "SeosKeyStoreClient.h"
-#include "SeosKeyStoreRpc.h"
-#include "SeosKeyStoreApi.h"
+#include "SeosKeyStoreCtx.h"
 
 typedef struct KeyStoreContext
 {
@@ -30,5 +28,5 @@ bool keyStoreContext_ctor(KeyStoreContext*  keyStoreCtx,
 
 bool keyStoreContext_dtor(KeyStoreContext* keyStoreCtx);
 
-bool testKeyStore(SeosKeyStoreApi* keyStoreApi, SeosCryptoCtx* cryptoCtx);
+bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx);
 

@@ -3,6 +3,8 @@
  */
 /* Includes ------------------------------------------------------------------*/
 #include "testKeyStore.h"
+#include "SeosCryptoApi.h"
+#include "SeosKeyStoreApi.h"
 #include "camkes.h"
 
 /* Defines -------------------------------------------------------------------*/
@@ -31,14 +33,14 @@ static seos_err_t testAesForKey(SeosCryptoCtx* cryptoCtx,
 /* Private variables ---------------------------------------------------------*/
 
 /* Public functions -----------------------------------------------------------*/
-bool testKeyStore(SeosKeyStoreApi* keyStoreApi, SeosCryptoCtx* cryptoCtx)
+bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx)
 {
     SeosCryptoKey* masterKey;
     SeosCryptoKey* generatedKey;
     SeosCryptoKey* readKey;
 
     /***************************** TEST KEY IMPORT *******************************/
-    seos_err_t err = SeosKeyStoreApi_importKey(keyStoreApi,
+    seos_err_t err = SeosKeyStoreApi_importKey(keyStoreCtx,
                                                &masterKey,
                                                MASTER_KEY_NAME,
                                                MASTER_KEY_BYTES,
@@ -54,7 +56,7 @@ bool testKeyStore(SeosKeyStoreApi* keyStoreApi, SeosCryptoCtx* cryptoCtx)
     Debug_LOG_DEBUG("\n\nThe master key is succesfully imported!\n");
 
     // get the imported key
-    err = SeosKeyStoreApi_getKey(keyStoreApi,
+    err = SeosKeyStoreApi_getKey(keyStoreCtx,
                                  &readKey,
                                  MASTER_KEY_NAME);
     if (err != SEOS_SUCCESS)
@@ -74,7 +76,7 @@ bool testKeyStore(SeosKeyStoreApi* keyStoreApi, SeosCryptoCtx* cryptoCtx)
     Debug_LOG_DEBUG("\n\nAES encryption/decryption succesfully performed with the imported key!\n");
 
     // delete the imported key
-    err = SeosKeyStoreApi_deleteKey(keyStoreApi, masterKey,
+    err = SeosKeyStoreApi_deleteKey(keyStoreCtx, masterKey,
                                     MASTER_KEY_NAME);
     if (err != SEOS_SUCCESS)
     {
@@ -84,7 +86,7 @@ bool testKeyStore(SeosKeyStoreApi* keyStoreApi, SeosCryptoCtx* cryptoCtx)
     }
 
     // check if the key is actaully deleted by verifying that the getKey results in an error
-    err = SeosKeyStoreApi_getKey(keyStoreApi,
+    err = SeosKeyStoreApi_getKey(keyStoreCtx,
                                  &readKey,
                                  MASTER_KEY_NAME);
     if (err != SEOS_ERROR_NOT_FOUND)
@@ -96,7 +98,7 @@ bool testKeyStore(SeosKeyStoreApi* keyStoreApi, SeosCryptoCtx* cryptoCtx)
     Debug_LOG_DEBUG("\n\nThe master key is succesfully deleted!\n");
 
     /***************************** TEST KEY GENERATION *******************************/
-    err = SeosKeyStoreApi_generateKey(keyStoreApi,
+    err = SeosKeyStoreApi_generateKey(keyStoreCtx,
                                       &generatedKey,
                                       GENERATED_KEY_NAME,
                                       SeosCryptoCipher_Algorithm_AES_CBC_DEC,
@@ -109,7 +111,7 @@ bool testKeyStore(SeosKeyStoreApi* keyStoreApi, SeosCryptoCtx* cryptoCtx)
         return 0;
     }
     // get the generated key
-    err = SeosKeyStoreApi_getKey(keyStoreApi,
+    err = SeosKeyStoreApi_getKey(keyStoreCtx,
                                  &readKey,
                                  GENERATED_KEY_NAME);
     if (err != SEOS_SUCCESS)
