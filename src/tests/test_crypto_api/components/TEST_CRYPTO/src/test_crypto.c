@@ -243,16 +243,18 @@ int run()
 
     /***************************** KeyStore test *******************************/
     KeyStoreContext keyStoreCtx;
-    SeosKeyStore keyStore;
+    SeosKeyStore localKeyStore;
+    SeosKeyStoreClient keyStoreClient;
+    SeosKeyStoreRpc_Handle keyStoreRpcHandle = NULL;
 
+    /************************** Init local version ****************************/
     if (!keyStoreContext_ctor(&keyStoreCtx, NVM_CHANNEL_NUMBER,
                               (void*)chanMuxDataPort))
     {
         Debug_LOG_ERROR("%s: Failed to initialize the test!", __func__);
         return 0;
     }
-
-    err = SeosKeyStore_init(&keyStore,
+    err = SeosKeyStore_init(&localKeyStore,
                             keyStoreCtx.fileStreamFactory,
                             &(keyStoreCtx.cryptoCore),
                             KEY_STORE_INSTANCE_NAME);
@@ -264,10 +266,34 @@ int run()
         return false;
     }
 
-    testKeyStoreLocally(keyStore);
+    /************************* Init remote version ***************************/
+    err = KeyStore_getRpcHandle(&keyStoreRpcHandle);
+    if (err != SEOS_SUCCESS)
+    {
+        Debug_LOG_ERROR("%s: KeyStore_getRpcHandle failed with error code %d!",
+                        __func__,
+                        err);
+        return 0;
+    }
+    err = SeosKeyStoreClient_init(&keyStoreClient,
+                                  keyStoreRpcHandle,
+                                  keyStoreClientDataport);
+    if (err != SEOS_SUCCESS)
+    {
+        Debug_LOG_ERROR("%s: SeosKeyStoreClient_init failed with error code %d!",
+                        __func__,
+                        err);
+        return 0;
+    }
 
-    SeosKeyStore_deInit(&(keyStore.parent));
+    /******************** Test local and remote versions **********************/
+    testKeyStore(&(localKeyStore.parent), apiLocal);
+    testKeyStore(&(keyStoreClient.parent), apiRpc);
+
+    /***************************** Destruction *******************************/
+    SeosKeyStore_deInit(&(localKeyStore.parent));
     keyStoreContext_dtor(&keyStoreCtx);
+    SeosKeyStoreClient_deInit(&(keyStoreClient.parent));
 
     return 0;
 }

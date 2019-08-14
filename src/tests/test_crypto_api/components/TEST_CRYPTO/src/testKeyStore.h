@@ -9,6 +9,8 @@
 #include "SpiffsFileStream.h"
 #include "SpiffsFileStreamFactory.h"
 #include "SeosKeyStore.h"
+#include "SeosKeyStoreClient.h"
+#include "SeosKeyStoreRpc.h"
 #include "SeosKeyStoreApi.h"
 
 typedef struct KeyStoreContext
@@ -23,10 +25,10 @@ typedef struct KeyStoreContext
 } KeyStoreContext;
 
 bool keyStoreContext_ctor(KeyStoreContext*  keyStoreCtx,
-                            uint8_t         channelNum,
-                            void*           dataport);
+                          uint8_t           channelNum,
+                          void*             dataport);
 
 bool keyStoreContext_dtor(KeyStoreContext* keyStoreCtx);
 
-bool testKeyStoreLocally(SeosKeyStore keyStore);
+bool testKeyStore(SeosKeyStoreApi* keyStoreApi, SeosCryptoCtx* cryptoCtx);
 
