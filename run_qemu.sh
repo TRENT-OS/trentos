@@ -1,7 +1,11 @@
 #!/bin/bash -e
 
-TEST_NAME=$1
+# default is the zynq7000 platform
 IMAGE_PATH=build-zynq7000-Debug-${TEST_NAME}/images/capdl-loader-image-arm-zynq7000
+if [ ! -f ${IMAGE_PATH} ]; then
+    echo "ERROR: missing test image ${IMAGE_PATH}"
+    exit 1
+fi
 
 QEMU_PARAMS=(
     -machine xilinx-zynq-a9
