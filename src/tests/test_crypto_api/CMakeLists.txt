@@ -56,7 +56,9 @@ DeclareCAmkESComponent(CRYPTO INCLUDES
                             include
                             SOURCES
                             "components/CRYPTO/instance/Crypto.c"
+                            "components/CRYPTO/instance/KeyStore.c"
                             "../../libs/seos_crypto/src/SeosCryptoRpc.c"
+                            "../../libs/seos_keystore/src/seos/SeosKeyStoreRpc.c"
 )
 set_property(TARGET CAmkESComponent_CRYPTO
 
@@ -67,6 +69,7 @@ set_property(TARGET CAmkESComponent_CRYPTO
              APPEND PROPERTY COMPONENT_LIBS
              seos_libs
              seos_crypto
+             seos_keystore
 )
 
 #-------------------------------------------------------------------------------
