@@ -46,7 +46,7 @@ void irq_handle(void)
 
 }
 
-void toutinf__init()
+void timeout__init()
 {
     /* Structure of the timer configuration in platsupport library */
     ttc_config_t config;
@@ -66,7 +66,7 @@ void toutinf__init()
 
 }
 
-void toutinf_sleep(int msec)
+void timeout_sleep(int msec)
 {
 
     ttc_set_timeout(&timer_drv, msec * NS_IN_MSEC, false);

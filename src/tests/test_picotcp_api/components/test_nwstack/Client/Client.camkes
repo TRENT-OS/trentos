@@ -9,7 +9,7 @@ import "../../../interfaces/timer.camkes";
 
 component Client {
     control;
-    uses   timer_inf                toutinf;
+    uses   timer_inf                timeout;
     
     emits  NwStack_DataAvailable    e_timeout_nwstacktick;
     emits  NwStack_DataAvailable_2  e_timeout_nwstacktick_2;

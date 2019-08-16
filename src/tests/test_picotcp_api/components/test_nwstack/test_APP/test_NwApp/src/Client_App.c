@@ -20,8 +20,6 @@ extern seos_err_t Seos_NwAPP_RT(Seos_nw_context ctx);
 
 int run()
 {
-    int len;
-    int len2;
     char buffer[4096];
 
     seos_nw_client_struct cli_socket =
@@ -41,27 +39,34 @@ int run()
 
     seos_err_t err = Seos_client_socket_create(NULL, &cli_socket, &handle);
 
-    if (err < 0)
+    if (err != SEOS_SUCCESS)
     {
-        Debug_LOG_INFO("Error creating App socket...error:%d\n", err);
+        Debug_LOG_WARNING("Error creating App socket...error:%d\n", err);
+        return err;
     }
 
 
     const char* request =
         "GET / HTTP/1.0\r\nHost: example.com\r\nConnection: close\r\n\r\n";
 
-    len = len2 = strlen(request);
-    memcpy(buffer, request, len);
+    int len;
+    int len2;
 
+    len2 = strlen(request);
+    len = len2 ;
+
+    memcpy(buffer, request, len);
 
     do
     {
         seos_err_t err = Seos_socket_write(handle, buffer, &len);
-        if (err < 0)
+        if (err != SEOS_SUCCESS)
         {
-            Debug_LOG_INFO("Client socket write failure. %s, error:%d\n", __FUNCTION__,
-                           err);
-            Debug_ASSERT(0);
+            Debug_LOG_WARNING("Client socket write failure. %s, error:%d\n", __FUNCTION__,
+                              err);
+            Seos_socket_close(handle);
+            return err;  /* return write error reason */
+
         }
     }
     while (len < len2);
@@ -77,13 +82,16 @@ int run()
         memset(buffer, 0, 4096);
         seos_err_t err = Seos_socket_read(handle, buffer, &len);
 
-        if (err < 0)
+        if (err != SEOS_SUCCESS)
         {
-            Debug_LOG_INFO("Client socket read failure. %s, error:%d\n", __FUNCTION__, err);
-            Debug_ASSERT(0);
+            Debug_LOG_WARNING("Client socket read failure. %s, error:%d\n", __FUNCTION__,
+                              err);
+            Seos_socket_close(handle);
+            return err;    /* return read error reason */
+
         }
 
-        if (len == 0)
+        if (len == 0)   /* len=0 indicates a close event was called */
         {
             Debug_LOG_INFO(" Client app read completed..\n");
             break;
@@ -94,11 +102,12 @@ int run()
     }
 
     err = Seos_socket_close(handle);
-    if ( err < 0)
+
+    if (err != SEOS_SUCCESS)
     {
-        Debug_LOG_INFO("Client socket close failure. %s, error :%d\n", __FUNCTION__,
-                       err);
-        Debug_ASSERT(0);
+        Debug_LOG_WARNING("Client socket close failure. %s, error :%d\n", __FUNCTION__,
+                          err);
+        return err;
     }
 
     return 0;

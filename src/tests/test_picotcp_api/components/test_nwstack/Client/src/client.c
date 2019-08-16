@@ -20,7 +20,7 @@ int run(void)
     while (1)
 
     {
-        toutinf_sleep(MSECS_TO_SLEEP);
+        timeout_sleep(MSECS_TO_SLEEP);
         e_timeout_nwstacktick_emit();
         e_timeout_nwstacktick_2_emit();
     }

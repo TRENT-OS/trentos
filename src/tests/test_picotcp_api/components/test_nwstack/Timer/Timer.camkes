@@ -18,6 +18,6 @@ component Timer {
     dataport Buf         reg;
     consumes DataAvailable  irq;
 
-    provides timer_inf     toutinf;
+    provides timer_inf     timeout;
     has semaphore           sem;
 }

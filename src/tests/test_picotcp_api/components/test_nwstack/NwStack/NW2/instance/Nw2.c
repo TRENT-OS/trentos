@@ -15,7 +15,7 @@ int run()
     Debug_LOG_INFO("starting network stack as Server...\n");
     int ret;
 
-    nw_camkes_signal_glue  nw_signal_1 =
+    nw_camkes_signal_glue  nw_signal =
     {
         .e_write_emit        =  e_write_2_emit,
         .c_write_wait        =  c_write_2_wait,
@@ -29,7 +29,7 @@ int run()
         .c_initdone          =  c_initdone_2_wait
     };
 
-    nw_ports_glue nw_data_1 =
+    nw_ports_glue nw_data =
     {
         .ChanMuxDataPort = chanMuxDataPort_2,
         .ChanMuxCtrlPort = chanMuxCtrlDataPort_2,
@@ -37,22 +37,21 @@ int run()
 
     };
 
-    Seos_nw_camkes_info nw_camkes_1 =
+    Seos_nw_camkes_info nw_camkes =
     {
-        &nw_signal_1,
-        &nw_data_1,
+        &nw_signal,
+        &nw_data,
         SEOS_NWSTACK_AS_SERVER
     };
 
 
     // should never return as this starts pico_stack_tick().
 
-    ret = Seos_NwStack_init(&nw_camkes_1);
+    ret = Seos_NwStack_init(&nw_camkes);
 
-    if (ret < 0) // is possible when proxy does not run with use_tap =1 param. Just print and exit
+    if (ret != SEOS_SUCCESS) // is possible when proxy does not run with use_tap =1 param. Just print and exit
     {
-        Debug_LOG_INFO("Network Stack Init()-Sever Failed...Exiting NwStack-2\n");
+        Debug_LOG_WARNING("Network Stack Init()-Sever Failed...Exiting NwStack-2. Error:%d\n",ret);
     }
     return 0;
 }
-

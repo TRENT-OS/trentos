@@ -14,7 +14,7 @@ int run()
 {
     Debug_LOG_INFO("starting network stack as Client...\n");
     int ret;
-    nw_camkes_signal_glue nw_signal_0 =
+    nw_camkes_signal_glue nw_signal =
     {
         .e_write_emit        =  e_write_emit,
         .c_write_wait        =  c_write_wait,
@@ -27,26 +27,26 @@ int run()
         .e_initdone          =  e_initdone_emit,
         .c_initdone          =  c_initdone_wait
     };
-    nw_ports_glue nw_data_0 =
+    nw_ports_glue nw_data =
     {
         .ChanMuxDataPort     =  chanMuxDataPort,
         .ChanMuxCtrlPort     =  chanMuxCtrlDataPort,
         .Appdataport         =  NwAppDataPort
     };
 
-    Seos_nw_camkes_info nw_camkes_0 =
+    Seos_nw_camkes_info nw_camkes =
     {
-        &nw_signal_0,
-        &nw_data_0,
+        &nw_signal,
+        &nw_data,
         SEOS_NWSTACK_AS_CLIENT
     };
 
 
-    ret = Seos_NwStack_init(&nw_camkes_0);
+    ret = Seos_NwStack_init(&nw_camkes);
 
-    if (ret < 0) // is possible when proxy does not run with use_tap =1 param. Just print and exit
+    if (ret != SEOS_SUCCESS) // is possible when proxy does not run with use_tap =1 param. Just print and exit
     {
-        Debug_LOG_INFO("Network Stack Init() Failed as Client...Exiting NwStack\n");
+        Debug_LOG_WARNING("Network Stack Init() Failed as Client...Exiting NwStack. Error:%d\n",ret);
     }
     return 0;
 }

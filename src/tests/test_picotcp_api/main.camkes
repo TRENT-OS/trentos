@@ -65,7 +65,7 @@ assembly {
         connection seL4HardwareInterrupt timer_irq(from timerbase.irq, to timer.irq);
         /* timer interface connection */
 
-        connection seL4RPCCall toutinf_timer(from client.toutinf, to timer.toutinf);
+        connection seL4RPCCall timeout_timer(from client.timeout, to timer.timeout);
 
 
         // Channel Network Stack
