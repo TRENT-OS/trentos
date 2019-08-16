@@ -139,9 +139,9 @@ DeclareCAmkESComponent(ChanMux
 #-------------------------------------------------------------------------------
 # Component Timer
 #-------------------------------------------------------------------------------
-DeclareCAmkESComponent(Client
+DeclareCAmkESComponent(TimerClient
     SOURCES
-        "components/test_nwstack/Client/src/client.c"
+        "components/test_nwstack/TimerClient/src/Timer_Client.c"
     C_FLAGS
         -Wall -Werror
 )

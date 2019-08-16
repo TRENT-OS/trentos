@@ -5,7 +5,7 @@ import "components/test_nwstack/NwStack/NW1/NwStack.camkes";
 import "components/test_nwstack/NwStack/NW2/NwStack_2.camkes";
 import "components/test_nwstack/test_APP/test_NwApp/NwApp.camkes";
 import "components/test_nwstack/test_APP/test_NwApp2/NwApp_2.camkes";
-import "components/test_nwstack/Client/Client.camkes";
+import "components/test_nwstack/TimerClient/TimerClient.camkes";
 import "components/test_nwstack/Timer/Timer.camkes";
 import "components/test_nwstack/Uart/Uart.camkes";
 
@@ -59,38 +59,38 @@ assembly {
   
         component Timerbase timerbase;
         component Timer timer;
-        component Client client;
+        component TimerClient timerclient;
 
         connection seL4HardwareMMIO timer_mem(from timer.reg, to timerbase.reg);
         connection seL4HardwareInterrupt timer_irq(from timerbase.irq, to timer.irq);
         /* timer interface connection */
 
-        connection seL4RPCCall timeout_timer(from client.timeout, to timer.timeout);
+        connection seL4RPCCall timeout_timer(from timerclient.timeout, to timer.timeout);
 
 
         // Channel Network Stack
-        connection seL4SharedData         NwStack_dataConnection   (from nwStack.chanMuxDataPort,         to chanMux.nwStackDataPort);
-        connection seL4SharedData         NwStack_ctrlConnection   (from nwStack.chanMuxCtrlDataPort,     to chanMux.nwStackCtrlDataPort);
-        connection seL4SharedData         NwApp_dataConnection     (from nwApp.NwAppDataPort,             to nwStack.NwAppDataPort);
-        connection seL4NotificationNative NwStackdataAvail1        (from chanMux.e_read_nwstacktick,      to nwStack.c_nwstacktick);
-        connection seL4NotificationNative NwStackdataAvail2        (from nwStack.e_write_nwstacktick,     to nwStack.c_nwstacktick);
-        connection seL4NotificationNative NwStackdataAvail3        (from client.e_timeout_nwstacktick,    to nwStack.c_nwstacktick);
-        connection seL4Notification       NwStackEventsRxd1        (from nwStack.e_write,                 to nwStack.c_write);
-        connection seL4Notification       NwStackEventsRxd2        (from nwStack.e_read,                  to nwStack.c_read);
-        connection seL4Notification       NwAppInitDone            (from nwStack.e_initdone,              to nwStack.c_initdone);
+        connection seL4SharedData         NwStack_dataConnection   (from nwStack.chanMuxDataPort,          to chanMux.nwStackDataPort);
+        connection seL4SharedData         NwStack_ctrlConnection   (from nwStack.chanMuxCtrlDataPort,      to chanMux.nwStackCtrlDataPort);
+        connection seL4SharedData         NwApp_dataConnection     (from nwApp.NwAppDataPort,              to nwStack.NwAppDataPort);
+        connection seL4NotificationNative NwStackdataAvail1        (from chanMux.e_read_nwstacktick,       to nwStack.c_nwstacktick);
+        connection seL4NotificationNative NwStackdataAvail2        (from nwStack.e_write_nwstacktick,      to nwStack.c_nwstacktick);
+        connection seL4NotificationNative NwStackdataAvail3        (from timerclient.e_timeout_nwstacktick,to nwStack.c_nwstacktick);
+        connection seL4Notification       NwStackEventsRxd1        (from nwStack.e_write,                  to nwStack.c_write);
+        connection seL4Notification       NwStackEventsRxd2        (from nwStack.e_read,                   to nwStack.c_read);
+        connection seL4Notification       NwAppInitDone            (from nwStack.e_initdone,               to nwStack.c_initdone);
 
 
         // Channel Network Stack 2
-        connection seL4SharedData         NwStack_dataConnection_2 (from nwStack_2.chanMuxDataPort_2,     to chanMux.nwStackDataPort_2);
-        connection seL4SharedData         NwStack_ctrlConnection_2 (from nwStack_2.chanMuxCtrlDataPort_2, to chanMux.nwStackCtrlDataPort_2);
-        connection seL4SharedData         NwApp_dataConnection_2   (from nwApp_2.NwAppDataPort_2,         to nwStack_2.NwAppDataPort_2);
-        connection seL4NotificationNative NwStackdataAvail1_2      (from chanMux.e_read_nwstacktick_2,    to nwStack_2.c_nwstacktick_2);
-        connection seL4NotificationNative NwStackdataAvail2_2      (from nwStack_2.e_write_nwstacktick_2, to nwStack_2.c_nwstacktick_2);
-        connection seL4NotificationNative NwStackdataAvail3_2      (from client.e_timeout_nwstacktick_2,  to nwStack_2.c_nwstacktick_2);
-        connection seL4Notification       NwStackEventsRxd1_2      (from nwStack_2.e_write_2,             to nwStack_2.c_write_2);
-        connection seL4Notification       NwStackEventsRxd2_2      (from nwStack_2.e_read_2,              to nwStack_2.c_read_2);
-        connection seL4Notification       NwStackEventsRxd3_2      (from nwStack_2.e_conn_2,              to nwStack_2.c_conn_2);
-        connection seL4Notification       NwAppInitDone_2          (from nwStack_2.e_initdone_2,          to nwStack_2.c_initdone_2);
+        connection seL4SharedData         NwStack_dataConnection_2 (from nwStack_2.chanMuxDataPort_2,        to chanMux.nwStackDataPort_2);
+        connection seL4SharedData         NwStack_ctrlConnection_2 (from nwStack_2.chanMuxCtrlDataPort_2,    to chanMux.nwStackCtrlDataPort_2);
+        connection seL4SharedData         NwApp_dataConnection_2   (from nwApp_2.NwAppDataPort_2,            to nwStack_2.NwAppDataPort_2);
+        connection seL4NotificationNative NwStackdataAvail1_2      (from chanMux.e_read_nwstacktick_2,       to nwStack_2.c_nwstacktick_2);
+        connection seL4NotificationNative NwStackdataAvail2_2      (from nwStack_2.e_write_nwstacktick_2,    to nwStack_2.c_nwstacktick_2);
+        connection seL4NotificationNative NwStackdataAvail3_2      (from timerclient.e_timeout_nwstacktick_2,to nwStack_2.c_nwstacktick_2);
+        connection seL4Notification       NwStackEventsRxd1_2      (from nwStack_2.e_write_2,                to nwStack_2.c_write_2);
+        connection seL4Notification       NwStackEventsRxd2_2      (from nwStack_2.e_read_2,                 to nwStack_2.c_read_2);
+        connection seL4Notification       NwStackEventsRxd3_2      (from nwStack_2.e_conn_2,                 to nwStack_2.c_conn_2);
+        connection seL4Notification       NwAppInitDone_2          (from nwStack_2.e_initdone_2,             to nwStack_2.c_initdone_2);
 
         
         
