@@ -50,7 +50,7 @@ int run()
     if (err != SEOS_SUCCESS)
     {
         Debug_LOG_WARNING("Error creating App socket...error:%d\n", err);
-        return err;
+        return -1;
     }
 
 
@@ -70,7 +70,7 @@ int run()
             Debug_LOG_WARNING("Client socket write failure. %s, error:%d\n", __FUNCTION__,
                               err);
             Seos_socket_close(handle);
-            return err;  /* return write error reason */
+            return -1;  /* return write error reason */
 
         }
     }
@@ -98,13 +98,13 @@ int run()
 
     Only a single socket is supported and no multithreading !!!
     Once a webpage is read , display the contents.
-   */
+    */
 
 
     while (1)
     {
 
-       /* Keep calling read until we receive CONNECTION_CLOSED from the stack */
+        /* Keep calling read until we receive CONNECTION_CLOSED from the stack */
         memset(buffer, 0, sizeof(buffer));
 
         seos_err_t err = Seos_socket_read(handle, buffer, &len);
@@ -115,38 +115,38 @@ int run()
         from stack. This means we can break now as it is the end of read.
         */
 
-        if((err == SEOS_ERROR_CONNECTION_CLOSED) && (0==len))
+        if ((err == SEOS_ERROR_CONNECTION_CLOSED) && (0 == len))
         {
             Debug_LOG_INFO(" Client app read completed..\n");
             break;
         }
 
         /* This is a case of read failure. We must perform a clean exit now */
-        if(err == SEOS_ERROR_GENERIC)
+        if (err == SEOS_ERROR_GENERIC)
         {
-           Debug_LOG_WARNING(" Read failure. Closing socket!!!.\n");
-           Seos_socket_close(handle);
-           return err;
+            Debug_LOG_WARNING(" Read failure. Closing socket!!!.\n");
+            Seos_socket_close(handle);
+            return -1;
         }
 
         /* This indicates nothing to read , continue.*/
-        if((err == SEOS_SUCCESS) && (len == 0))
+        if ((err == SEOS_SUCCESS) && (len == 0))
         {
             continue;
         }
 
 
-        Debug_LOG_INFO("Buffer read length %d and data:\n %s\n", len,buffer);
+        Debug_LOG_INFO("Buffer read length %d and data:\n %s\n", len, buffer);
     }
 
-   /* Close the socket communication */
+    /* Close the socket communication */
     err = Seos_socket_close(handle);
 
     if (err != SEOS_SUCCESS)
     {
         Debug_LOG_WARNING("Client socket close failure. %s, error :%d\n", __FUNCTION__,
                           err);
-        return err;
+        return -1;
     }
 
     return 0;
