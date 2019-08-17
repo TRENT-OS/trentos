@@ -15,6 +15,12 @@
 
 extern seos_err_t Seos_NwAPP_RT(Seos_nw_context ctx);
 
+/*
+    This example demonstrates reading of a web page example.com using Nw Stack API.
+    Currently only a single socket is supported per stack instance.
+    i.e. no multitasking is supported as of now.
+
+*/
 
 #define HTTP_PORT 80
 
@@ -37,6 +43,8 @@ int run()
     Debug_LOG_INFO("Starting App as Client...\n");
 
 
+    /* This creates a socket API and gives an handle which can be used
+       for further communication. */
     seos_err_t err = Seos_client_socket_create(NULL, &cli_socket, &handle);
 
     if (err != SEOS_SUCCESS)
@@ -49,11 +57,8 @@ int run()
     const char* request =
         "GET / HTTP/1.0\r\nHost: example.com\r\nConnection: close\r\n\r\n";
 
-    int len;
-    int len2;
-
-    len2 = strlen(request);
-    len = len2 ;
+    const int len_request = strlen(request);
+    int len = len_request;
 
     memcpy(buffer, request, len);
 
@@ -69,38 +74,72 @@ int run()
 
         }
     }
-    while (len < len2);
+    while (len < len_request);
 
 
     Debug_LOG_INFO("Client socket read Webpage start. %s\n", __FUNCTION__);
 
-    len = 4096;
+    len = sizeof(buffer);
+
+
+    /*
+    As of now the nw stack behavior is as below:
+    Keep reading data until you receive one of the return values:
+     a. err = SEOS_ERROR_CONNECTION_CLOSED and length = 0 indicating end of data read
+              and connection close
+     b. err = SEOS_ERROR_GENERIC  due to error in read
+     c. err = SEOS_SUCCESS and length = 0 indicating no data to read but there is still
+              connection
+     d. err = SEOS_SUCCESS and length >0 , valid data
+
+    Take appropriate actions based on the return value rxd.
+
+
+
+    Only a single socket is supported and no multithreading !!!
+    Once a webpage is read , display the contents.
+   */
+
 
     while (1)
     {
 
-        memset(buffer, 0, 4096);
+       /* Keep calling read until we receive CONNECTION_CLOSED from the stack */
+        memset(buffer, 0, sizeof(buffer));
+
         seos_err_t err = Seos_socket_read(handle, buffer, &len);
 
-        if (err != SEOS_SUCCESS)
-        {
-            Debug_LOG_WARNING("Client socket read failure. %s, error:%d\n", __FUNCTION__,
-                              err);
-            Seos_socket_close(handle);
-            return err;    /* return read error reason */
 
-        }
+        /*
+        First check if there is nothing left to read and we receive CONNECTION_CLOSED
+        from stack. This means we can break now as it is the end of read.
+        */
 
-        if (len == 0)   /* len=0 indicates a close event was called */
+        if((err == SEOS_ERROR_CONNECTION_CLOSED) && (0==len))
         {
             Debug_LOG_INFO(" Client app read completed..\n");
             break;
         }
 
-        Debug_LOG_INFO("Buffer read length %d\n", len);
-        Debug_LOG_INFO("%s\n", buffer);
+        /* This is a case of read failure. We must perform a clean exit now */
+        if(err == SEOS_ERROR_GENERIC)
+        {
+           Debug_LOG_WARNING(" Read failure. Closing socket!!!.\n");
+           Seos_socket_close(handle);
+           return err;
+        }
+
+        /* This indicates nothing to read , continue.*/
+        if((err == SEOS_SUCCESS) && (len == 0))
+        {
+            continue;
+        }
+
+
+        Debug_LOG_INFO("Buffer read length %d and data:\n %s\n", len,buffer);
     }
 
+   /* Close the socket communication */
     err = Seos_socket_close(handle);
 
     if (err != SEOS_SUCCESS)
