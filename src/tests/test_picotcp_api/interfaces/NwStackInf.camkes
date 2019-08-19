@@ -11,8 +11,8 @@ procedure NwStackInf {
     
  seos_err_t    socket_create ( in int domain, in int type, inout seos_socket_handle_t pHandle );
  seos_err_t    socket_close  ( in seos_socket_handle_t handle );
- seos_err_t    socket_write  ( in seos_socket_handle_t handle,inout int pLen );
- seos_err_t    socket_read   ( in seos_socket_handle_t handle,inout int pLen );
+ seos_err_t    socket_write  ( in seos_socket_handle_t handle,inout size_t pLen );
+ seos_err_t    socket_read   ( in seos_socket_handle_t handle,inout size_t pLen );
  seos_err_t    socket_connect( in seos_socket_handle_t handle,in string serverName, in int port );
  seos_err_t    socket_accept ( in seos_socket_handle_t handle,inout seos_socket_handle_t pClient, in uint16_t port );
  seos_err_t    socket_listen ( in seos_socket_handle_t handle,in int backlog );

@@ -44,7 +44,7 @@ int run()
 
     ret = Seos_NwStack_init(&nw_camkes);
 
-   /* is possible when proxy does not run with tap =1 param. Just print and exit*/
+    /* is possible when proxy does not run with tap =1 param. Just print and exit*/
     if (ret != SEOS_SUCCESS)
     {
         Debug_LOG_WARNING("Network Stack Init() Failed as Client...Exiting NwStack. Error:%d\n",

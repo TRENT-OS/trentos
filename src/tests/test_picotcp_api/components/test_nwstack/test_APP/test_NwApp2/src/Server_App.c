@@ -84,11 +84,12 @@ int run()
         Once we accept an incoming connection, start reading data from the client and echo back
         the data rxd.
     */
+    int flag = true;
 
-    while (1)
+    do
     {
 
-        int n = sizeof(buffer);
+        size_t n = sizeof(buffer);
 
         memset(buffer, 0, sizeof(buffer));
 
@@ -96,51 +97,49 @@ int run()
 
         err =  Seos_socket_read(seos_socket_handle, buffer, &n);
 
-        /* This is a case of read failure. We must perform a clean exit now */
 
-        if (err == SEOS_ERROR_GENERIC)
+        switch (err)
+
         {
-            Debug_LOG_WARNING(" Server socket read failure. %s, error: %d \n", __FUNCTION__,
-                              err);
-            Seos_socket_close(seos_socket_handle);
-            Seos_server_socket_close(seos_nw_server_handle);
-            return -1;
-        }
-
-        /*
-        If there is nothing left to read and we receive CONNECTION_CLOSED
-        from stack, we break and and then exit gracefully.
-
-        */
-
-        if ((err == SEOS_ERROR_CONNECTION_CLOSED) && (0 == n))
-        {
-
+        /* This means end of read as socket was closed. Exit now and close handle*/
+        case SEOS_ERROR_CONNECTION_CLOSED:
             Debug_LOG_INFO(" Closing server socket communication !!\n ");
+            flag = false;
             break;
-        }
 
-        /* This indicates nothing to read , continue.*/
-        if ((err == SEOS_SUCCESS) && (n == 0))
-        {
+        /* Success, we must echo back the read data and continue reading further */
+        case SEOS_SUCCESS:
+            if (n > 0)
+            {
+                Debug_LOG_INFO(" rx data : %s\n", buffer);
+                Debug_LOG_INFO(" Server echo back rx data !!..\n");
+
+                err = Seos_socket_write(seos_socket_handle, buffer, &n);
+
+                if (err != SEOS_SUCCESS)
+                {
+                    Debug_LOG_WARNING("Server socket: error write back echo data %d, error code:%d\n",
+                                      n,
+                                      err);
+
+                    flag = false;
+                    break;
+                }
+            }
             continue;
-        }
-        Debug_LOG_INFO(" rx data : %s\n", buffer);
-        Debug_LOG_INFO(" Server echo back rx data !!..\n");
 
-        err = Seos_socket_write(seos_socket_handle, buffer, &n);
-
-        if (err != SEOS_SUCCESS)
-        {
-            Debug_LOG_WARNING("Server socket: error write back echo data %d, error code:%d\n",
-                              n,
+        /* Any other value is a failure in read, hence exit and close handle  */
+        default :
+            Debug_LOG_WARNING("Server socket read failure. %s, error: %d \n", __FUNCTION__,
                               err);
-            Seos_socket_close(seos_socket_handle);
-            Seos_server_socket_close(seos_nw_server_handle);
-            return -1;
-        }
+            flag = false;    /* terminate loop */
+            break;
+
+
+        } //end of switch
 
     }
+    while (flag); // end of while
 
 
     err = Seos_socket_close(seos_socket_handle);
@@ -149,6 +148,7 @@ int run()
     {
         Debug_LOG_WARNING("Server socket: client handle close failure. %s error code:%d\n",
                           __FUNCTION__, err);
+        Seos_server_socket_close(seos_nw_server_handle);
         return -1;
     }
 
