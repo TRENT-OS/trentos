@@ -1,6 +1,6 @@
 #pragma once
 
-#include "seos/SeosCryptoRpc.h"
+#include "SeosCryptoRpc.h"
 #include "LibDebug/Debug.h"
 
 #include <camkes.h>
