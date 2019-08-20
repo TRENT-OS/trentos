@@ -68,7 +68,7 @@ int run()
         const size_t lenRemaining = len_request - offs;
         size_t len_io = lenRemaining;
 
-        err = Seos_socket_write(handle, (void*)&request[offs], &len_io);
+        err = Seos_socket_write(handle, &request[offs], &len_io);
 
         if (err != SEOS_SUCCESS)
         {
