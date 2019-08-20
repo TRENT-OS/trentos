@@ -56,7 +56,7 @@ pipeline {
             options { skipDefaultCheckout(true) }
             steps {
                 echo '####################################### Astyle Check ########################################'
-                sh  '''#!/bin/bash
+                sh  '''#!/bin/bash -ue
                     files=`find . -name '*.astyle'`
                     if [ ! -z "$files" ]; then
                         exit 1
@@ -74,7 +74,7 @@ pipeline {
             options { skipDefaultCheckout(true) }
             steps {
                 echo '####################################### Update TA ENV #######################################'
-                sh  '''#!/bin/bash
+                sh  '''#!/bin/bash -ue
                         if [ -d ta ]; then
                             cd ta
                             git pull origin
@@ -89,7 +89,7 @@ pipeline {
                         pip install -r requirements.txt
                     '''
                 echo '####################################### Update MQTT Proxy #######################################'
-                sh  '''#!/bin/bash
+                sh  '''#!/bin/bash -ue
                         if [ -d mqtt_proxy_demo ]; then
                             cd mqtt_proxy_demo
                             git pull origin
@@ -113,7 +113,7 @@ pipeline {
             options { skipDefaultCheckout(true) }
             steps {
                 echo '########################################## Testing ##########################################'
-                sh  '''#!/bin/bash
+                sh  '''#!/bin/bash -ue
                         workspace=`pwd`
                         proxy=`pwd`/mqtt_proxy_demo/build/mqtt_proxy
                         source ta/ta-env/bin/activate
