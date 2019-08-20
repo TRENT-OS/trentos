@@ -258,7 +258,7 @@ int run()
     }
     err = SeosKeyStore_init(&localKeyStore,
                             keyStoreCtx.fileStreamFactory,
-                            &(keyStoreCtx.cryptoCore),
+                            &cryptoCtx,
                             KEY_STORE_INSTANCE_NAME);
 
     if (err != SEOS_SUCCESS)
@@ -289,8 +289,27 @@ int run()
     }
 
     /******************** Test local and remote versions **********************/
-    testKeyStore(&(localKeyStore.parent), apiLocal);
-    testKeyStore(&(keyStoreClient.parent), apiRpc);
+    if (!testKeyStore(&(localKeyStore.parent), apiLocal, true))
+    {
+        Debug_LOG_ERROR("%s: KeyStore local test with key generation failed!", __func__);
+        return 0;
+    }
+    if (!testKeyStore(&(localKeyStore.parent), apiLocal, false))
+    {
+        Debug_LOG_ERROR("%s: KeyStore local test with key import failed!", __func__);
+        return 0;
+    }
+
+    if (!testKeyStore(&(keyStoreClient.parent), apiRpc, true))
+    {
+        Debug_LOG_ERROR("%s: KeyStore remote test with key generation failed!", __func__);
+        return 0;
+    }
+    if (!testKeyStore(&(keyStoreClient.parent), apiRpc, false))
+    {
+        Debug_LOG_ERROR("%s: KeyStore remote test with key import failed!", __func__);
+        return 0;
+    }
 
     /***************************** Destruction *******************************/
     SeosKeyStore_deInit(&(localKeyStore.parent));

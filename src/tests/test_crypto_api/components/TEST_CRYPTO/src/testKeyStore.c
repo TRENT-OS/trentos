@@ -12,72 +12,118 @@
 
 #define AES_BLOCK_LEN           16
 
-#define MASTER_KEY_BYTES        "f131830db44c54742fc3f3265f0f1a0c"
-#define MASTER_KEY_NAME         "MasterKey"
-#define MASTER_KEY_SIZE         32
-
-#define GENERATED_KEY_NAME      "GeneratedKey"
-#define GENERATED_KEY_SIZE      32
+#define KEY_BYTES        "f131830db44c54742fc3f3265f0f1a0c"
+#define KEY_NAME         "MasterKey"
+#define KEY_SIZE         32
 
 /* Private functions prototypes ----------------------------------------------*/
 static seos_err_t
-aesEncrypt(SeosCryptoCtx* cryptoCtx, SeosCrypto_KeyHandle keyHandle,
-           const char* data, size_t inDataSize, void** outBuf, size_t* outDataSize);
+aesEncrypt(SeosCryptoCtx* cryptoCtx,
+            SeosCrypto_KeyHandle keyHandle,
+            const char* data, 
+            size_t inDataSize,
+            void** outBuf,
+            size_t* outDataSize);
+
 static seos_err_t
-aesDecrypt(SeosCryptoCtx* cryptoCtx, SeosCrypto_KeyHandle keyHandle,
-           const void* data, size_t inDataSize, void** outBuf, size_t* outDataSize);
+aesDecrypt(SeosCryptoCtx* cryptoCtx,
+            SeosCrypto_KeyHandle keyHandle,
+            const void* data,
+            size_t inDataSize,
+            void** outBuf,
+            size_t* outDataSize);
 
 static seos_err_t testAesForKey(SeosCryptoCtx* cryptoCtx,
                                 SeosCrypto_KeyHandle keyHandle);
 
-/* Private variables ---------------------------------------------------------*/
-
 /* Public functions -----------------------------------------------------------*/
-bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx)
+bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx, bool generateKey)
 {
-    SeosCryptoKey* masterKey;
-    SeosCryptoKey* generatedKey;
+    SeosCryptoKey* writeKey;
     SeosCryptoKey* readKey;
+    seos_err_t err = SEOS_ERROR_GENERIC;
 
-    /***************************** TEST KEY IMPORT *******************************/
-    seos_err_t err = SeosKeyStoreApi_importKey(keyStoreCtx,
-                                               &masterKey,
-                                               MASTER_KEY_NAME,
-                                               MASTER_KEY_BYTES,
-                                               SeosCryptoCipher_Algorithm_AES_CBC_ENC,
-                                               1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER,
-                                               MASTER_KEY_SIZE * 8);
+    /***************************** Import/generate the key *******************************/
+    if(generateKey)
+    {
+        err = SeosKeyStoreApi_generateKey(keyStoreCtx,
+                                        &writeKey,
+                                        KEY_NAME,
+                                        SeosCryptoCipher_Algorithm_AES_CBC_DEC,
+                                        1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER,
+                                        KEY_SIZE * 8);
+        if (err != SEOS_SUCCESS)
+        {
+            Debug_LOG_ERROR("%s: SeosKeyStoreApi_generateKey failed with error code %d!",
+                            __func__, err);
+            return 0;
+        }
+    }
+    else
+    {
+        err = SeosKeyStoreApi_importKey(keyStoreCtx,
+                                        &writeKey,
+                                        KEY_NAME,
+                                        KEY_BYTES,
+                                        SeosCryptoCipher_Algorithm_AES_CBC_ENC,
+                                        1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER,
+                                        KEY_SIZE * 8);
+        if (err != SEOS_SUCCESS)
+        {
+            Debug_LOG_ERROR("%s: SeosKeyStoreApi_importKey failed with error code %d!",
+                            __func__, err);
+            return 0;
+        }
+    }
+
+    /***************************** Test AES positive case ********************************/
+    err = testAesForKey(cryptoCtx, writeKey);
     if (err != SEOS_SUCCESS)
     {
-        Debug_LOG_ERROR("%s: SeosKeyStoreApi_importKey failed with error code %d!",
+        Debug_LOG_ERROR("%s: testAesForKey failed with error code %d", __func__, err);
+        return 0;
+    }
+
+    /***************************** Close the key *****************************************/
+    err = SeosKeyStoreApi_closeKey(keyStoreCtx, writeKey);
+    if (err != SEOS_SUCCESS)
+    {
+        Debug_LOG_ERROR("%s: SeosKeyStoreApi_closeKey failed with error code %d!",
                         __func__, err);
         return 0;
     }
-    Debug_LOG_DEBUG("\n\nThe master key is succesfully imported!\n");
 
-    // get the imported key
+    /***************************** Test AES negative case ********************************/
+    err = testAesForKey(cryptoCtx, writeKey);
+    if (err != SEOS_ERROR_ABORTED)
+    {
+        Debug_LOG_ERROR("%s: testAesForKey expected to fail because of the closed key but returned error code %d", __func__, err);
+        return 0;
+    }
+
+    /***************************** Get the key *******************************************/
     err = SeosKeyStoreApi_getKey(keyStoreCtx,
                                  &readKey,
-                                 MASTER_KEY_NAME);
+                                 KEY_NAME);
     if (err != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("%s: SeosKeyStoreApi_getKey failed with error code %d!",
                         __func__, err);
         return 0;
     }
-    // use the imported key for aes encryption
-    testAesForKey(cryptoCtx, readKey);
+
+    /***************************** Test AES positive case ********************************/
+    err = testAesForKey(cryptoCtx, readKey);
     if (err != SEOS_SUCCESS)
     {
-        Debug_LOG_ERROR("%s: testAesForKey failed for the imported key with error code %d",
-                        __func__, err);
+        Debug_LOG_ERROR("%s: testAesForKey failed with error code %d", __func__, err);
         return 0;
     }
-    Debug_LOG_DEBUG("\n\nAES encryption/decryption succesfully performed with the imported key!\n");
 
-    // delete the imported key
-    err = SeosKeyStoreApi_deleteKey(keyStoreCtx, masterKey,
-                                    MASTER_KEY_NAME);
+    /***************************** Delete the key ****************************************/
+    err = SeosKeyStoreApi_deleteKey(keyStoreCtx,
+                                    readKey,
+                                    KEY_NAME);
     if (err != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("%s: SeosKeyStoreApi_deleteKey failed with error code %d!",
@@ -85,126 +131,28 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx)
         return 0;
     }
 
-    // check if the key is actaully deleted by verifying that the getKey results in an error
+    /***************************** Test AES negative case ********************************/
+    err = testAesForKey(cryptoCtx, readKey);
+    if (err != SEOS_ERROR_ABORTED)
+    {
+        Debug_LOG_ERROR("%s: testAesForKey expected to fail because of the closed key but returned error code %d", __func__, err);
+        return 0;
+    }
+
+    /***************************** Test get negative case ********************************/
     err = SeosKeyStoreApi_getKey(keyStoreCtx,
                                  &readKey,
-                                 MASTER_KEY_NAME);
+                                 KEY_NAME);
     if (err != SEOS_ERROR_NOT_FOUND)
     {
         Debug_LOG_ERROR("%s: Expected to receive a SEOS_ERROR_NOT_FOUND after reading the deleted key, but received an err code: %d! Exiting test...",
                         __func__, err);
         return 0;
     }
-    Debug_LOG_DEBUG("\n\nThe master key is succesfully deleted!\n");
 
-    /***************************** TEST KEY GENERATION *******************************/
-    err = SeosKeyStoreApi_generateKey(keyStoreCtx,
-                                      &generatedKey,
-                                      GENERATED_KEY_NAME,
-                                      SeosCryptoCipher_Algorithm_AES_CBC_DEC,
-                                      1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER,
-                                      GENERATED_KEY_SIZE * 8);
-    if (err != SEOS_SUCCESS)
-    {
-        Debug_LOG_ERROR("%s: SeosKeyStoreApi_generateKey failed with error code %d!",
-                        __func__, err);
-        return 0;
-    }
-    // get the generated key
-    err = SeosKeyStoreApi_getKey(keyStoreCtx,
-                                 &readKey,
-                                 GENERATED_KEY_NAME);
-    if (err != SEOS_SUCCESS)
-    {
-        Debug_LOG_ERROR("%s: SeosKeyStoreApi_getKey failed with error code %d!",
-                        __func__, err);
-        return 0;
-    }
-    // use the imported key for aes encryption
-    testAesForKey(cryptoCtx, readKey);
-    if (err != SEOS_SUCCESS)
-    {
-        Debug_LOG_ERROR("%s: testAesForKey failed for the generated key with error code %d",
-                        __func__, err);
-        return 0;
-    }
-    Debug_LOG_DEBUG("\n\nAES encryption/decryption succesfully performed with the generated key!\n");
+    Debug_LOG_DEBUG("\n\n--------------------------------------KeyStore test with key generation set to %d succedded!--------------------------------------\n", generateKey);
 
-    return 0;
-}
-
-bool keyStoreContext_ctor(KeyStoreContext*  keyStoreCtx,
-                          uint8_t         channelNum,
-                          void*           dataport)
-{
-    if (!ChanMuxClient_ctor(&(keyStoreCtx->chanMuxClient), channelNum, dataport))
-    {
-        Debug_LOG_ERROR("%s: Failed to construct chanMuxClient, channel %d!", __func__,
-                        channelNum);
-        return false;
-    }
-
-    if (!ProxyNVM_ctor(&(keyStoreCtx->proxyNVM), &(keyStoreCtx->chanMuxClient),
-                       dataport, PAGE_SIZE))
-    {
-        Debug_LOG_ERROR("%s: Failed to construct proxyNVM, channel %d!", __func__,
-                        channelNum);
-        return false;
-    }
-
-    if (!AesNvm_ctor(&(keyStoreCtx->aesNvm),
-                     ProxyNVM_TO_NVM(&(keyStoreCtx->proxyNVM))))
-    {
-        Debug_LOG_ERROR("%s: Failed to initialize AesNvm, channel %d!", __func__,
-                        channelNum);
-        return false;
-    }
-
-    if (!SeosSpiffs_ctor(&(keyStoreCtx->fs), AesNvm_TO_NVM(&(keyStoreCtx->aesNvm)),
-                         NVM_PARTITION_SIZE, 0))
-    {
-        Debug_LOG_ERROR("%s: Failed to initialize spiffs, channel %d!", __func__,
-                        channelNum);
-        return false;
-    }
-
-    seos_err_t ret = SeosSpiffs_mount(&(keyStoreCtx->fs));
-    if (ret != SEOS_SUCCESS)
-    {
-        Debug_LOG_ERROR("%s: spiffs mount failed with error code %d, channel %d!",
-                        __func__, ret, channelNum);
-        return false;
-    }
-
-    keyStoreCtx->fileStreamFactory = SpiffsFileStreamFactory_TO_FILE_STREAM_FACTORY(
-                                         SpiffsFileStreamFactory_getInstance(&(keyStoreCtx->fs)));
-    if (keyStoreCtx->fileStreamFactory == NULL)
-    {
-        Debug_LOG_ERROR("%s: Failed to get the SpiffsFileStreamFactory instance, channel %d!",
-                        __func__, channelNum);
-        return false;
-    }
-    ret = SeosCrypto_init(&(keyStoreCtx->cryptoCore), malloc, free, NULL, NULL);
-    if (ret != SEOS_SUCCESS)
-    {
-        Debug_LOG_ERROR("%s: SeosCrypto_init failed with error code %d",
-                        __func__, ret);
-        return false;
-    }
-
-    return true;
-}
-
-bool keyStoreContext_dtor(KeyStoreContext* keyStoreCtx)
-{
-    ChanMuxClient_dtor(&(keyStoreCtx->chanMuxClient));
-    ProxyNVM_dtor(ProxyNVM_TO_NVM(&(keyStoreCtx->proxyNVM)));
-    AesNvm_dtor(AesNvm_TO_NVM(&(keyStoreCtx->aesNvm)));
-    SeosSpiffs_dtor(&(keyStoreCtx->fs));
-    FileStreamFactory_dtor(keyStoreCtx->fileStreamFactory);
-    SeosCrypto_deInit(&(keyStoreCtx->cryptoCore.parent));
-
-    return true;
+    return 1;
 }
 
 /* Private functions ---------------------------------------------------------*/
