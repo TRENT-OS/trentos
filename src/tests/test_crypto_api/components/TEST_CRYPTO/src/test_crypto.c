@@ -289,28 +289,44 @@ int run()
     }
 
     /******************** Test local and remote versions **********************/
+    Debug_LOG_INFO("\n\n**************************** Starting 'TestKeyStore_scenario_1' ****************************\n");
     if (!testKeyStore(&(localKeyStore.parent), apiLocal, true))
     {
-        Debug_LOG_ERROR("%s: KeyStore local test with key generation failed!",
-                        __func__);
-        return 0;
+        Debug_LOG_ERROR("\n\n**************************** TestKeyStore_scenario_1 FAILED! ****************************\n");
     }
-    if (!testKeyStore(&(localKeyStore.parent), apiLocal, false))
+    else
     {
-        Debug_LOG_ERROR("%s: KeyStore local test with key import failed!", __func__);
-        return 0;
+        Debug_LOG_INFO("\n\n**************************** TestKeyStore_scenario_1 succeeded! ****************************\n");
     }
 
+    Debug_LOG_INFO("\n\n**************************** Starting 'TestKeyStore_scenario_2 ****************************\n");
+    if (!testKeyStore(&(localKeyStore.parent), apiLocal, false))
+    {
+        Debug_LOG_ERROR("\n\n**************************** TestKeyStore_scenario_2 FAILED! ****************************\n");
+    }
+    else
+    {
+        Debug_LOG_INFO("\n\n**************************** TestKeyStore_scenario_2 succeeded! ****************************\n");
+    }
+
+    Debug_LOG_INFO("\n\n**************************** Starting 'TestKeyStore_scenario_3 ****************************\n");
     if (!testKeyStore(&(keyStoreClient.parent), apiRpc, true))
     {
-        Debug_LOG_ERROR("%s: KeyStore remote test with key generation failed!",
-                        __func__);
-        return 0;
+        Debug_LOG_ERROR("\n\n**************************** TestKeyStore_scenario_3 FAILED! ****************************\n");
     }
+    else
+    {
+        Debug_LOG_INFO("\n\n**************************** TestKeyStore_scenario_3 succeeded! ****************************\n");
+    }
+
+    Debug_LOG_INFO("\n\n**************************** Starting 'TestKeyStore_scenario_4 ****************************\n");
     if (!testKeyStore(&(keyStoreClient.parent), apiRpc, false))
     {
-        Debug_LOG_ERROR("%s: KeyStore remote test with key import failed!", __func__);
-        return 0;
+        Debug_LOG_ERROR("\n\n**************************** TestKeyStore_scenario_4 FAILED! ****************************\n");
+    }
+    else
+    {
+        Debug_LOG_INFO("\n\n**************************** TestKeyStore_scenario_4 succeeded! ****************************\n");
     }
 
     /***************************** Destruction *******************************/

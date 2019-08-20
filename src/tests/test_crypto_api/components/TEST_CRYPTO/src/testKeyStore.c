@@ -44,7 +44,9 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
     SeosCryptoKey* readKey;
     seos_err_t err = SEOS_ERROR_GENERIC;
 
-    /***************************** Import/generate the key *******************************/
+    /***************************** Import/generate the key and test AES positive case *******************************/
+    Debug_LOG_INFO("\n\nStarting 'TestKeyStore_testCase_01'\n");
+
     if (generateKey)
     {
         err = SeosKeyStoreApi_generateKey(keyStoreCtx,
@@ -77,7 +79,6 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
         }
     }
 
-    /***************************** Test AES positive case ********************************/
     err = testAesForKey(cryptoCtx, writeKey);
     if (err != SEOS_SUCCESS)
     {
@@ -85,7 +86,11 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
         return 0;
     }
 
-    /***************************** Close the key *****************************************/
+    Debug_LOG_INFO("\n\nTestKeyStore_testCase_01 passed!\n");
+
+    /***************************** Close the key and test AES negative case *****************************************/
+    Debug_LOG_INFO("\n\nStarting 'TestKeyStore_testCase_02'\n");
+
     err = SeosKeyStoreApi_closeKey(keyStoreCtx, writeKey);
     if (err != SEOS_SUCCESS)
     {
@@ -94,7 +99,6 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
         return 0;
     }
 
-    /***************************** Test AES negative case ********************************/
     err = testAesForKey(cryptoCtx, writeKey);
     if (err != SEOS_ERROR_ABORTED)
     {
@@ -103,7 +107,11 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
         return 0;
     }
 
-    /***************************** Get the key *******************************************/
+    Debug_LOG_INFO("\n\nTestKeyStore_testCase_02 passed!\n");
+
+    /***************************** Get the key and test AES positive case *******************************************/
+    Debug_LOG_INFO("\n\nStarting 'TestKeyStore_testCase_03'\n");
+
     err = SeosKeyStoreApi_getKey(keyStoreCtx,
                                  &readKey,
                                  KEY_NAME);
@@ -114,7 +122,6 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
         return 0;
     }
 
-    /***************************** Test AES positive case ********************************/
     err = testAesForKey(cryptoCtx, readKey);
     if (err != SEOS_SUCCESS)
     {
@@ -122,7 +129,11 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
         return 0;
     }
 
-    /***************************** Delete the key ****************************************/
+    Debug_LOG_INFO("\n\nTestKeyStore_testCase_03 passed!\n");
+
+    /***************************** Delete the key test AES/get negative case ****************************************/
+    Debug_LOG_INFO("\n\nStarting 'TestKeyStore_testCase_04'\n");
+
     err = SeosKeyStoreApi_deleteKey(keyStoreCtx,
                                     readKey,
                                     KEY_NAME);
@@ -133,7 +144,6 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
         return 0;
     }
 
-    /***************************** Test AES negative case ********************************/
     err = testAesForKey(cryptoCtx, readKey);
     if (err != SEOS_ERROR_ABORTED)
     {
@@ -142,7 +152,6 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
         return 0;
     }
 
-    /***************************** Test get negative case ********************************/
     err = SeosKeyStoreApi_getKey(keyStoreCtx,
                                  &readKey,
                                  KEY_NAME);
@@ -153,8 +162,7 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
         return 0;
     }
 
-    Debug_LOG_DEBUG("\n\n--------------------------------------KeyStore test with key generation set to %d succedded!--------------------------------------\n",
-                    generateKey);
+    Debug_LOG_INFO("\n\nTestKeyStore_testCase_04 passed!\n");
 
     return 1;
 }
