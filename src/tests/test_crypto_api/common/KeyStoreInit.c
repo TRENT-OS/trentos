@@ -2,8 +2,7 @@
  * Copyright (C) 2019, Hensoldt Cyber GmbH
  */
 /* Includes ------------------------------------------------------------------*/
-#include "KeyStore.h"
-#include "camkes.h"
+#include "KeyStoreInit.h"
 
 /* Defines -------------------------------------------------------------------*/
 #define NVM_PARTITION_SIZE      (1024*128)
@@ -60,14 +59,6 @@ bool keyStoreContext_ctor(KeyStoreContext*  keyStoreCtx,
                         __func__, channelNum);
         return false;
     }
-    ret = SeosCrypto_init(&(keyStoreCtx->cryptoCore), malloc, free, NULL, NULL);
-    if (ret != SEOS_SUCCESS)
-    {
-        Debug_LOG_ERROR("%s: SeosCrypto_init failed with error code %d",
-                        __func__, ret);
-        return false;
-    }
-
     return true;
 }
 
@@ -78,57 +69,6 @@ bool keyStoreContext_dtor(KeyStoreContext* keyStoreCtx)
     AesNvm_dtor(AesNvm_TO_NVM(&(keyStoreCtx->aesNvm)));
     SeosSpiffs_dtor(&(keyStoreCtx->fs));
     FileStreamFactory_dtor(keyStoreCtx->fileStreamFactory);
-    SeosCrypto_deInit(&(keyStoreCtx->cryptoCore.parent));
 
     return true;
-}
-
-seos_err_t
-KeyStore_getRpcHandle(SeosKeyStoreRpc_Handle* instance)
-{
-    static SeosKeyStore keyStore;
-    static SeosKeyStoreRpc the_one;
-    static KeyStoreContext keyStoreCtx;
-
-    if (!keyStoreContext_ctor(&keyStoreCtx, 6, (void*)chanMuxDataPort))
-    {
-        Debug_LOG_ERROR("%s: Failed to initialize the test!", __func__);
-        return 0;
-    }
-
-    seos_err_t retval = SeosKeyStore_init(&keyStore,
-                            keyStoreCtx.fileStreamFactory,
-                            &(keyStoreCtx.cryptoCore),
-                            "KEY_STORE");
-
-    if (retval != SEOS_SUCCESS)
-    {
-        Debug_LOG_ERROR("%s: SeosKeyStore_init failed with error code %d!", __func__,
-                        retval);
-        return retval;
-    }
-
-
-    retval = SeosKeyStoreRpc_init(&the_one, &(keyStore.parent), keyStoreServerDataport);
-    if (retval != SEOS_SUCCESS)
-    {
-        Debug_LOG_ERROR("%s: SeosKeyStoreRpc_init failed with error code %d!", __func__,
-                        retval);
-        return retval;
-    }
-
-    *instance = &the_one;
-
-    if (SEOS_SUCCESS == retval)
-    {
-        Debug_LOG_TRACE("%s: created rpc object %p", __func__, *instance);
-    }
-
-    return retval;
-}
-
-void
-KeyStore_closeRpcHandle(SeosKeyStoreRpc_Handle instance)
-{
-    /// TODO
 }

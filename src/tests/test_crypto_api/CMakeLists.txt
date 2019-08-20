@@ -35,10 +35,12 @@ if (ENABLE_LINT)
 endif()
 DeclareCAmkESComponent(TEST_CRYPTO INCLUDES
                             include
+                            common
                             SOURCES
                             "components/TEST_CRYPTO/src/test_crypto.c"
                             "components/TEST_CRYPTO/src/testSignatureRsa.c"
                             "components/TEST_CRYPTO/src/testKeyStore.c"
+                            "common/KeyStoreInit.c"
 )
 set_property(TARGET CAmkESComponent_TEST_CRYPTO
              APPEND PROPERTY COMPONENT_LIBS
@@ -54,11 +56,12 @@ if (ENABLE_LINT)
 endif()
 DeclareCAmkESComponent(CRYPTO INCLUDES
                             include
+                            common
                             SOURCES
                             "components/CRYPTO/instance/Crypto.c"
-                            "components/CRYPTO/instance/KeyStore.c"
                             "../../libs/seos_crypto/src/SeosCryptoRpc.c"
                             "../../libs/seos_keystore/src/SeosKeyStoreRpc.c"
+                            "common/KeyStoreInit.c"
 )
 set_property(TARGET CAmkESComponent_CRYPTO
 
