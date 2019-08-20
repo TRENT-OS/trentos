@@ -291,7 +291,8 @@ int run()
     /******************** Test local and remote versions **********************/
     if (!testKeyStore(&(localKeyStore.parent), apiLocal, true))
     {
-        Debug_LOG_ERROR("%s: KeyStore local test with key generation failed!", __func__);
+        Debug_LOG_ERROR("%s: KeyStore local test with key generation failed!",
+                        __func__);
         return 0;
     }
     if (!testKeyStore(&(localKeyStore.parent), apiLocal, false))
@@ -302,7 +303,8 @@ int run()
 
     if (!testKeyStore(&(keyStoreClient.parent), apiRpc, true))
     {
-        Debug_LOG_ERROR("%s: KeyStore remote test with key generation failed!", __func__);
+        Debug_LOG_ERROR("%s: KeyStore remote test with key generation failed!",
+                        __func__);
         return 0;
     }
     if (!testKeyStore(&(keyStoreClient.parent), apiRpc, false))

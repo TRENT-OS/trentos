@@ -6,5 +6,6 @@
 #include "SeosKeyStore.h"
 #include "SeosKeyStoreCtx.h"
 
-bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx, bool generateKey);
+bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
+                  bool generateKey);
 

@@ -19,39 +19,40 @@
 /* Private functions prototypes ----------------------------------------------*/
 static seos_err_t
 aesEncrypt(SeosCryptoCtx* cryptoCtx,
-            SeosCrypto_KeyHandle keyHandle,
-            const char* data, 
-            size_t inDataSize,
-            void** outBuf,
-            size_t* outDataSize);
+           SeosCrypto_KeyHandle keyHandle,
+           const char* data,
+           size_t inDataSize,
+           void** outBuf,
+           size_t* outDataSize);
 
 static seos_err_t
 aesDecrypt(SeosCryptoCtx* cryptoCtx,
-            SeosCrypto_KeyHandle keyHandle,
-            const void* data,
-            size_t inDataSize,
-            void** outBuf,
-            size_t* outDataSize);
+           SeosCrypto_KeyHandle keyHandle,
+           const void* data,
+           size_t inDataSize,
+           void** outBuf,
+           size_t* outDataSize);
 
 static seos_err_t testAesForKey(SeosCryptoCtx* cryptoCtx,
                                 SeosCrypto_KeyHandle keyHandle);
 
 /* Public functions -----------------------------------------------------------*/
-bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx, bool generateKey)
+bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
+                  bool generateKey)
 {
     SeosCryptoKey* writeKey;
     SeosCryptoKey* readKey;
     seos_err_t err = SEOS_ERROR_GENERIC;
 
     /***************************** Import/generate the key *******************************/
-    if(generateKey)
+    if (generateKey)
     {
         err = SeosKeyStoreApi_generateKey(keyStoreCtx,
-                                        &writeKey,
-                                        KEY_NAME,
-                                        SeosCryptoCipher_Algorithm_AES_CBC_DEC,
-                                        1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER,
-                                        KEY_SIZE * 8);
+                                          &writeKey,
+                                          KEY_NAME,
+                                          SeosCryptoCipher_Algorithm_AES_CBC_DEC,
+                                          1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER,
+                                          KEY_SIZE * 8);
         if (err != SEOS_SUCCESS)
         {
             Debug_LOG_ERROR("%s: SeosKeyStoreApi_generateKey failed with error code %d!",
@@ -97,7 +98,8 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx, bool g
     err = testAesForKey(cryptoCtx, writeKey);
     if (err != SEOS_ERROR_ABORTED)
     {
-        Debug_LOG_ERROR("%s: testAesForKey expected to fail because of the closed key but returned error code %d", __func__, err);
+        Debug_LOG_ERROR("%s: testAesForKey expected to fail because of the closed key but returned error code %d",
+                        __func__, err);
         return 0;
     }
 
@@ -135,7 +137,8 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx, bool g
     err = testAesForKey(cryptoCtx, readKey);
     if (err != SEOS_ERROR_ABORTED)
     {
-        Debug_LOG_ERROR("%s: testAesForKey expected to fail because of the closed key but returned error code %d", __func__, err);
+        Debug_LOG_ERROR("%s: testAesForKey expected to fail because of the closed key but returned error code %d",
+                        __func__, err);
         return 0;
     }
 
@@ -150,7 +153,8 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx, bool g
         return 0;
     }
 
-    Debug_LOG_DEBUG("\n\n--------------------------------------KeyStore test with key generation set to %d succedded!--------------------------------------\n", generateKey);
+    Debug_LOG_DEBUG("\n\n--------------------------------------KeyStore test with key generation set to %d succedded!--------------------------------------\n",
+                    generateKey);
 
     return 1;
 }
