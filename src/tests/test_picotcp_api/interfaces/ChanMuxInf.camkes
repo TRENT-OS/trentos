@@ -1,0 +1,29 @@
+/*
+ *  SEOS Chanmux  Interface
+ *
+ *  Copyright (C) 2019, Hensoldt Cyber GmbH
+ *
+ */
+procedure ChanMuxLanInf {
+    include <seos_err.h>;
+
+    seos_err_t  write   (in unsigned chan, in size_t len, out size_t written);
+    seos_err_t  read    (in unsigned chan, in size_t len, out size_t read);
+};
+
+procedure ChanMuxWanInf {
+    include <seos_err.h>;
+
+    seos_err_t  write   (in unsigned chan, in size_t len, out size_t written);
+    seos_err_t  read    (in unsigned chan, in size_t len, out size_t read);
+};
+
+procedure ChanMuxNwStackInf {
+     include <seos_err.h>;
+    seos_err_t  write   (in unsigned chan, in size_t len, out size_t written);
+    seos_err_t  read    (in unsigned chan, in size_t len, out size_t read);
+};
+
+procedure ChanMuxOutInf {
+    void takeByte(char byte);
+}

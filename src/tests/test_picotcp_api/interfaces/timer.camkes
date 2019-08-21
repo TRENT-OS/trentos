@@ -1,0 +1,9 @@
+/*
+ *  SEOS Timer  Interface
+ *
+ *  Copyright (C) 2019, Hensoldt Cyber GmbH
+ *
+ */
+procedure timer_inf {
+    void sleep(in int sec);
+};
