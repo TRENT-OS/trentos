@@ -141,6 +141,7 @@ if [[ "${1:-}" == "all" ]]; then
     run_build_mode zynq7000 Debug TEST_CRYPTO_API $@
     run_build_mode zynq7000 Debug TEST_PROXY_NVM $@
     run_build_mode zynq7000 Debug TEST_SPIFFS_INTEGRATION $@
+    run_build_mode zynq7000 Debug TEST_PICOTCP_API $@
 elif [[ "${1:-}" == "clean" ]]; then
     shift
     /bin/rm -rf build-*

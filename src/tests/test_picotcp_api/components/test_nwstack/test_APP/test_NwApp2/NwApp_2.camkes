@@ -1,0 +1,15 @@
+/*
+ *  SEOS Network Stack CAmkES App as Server
+ *
+ *  Copyright (C) 2019, Hensoldt Cyber GmbH
+ *
+ */
+import "../../../../interfaces/NwStackInf.camkes";
+
+component NwApp_2 {
+  control;  
+  uses       NwStackInf         seos;
+  dataport   Buf                NwAppDataPort_2;
+  
+  /* Signals e- emit and c - consumes */
+}
