@@ -1,9 +1,16 @@
 import "../../interfaces/Crypto.camkes";
 
 component CRYPTO {
-    dataport    Buf                 serverDataport;
-
+    dataport    Buf                 cryptoServerDataport;
     provides    CryptoInf           Crypto;
     provides    CryptoRpcInf        SeosCryptoRpc;
+
+    dataport    Buf                 keyStoreServerDataport;
+    provides    KeyStoreInf         KeyStore;
+    provides    KeyStoreRpcInf      SeosKeyStoreRpc; 
+
+    dataport    Buf                 chanMuxDataPort;
+    uses        ChanMuxInInf        ChanMuxRpc;
+    consumes    DataAvailableEvent  ChanMuxSignal_dataAvailable;
 }
 
