@@ -23,3 +23,24 @@ procedure CryptoRpcInf {
     seos_err_t      cipherUpdate    (in SeosCryptoRpc_Handle handle, in SeosCrypto_CipherHandle pCipherHandle, in size_t len);
     seos_err_t      cipherFinalize  (in SeosCryptoRpc_Handle handle, in SeosCrypto_CipherHandle pCipherHandle, in size_t len);
 };
+
+procedure KeyStoreInf {
+    include "seos_err.h";
+    include "SeosKeyStoreRpc.h";
+
+    seos_err_t      getRpcHandle    (inout SeosKeyStoreRpc_Handle handle);
+    void            closeRpcHandle  (in SeosKeyStoreRpc_Handle handle);
+};
+
+procedure KeyStoreRpcInf {
+    include "seos_err.h";
+    include "SeosKeyStoreRpc.h";
+
+    seos_err_t      importKey       (in SeosKeyStoreRpc_Handle handle, out SeosCrypto_KeyHandle keyHandle, in unsigned int algorithm, in unsigned int flags, in size_t lenBits);
+    seos_err_t      getKey          (in SeosKeyStoreRpc_Handle handle, out SeosCrypto_KeyHandle keyHandle);
+    seos_err_t      deleteKey       (in SeosKeyStoreRpc_Handle handle, in SeosCrypto_KeyHandle keyHandle);
+    seos_err_t      closeKey        (in SeosKeyStoreRpc_Handle handle, in SeosCrypto_KeyHandle keyHandle);
+    seos_err_t      copyKey         (in SeosKeyStoreRpc_Handle handle, in SeosCrypto_KeyHandle keyHandle, in SeosKeyStoreRpc_Handle destKeyStore);
+    seos_err_t      moveKey         (in SeosKeyStoreRpc_Handle handle, in SeosCrypto_KeyHandle keyHandle, in SeosKeyStoreRpc_Handle destKeyStore);
+    seos_err_t      generateKey     (in SeosKeyStoreRpc_Handle handle, out SeosCrypto_KeyHandle keyHandle, in unsigned int algorithm, in unsigned int flags, in size_t lenBits);
+};

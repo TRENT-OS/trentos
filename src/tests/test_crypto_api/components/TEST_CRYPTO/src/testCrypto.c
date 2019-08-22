@@ -1,21 +1,12 @@
-#include "LibDebug/Debug.h"
+/**
+ * Copyright (C) 2019, Hensoldt Cyber GmbH
+ *
+ */
 
-#include <stdio.h>
-#include <camkes.h>
-#include <string.h>
-
-#include "SeosCryptoClient.h"
-#include "SeosCryptoDigest.h"
-#include "SeosCryptoCipher.h"
-
-#include "LibMem/BitmapAllocator.h"
-
-#include "testSignatureRsa.h"
-
+#include "testCrypto.h"
 #include "SeosCryptoApi.h"
 
-static void
-testRNG(SeosCryptoCtx* cryptoCtx)
+void testRNG(SeosCryptoCtx* cryptoCtx)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
     char data[16];
@@ -37,8 +28,7 @@ testRNG(SeosCryptoCtx* cryptoCtx)
     }
 }
 
-static void
-testDigestMD5(SeosCryptoCtx* cryptoCtx)
+void testDigestMD5(SeosCryptoCtx* cryptoCtx)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
 
@@ -75,8 +65,7 @@ testDigestMD5(SeosCryptoCtx* cryptoCtx)
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 }
 
-static void
-testDigestSHA256(SeosCryptoCtx* cryptoCtx)
+void testDigestSHA256(SeosCryptoCtx* cryptoCtx)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
 
@@ -118,8 +107,7 @@ testDigestSHA256(SeosCryptoCtx* cryptoCtx)
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 }
 
-static void
-testCipherAES(SeosCryptoCtx* cryptoCtx)
+void testCipherAES(SeosCryptoCtx* cryptoCtx)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
 
@@ -198,43 +186,4 @@ testCipherAES(SeosCryptoCtx* cryptoCtx)
 
     err = SeosCryptoApi_keyClose(cryptoCtx, keyHandle);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
-}
-
-int run()
-{
-    SeosCrypto cryptoCtx;
-    SeosCryptoClient client;
-    SeosCryptoCtx* apiLocal;
-    SeosCryptoCtx* apiRpc;
-    SeosCryptoRpc_Handle rpcHandle = NULL;
-    seos_err_t err = SEOS_ERROR_GENERIC;
-
-    err = Crypto_getRpcHandle(&rpcHandle);
-    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
-    Debug_LOG_INFO("%s: got rpc object %p from server", __func__, rpcHandle);
-
-    err = SeosCryptoClient_init(&client, rpcHandle, cryptoClientDataport);
-    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
-
-    err = SeosCrypto_init(&cryptoCtx, malloc, free, NULL, NULL);
-    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
-
-    apiLocal    = SeosCrypto_TO_SEOS_CRYPTO_CTX(&cryptoCtx);
-    apiRpc      = SeosCryptoClient_TO_SEOS_CRYPTO_CTX(&client);
-
-    testRNG(apiLocal);
-    testRNG(apiRpc);
-
-    testDigestMD5(apiLocal);
-    testDigestMD5(apiRpc);
-
-    testDigestSHA256(apiLocal);
-    testDigestSHA256(apiRpc);
-
-    testCipherAES(apiLocal);
-    testCipherAES(apiRpc);
-
-    testSignatureRSA(&client);
-
-    return 0;
 }

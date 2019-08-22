@@ -1,0 +1,41 @@
+/*
+ *  SEOS Network Stack CAmkES (instance 2) 
+ *
+ *  Copyright (C) 2019, Hensoldt Cyber GmbH
+ *
+ */
+import "../../../../interfaces/ChanMuxInf.camkes";
+import "../../../../interfaces/NwStackInf.camkes";
+
+component NwStack_2 {
+    control;
+
+    dataport   Buf                        chanMuxDataPort_2;
+    dataport   Buf                        chanMuxCtrlDataPort_2;
+    uses       ChanMuxNwStackInf          ChanMux;
+
+
+    /* Below interface is for applications using the Nw Stack 2  */
+
+    provides   NwStackInf                 seos;
+    dataport   Buf                        NwAppDataPort_2;
+  
+    /* List of signal emits and consumed */
+    /* e - emit and c - consume and 2 - 2nd instance of NwStack  */     
+    
+    emits      NwStack_Initdone_2         e_initdone_2;      /* Actually consumed by app */
+    consumes   NwStack_Initdone_2         c_initdone_2;
+
+    emits      NwStack_WrEv_2             e_write_2;
+    consumes   NwStack_WrEv_2             c_write_2; 
+    
+    emits      NwStack_RdEv_2             e_read_2;   
+    consumes   NwStack_RdEv_2             c_read_2;
+
+    emits      NwStack_ConnEv_2           e_conn_2;   
+    consumes   NwStack_ConnEv_2           c_conn_2;
+    
+    emits      NwStack_DataAvailable_2    e_write_nwstacktick_2;
+    consumes   NwStack_DataAvailable_2    c_nwstacktick_2;
+   
+}
