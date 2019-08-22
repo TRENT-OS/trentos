@@ -130,6 +130,18 @@ function run_build_mode()
 
 
 #-------------------------------------------------------------------------------
+function run_doxygen()
+{
+    MODLE_DIR=${1}
+
+    (
+        cd ${MODLE_DIR}
+        doxygen
+    )
+}
+
+
+#-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 prepare_layout
@@ -144,6 +156,12 @@ if [[ "${1:-}" == "all" ]]; then
 
     # keep this test disabled until the sandbox integration work properly
     #run_build_mode zynq7000 Debug TEST_PICOTCP_API $@
+
+elif [[ "${1:-}" == "doxygen" ]]; then
+    # ToDo: this builds the docs in the source folder, it would be better if
+    #       we do this in a dedicated build directory to keep the source clean
+    run_doxygen ${BUILD_SCRIPT_DIR}/seos_sandbox/projects/libs/seos_libs
+    run_doxygen ${BUILD_SCRIPT_DIR}/seos_sandbox/projects/libs/seos_crypto
 
 elif [[ "${1:-}" == "clean" ]]; then
     shift
