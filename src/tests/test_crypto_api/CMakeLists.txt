@@ -26,6 +26,21 @@ set(MEMORY_CONFIG_H_FILE
         "${CMAKE_SOURCE_DIR}/projects/configs/include/Memory_Config.h"
         CACHE STRING "" FORCE
 )
+
+find_package(Doxygen
+             REQUIRED dot
+             OPTIONAL_COMPONENTS mscgen dia)
+if (DOXYGEN_FOUND)
+    # note the option ALL which allows to build the docs together with the application
+    add_custom_target( seos_tests_doc
+        COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile && ln -sf ${CMAKE_CURRENT_SOURCE_DIR}/html ${CMAKE_CURRENT_BINARY_DIR}/seos_tests_doc
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        COMMENT "Generating API documentation with Doxygen"
+        VERBATIM )
+else(DOXYGEN_FOUND)
+    message("Doxygen needs to be installed to generate the doxygen documentation")
+endif(DOXYGEN_FOUND)
+
 ImportCamkes()
 
 # COMPONENT TEST_CRYPTO
@@ -37,9 +52,10 @@ DeclareCAmkESComponent(TEST_CRYPTO INCLUDES
                             include
                             common
                             SOURCES
-                            "components/TEST_CRYPTO/src/test_crypto.c"
+                            "components/TEST_CRYPTO/src/testRunner.c"
                             "components/TEST_CRYPTO/src/testSignatureRsa.c"
                             "components/TEST_CRYPTO/src/testKeyStore.c"
+                            "components/TEST_CRYPTO/src/testCrypto.c"
                             "common/KeyStoreInit.c"
 )
 set_property(TARGET CAmkESComponent_TEST_CRYPTO

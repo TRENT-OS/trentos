@@ -8,8 +8,6 @@
 #include "SpiffsFileStream.h"
 #include "SpiffsFileStreamFactory.h"
 #include "SeosKeyStore.h"
-#include "SeosKeyStoreClient.h"
-#include "SeosKeyStoreRpc.h"
 
 typedef struct KeyStoreContext
 {
