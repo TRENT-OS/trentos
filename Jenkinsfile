@@ -78,7 +78,13 @@ pipeline {
                             rm -rf ta
                         fi
                         BRANCH=`git describe --contains --all HEAD | cut -d/ -f3`
-                        git clone --recursive -b $BRANCH ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/ta.git
+                        RET=0
+                        git ls-remote --exit-code ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/ta.git ${BRANCH} || RET=$?
+                        if [ ! -z ${RET} ]; then
+                            echo "no dedicated branch exists, will use master"
+                            BRANCH=master
+                        fi
+                        git clone --recursive -b ${BRANCH} ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/ta.git
                         cd ta
                         python3 -m venv ta-env
                         source ta-env/bin/activate
@@ -90,6 +96,12 @@ pipeline {
                             rm -rf mqtt_proxy_demo
                         fi
                         BRANCH=`git describe --contains --all HEAD | cut -d/ -f3`
+                        RET=0
+                        git ls-remote --exit-code ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/ta.git ${BRANCH} || RET=$?
+                        if [ ! -z ${RET} ]; then
+                            echo "no dedicated branch exists, will use master"
+                            BRANCH=master
+                        fi
                         git clone --recursive -b $BRANCH ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/mqtt_proxy_demo.git
                         cd mqtt_proxy_demo
                         ./build.sh
