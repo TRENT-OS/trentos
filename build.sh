@@ -162,6 +162,7 @@ elif [[ "${1:-}" == "doxygen" ]]; then
     #       we do this in a dedicated build directory to keep the source clean
     run_doxygen ${BUILD_SCRIPT_DIR}/seos_sandbox/projects/libs/seos_libs
     run_doxygen ${BUILD_SCRIPT_DIR}/seos_sandbox/projects/libs/seos_crypto
+    run_doxygen ${BUILD_SCRIPT_DIR}/seos_sandbox/projects/libs/seos_keystore
 
 elif [[ "${1:-}" == "clean" ]]; then
     shift
