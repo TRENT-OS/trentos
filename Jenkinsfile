@@ -72,40 +72,8 @@ pipeline {
             }
             options { skipDefaultCheckout(true) }
             steps {
-                echo '####################################### Update TA ENV #######################################'
-                sh  '''#!/bin/bash -ue
-                        if [ -d ta ]; then
-                            rm -rf ta
-                        fi
-                        BRANCH=`git describe --contains --all HEAD | cut -d/ -f3`
-                        RET=0
-                        git ls-remote --exit-code ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/ta.git ${BRANCH} || RET=$?
-                        if [ ! -z ${RET} ]; then
-                            echo "no dedicated branch exists, will use master"
-                            BRANCH=master
-                        fi
-                        git clone --recursive -b ${BRANCH} ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/ta.git
-                        cd ta
-                        python3 -m venv ta-env
-                        source ta-env/bin/activate
-                        pip install -r requirements.txt
-                    '''
-                echo '####################################### Update MQTT Proxy #######################################'
-                sh  '''#!/bin/bash -ue
-                        if [ -d mqtt_proxy_demo ]; then
-                            rm -rf mqtt_proxy_demo
-                        fi
-                        BRANCH=`git describe --contains --all HEAD | cut -d/ -f3`
-                        RET=0
-                        git ls-remote --exit-code ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/ta.git ${BRANCH} || RET=$?
-                        if [ ! -z ${RET} ]; then
-                            echo "no dedicated branch exists, will use master"
-                            BRANCH=master
-                        fi
-                        git clone --recursive -b $BRANCH ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/mqtt_proxy_demo.git
-                        cd mqtt_proxy_demo
-                        ./build.sh
-                    '''
+                echo '####################################### Prepare Test Environment ############################'
+                sh './test.sh prepare'
             }
         }
         stage('test') {
@@ -118,13 +86,7 @@ pipeline {
             options { skipDefaultCheckout(true) }
             steps {
                 echo '########################################## Testing ##########################################'
-                sh  '''#!/bin/bash -ue
-                        workspace=`pwd`
-                        proxy=`pwd`/mqtt_proxy_demo/build/mqtt_proxy
-                        source ta/ta-env/bin/activate
-                        cd ta/seos_tests
-                        pytest -v -s --workspace_path="${workspace}" --proxy_path="${proxy}"
-                    '''
+                sh './test.sh run'
             }
         }
     }
