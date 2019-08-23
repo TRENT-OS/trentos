@@ -8,18 +8,21 @@
 #
 #-------------------------------------------------------------------------------
 
-# source dir is where this script is located
 BUILD_SCRIPT_DIR=$(cd `dirname $0` && pwd)
-SEOS_SANDBOX_DIR="$BUILD_SCRIPT_DIR/seos_sandbox"
-PROJECTS_DIR="$SEOS_SANDBOX_DIR/projects"
-SRC_DIR="$BUILD_SCRIPT_DIR/src"
+
+SEOS_SANDBOX_DIR="${BUILD_SCRIPT_DIR}/seos_sandbox"
+
 
 #-------------------------------------------------------------------------------
 function prepare_layout()
 {
-    files=`ls $SRC_DIR`
-    for file in $files; do
-        ln -sf $SRC_DIR/$file $PROJECTS_DIR
+    # long all folder from src into seso_sandbox, so we can use the sanbox
+    # CMake build system and it will find everything from src
+
+    local SRC_DIR="${BUILD_SCRIPT_DIR}/src"
+    files=`ls ${SRC_DIR}`
+    for file in ${files}; do
+        ln -sf ${SRC_DIR}/${file} ${SEOS_SANDBOX_DIR}/projects
     done
 }
 
@@ -28,10 +31,11 @@ function run_astyle()
 {
     #cleanup
     find . -name '*.astyle' -exec rm {} \;
-    # search recursively in all subfolders, they might be git submodules that come with their own astyle_check.sh file
+    # search recursively in all subfolders, they might be git submodules that
+    # come with their own astyle_check.sh file
     files=`find . -name 'astyle_check.sh'`
-    for file in $files; do
-        ($file)
+    for file in ${files}; do
+        (${file})
     done
 }
 
@@ -84,14 +88,15 @@ function run_build()
 #-------------------------------------------------------------------------------
 function run_build_mode()
 {
-    BUILD_TARGET=${1:-}
-    shift
+    if [ "$#" -ne 3 ]; then
+        echo "ERROR: not enough parameters"
+        return 1
+    fi
 
-    BUILD_TYPE=${1:-}
-    shift
-
-    TEST_NAME=${1:-}
-    shift
+    BUILD_TARGET=${1}
+    BUILD_TYPE=${2}
+    TEST_NAME=${3}
+    shift 3
 
     TARGET_DIR=${BUILD_TARGET}-${BUILD_TYPE}-${TEST_NAME}
 
@@ -101,7 +106,6 @@ function run_build_mode()
             CMAKE_TARGET_PARAMS=(
                 -DCROSS_COMPILER_PREFIX=arm-linux-gnueabi-
                 -DKernelARMPlatform=${BUILD_TARGET}
-                -D${TEST_NAME}=ON
             )
             ;;
         #-------------------------------------
@@ -111,7 +115,6 @@ function run_build_mode()
                 -DKernelRiscVPlatform=${BUILD_TARGET}
                 -DKernelArch=riscv
                 -DKernelRiscVSel4Arch=riscv64
-                -D${TEST_NAME}=ON
             )
             ;;
         #-------------------------------------
@@ -123,8 +126,10 @@ function run_build_mode()
     CMAKE_PARAMS=(
         ${CMAKE_TARGET_PARAMS[@]}
         -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+        -D${TEST_NAME}=ON
         $@
     )
+
     run_build ${CMAKE_PARAMS[@]}
 }
 
@@ -144,20 +149,32 @@ function run_doxygen()
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-prepare_layout
 
 if [[ "${1:-}" == "all" ]]; then
     shift
-#    run_build_mode zynq7000 Debug HELLO_WORLD $@
-    run_build_mode zynq7000 Debug TEST_SYSLOG $@
-    run_build_mode zynq7000 Debug TEST_CRYPTO_API $@
-    run_build_mode zynq7000 Debug TEST_PROXY_NVM $@
-    run_build_mode zynq7000 Debug TEST_SPIFFS_INTEGRATION $@
 
-    # keep this test disabled until the sandbox integration work properly
-    #run_build_mode zynq7000 Debug TEST_PICOTCP_API $@
+    prepare_layout
+
+    TESTS_MODULES=(
+        # HELLO_WORLD
+        TEST_SYSLOG
+        TEST_CRYPTO_API
+        TEST_PROXY_NVM
+        TEST_SPIFFS_INTEGRATION
+
+        # keep this test disabled until the sandbox integration work properly
+        # TEST_PICOTCP_API
+    )
+
+    for test_module in ${TESTS_MODULES[@]}; do
+        run_build_mode zynq7000 Debug ${test_module} $@
+    done
+
+    run_astyle
 
 elif [[ "${1:-}" == "doxygen" ]]; then
+    shift
+
     # ToDo: this builds the docs in the source folder, it would be better if
     #       we do this in a dedicated build directory to keep the source clean
     run_doxygen ${BUILD_SCRIPT_DIR}/seos_sandbox/projects/libs/seos_libs
@@ -166,16 +183,13 @@ elif [[ "${1:-}" == "doxygen" ]]; then
 
 elif [[ "${1:-}" == "clean" ]]; then
     shift
+
     /bin/rm -rf build-*
+
 else
+
+    prepare_layout
     run_build_mode zynq7000 Debug $@
-fi
-
-RETVAL=$?
-
-if [ $RETVAL == 0 ]; then
-    echo
     run_astyle
-fi
 
-exit $RETVAL
+fi
