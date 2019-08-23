@@ -75,29 +75,23 @@ pipeline {
                 echo '####################################### Update TA ENV #######################################'
                 sh  '''#!/bin/bash -ue
                         if [ -d ta ]; then
-                            cd ta
-                            git pull origin
-                            git submodule update --recursive
-                        else
-                            BRANCH=`git describe --contains --all HEAD | cut -d/ -f3`
-                            git clone --recursive -b $BRANCH ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/ta.git
-                            cd ta
-                            python3 -m venv ta-env
+                            rm -rf ta
                         fi
+                        BRANCH=`git describe --contains --all HEAD | cut -d/ -f3`
+                        git clone --recursive -b $BRANCH ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/ta.git
+                        cd ta
+                        python3 -m venv ta-env
                         source ta-env/bin/activate
                         pip install -r requirements.txt
                     '''
                 echo '####################################### Update MQTT Proxy #######################################'
                 sh  '''#!/bin/bash -ue
                         if [ -d mqtt_proxy_demo ]; then
-                            cd mqtt_proxy_demo
-                            git pull origin
-                            git submodule update --recursive
-                        else
-                            BRANCH=`git describe --contains --all HEAD | cut -d/ -f3`
-                            git clone --recursive -b $BRANCH ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/mqtt_proxy_demo.git
-                            cd mqtt_proxy_demo
+                            rm -rf mqtt_proxy_demo
                         fi
+                        BRANCH=`git describe --contains --all HEAD | cut -d/ -f3`
+                        git clone --recursive -b $BRANCH ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/mqtt_proxy_demo.git
+                        cd mqtt_proxy_demo
                         ./build.sh
                     '''
             }
