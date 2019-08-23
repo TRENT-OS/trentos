@@ -1,11 +1,7 @@
 [submodule "seos_sandbox"]
 	path = seos_sandbox
 	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/seos/sandbox.git
-	branch = SEOS-339
-[submodule "src/tests/test_picotcp_api/components/test_nwstack/test_APP/include"]
-	path = src/tests/test_picotcp_api/components/test_nwstack/test_APP/include
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/seos/core-api.git
-	branch = SEOS-389
+
 [submodule "src/tests/test_picotcp_api/components/test_nwstack/test_APP/network-client-lib"]
 	path = src/tests/test_picotcp_api/components/test_nwstack/test_APP/network-client-lib
 	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/seos/network-client-lib.git

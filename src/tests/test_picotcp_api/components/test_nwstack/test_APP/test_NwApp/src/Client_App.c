@@ -8,7 +8,6 @@
 #include <string.h>
 #include "stdint.h"
 #include "LibDebug/Debug.h"
-#include "seos_socket.h"
 #include "seos_err.h"
 
 #include "seos_nw_api.h"

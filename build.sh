@@ -161,9 +161,7 @@ if [[ "${1:-}" == "all" ]]; then
         TEST_CRYPTO_API
         TEST_PROXY_NVM
         TEST_SPIFFS_INTEGRATION
-
-        # keep this test disabled until the sandbox integration work properly
-        # TEST_PICOTCP_API
+        TEST_PICOTCP_API
     )
 
     for test_module in ${TESTS_MODULES[@]}; do
@@ -180,6 +178,7 @@ elif [[ "${1:-}" == "doxygen" ]]; then
     run_doxygen ${BUILD_SCRIPT_DIR}/seos_sandbox/projects/libs/seos_libs
     run_doxygen ${BUILD_SCRIPT_DIR}/seos_sandbox/projects/libs/seos_crypto
     run_doxygen ${BUILD_SCRIPT_DIR}/seos_sandbox/projects/libs/seos_keystore
+    run_doxygen ${BUILD_SCRIPT_DIR}/seos_sandbox/projects/libs/seos_nwstack
 
 elif [[ "${1:-}" == "clean" ]]; then
     shift
