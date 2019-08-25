@@ -83,7 +83,6 @@ DeclareCAmkESComponent(ChanMux
         "components/ChanMux/src/instance/ChanMux_Instance.c"
     C_FLAGS
         -Wall -Werror
-        -DSEOS_SOCKET_CONFIG_H_FILE=${SEOS_SOCKET_CONFIG_H_FILE}
         -DMEMORY_CONFIG_H_FILE=${MEMORY_CONFIG_H_FILE}
         -DDEBUG_CONFIG_H_FILE=${DEBUG_CONFIG_H_FILE}
     LIBS
