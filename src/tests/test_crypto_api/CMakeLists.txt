@@ -13,9 +13,9 @@ set(SEOS_CRYPTO ON
     CACHE BOOL "string")
 set(SEOS_CRYPTO_IMPL_MBEDTLS ON
     CACHE BOOL "string")
-set(SEOS_KEYSTORE ON 
+set(SEOS_KEYSTORE ON
     CACHE BOOL "string")
-set(SPIFFS ON 
+set(SPIFFS ON
     CACHE BOOL "string" FORCE)
 
 set(DEBUG_CONFIG_H_FILE
@@ -137,4 +137,3 @@ add_custom_command(
 )
 
 GenerateSimulateScript()
-

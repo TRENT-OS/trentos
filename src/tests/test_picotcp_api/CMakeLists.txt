@@ -56,7 +56,7 @@ DeclareCAmkESComponent(NwStack
     SOURCES
         "components/test_nwstack/NwStack/NW1/instance/Nw.c"
     C_FLAGS
-        -Wall -Werror   
+        -Wall -Werror
     LIBS
         seos_libs
         seos_nw_lib
@@ -79,7 +79,7 @@ DeclareCAmkESComponent(NwStack_2
     SOURCES
         "components/test_nwstack/NwStack/NW2/instance/Nw2.c"
     C_FLAGS
-        -Wall -Werror   
+        -Wall -Werror
     LIBS
         seos_libs
         seos_nw_lib
@@ -185,4 +185,3 @@ add_custom_command(
 )
 
 GenerateSimulateScript()
-
