@@ -30,7 +30,11 @@ function do_clone()
     local FOLDER=${2}
     shift 2
 
-    BRANCH=`git describe --contains --all HEAD | cut -d/ -f3`
+    # check which local branch we are on and try to check this branch out from
+    # the other repos also. If there is not then use master. Since we support
+    # out-of-source builds (and tests), we can't blindly check the current
+    # folder, but have to check the folder where this script is in.
+    BRANCH=`git -C ${TEST_SCRIPT_DIR} describe --contains --all HEAD | cut -d/ -f3`
     RET=0
     git ls-remote --exit-code ${REPO_URL} ${BRANCH} || RET=$?
     if [ ! -z ${RET} ]; then
