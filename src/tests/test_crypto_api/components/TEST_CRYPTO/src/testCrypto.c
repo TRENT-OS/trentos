@@ -123,7 +123,7 @@ void testCipherAES(SeosCryptoCtx* cryptoCtx)
 
     err = SeosCryptoApi_keyImport(cryptoCtx,
                                   &keyHandle,
-                                  SeosCryptoCipher_Algorithm_AES_EBC_ENC,
+                                  SeosCryptoCipher_Algorithm_AES_ECB_ENC,
                                   BitMap_MASK_OF_BIT(SeosCryptoKey_Flags_IS_ALGO_CIPHER),
                                   "0123456789ABCDEF",
                                   128);
@@ -131,7 +131,7 @@ void testCipherAES(SeosCryptoCtx* cryptoCtx)
 
     err = SeosCryptoApi_cipherInit(cryptoCtx,
                                    &handle,
-                                   SeosCryptoCipher_Algorithm_AES_EBC_ENC,
+                                   SeosCryptoCipher_Algorithm_AES_ECB_ENC,
                                    keyHandle,
                                    NULL, 0);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
@@ -157,7 +157,7 @@ void testCipherAES(SeosCryptoCtx* cryptoCtx)
 
     err = SeosCryptoApi_cipherInit(cryptoCtx,
                                    &handle,
-                                   SeosCryptoCipher_Algorithm_AES_EBC_DEC,
+                                   SeosCryptoCipher_Algorithm_AES_ECB_DEC,
                                    keyHandle,
                                    NULL, 0);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);

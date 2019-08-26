@@ -179,7 +179,7 @@ aesEncrypt(SeosCryptoCtx* cryptoCtx, SeosCrypto_KeyHandle keyHandle,
 
     err = SeosCryptoApi_cipherInit(cryptoCtx,
                                    &handle,
-                                   SeosCryptoCipher_Algorithm_AES_EBC_ENC,
+                                   SeosCryptoCipher_Algorithm_AES_ECB_ENC,
                                    keyHandle,
                                    NULL, 0);
     if (err != SEOS_SUCCESS)
@@ -222,7 +222,7 @@ aesDecrypt(SeosCryptoCtx* cryptoCtx, SeosCrypto_KeyHandle keyHandle,
 
     err = SeosCryptoApi_cipherInit(cryptoCtx,
                                    &handle,
-                                   SeosCryptoCipher_Algorithm_AES_EBC_DEC,
+                                   SeosCryptoCipher_Algorithm_AES_ECB_DEC,
                                    keyHandle,
                                    NULL, 0);
     if (err != SEOS_SUCCESS)
