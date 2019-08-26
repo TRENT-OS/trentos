@@ -139,10 +139,16 @@ function run_doxygen()
 {
     MODLE_DIR=${1}
 
+    echo ""
+    echo "running doxygen for ${MODLE_DIR}"
+
     (
         cd ${MODLE_DIR}
         doxygen
     )
+
+    echo "finished doxygen run for ${MODLE_DIR}"
+
 }
 
 
