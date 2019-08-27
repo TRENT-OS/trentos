@@ -24,7 +24,7 @@ pipeline {
         stage('build_doc') {
             agent {
                 docker {
-                    image 'camkes_build_env_20190709'
+                    image 'camkes_build_env_20190827'
                     // bind the localtime to avoid problems of gaps between the localtime of the container and the host
                     args '-v /etc/localtime:/etc/localtime:ro'
                 }
@@ -38,7 +38,7 @@ pipeline {
         stage('build') {
             agent {
                 docker {
-                    image 'camkes_build_env_20190709'
+                    image 'camkes_build_env_20190827'
                     // bind the localtime to avoid problems of gaps between the localtime of the container and the host
                     args '-v /etc/localtime:/etc/localtime:ro'
                 }
