@@ -32,7 +32,7 @@ pipeline {
             options { skipDefaultCheckout(true) }
             steps {
                 echo '############################## Building SeOS Documentation ##################################'
-                sh './build.sh doxygen'
+                sh './build.sh doc'
             }
         }
         stage('build') {

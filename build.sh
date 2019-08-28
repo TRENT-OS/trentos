@@ -40,7 +40,7 @@ function run_astyle()
 }
 
 #-------------------------------------------------------------------------------
-function run_build()
+function run_build_prepare()
 {
     if [[ -z ${TARGET_DIR:-} ]]; then
         TARGET_DIR=${TARGET}
@@ -76,6 +76,12 @@ function run_build()
             cmake .
         )
     fi
+}
+
+#-------------------------------------------------------------------------------
+function run_build()
+{
+    run_build_prepare $@
 
     # build in subshell
     (
@@ -84,6 +90,21 @@ function run_build()
     )
 }
 
+#-------------------------------------------------------------------------------
+function run_build_doc()
+{
+    BUILD_TARGET=${1:-}
+    shift
+
+    TARGET_DIR=${BUILD_TARGET}
+    run_build_prepare $@
+
+    # build in subshell
+    (
+        cd ${BUILD_DIR}
+        ninja seos_sandbox_doc
+    )
+}
 
 #-------------------------------------------------------------------------------
 function run_build_mode()
@@ -133,33 +154,18 @@ function run_build_mode()
     run_build ${CMAKE_PARAMS[@]}
 }
 
-
-#-------------------------------------------------------------------------------
-function run_doxygen()
-{
-    MODLE_DIR=${1}
-
-    echo ""
-    echo "running doxygen for ${MODLE_DIR}"
-
-    (
-        cd ${MODLE_DIR}
-        doxygen
-    )
-
-    echo "finished doxygen run for ${MODLE_DIR}"
-
-}
-
-
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 
-if [[ "${1:-}" == "all" ]]; then
+prepare_layout
+
+if [[ "${1:-}" == "doc" ]]; then
     shift
+    run_build_doc DOC -DSEOS_CRYPTO=ON -DSEOS_LIBS=ON -DSEOS_KEYSTORE=ON $@
 
-    prepare_layout
+elif [[ "${1:-}" == "all" ]]; then
+    shift
 
     TESTS_MODULES=(
         # HELLO_WORLD
@@ -176,16 +182,6 @@ if [[ "${1:-}" == "all" ]]; then
 
     run_astyle
 
-elif [[ "${1:-}" == "doxygen" ]]; then
-    shift
-
-    # ToDo: this builds the docs in the source folder, it would be better if
-    #       we do this in a dedicated build directory to keep the source clean
-    run_doxygen ${BUILD_SCRIPT_DIR}/seos_sandbox/projects/libs/seos_libs
-    run_doxygen ${BUILD_SCRIPT_DIR}/seos_sandbox/projects/libs/seos_crypto
-    run_doxygen ${BUILD_SCRIPT_DIR}/seos_sandbox/projects/libs/seos_keystore
-    run_doxygen ${BUILD_SCRIPT_DIR}/seos_sandbox/projects/libs/seos_nwstack
-
 elif [[ "${1:-}" == "clean" ]]; then
     shift
 
@@ -193,7 +189,6 @@ elif [[ "${1:-}" == "clean" ]]; then
 
 else
 
-    prepare_layout
     run_build_mode zynq7000 Debug $@
     run_astyle
 
