@@ -102,7 +102,7 @@ function run_build_doc()
     # build in subshell
     (
         cd ${BUILD_DIR}
-        ninja seos_sandbox_doc
+        ninja seos_sandbox_doc seos_tests_doc
     )
 }
 

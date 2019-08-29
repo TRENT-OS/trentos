@@ -1,5 +1,5 @@
 /**
- * @addtogroup SEOS_Tests
+ * @addtogroup CryptoApi_Tests
  * @{
  *
  * @file testKeyStore.h
