@@ -13,6 +13,19 @@
 
 #include "SeosCryptoClient.h"
 
+/**
+ * @weakgroup Crypto_test_cases
+ * @{
+ * 
+ * @brief Collection of crypto api tests
+ *
+ *
+ * @test testSignatureRSA   Test case for the RSA signature
+ *
+ * 
+ * @}
+ */
+
 void
 testSignatureRSA(SeosCryptoClient* client);
 

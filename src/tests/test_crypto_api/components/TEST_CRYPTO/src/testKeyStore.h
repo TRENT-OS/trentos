@@ -15,6 +15,9 @@
 #include "SeosCryptoCtx.h"
 
 /**
+ * @weakgroup KeyStore_test_cases
+ * @{
+ * 
  * @brief Generic test scenario for the key store which is customized
  * by passing different input parameters
  *
@@ -41,7 +44,8 @@
  *
  * @test TestKeyStore_testCase_04   Delete the key and try to perform AES encryption/decryption with it and verify
  *                                  that the lower levels throw an error since the key handle is no longer valid
- *
+ * 
+ * @}
  */
 bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
                   bool generateKey);
