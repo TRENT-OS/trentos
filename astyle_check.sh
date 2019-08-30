@@ -28,13 +28,11 @@ ASTYLE_SETTINGS_LINUX_KERNEL_SPACE="--style=1tbs \
 ASTYLE_PARAMETERS=${ASTYLE_SETTINGS_LINUX_USER_SPACE}
 
 if [ ! -z "$1" ] && [ $1 = "--help" ]; then
-    echo "If you run the script without arguments only the files involved in the last commit are checked."
+    echo "If you run the script without arguments then the files which are new or modified since the creation of the branch will be checked."
     echo "Otherwise you can use the argument list of this script to specify the files you want to check."
     echo "e.g.: ./astyle_check.sh \`git status -s | cut -c4- | grep -i '\.c$\|\.cpp$\|\.hpp$\|\.h$'\`"
     exit 0
 fi
-
-against=HEAD~1
 
 ASTYLE=astyle
 
@@ -51,7 +49,10 @@ RETVAL=0
 files=$@
 
 if [ -z "$files" ]; then
-    files=$(git diff-index --diff-filter=ACMR --name-only -r --cached $against -- | grep -i '\.c$\|\.cpp$\|\.hpp$\|\.h$')
+    # check any modified or new file
+    files=$(git status | grep -i '\.c$\|\.cpp$\|\.hpp$\|\.h$')
+    # check committed files from the branch creation
+    files+=" "$(git diff-index --diff-filter=ACMR --name-only -r --cached master -- | grep -i '\.c$\|\.cpp$\|\.hpp$\|\.h$')
 fi
 
 for file in $files; do
