@@ -16,6 +16,7 @@
 #include "KeyStoreInit.h"
 
 #include "testSignatureRsa.h"
+#include "testAgreement.h"
 #include "testCrypto.h"
 #include "testKeyStore.h"
 
@@ -83,6 +84,8 @@ int run()
     testCipherAES(apiRpc);
 
     testSignatureRSA(&client);
+
+    testAgreementDH(&client);
 
     /***************************** KeyStore test *******************************/
     KeyStoreContext keyStoreCtx;

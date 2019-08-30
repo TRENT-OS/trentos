@@ -46,6 +46,7 @@ DeclareCAmkESComponent(TEST_CRYPTO INCLUDES
                             "components/TEST_CRYPTO/src/testSignatureRsa.c"
                             "components/TEST_CRYPTO/src/testKeyStore.c"
                             "components/TEST_CRYPTO/src/testCrypto.c"
+                            "components/TEST_CRYPTO/src/testAgreement.c"
                             "common/KeyStoreInit.c"
 )
 set_property(TARGET CAmkESComponent_TEST_CRYPTO
