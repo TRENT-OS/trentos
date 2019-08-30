@@ -40,8 +40,8 @@ static seos_err_t testAesForKey(SeosCryptoCtx* cryptoCtx,
 bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
                   bool generateKey)
 {
-    SeosCryptoKey* writeKey;
-    SeosCryptoKey* readKey;
+    SeosCrypto_KeyHandle writeKey;
+    SeosCrypto_KeyHandle readKey;
     seos_err_t err = SEOS_ERROR_GENERIC;
 
     /***************************** Import/generate the key and test AES positive case *******************************/
@@ -91,7 +91,7 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
     /***************************** Close the key and test AES negative case *****************************************/
     Debug_LOG_INFO("\n\nStarting 'TestKeyStore_testCase_02'\n");
 
-    err = SeosKeyStoreApi_closeKey(keyStoreCtx, writeKey);
+    err = SeosKeyStoreApi_closeKey(writeKey);
     if (err != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("%s: SeosKeyStoreApi_closeKey failed with error code %d!",
@@ -100,7 +100,7 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
     }
 
     err = testAesForKey(cryptoCtx, writeKey);
-    if (err != SEOS_ERROR_ABORTED)
+    if (err != SEOS_ERROR_INVALID_HANDLE)
     {
         Debug_LOG_ERROR("%s: testAesForKey expected to fail because of the closed key but returned error code %d",
                         __func__, err);
@@ -134,9 +134,7 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
     /***************************** Delete the key test AES/get negative case ****************************************/
     Debug_LOG_INFO("\n\nStarting 'TestKeyStore_testCase_04'\n");
 
-    err = SeosKeyStoreApi_deleteKey(keyStoreCtx,
-                                    readKey,
-                                    KEY_NAME);
+    err = SeosKeyStoreApi_deleteKey(readKey);
     if (err != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("%s: SeosKeyStoreApi_deleteKey failed with error code %d!",
@@ -145,7 +143,7 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
     }
 
     err = testAesForKey(cryptoCtx, readKey);
-    if (err != SEOS_ERROR_ABORTED)
+    if (err != SEOS_ERROR_INVALID_HANDLE)
     {
         Debug_LOG_ERROR("%s: testAesForKey expected to fail because of the closed key but returned error code %d",
                         __func__, err);
@@ -155,7 +153,7 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
     err = SeosKeyStoreApi_getKey(keyStoreCtx,
                                  &readKey,
                                  KEY_NAME);
-    if (err != SEOS_ERROR_NOT_FOUND)
+    if (err != SEOS_ERROR_INVALID_HANDLE)
     {
         Debug_LOG_ERROR("%s: Expected to receive a SEOS_ERROR_NOT_FOUND after reading the deleted key, but received an err code: %d! Exiting test...",
                         __func__, err);
@@ -275,6 +273,7 @@ static seos_err_t testAesForKey(SeosCryptoCtx* cryptoCtx,
                         __func__, err);
         return err;
     }
+
     // use the imported key for aes decryption of the original string
     err = aesDecrypt(cryptoCtx, keyHandle, outputEncrypt, decOutSize,
                      &outputDecrypt, &encOutSize);
@@ -284,6 +283,7 @@ static seos_err_t testAesForKey(SeosCryptoCtx* cryptoCtx,
                         __func__, err);
         return err;
     }
+
     // check if the decrypted string is the same as the original string
     if (strncmp("0123456789ABCDEF", ((char*)outputDecrypt), AES_BLOCK_LEN) != 0)
     {

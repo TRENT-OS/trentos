@@ -26,6 +26,10 @@ set(MEMORY_CONFIG_H_FILE
         "${CMAKE_SOURCE_DIR}/projects/configs/include/Memory_Config.h"
         CACHE STRING "" FORCE
 )
+set(KEYSTORE_CONFIG_H_FILE
+        "${CMAKE_SOURCE_DIR}/projects/configs/include/KeyStore_Config.h"
+        CACHE STRING "" FORCE
+)
 
 find_package(Doxygen
              REQUIRED dot

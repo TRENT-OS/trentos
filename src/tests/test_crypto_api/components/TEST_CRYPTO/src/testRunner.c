@@ -107,44 +107,44 @@ int run()
     }
 
     /******************** Test local and remote versions **********************/
-    Debug_LOG_INFO("\n\n**************************** Starting 'TestKeyStore_scenario_1' ****************************\n");
+    Debug_LOG_INFO("\n\n\n\n**************************** Starting 'TestKeyStore_scenario_1' ****************************\n");
     if (!testKeyStore(&(localKeyStore.parent), apiLocal, true))
     {
-        Debug_LOG_ERROR("\n\n**************************** TestKeyStore_scenario_1 FAILED! ****************************\n");
+        Debug_LOG_ERROR("\n\nTestKeyStore_scenario_1 FAILED!\n\n\n\n");
     }
     else
     {
-        Debug_LOG_INFO("\n\n**************************** TestKeyStore_scenario_1 succeeded! ****************************\n");
+        Debug_LOG_INFO("\n\nTestKeyStore_scenario_1 succeeded!\n\n\n\n");
     }
 
-    Debug_LOG_INFO("\n\n**************************** Starting 'TestKeyStore_scenario_2 ****************************\n");
+    Debug_LOG_INFO("\n**************************** Starting 'TestKeyStore_scenario_2' ****************************\n");
     if (!testKeyStore(&(localKeyStore.parent), apiLocal, false))
     {
-        Debug_LOG_ERROR("\n\n**************************** TestKeyStore_scenario_2 FAILED! ****************************\n");
+        Debug_LOG_ERROR("\n\nTestKeyStore_scenario_2 FAILED!\n\n\n\n");
     }
     else
     {
-        Debug_LOG_INFO("\n\n**************************** TestKeyStore_scenario_2 succeeded! ****************************\n");
+        Debug_LOG_INFO("\n\nTestKeyStore_scenario_2 succeeded!\n\n\n\n");
     }
 
-    Debug_LOG_INFO("\n\n**************************** Starting 'TestKeyStore_scenario_3 ****************************\n");
+    Debug_LOG_INFO("\n**************************** Starting 'TestKeyStore_scenario_3' ****************************\n");
     if (!testKeyStore(&(keyStoreClient.parent), apiRpc, true))
     {
-        Debug_LOG_ERROR("\n\n**************************** TestKeyStore_scenario_3 FAILED! ****************************\n");
+        Debug_LOG_ERROR("\n\nTestKeyStore_scenario_3 FAILED!\n\n\n\n");
     }
     else
     {
-        Debug_LOG_INFO("\n\n**************************** TestKeyStore_scenario_3 succeeded! ****************************\n");
+        Debug_LOG_INFO("\n\nTestKeyStore_scenario_3 succeeded!\n\n\n\n");
     }
 
-    Debug_LOG_INFO("\n\n**************************** Starting 'TestKeyStore_scenario_4 ****************************\n");
+    Debug_LOG_INFO("\n**************************** Starting 'TestKeyStore_scenario_4' ****************************\n");
     if (!testKeyStore(&(keyStoreClient.parent), apiRpc, false))
     {
-        Debug_LOG_ERROR("\n\n**************************** TestKeyStore_scenario_4 FAILED! ****************************\n");
+        Debug_LOG_ERROR("\n\nTestKeyStore_scenario_4 FAILED!\n\n\n\n");
     }
     else
     {
-        Debug_LOG_INFO("\n\n**************************** TestKeyStore_scenario_4 succeeded! ****************************\n");
+        Debug_LOG_INFO("\n\nTestKeyStore_scenario_4 succeeded!\n\n\n\n");
     }
 
     /***************************** Destruction *******************************/
