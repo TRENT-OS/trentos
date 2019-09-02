@@ -37,7 +37,7 @@ function do_clone()
     BRANCH=`git -C ${TEST_SCRIPT_DIR} describe --contains --all HEAD | cut -d/ -f3`
     RET=0
     git ls-remote --exit-code ${REPO_URL} ${BRANCH} || RET=$?
-    if [ ! -z ${RET} ]; then
+    if [ ${RET} != 0 ]; then
         echo "no dedicated branch exists, will use master"
         BRANCH=master
     fi
