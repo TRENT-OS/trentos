@@ -8,13 +8,15 @@
 #include "camkes.h"
 
 /* Defines -------------------------------------------------------------------*/
-#define NVM_PARTITION_SIZE      (1024*128)
+#define NVM_PARTITION_SIZE  (1024*128)
 
-#define AES_BLOCK_LEN           16
+#define AES_BLOCK_LEN       16
 
-#define KEY_BYTES        "f131830db44c54742fc3f3265f0f1a0c"
-#define KEY_NAME         "MasterKey"
-#define KEY_SIZE         32
+#define KEY_BYTES           "f131830db44c54742fc3f3265f0f1a0c"
+#define KEY_NAME            "MasterKey"
+#define KEY_SIZE            32
+
+#define TEST_05_NUM_OF_KEYS 3
 
 /* Private functions prototypes ----------------------------------------------*/
 static seos_err_t
@@ -161,6 +163,53 @@ bool testKeyStore(SeosKeyStoreCtx* keyStoreCtx, SeosCryptoCtx* cryptoCtx,
     }
 
     Debug_LOG_INFO("\n\nTestKeyStore_testCase_04 passed!\n");
+
+    /***************************** Wipe the keystore and test get negative case ****************************************/
+    Debug_LOG_INFO("\n\nStarting 'TestKeyStore_testCase_05'\n");
+
+    SeosCrypto_KeyHandle writeKeys[TEST_05_NUM_OF_KEYS];
+    SeosCrypto_KeyHandle readKeys[TEST_05_NUM_OF_KEYS];
+
+    for (size_t i = 0; i < TEST_05_NUM_OF_KEYS; i++)
+    {
+        const char keyName[2] = {i + 49, '\0'};
+        err = SeosKeyStoreApi_generateKey(keyStoreCtx,
+                                          &writeKeys[i],
+                                          keyName,
+                                          SeosCryptoCipher_Algorithm_AES_CBC_DEC,
+                                          1 << SeosCryptoKey_Flags_IS_ALGO_CIPHER,
+                                          KEY_SIZE * 8);
+        if (err != SEOS_SUCCESS)
+        {
+            Debug_LOG_ERROR("%s: SeosKeyStoreApi_generateKey failed with error code %d!",
+                            __func__, err);
+            return 0;
+        }
+    }
+
+    err = SeosKeyStoreApi_wipeKeyStore(keyStoreCtx);
+    if (err != SEOS_SUCCESS)
+    {
+        Debug_LOG_ERROR("%s: SeosKeyStoreApi_deleteKey failed with error code %d!",
+                        __func__, err);
+        return 0;
+    }
+
+    for (size_t i = 0; i < TEST_05_NUM_OF_KEYS; i++)
+    {
+        const char keyName[2] = {i + 49, '\0'};
+        err = SeosKeyStoreApi_getKey(keyStoreCtx,
+                                     &readKeys[i],
+                                     keyName);
+        if (err != SEOS_ERROR_INVALID_HANDLE)
+        {
+            Debug_LOG_ERROR("%s: Expected to receive a SEOS_ERROR_NOT_FOUND after reading the deleted key, but received an err code: %d! Exiting test...",
+                            __func__, err);
+            return 0;
+        }
+    }
+
+    Debug_LOG_INFO("\n\nTestKeyStore_testCase_05 passed!\n");
 
     return 1;
 }

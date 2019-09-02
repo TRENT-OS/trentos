@@ -29,23 +29,23 @@
 /**
  * @weakgroup CryptoApi_test_scenarios
  * @{
- * 
+ *
  * @brief Top level test runner
  *
  * @test TestCrypto_scenario_1      Perform Crypto test cases for the local and remote version of the crypto api
  *
- * @test TestKeyStore_scenario_1    Perform TestKeyStore_testCase_01 - 04 for a local version of the KeyStore
+ * @test TestKeyStore_scenario_1    Perform TestKeyStore_testCase_01 - 05 for a local version of the KeyStore
  *                                  using key generation
  *
- * @test TestKeyStore_scenario_2    Perform TestKeyStore_testCase_01 - 04 for a local version of the KeyStore
+ * @test TestKeyStore_scenario_2    Perform TestKeyStore_testCase_01 - 05 for a local version of the KeyStore
  *                                  using key import
- * 
- * @test TestKeyStore_scenario_3    Perform TestKeyStore_testCase_01 - 04 for a remote version of the KeyStore
+ *
+ * @test TestKeyStore_scenario_3    Perform TestKeyStore_testCase_01 - 05 for a remote version of the KeyStore
  *                                  using key generation
  *
- * @test TestKeyStore_scenario_4    Perform TestKeyStore_testCase_01 - 04 for a remote version of the KeyStore
+ * @test TestKeyStore_scenario_4    Perform TestKeyStore_testCase_01 - 05 for a remote version of the KeyStore
  *                                  using key import
- * 
+ *
  * @}
  */
 int run()

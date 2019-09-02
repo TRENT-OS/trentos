@@ -12,7 +12,7 @@
 /**
  * @weakgroup Crypto_test_cases
  * @{
- * 
+ *
  * @brief Collection of crypto api tests
  *
  *
@@ -23,7 +23,7 @@
  * @test testDigestSHA256       Test case for the SHA256 hash
  *
  * @test testCipherAES          Test case for the AES cipher
- * 
+ *
  * @}
  */
 
