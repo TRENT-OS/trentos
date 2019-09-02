@@ -4,9 +4,10 @@ find_package(Doxygen
              REQUIRED dot
              OPTIONAL_COMPONENTS mscgen dia)
 if (DOXYGEN_FOUND)
-    # note the option ALL which allows to build the docs together with the application
     add_custom_target( seos_tests_doc
-        COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile && ln -sf ${CMAKE_CURRENT_SOURCE_DIR}/html ${CMAKE_CURRENT_BINARY_DIR}/seos_tests_doc
+        COMMAND
+            export DOXYGEN_OUTPUT_DIR=${CMAKE_CURRENT_BINARY_DIR}
+            && ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         COMMENT "Generating API documentation for tests with Doxygen"
         VERBATIM )
