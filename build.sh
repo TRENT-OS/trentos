@@ -174,6 +174,8 @@ elif [[ "${1:-}" == "all" ]]; then
         TEST_PROXY_NVM
         TEST_SPIFFS_INTEGRATION
         TEST_PICOTCP_API
+        #DEMOS
+        KEYSTORE_DEMO_APP
     )
 
     for test_module in ${TESTS_MODULES[@]}; do

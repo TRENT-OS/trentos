@@ -1,3 +1,6 @@
 [submodule "seos_sandbox"]
 	path = seos_sandbox
 	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/seos/sandbox.git
+[submodule "src/tests/keystore_demo_app"]
+	path = src/tests/keystore_demo_app
+	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/keystore_demo_app.git
