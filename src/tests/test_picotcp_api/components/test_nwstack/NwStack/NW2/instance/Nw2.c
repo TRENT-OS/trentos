@@ -15,7 +15,7 @@ int run()
     Debug_LOG_INFO("starting network stack as Server...\n");
     int ret;
 
-    nw_camkes_signal_glue  nw_signal =
+    seos_nw_camkes_signal_glue  nw_signal =
     {
         .e_write_emit        =  e_write_2_emit,
         .c_write_wait        =  c_write_2_wait,
@@ -29,7 +29,7 @@ int run()
         .c_initdone          =  c_initdone_2_wait
     };
 
-    nw_ports_glue nw_data =
+    seos_nw_ports_glue nw_data =
     {
         .ChanMuxDataPort = chanMuxDataPort_2,
         .ChanMuxCtrlPort = chanMuxCtrlDataPort_2,

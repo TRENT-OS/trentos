@@ -31,8 +31,8 @@ int run()
 
     seos_nw_server_struct  srv_socket =
     {
-        .domain = AF_INET,
-        .type   = SOCK_STREAM,
+        .domain = SEOS_AF_INET,
+        .type   = SEOS_SOCK_STREAM,
         .listen_port = 5555,
         .backlog = 1,
     };

@@ -29,8 +29,8 @@ int run()
 
     seos_nw_client_struct cli_socket =
     {
-        .domain = AF_INET,
-        .type   = SOCK_STREAM,
+        .domain = SEOS_AF_INET,
+        .type   = SEOS_SOCK_STREAM,
         .name   = "93.184.216.34",
         .port   = HTTP_PORT
     };
