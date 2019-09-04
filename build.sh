@@ -26,6 +26,20 @@ function prepare_layout()
     done
 }
 
+
+#-------------------------------------------------------------------------------
+function clean_layout()
+{
+    # long all folder from src into seso_sandbox, so we can use the sanbox
+    # CMake build system and it will find everything from src
+
+    local SRC_DIR="${BUILD_SCRIPT_DIR}/src"
+    files=`ls ${SRC_DIR}`
+    for file in ${files}; do
+        rm -f ${SEOS_SANDBOX_DIR}/projects/${file}
+    done
+}
+
 #-------------------------------------------------------------------------------
 function run_astyle()
 {
@@ -188,6 +202,7 @@ elif [[ "${1:-}" == "clean" ]]; then
     shift
 
     /bin/rm -rf build-*
+    clean_layout
 
 else
 
