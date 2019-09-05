@@ -86,6 +86,7 @@ int run()
     testSignatureRSA(&client);
 
     testAgreementDH(&client);
+    testAgreementECDH(&client);
 
     /***************************** KeyStore test *******************************/
     KeyStoreContext keyStoreCtx;

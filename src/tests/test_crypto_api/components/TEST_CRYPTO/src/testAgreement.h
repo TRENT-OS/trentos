@@ -6,3 +6,6 @@
 
 void
 testAgreementDH(SeosCryptoClient* client);
+
+void
+testAgreementECDH(SeosCryptoClient* client);
