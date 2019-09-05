@@ -21,7 +21,9 @@ procedure CryptoRpcInf {
     seos_err_t      cipherInit      (in SeosCryptoRpc_Handle handle, out SeosCrypto_CipherHandle pCipherHandle, in unsigned int algorithm, in SeosCrypto_KeyHandle keyHandle, in size_t ivLen);
     seos_err_t      cipherClose     (in SeosCryptoRpc_Handle handle, in SeosCrypto_CipherHandle pCipherHandle);
     seos_err_t      cipherUpdate    (in SeosCryptoRpc_Handle handle, in SeosCrypto_CipherHandle pCipherHandle, in size_t len);
-    seos_err_t      cipherFinalize  (in SeosCryptoRpc_Handle handle, in SeosCrypto_CipherHandle pCipherHandle, in size_t len);
+    seos_err_t      cipherUpdateAd  (in SeosCryptoRpc_Handle handle, in SeosCrypto_CipherHandle pCipherHandle, in size_t len);
+    seos_err_t      cipherFinalize  (in SeosCryptoRpc_Handle handle, in SeosCrypto_CipherHandle pCipherHandle);
+    seos_err_t      cipherVerifyTag (in SeosCryptoRpc_Handle handle, in SeosCrypto_CipherHandle pCipherHandle, in size_t len);
 };
 
 procedure KeyStoreInf {

@@ -37,6 +37,8 @@ void testDigestMD5(SeosCryptoCtx* cryptoCtx);
 
 void testDigestSHA256(SeosCryptoCtx* cryptoCtx);
 
-void testCipherAES(SeosCryptoCtx* cryptoCtx);
+void testCipherAES_ECB(SeosCryptoCtx* cryptoCtx);
+
+void testCipherAES_GCM(SeosCryptoCtx* cryptoCtx);
 
 ///@}

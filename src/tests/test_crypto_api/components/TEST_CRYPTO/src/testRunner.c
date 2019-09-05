@@ -80,8 +80,11 @@ int run()
     testDigestSHA256(apiLocal);
     testDigestSHA256(apiRpc);
 
-    testCipherAES(apiLocal);
-    testCipherAES(apiRpc);
+    testCipherAES_ECB(apiLocal);
+    testCipherAES_ECB(apiRpc);
+
+    testCipherAES_GCM(apiLocal);
+    testCipherAES_GCM(apiRpc);
 
     testSignatureRSA(&client);
 
