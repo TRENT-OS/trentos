@@ -20,7 +20,7 @@ run(void)
 
         for (int i = 0; i < LogSpooler_Config_NUM_FIFOS; i++)
         {
-            if (!LogFifo_isEmpty(logFifos[i]))
+            while (!LogFifo_isEmpty(logFifos[i]))
             {
                 // Make copy of the Fifo Object, this fifo is single producer
                 // single consumer thread safe, we need a copy object to get
