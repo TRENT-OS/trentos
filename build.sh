@@ -176,7 +176,7 @@ prepare_layout
 
 if [[ "${1:-}" == "doc" ]]; then
     shift
-    run_build_doc DOC -DSEOS_CRYPTO=ON -DSEOS_LIBS=ON -DSEOS_KEYSTORE=ON $@
+    run_build_doc DOC -DSEOS_SANDBOX_DOC=ON $@
 
 elif [[ "${1:-}" == "all" ]]; then
     shift
