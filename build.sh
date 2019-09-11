@@ -43,14 +43,17 @@ function clean_layout()
 #-------------------------------------------------------------------------------
 function run_astyle()
 {
-    #cleanup
-    find . -name '*.astyle' -exec rm {} \;
-    # search recursively in all subfolders, they might be git submodules that
-    # come with their own astyle_check.sh file
-    files=`find . -name 'astyle_check.sh'`
-    for file in ${files}; do
-        (${file})
-    done
+    echo "##"
+    echo "## running astyle check ..."
+    echo "##"
+
+    # ensure there are not existing astyle files anywhere
+    find . -name '*.astyle' -exec rm -v {} \;
+
+    # there should be an astyle script in the root folder, but we also search
+    # recursively in all subfolders, as modules can come with their own version
+    # of the script
+    find . -name 'astyle_check.sh' -printf 'running %p\n' -execdir {} \;
 }
 
 #-------------------------------------------------------------------------------
