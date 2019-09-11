@@ -54,6 +54,17 @@ function run_astyle()
 }
 
 #-------------------------------------------------------------------------------
+function check_astyle_artifacts()
+{
+    # *.astyle files are generated when file are not astyle compliant. Check if
+    # any such file exists in the workspace and fail in this case.
+    local files=$(find . -name '*.astyle')
+    if [ ! -z "${files}" ]; then
+        exit 1
+    fi
+}
+
+#-------------------------------------------------------------------------------
 function run_build_prepare()
 {
     if [[ -z ${TARGET_DIR:-} ]]; then
@@ -197,6 +208,14 @@ elif [[ "${1:-}" == "all" ]]; then
     done
 
     run_astyle
+
+elif [[ "${1:-}" == "check_astyle_artifacts" ]]; then
+    shift
+
+    # astyle failures do not abort the build normally, but in CI we don't allow
+    # them to happen. Thus this step runs after the build step and we allows
+    # differentiate build failures from astyle failures easily then.
+    check_astyle_artifacts
 
 elif [[ "${1:-}" == "clean" ]]; then
     shift

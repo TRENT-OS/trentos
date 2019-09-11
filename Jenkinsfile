@@ -59,13 +59,7 @@ pipeline {
             options { skipDefaultCheckout(true) }
             steps {
                 echo '####################################### Astyle Check ########################################'
-                sh  '''#!/bin/bash -ue
-                    cd scm-src
-                    files=`find . -name '*.astyle'`
-                    if [ ! -z "$files" ]; then
-                        exit 1
-                    fi
-                 '''
+                sh 'scm-src/build.sh check_astyle_artifacts'
             }
         }
         stage('prepare_test') {
