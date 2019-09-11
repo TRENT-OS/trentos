@@ -52,7 +52,7 @@ if [ -z "$files" ]; then
     # check any modified or new file
     files=$(git status | grep -i '\.c$\|\.cpp$\|\.hpp$\|\.h$' | cut --delimiter=':' -f 2)
     # check committed files from the branch creation
-    files+=" "$(git diff-index --diff-filter=ACMR --name-only -r --cached master -- | grep -i '\.c$\|\.cpp$\|\.hpp$\|\.h$')
+    files+=" "$(git diff-index --diff-filter=ACMR --name-only -r --cached origin/master -- | grep -i '\.c$\|\.cpp$\|\.hpp$\|\.h$')
 fi
 
 for file in $files; do
