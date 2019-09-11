@@ -18,7 +18,11 @@ pipeline {
             agent any
             steps {
                 echo '######################################### Checkout #########################################'
-                checkout scm
+                // everything is in separate folders to avoid file conflicts. Sources are checked out into
+                // "scm-src", builds should generate "build-xxx" folders, tests will use "workspace_test" ...
+                dir('scm-src') {
+                    checkout scm
+                }
             }
         }
         stage('build_doc') {
@@ -32,7 +36,7 @@ pipeline {
             options { skipDefaultCheckout(true) }
             steps {
                 echo '############################## Building SeOS Documentation ##################################'
-                sh './build.sh doc'
+                sh 'scm-src/build.sh doc'
             }
         }
         stage('build') {
@@ -47,7 +51,7 @@ pipeline {
             steps {
                 echo '########################################## Building #########################################'
                 // trigger the build
-                sh './build.sh all'
+                sh 'scm-src/build.sh all'
             }
         }
         stage('astyle_check') {
@@ -56,6 +60,7 @@ pipeline {
             steps {
                 echo '####################################### Astyle Check ########################################'
                 sh  '''#!/bin/bash -ue
+                    cd scm-src
                     files=`find . -name '*.astyle'`
                     if [ ! -z "$files" ]; then
                         exit 1
@@ -73,7 +78,7 @@ pipeline {
             options { skipDefaultCheckout(true) }
             steps {
                 echo '####################################### Prepare Test Environment ############################'
-                sh './test.sh prepare'
+                sh 'scm-src/test.sh prepare'
             }
         }
         stage('test') {
@@ -86,7 +91,7 @@ pipeline {
             options { skipDefaultCheckout(true) }
             steps {
                 echo '########################################## Testing ##########################################'
-                sh './test.sh run'
+                sh 'scm-src/test.sh run'
             }
         }
     }
