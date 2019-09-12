@@ -63,6 +63,10 @@ function check_astyle_artifacts()
     # any such file exists in the workspace and fail in this case.
     local files=$(find . -name '*.astyle')
     if [ ! -z "${files}" ]; then
+        echo "ERROR: source is not astyle compliant, check: "
+        for file in ${files}; do
+            echo "  ${file}"
+        done
         exit 1
     fi
 }
