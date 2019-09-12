@@ -54,14 +54,6 @@ pipeline {
                 sh 'scm-src/build.sh all'
             }
         }
-        stage('astyle_check') {
-            agent any
-            options { skipDefaultCheckout(true) }
-            steps {
-                echo '####################################### Astyle Check ########################################'
-                sh 'scm-src/build.sh check_astyle_artifacts'
-            }
-        }
         stage('prepare_test') {
             agent {
                 docker {
@@ -86,6 +78,15 @@ pipeline {
             steps {
                 echo '########################################## Testing ##########################################'
                 sh 'scm-src/test.sh run'
+            }
+        }
+        stage('astyle_check') {
+            // run this after the tests, so we have test results even if source formatting is still not fine.
+            agent any
+            options { skipDefaultCheckout(true) }
+            steps {
+                echo '####################################### Astyle Check ########################################'
+                sh 'scm-src/build.sh check_astyle_artifacts'
             }
         }
     }
