@@ -38,8 +38,22 @@ function do_clone()
     RET=0
     git ls-remote --exit-code ${REPO_URL} ${BRANCH} || RET=$?
     if [ ${RET} != 0 ]; then
-        echo "no dedicated branch exists, will use master"
-        BRANCH=master
+        # we can either use "master" or "integration" here. Ideally, a new
+        # development branch starts from "master", but for integration it has
+        # to be rebased into "integration" eventually. Thus using "intgration"
+        # seems a better choice here. A smarter version of this script could
+        # check where this branched away and then:
+        #  - if "before" master: Fail, or use master and hope it works
+        #  - if "before" integration: use master
+        #  - else: use integration
+        # Another option would be having a parameter that allows setting the
+        # default. Unless really integrating a development branch, remaining at
+        # master might be the better choice for a stable development base.
+        # There is no perfect answer here, so the best when in doubnt remains
+        # creating a dedicated branch in the other projects also, which is used
+        # then.
+        BRANCH=integration
+        echo "no dedicated branch exists, will use \"${BRANCH}\""
     fi
     git clone --recursive -b ${BRANCH} ${REPO_URL} ${FOLDER}
 }
