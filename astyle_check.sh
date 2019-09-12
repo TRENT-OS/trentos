@@ -36,7 +36,7 @@ fi
 
 ASTYLE=astyle
 
-case `$ASTYLE --version 2> /dev/null` in
+case $(${ASTYLE} --version 2> /dev/null) in
   Artistic*)
       ;;
   default)
@@ -49,25 +49,38 @@ RETVAL=0
 files=$@
 
 if [ -z "$files" ]; then
-    # check any modified or new file
-    files=$(git ls-files --modified --others | grep -i '\.c$\|\.cpp$\|\.hpp$\|\.h$' )
-    # check committed files from the branch creation
+
+    # check any modified or new files. Note that there are many ways to get a
+    # list of changes, but all have subtle differents. We are interested in
+    # files from the current module only and don't care about submodules, so
+    # the current command works good enough. If we need the changed submodules
+    # included also then "git status --porcelain=v1 | cut -c4-" is the
+    # better choice. However, there is no command line option available that
+    # dives into the submodule and list the actualy files with changes.
+    files=$(git ls-files --modified --others | grep -i '\.c$\|\.cpp$\|\.hpp$\|\.h$')
+
+    # check all file that have been create or modified since branch creation
     files+=" "$(git diff-index --diff-filter=ACMR --name-only -r --cached origin/master | grep -i '\.c$\|\.cpp$\|\.hpp$\|\.h$')
+
 fi
 
-for file in $files; do
-    x=`echo $file`
-    OUT_FILE=$file.astyle
-    if [ ! -z "$x" ]; then
-        $ASTYLE ${ASTYLE_PARAMETERS} <$file >"$OUT_FILE"
-        diff $file "$file.astyle" > /dev/null
-        if [ $? != 0 ]; then
-            RETVAL=1
-            echo "File $file is not style compliant"
-            $ASTYLE ${ASTYLE_PARAMETERS} "$OUT_FILE"
-        else
-            rm "$OUT_FILE"
-        fi
+
+# sort and remove duplicates
+files=$(echo ${files} | xargs -n1 | sort -u | xargs)
+
+for file in ${files}; do
+    OUT_FILE="${file}.astyle"
+
+    ${ASTYLE} ${ASTYLE_PARAMETERS} <${file} >${OUT_FILE}
+    diff ${file} ${file}.astyle > /dev/null
+    if [ $? -ne 0 ]; then
+        RETVAL=1
+        echo "astyle error: ${file}"
+        # what does this do ???
+        ${ASTYLE} ${ASTYLE_PARAMETERS} ${OUT_FILE}
+    else
+        # everything ok, delete astyle file
+        rm ${OUT_FILE}
     fi
 done
 
