@@ -10,5 +10,3 @@
 
 #define MAX_KEY_LEN             256 /* Maximum length of the raw key in bytes */
 #define MAX_KEY_NAME_LEN        16  /* Maximum length of the key name (including the null char) */
-#define DELIMITER_STRING        "," /* Delimiter used for separating the serialized key parameters inside 
-                                    a file when saving a key (i.e. keyLen, keyBytes, algorithm, flags) */
