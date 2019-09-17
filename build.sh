@@ -72,20 +72,20 @@ function check_astyle_artifacts()
 }
 
 #-------------------------------------------------------------------------------
-function run_build_prepare()
+function run_build()
 {
-    if [[ -z ${TARGET_DIR:-} ]]; then
-        TARGET_DIR=${TARGET}
-    fi
+    local TARGET_NAME=${1}
+    local NINJA_TARGETS=${2}
+    shift 2
 
     echo ""
     echo "##"
-    echo "## building: ${TARGET_DIR}"
+    echo "## building: ${TARGET_NAME}"
     echo "##"
 
     # build dir will be a subdirectory of the current directory, where this
     # script is invoked in.
-    BUILD_DIR=$(pwd)/build-${TARGET_DIR}
+    local BUILD_DIR=$(pwd)/build-${TARGET_NAME}
 
     # check if cmake init has failed previously
     if [[ -e ${BUILD_DIR} ]] && [[ ! -e ${BUILD_DIR}/rules.ninja ]]; then
@@ -113,22 +113,19 @@ function run_build_prepare()
             cmake .
         )
     fi
+
+    # build in subshell
+    (
+        cd ${BUILD_DIR}
+        ninja ${NINJA_TARGETS}
+    )
 }
 
 #-------------------------------------------------------------------------------
 function run_build_doc()
 {
-    BUILD_TARGET=${1:-}
-    shift
+    run_build DOC "seos_sandbox_doc seos_tests_doc" -DSEOS_SANDBOX_DOC=ON $@
 
-    TARGET_DIR=${BUILD_TARGET}
-    run_build_prepare $@
-
-    # build in subshell
-    (
-        cd ${BUILD_DIR}
-        ninja seos_sandbox_doc seos_tests_doc
-    )
 }
 
 #-------------------------------------------------------------------------------
@@ -139,24 +136,30 @@ function run_build_mode()
         return 1
     fi
 
-    BUILD_TARGET=${1}
-    BUILD_TYPE=${2}
-    TEST_NAME=${3}
+    local BUILD_TARGET=${1}
+    local BUILD_TYPE=${2}
+    local TEST_NAME=${3}
     shift 3
 
-    TARGET_DIR=${BUILD_TARGET}-${BUILD_TYPE}-${TEST_NAME}
+    local TARGET_NAME=${BUILD_TARGET}-${BUILD_TYPE}-${TEST_NAME}
+
+    local CMAKE_PARAMS=(
+        -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+        -D${TEST_NAME}=ON
+    )
+
 
     case "${BUILD_TARGET}" in
         #-------------------------------------
         zynq7000)
-            CMAKE_TARGET_PARAMS=(
+            CMAKE_PARAMS+=(
                 -DCROSS_COMPILER_PREFIX=arm-linux-gnueabi-
                 -DKernelARMPlatform=${BUILD_TARGET}
             )
             ;;
         #-------------------------------------
         spike)
-            CMAKE_TARGET_PARAMS=(
+            CMAKE_PARAMS+=(
                 -DCROSS_COMPILER_PREFIX=riscv64-unknown-linux-gnu-
                 -DKernelRiscVPlatform=${BUILD_TARGET}
                 -DKernelArch=riscv
@@ -169,20 +172,7 @@ function run_build_mode()
             exit 1
     esac
 
-    CMAKE_PARAMS=(
-        ${CMAKE_TARGET_PARAMS[@]}
-        -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
-        -D${TEST_NAME}=ON
-        $@
-    )
-
-    run_build_prepare ${CMAKE_PARAMS[@]}
-
-    # build in subshell
-    (
-        cd ${BUILD_DIR}
-        ninja
-    )
+    run_build ${TARGET_NAME} all ${CMAKE_PARAMS[@]} $@
 }
 
 #-------------------------------------------------------------------------------
@@ -193,7 +183,7 @@ prepare_layout
 
 if [[ "${1:-}" == "doc" ]]; then
     shift
-    run_build_doc DOC -DSEOS_SANDBOX_DOC=ON $@
+    run_build_doc $@
 
 elif [[ "${1:-}" == "all" ]]; then
     shift
