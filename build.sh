@@ -116,18 +116,6 @@ function run_build_prepare()
 }
 
 #-------------------------------------------------------------------------------
-function run_build()
-{
-    run_build_prepare $@
-
-    # build in subshell
-    (
-        cd ${BUILD_DIR}
-        ninja
-    )
-}
-
-#-------------------------------------------------------------------------------
 function run_build_doc()
 {
     BUILD_TARGET=${1:-}
@@ -188,7 +176,13 @@ function run_build_mode()
         $@
     )
 
-    run_build ${CMAKE_PARAMS[@]}
+    run_build_prepare ${CMAKE_PARAMS[@]}
+
+    # build in subshell
+    (
+        cd ${BUILD_DIR}
+        ninja
+    )
 }
 
 #-------------------------------------------------------------------------------
