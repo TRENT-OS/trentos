@@ -95,7 +95,6 @@ function run_build_prepare()
 
             CMAKE_PARAMS=(
                 -DCMAKE_TOOLCHAIN_FILE=${SEOS_SANDBOX_DIR}/kernel/gcc.cmake
-                -DLibLwip=OFF
                 -DKernelVerificationBuild=OFF
             )
 
