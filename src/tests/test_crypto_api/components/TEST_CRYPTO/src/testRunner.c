@@ -26,6 +26,13 @@
 #define NVM_CHANNEL_NUMBER      (6)
 #define KEY_STORE_INSTANCE_NAME "KeyStore1"
 
+int entropyFunc(void*           ctx,
+                unsigned char*  buf,
+                size_t          len)
+{
+    // This would be the platform specific function to obtain entropy
+    return 0;
+}
 
 /**
  * @weakgroup CryptoApi_test_scenarios
@@ -65,7 +72,7 @@ int run()
     err = SeosCryptoClient_init(&client, rpcHandle, cryptoClientDataport);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
-    err = SeosCrypto_init(&cryptoCtx, malloc, free, NULL, NULL);
+    err = SeosCrypto_init(&cryptoCtx, malloc, free, entropyFunc, NULL);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
     apiLocal    = SeosCrypto_TO_SEOS_CRYPTO_CTX(&cryptoCtx);

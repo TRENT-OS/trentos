@@ -10,13 +10,21 @@
 
 static SeosCrypto    cryptoCore;
 
+int entropyFunc(void*           ctx,
+                unsigned char*  buf,
+                size_t          len)
+{
+    // This would be the platform specific function to obtain entropy
+    return 0;
+}
+
 seos_err_t
 Crypto_getRpcHandle(SeosCryptoRpc_Handle* instance)
 {
     static SeosCryptoRpc the_one;
 
-    seos_err_t retval = SeosCrypto_init(&cryptoCore,
-                                        malloc, free, NULL, NULL);
+    seos_err_t retval = SeosCrypto_init(&cryptoCore, malloc, free, entropyFunc,
+                                        NULL);
     if (SEOS_SUCCESS == retval)
     {
         retval = SeosCryptoRpc_init(&the_one, &cryptoCore, cryptoServerDataport);

@@ -63,8 +63,7 @@ static const unsigned char ECDH_SHARED[] =
 };
 
 static void
-agreeOnKey(SeosCryptoRng* rng,
-           SeosCryptoKey* private,
+agreeOnKey(SeosCryptoKey* private,
            SeosCryptoKey* public,
            unsigned int   algo,
            unsigned char* buf,
@@ -78,31 +77,16 @@ agreeOnKey(SeosCryptoRng* rng,
 
     // We have a private key (and a public one) and want to use to to agree on a shared
     // secret to perform symmetric cryptography
-    err = SeosCryptoAgreement_init(&ctx, algo, private, rng);
+    err = SeosCryptoAgreement_init(&ctx, algo, private);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
     // We have received a public key (e.g., from a server) and use this to derive a secret
-    // key of a given length
-    err = SeosCryptoAgreement_computeShared(&ctx, public, buf, bufSize, outLen);
+    // key of a given length; for now, don't pass a RNG
+    err = SeosCryptoAgreement_computeShared(&ctx, NULL, public, buf, bufSize,
+                                            outLen);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
     SeosCryptoAgreement_deInit(&ctx);
-}
-
-static void
-setupRng(seos_rng_t*    rng,
-         SeosCryptoRng* cryptoRng)
-{
-    seos_err_t err;
-
-    // Set up RNG
-    err = seos_rng_init(rng, SeosCrypto_RANDOM_SEED_STR,
-                        sizeof(SeosCrypto_RANDOM_SEED_STR) - 1 );
-    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
-
-    err = SeosCryptoRng_init(cryptoRng, rng,
-                             (SeosCryptoRng_ImplRngFunc) seos_rng_get_prng_bytes);
-    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 }
 
 void
@@ -111,13 +95,9 @@ testAgreementDH(SeosCryptoClient* client)
     SeosCryptoKey serverPublic, clientPrivate;
     mbedtls_dhm_context clientPrivateCtx, serverPublicCtx;
     unsigned char clientShared[32];
-    SeosCryptoRng cryptoRng;
-    seos_rng_t seosRng;
     seos_err_t err;
     int i;
     size_t n;
-
-    setupRng(&seosRng, &cryptoRng);
 
     // Create private CLIENT key
     mbedtls_dhm_init(&clientPrivateCtx);
@@ -134,7 +114,7 @@ testAgreementDH(SeosCryptoClient* client)
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
     // Compute the side of the CLIENT
-    agreeOnKey(&cryptoRng, &clientPrivate, &serverPublic,
+    agreeOnKey(&clientPrivate, &serverPublic,
                SeosCryptoAgreement_Algorithm_DH, clientShared, sizeof(clientShared), &n);
     Debug_PRINTF("Computed DH-shared secret for CLIENT:");
     for (i = 0; i < n; i++)
@@ -160,13 +140,9 @@ testAgreementECDH(SeosCryptoClient* client)
     SeosCryptoKey serverPublic;
     mbedtls_ecp_keypair clientPrivateCtx, serverPublicCtx;
     unsigned char clientShared[32];
-    SeosCryptoRng cryptoRng;
-    seos_rng_t seosRng;
     seos_err_t err;
     int i;
     size_t n;
-
-    setupRng(&seosRng, &cryptoRng);
 
     // Create private CLIENT key
     mbedtls_ecp_keypair_init(&clientPrivateCtx);
@@ -182,7 +158,7 @@ testAgreementECDH(SeosCryptoClient* client)
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
     // Compute the side of the CLIENT
-    agreeOnKey(&cryptoRng, &clientPrivate, &serverPublic,
+    agreeOnKey(&clientPrivate, &serverPublic,
                SeosCryptoAgreement_Algorithm_ECDH, clientShared, sizeof(clientShared), &n);
     Debug_PRINTF("Computed ECDH-shared secret for CLIENT:");
     for (i = 0; i < n; i++)

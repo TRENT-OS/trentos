@@ -111,10 +111,8 @@ static const char q[] =
 void
 testSignatureRSA(SeosCryptoClient* client)
 {
-    seos_rng_t rng;
     SeosCryptoKey privateKey;
     SeosCryptoKey publicKey;
-    SeosCryptoRng scRng;
     SeosCryptoSignature scSignature;
     mbedtls_rsa_context mbedtls_rsa;
     seos_err_t err = SEOS_ERROR_GENERIC;
@@ -122,17 +120,6 @@ testSignatureRSA(SeosCryptoClient* client)
     mbedtls_rsa_init(&mbedtls_rsa,
                      MBEDTLS_RSA_PKCS_V15,
                      MBEDTLS_MD_SHA1);
-
-    err = seos_rng_init(&rng,
-                        SeosCrypto_RANDOM_SEED_STR,
-                        sizeof(SeosCrypto_RANDOM_SEED_STR) - 1 );
-    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
-
-    err = SeosCryptoRng_init(&scRng,
-                             &rng,
-                             (SeosCryptoRng_ImplRngFunc)
-                             seos_rng_get_prng_bytes);
-    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
     err = SeosCryptoKey_initRsaPrivate(&privateKey,
                                        &mbedtls_rsa,
@@ -153,7 +140,6 @@ testSignatureRSA(SeosCryptoClient* client)
     err = SeosCryptoSignature_init(&scSignature,
                                    SeosCryptoSignature_Algorithm_RSA_PKCS1,
                                    &privateKey,
-                                   &scRng,
                                    NULL, 0);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
     char signature[128];
@@ -183,8 +169,11 @@ testSignatureRSA(SeosCryptoClient* client)
     size_t signatureSize = sizeof(signature);
     char hash[] = "test";
 
+    // For now, sign is used directly (not through the API) so we do not
+    // pass a RNG here.
     err = SeosCryptoSignature_sign(&scSignature,
                                    SeosCryptoDigest_Algorithm_NONE,
+                                   NULL,
                                    hash,
                                    strlen(hash),
                                    signature,
@@ -211,8 +200,11 @@ testSignatureRSA(SeosCryptoClient* client)
         Debug_LOG_INFO("%s: RSA signature correctly generated", __func__);
     }
 
+    // For now, verify is used directly (not through the API) so we do not
+    // pass a RNG here.
     err = SeosCryptoSignature_verify(&scSignature,
                                      SeosCryptoDigest_Algorithm_NONE,
+                                     NULL,
                                      hash,
                                      strlen(hash),
                                      signature,

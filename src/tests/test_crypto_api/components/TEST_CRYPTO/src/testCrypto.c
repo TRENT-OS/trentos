@@ -10,13 +10,11 @@ void testRNG(SeosCryptoCtx* cryptoCtx)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
     char data[16];
+    void* rnd = data;
 
     for (int i = 0; i < 3; i++)
     {
-        err = SeosCryptoApi_getRandomData(cryptoCtx,
-                                          0, // flags
-                                          i > 0 ? data : NULL, sizeof(data), // salt buffer
-                                          data, sizeof(data));
+        err = SeosCryptoApi_rngGetBytes(cryptoCtx, &rnd, sizeof(data));
         Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
         Debug_PRINTF("Printing random bytes...");
