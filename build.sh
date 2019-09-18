@@ -133,7 +133,10 @@ function run_build()
 #-------------------------------------------------------------------------------
 function run_build_doc()
 {
-    run_build DOC "seos_sandbox_doc seos_tests_doc" -DSEOS_SANDBOX_DOC=ON $@
+    # the documentaton build still uses the full seL4/CAmkES build system, so
+    # there must be some actual project. Let's use the most simple one.
+    run_build DOC "seos_sandbox_doc seos_tests_doc" \
+              -DSEOS_SANDBOX_DOC=ON -DBUILD_PROJECT=test_hello_world $@
 
     (
         cd ${BUILD_DIR}
@@ -166,14 +169,17 @@ function run_build_mode()
 
     local BUILD_TARGET=${1}
     local BUILD_TYPE=${2}
-    local TEST_NAME=${3}
+    local BUILD_PROJECT=${3}
     shift 3
 
-    local TARGET_NAME=${BUILD_TARGET}-${BUILD_TYPE}-${TEST_NAME}
+    # the tests use hard-coded folder names, where the project name is all
+    # upper case. We have to remain compatible and luckily, bash supports "^^"
+    # as modifier for variables to make them all upper case letters.
+    local TARGET_NAME=${BUILD_TARGET}-${BUILD_TYPE}-${BUILD_PROJECT^^}
 
     local CMAKE_PARAMS=(
         -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
-        -D${TEST_NAME}=ON
+        -DBUILD_PROJECT=${BUILD_PROJECT}
     )
 
     case "${BUILD_TARGET}" in
@@ -206,19 +212,22 @@ function run_build_mode()
 #-------------------------------------------------------------------------------
 function build_all_projects()
 {
-    TESTS_MODULES=(
-        # HELLO_WORLD
-        TEST_SYSLOG
-        TEST_CRYPTO_API
-        TEST_PROXY_NVM
-        TEST_SPIFFS_INTEGRATION
-        TEST_PICOTCP_API
-        #DEMOS
-        KEYSTORE_DEMO_APP
+    # we could drop this can simply use the list of sub-folders that exist in
+    # ${BUILD_SCRIPT_DIR}/src/tests/ besides the folder "camkes"
+    ALL_PROJECTS=(
+        # tests
+        test_hello_world
+        test_syslog
+        test_crypto_api
+        test_picotcp_api
+        test_proxy_nvm
+        test_spiffs_integration
+        # demos
+        keystore_demo_app
     )
 
-    for test_module in ${TESTS_MODULES[@]}; do
-        run_build_mode zynq7000 Debug ${test_module} $@
+    for BUILD_PROJECT in ${ALL_PROJECTS[@]}; do
+        run_build_mode zynq7000 Debug ${BUILD_PROJECT} $@
     done
 
     run_astyle
