@@ -58,6 +58,16 @@ static const ChanMuxConfig_t cfgChanMux =
         },
         {
             // Channel 7
+            .buffer = NULL,
+            .len = 0
+        },
+        {
+            // Channel 8
+            .buffer = NULL,
+            .len = 0
+        },
+        {
+            // Channel 9
             .buffer = proxyNVM_Tester2FifoBuf,
             .len = sizeof(proxyNVM_Tester2FifoBuf)
         }
@@ -93,6 +103,14 @@ const ChannelDataport_t dataports[] =
     {
         .io  = (void**) &proxyNVM_Tester1DataPort,
         .len = PAGE_SIZE
+    },
+    {
+        .io  = NULL,
+        .len = 0
+    },
+    {
+        .io  = NULL,
+        .len = 0
     },
     {
         .io  = (void**) &proxyNVM_Tester2DataPort,

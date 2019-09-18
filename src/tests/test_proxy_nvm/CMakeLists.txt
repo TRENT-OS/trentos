@@ -35,7 +35,7 @@ if (ENABLE_LINT)
 endif()
 DeclareCAmkESComponent(ProxyNVM_Tester1
     INCLUDES
-        include
+		"components/ChanMux/src/instance"
     SOURCES
         "src/ProxyNVM_Tester1.c"
         "src/ProxyNVM_common.c"
@@ -52,7 +52,7 @@ if (ENABLE_LINT)
 endif()
 DeclareCAmkESComponent(ProxyNVM_Tester2
     INCLUDES
-        include
+        "components/ChanMux/src/instance"
     SOURCES
         "src/ProxyNVM_Tester2.c"
         "src/ProxyNVM_common.c"

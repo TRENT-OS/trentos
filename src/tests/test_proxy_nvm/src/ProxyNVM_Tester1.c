@@ -2,9 +2,9 @@
 #include "LibDebug/Debug.h"
 #include "camkes.h"
 #include "ProxyNVM_common.h"
+#include "ChanMux_config.h"
 
 
-#define CHANMUX_NVM_CHANNEL             6
 #define MEM_SIZE                        (1024*128)
 
 #define TEST_SMALL_SECTION_LEN          (MEM_SIZE / PAGE_SIZE) //arbitrary small chunk of data
@@ -21,12 +21,12 @@
 
 int run()
 {
-    int ret_value = ProxyNVMTest_init(CHANMUX_NVM_CHANNEL);
+    int ret_value = ProxyNVMTest_init(CHANNEL_NVM_USER1_DATA);
 
     if (ret_value < 0)
     {
         Debug_LOG_ERROR("%s(): channel %u: Error initializing ProxyNVM! Errno:%d",
-                        __func__, CHANMUX_NVM_CHANNEL, ret_value);
+                        __func__, CHANNEL_NVM_USER1_DATA, ret_value);
         return -1;
     }
 
