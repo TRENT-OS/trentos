@@ -87,6 +87,12 @@ function run_build_prepare()
     # script is invoked in.
     BUILD_DIR=$(pwd)/build-${TARGET_DIR}
 
+    # check if cmake init has failed previously
+    if [[ -e ${BUILD_DIR} ]] && [[ ! -e ${BUILD_DIR}/rules.ninja ]]; then
+        echo "deleting broken build folder and re-initialize it"
+        rm -rf ${BUILD_DIR}
+    fi
+
     if [[ ! -e ${BUILD_DIR} ]]; then
         # use subshell to configure the build
         (
