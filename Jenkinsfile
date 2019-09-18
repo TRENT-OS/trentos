@@ -51,7 +51,7 @@ pipeline {
             steps {
                 echo '########################################## Building #########################################'
                 // trigger the build
-                sh 'scm-src/build.sh all'
+                sh 'scm-src/build.sh all-projects'
             }
         }
         stage('prepare_test') {

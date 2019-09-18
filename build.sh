@@ -175,19 +175,10 @@ function run_build_mode()
     run_build ${TARGET_NAME} all ${CMAKE_PARAMS[@]} $@
 }
 
+
 #-------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------
-
-prepare_layout
-
-if [[ "${1:-}" == "doc" ]]; then
-    shift
-    run_build_doc $@
-
-elif [[ "${1:-}" == "all" ]]; then
-    shift
-
+function build_all_projects()
+{
     TESTS_MODULES=(
         # HELLO_WORLD
         TEST_SYSLOG
@@ -204,6 +195,27 @@ elif [[ "${1:-}" == "all" ]]; then
     done
 
     run_astyle
+}
+
+
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+
+prepare_layout
+
+if [[ "${1:-}" == "doc" ]]; then
+    shift
+    run_build_doc $@
+
+elif [[ "${1:-}" == "all-projects" ]]; then
+    shift
+    build_all_projects $@
+
+elif [[ "${1:-}" == "all" ]]; then
+    shift
+    run_build_doc $@
+    build_all_projects $@
 
 elif [[ "${1:-}" == "check_astyle_artifacts" ]]; then
     shift
