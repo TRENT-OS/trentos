@@ -40,6 +40,7 @@ function clean_layout()
     done
 }
 
+
 #-------------------------------------------------------------------------------
 function run_astyle()
 {
@@ -55,6 +56,7 @@ function run_astyle()
     # of the script
     find . -name 'astyle_check.sh' -printf 'running %p\n' -execdir {} \;
 }
+
 
 #-------------------------------------------------------------------------------
 function check_astyle_artifacts()
@@ -74,6 +76,11 @@ function check_astyle_artifacts()
 #-------------------------------------------------------------------------------
 function run_build()
 {
+    if [ "$#" -lt 2 ]; then
+        echo "ERROR: invalid parameters for ${FUNCNAME[0]}()"
+        return 1
+    fi
+
     local TARGET_NAME=${1}
     local NINJA_TARGETS=${2}
     shift 2
@@ -121,6 +128,7 @@ function run_build()
     )
 }
 
+
 #-------------------------------------------------------------------------------
 function run_build_doc()
 {
@@ -128,11 +136,12 @@ function run_build_doc()
 
 }
 
+
 #-------------------------------------------------------------------------------
 function run_build_mode()
 {
-    if [ "$#" -ne 3 ]; then
-        echo "ERROR: not enough parameters"
+    if [ "$#" -lt 3 ]; then
+        echo "ERROR: invalid parameters for ${FUNCNAME[0]}()"
         return 1
     fi
 
@@ -147,7 +156,6 @@ function run_build_mode()
         -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
         -D${TEST_NAME}=ON
     )
-
 
     case "${BUILD_TARGET}" in
         #-------------------------------------
