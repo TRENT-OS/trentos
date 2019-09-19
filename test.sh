@@ -8,7 +8,7 @@
 #
 #-------------------------------------------------------------------------------
 
-SOURCE_DIR=$(cd `dirname $0` && pwd)
+PROJECT_DIR=$(cd `dirname $0` && pwd)
 WORKSPACE_ROOT=$(pwd)
 
 TEST_DIR=workspace_test
@@ -34,23 +34,19 @@ function prepare_test()
 
         # get and build the proxy
         (
-            mkdir -p ${PROXY_FOLDER}/src && cp -R ${SOURCE_DIR}/${PROXY_FOLDER}/* ${PROXY_FOLDER}/src/
+            mkdir -p ${PROXY_FOLDER}/src && cp -R ${PROJECT_DIR}/${PROXY_FOLDER}/* ${PROXY_FOLDER}/src/
             cd ${PROXY_FOLDER}
             src/build.sh
         )
 
         # get and build the test automation framework
         (
-            mkdir ${TA_FOLDER} && cp -R ${SOURCE_DIR}/${TA_FOLDER}/* ${TA_FOLDER}/
-            cd ${TA_FOLDER}
-            python3 -m venv ta-env
-            source ta-env/bin/activate
-            pip install -r tests/requirements.txt
+            mkdir ${TA_FOLDER} && cp -R ${PROJECT_DIR}/${TA_FOLDER}/* ${TA_FOLDER}/
         )
 
         # get and build the keystore provisioning tool and prepare the keystore image
         (
-            mkdir -p ${PROVISIONING_TOOL_FOLDER}/src && cp -R ${SOURCE_DIR}/${PROVISIONING_TOOL_FOLDER}/* ${PROVISIONING_TOOL_FOLDER}/src/
+            mkdir -p ${PROVISIONING_TOOL_FOLDER}/src && cp -R ${PROJECT_DIR}/${PROVISIONING_TOOL_FOLDER}/* ${PROVISIONING_TOOL_FOLDER}/src/
             cd ${PROVISIONING_TOOL_FOLDER}
             ./src/build.sh
             #run the pre-provisioning tool and output the prepared binary to the test
@@ -69,8 +65,6 @@ function run_test()
 {
     (
         cd ${TEST_DIR}/${TA_FOLDER}
-        source ta-env/bin/activate
-
         cd tests
 
         PYTEST_PARAMS=(
