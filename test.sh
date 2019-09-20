@@ -8,55 +8,13 @@
 #
 #-------------------------------------------------------------------------------
 
-
-TEST_SCRIPT_DIR=$(cd `dirname $0` && pwd)
+PROJECT_DIR=$(cd `dirname $0` && pwd)
 WORKSPACE_ROOT=$(pwd)
 
 TEST_DIR=workspace_test
 
-PROXY_FOLDER=mqtt_proxy_demo
+PROXY_FOLDER=proxy
 TA_FOLDER=ta
-
-
-#-------------------------------------------------------------------------------
-function do_clone()
-{
-    if [ "$#" -ne 2 ]; then
-        echo "ERROR: not enough parameters"
-        return 1
-    fi
-
-    local REPO_URL=ssh://git@bitbucket.hensoldt-cyber.systems:7999/${1}.git
-    local FOLDER=${2}
-    shift 2
-
-    # check which local branch we are on and try to check this branch out from
-    # the other repos also. If there is not then use master. Since we support
-    # out-of-source builds (and tests), we can't blindly check the current
-    # folder, but have to check the folder where this script is in.
-    BRANCH=`git -C ${TEST_SCRIPT_DIR} describe --contains --all HEAD | cut -d/ -f3`
-    RET=0
-    git ls-remote --exit-code ${REPO_URL} ${BRANCH} || RET=$?
-    if [ ${RET} != 0 ]; then
-        # we can either use "master" or "integration" here. Ideally, a new
-        # development branch starts from "master", but for integration it has
-        # to be rebased into "integration" eventually. Thus using "intgration"
-        # seems a better choice here. A smarter version of this script could
-        # check where this branched away and then:
-        #  - if "before" master: Fail, or use master and hope it works
-        #  - if "before" integration: use master
-        #  - else: use integration
-        # Another option would be having a parameter that allows setting the
-        # default. Unless really integrating a development branch, remaining at
-        # master might be the better choice for a stable development base.
-        # There is no perfect answer here, so the best when in doubnt remains
-        # creating a dedicated branch in the other projects also, which is used
-        # then.
-        BRANCH=integration
-        echo "no dedicated branch exists, will use \"${BRANCH}\""
-    fi
-    git clone --recursive -b ${BRANCH} ${REPO_URL} ${FOLDER}
-}
 
 
 #-------------------------------------------------------------------------------
@@ -75,18 +33,18 @@ function prepare_test()
 
         # get and build the proxy
         (
-            do_clone hc/mqtt_proxy_demo ${PROXY_FOLDER}/src
+            mkdir -p ${PROXY_FOLDER}/src && cp -R $PROJECT_DIR/${PROXY_FOLDER}/* ${PROXY_FOLDER}/src/
             cd ${PROXY_FOLDER}
             src/build.sh
         )
 
         # get and build the test automation framework
         (
-            do_clone hc/ta ${TA_FOLDER}
+            mkdir ${TA_FOLDER} && cp -R $PROJECT_DIR/${TA_FOLDER}/* ${TA_FOLDER}/
             cd ${TA_FOLDER}
             python3 -m venv ta-env
             source ta-env/bin/activate
-            pip install -r requirements.txt
+            pip install -r tests/requirements.txt
         )
 
     )
@@ -102,7 +60,7 @@ function run_test()
         cd ${TEST_DIR}/${TA_FOLDER}
         source ta-env/bin/activate
 
-        cd seos_tests
+        cd tests
 
         PYTEST_PARAMS=(
             -v

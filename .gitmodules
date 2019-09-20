@@ -4,3 +4,12 @@
 [submodule "src/tests/keystore_demo_app"]
 	path = src/tests/keystore_demo_app
 	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/keystore_demo_app.git
+[submodule "ta/tests"]
+	path = ta/tests
+	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ta/seos_tests.git
+[submodule "ta/common"]
+	path = ta/common
+	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ta/common.git
+[submodule "proxy"]
+	path = proxy
+	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/mqtt_proxy_demo.git
