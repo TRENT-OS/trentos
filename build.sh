@@ -224,6 +224,7 @@ function build_all_projects()
         test_spiffs_integration
         # demos
         keystore_demo_app
+        pre_provisioned_keystore
     )
 
     for BUILD_PROJECT in ${ALL_PROJECTS[@]}; do

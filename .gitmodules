@@ -13,3 +13,9 @@
 [submodule "proxy"]
 	path = proxy
 	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/mqtt_proxy_demo.git
+[submodule "keystore_provisioning_tool"]
+	path = keystore_provisioning_tool
+	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/keystore_provisioning_tool.git
+[submodule "src/tests/pre_provisioned_keystore"]
+	path = src/tests/pre_provisioned_keystore
+	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/pre_provisioned_keystore.git
