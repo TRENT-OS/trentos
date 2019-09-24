@@ -1,9 +1,7 @@
 cmake_minimum_required(VERSION 3.7.2)
 
-find_package(Doxygen
-             REQUIRED dot
-             OPTIONAL_COMPONENTS mscgen dia)
-if (DOXYGEN_FOUND)
+find_package(Doxygen)
+if (DOXYGEN_FOUND AND DOXYGEN_DOT_FOUND)
     add_custom_target( seos_tests_doc
         COMMAND
             export DOXYGEN_OUTPUT_DIR=${CMAKE_CURRENT_BINARY_DIR}
@@ -11,9 +9,9 @@ if (DOXYGEN_FOUND)
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         COMMENT "Generating API documentation for tests with Doxygen"
         VERBATIM )
-else(DOXYGEN_FOUND)
+else(DOXYGEN_FOUND AND DOXYGEN_DOT_FOUND)
     message("Doxygen needs to be installed to generate the doxygen documentation")
-endif(DOXYGEN_FOUND)
+endif(DOXYGEN_FOUND AND DOXYGEN_DOT_FOUND)
 
 message("building project: ${BUILD_PROJECT}")
 include(${BUILD_PROJECT}/CMakeLists.txt)
