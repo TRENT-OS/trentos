@@ -53,7 +53,7 @@ function prepare_test()
             mkdir -p ${PROVISIONING_TOOL_FOLDER}/src && cp -R ${SOURCE_DIR}/${PROVISIONING_TOOL_FOLDER}/* ${PROVISIONING_TOOL_FOLDER}/src/
             cd ${PROVISIONING_TOOL_FOLDER}
             ./src/build.sh
-            #run the pre-provisioning tool and output the prepared binary to the test 
+            #run the pre-provisioning tool and output the prepared binary to the test
             #folder to be used by the provisioning test
             ./src/run.sh ./src/keysExample.xml ./build/src/keystore_provisioning_tool ../ta/tests/preProvisionedKeyStoreImg
         )
@@ -75,7 +75,6 @@ function run_test()
 
         PYTEST_PARAMS=(
             -v
-            -s
             --workspace_path="${WORKSPACE_ROOT}"
 
             # even if it's called proxy_path, it the proxy binary actually
