@@ -270,7 +270,17 @@ elif [[ "${1:-}" == "clean" ]]; then
 
 else
 
-    run_build_mode zynq7000 Debug $@
-    run_astyle
-
+    if [ ! -z $@ ]; then
+        run_build_mode zynq7000 Debug $@
+        run_astyle
+    else
+        echo -e "build.sh <target> [cmake options]\
+        \n\npossible targets are:\
+        \n\t doc (documentation)\
+        \n\t all\
+        \n\t all-projects (everything but the documentation)\
+        \n\t check_astyle_artifacts (to be run after a build, it tries to find astyle artifacts indicating discrepancies with the coding standards)\
+        \n\t clean\
+        \n\t TEST_NAME (the name of a test image project under 'tests' folder)"
+    fi
 fi
