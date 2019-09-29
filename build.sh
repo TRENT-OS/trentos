@@ -212,8 +212,12 @@ function run_build_mode()
 #-------------------------------------------------------------------------------
 function build_all_projects()
 {
-    # we could drop this can simply use the list of sub-folders that exist in
-    # ${BUILD_SCRIPT_DIR}/src/tests/ besides the folder "camkes"
+    # we could drop this hard coded list and simply use all subdirectories in
+    # ${BUILD_SCRIPT_DIR}/src/tests. However, there is a certain order in the
+    # list here, starting with the most simple thing, then move on to more
+    # complext test systems and finally have the demos. Rationale is, that if
+    # the simpler builds fail, there is no point in building more complex
+    # things because we likely run into the same problems again.
     ALL_PROJECTS=(
         # tests
         test_hello_world

@@ -1,1 +1,0 @@
-#define Memory_Config_USE_STDLIB_ALLOC
