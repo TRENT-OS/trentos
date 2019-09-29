@@ -82,7 +82,6 @@ function run_build()
 
             CMAKE_PARAMS=(
                 -DCMAKE_TOOLCHAIN_FILE=${SEOS_SANDBOX_DIR}/kernel/gcc.cmake
-                -DKernelVerificationBuild=OFF
             )
 
             cmake ${CMAKE_PARAMS[@]} $@ -G Ninja ${SEOS_SANDBOX_DIR}
@@ -106,15 +105,11 @@ function run_build()
 #-------------------------------------------------------------------------------
 function run_build_doc()
 {
-    # the documentaton build still uses the full seL4/CAmkES build system, so
-    # there must be some actual project. Let's use the most simple one.
-    run_build \
-        DOC \
-        "seos_sandbox_doc seos_tests_doc" \
-        -DSEOS_SANDBOX_DOC=ON \
-        -DBUILD_PROJECT=${SEOS_PROJECTS_DIR}/test_hello_world \
-        $@
 
+    # build SEOS API documentation
+    run_build DOC "seos_sandbox_doc" -DSEOS_SANDBOX_DOC=ON $@
+
+    # collect SEOS API documentation
     (
         cd ${BUILD_DIR}
         local DOC_MODULES=$(find . -name html -type d -printf "%P\n")
@@ -122,7 +117,7 @@ function run_build_doc()
         # folder where we collect things
         local SEOS_DOC_OUTPUT=SEOS-doc-html
         if [[ -e ${SEOS_DOC_OUTPUT} ]]; then
-            echo "removing attic documentation collection folder"
+            echo "removing attic SEOS API documentation collection folder"
             rm -rf ${SEOS_DOC_OUTPUT}
         fi
         mkdir ${SEOS_DOC_OUTPUT}
@@ -159,6 +154,7 @@ function run_build_mode()
         # since the cmake root CMakeList file is in SEOS_SANDBOX_DIR,
         # this must either be relative to it or hold an absolute path
         -DBUILD_PROJECT=${SEOS_PROJECTS_DIR}/${BUILD_PROJECT}
+        -DKernelVerificationBuild=OFF
     )
 
     case "${BUILD_TARGET}" in
