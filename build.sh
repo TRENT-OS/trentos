@@ -115,7 +115,7 @@ function run_build_doc()
         local DOC_MODULES=$(find . -name html -type d -printf "%P\n")
 
         # folder where we collect things
-        local SEOS_DOC_OUTPUT=SEOS-doc-html
+        local SEOS_DOC_OUTPUT=SEOS-API_doc-html
         if [[ -e ${SEOS_DOC_OUTPUT} ]]; then
             echo "removing attic SEOS API documentation collection folder"
             rm -rf ${SEOS_DOC_OUTPUT}
@@ -126,6 +126,44 @@ function run_build_doc()
             local TARGET_FOLDER=$(basename $(dirname ${module}))
             echo "  ${TARGET_FOLDER} <- ${module}"
             cp -ar ${module} ${SEOS_DOC_OUTPUT}/${TARGET_FOLDER}
+        done
+    )
+
+    # build SEOS projects documentation
+    (
+        cd ${BUILD_DIR}
+
+        SEOS_PROJECTS_DOC_OUTPUT=SEOS-Projects_doc-html
+        if [[ -e ${SEOS_PROJECTS_DOC_OUTPUT} ]]; then
+            echo "removing attic SEOS projects documentation collection folder"
+            rm -rf ${SEOS_PROJECTS_DOC_OUTPUT}
+        fi
+        mkdir ${SEOS_PROJECTS_DOC_OUTPUT}
+        cd ${SEOS_PROJECTS_DOC_OUTPUT}
+
+        # Actually, details should move to each test, so we should just iterate
+        # over all the folders and invoke a documentation build there
+        SEOS_PROJECTS_DOC_DIRS=(
+            test_crypto_api/components/TEST_CRYPTO/src
+            keystore_demo_app/components/DemoApp/src
+            pre_provisioned_keystore/components/DemoApp/src
+        )
+
+        for project_ctx in ${SEOS_PROJECTS_DOC_DIRS[@]}; do
+            local prj_name=${project_ctx%%/*}
+            local prj_dir=${project_ctx#*/}
+            echo ""
+            echo "###"
+            echo "### project documentation for: ${prj_name}"
+            echo "###"
+            mkdir -p ${prj_name}
+            (
+                export DOXYGEN_INPUT_DIR=${SEOS_PROJECTS_DIR}/${prj_name}/${prj_dir}
+                export DOXYGEN_OUTPUT_DIR=${prj_name}
+                doxygen ${SEOS_PROJECTS_DIR}/Doxyfile
+                cp -ar ${prj_name}/html/* ${prj_name}
+                rm -rf ${prj_name}/html
+            )
         done
     )
 }
