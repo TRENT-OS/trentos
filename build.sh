@@ -11,34 +11,7 @@
 BUILD_SCRIPT_DIR=$(cd `dirname $0` && pwd)
 
 SEOS_SANDBOX_DIR="${BUILD_SCRIPT_DIR}/seos_sandbox"
-
-
-#-------------------------------------------------------------------------------
-function prepare_layout()
-{
-    # long all folder from src into seso_sandbox, so we can use the sanbox
-    # CMake build system and it will find everything from src
-
-    local SRC_DIR="${BUILD_SCRIPT_DIR}/src"
-    files=`ls ${SRC_DIR}`
-    for file in ${files}; do
-        ln -sf ${SRC_DIR}/${file} ${SEOS_SANDBOX_DIR}/projects
-    done
-}
-
-
-#-------------------------------------------------------------------------------
-function clean_layout()
-{
-    # long all folder from src into seso_sandbox, so we can use the sanbox
-    # CMake build system and it will find everything from src
-
-    local SRC_DIR="${BUILD_SCRIPT_DIR}/src"
-    files=`ls ${SRC_DIR}`
-    for file in ${files}; do
-        rm -f ${SEOS_SANDBOX_DIR}/projects/${file}
-    done
-}
+SEOS_PROJECTS_DIR="${BUILD_SCRIPT_DIR}/src/tests"
 
 
 #-------------------------------------------------------------------------------
@@ -135,8 +108,12 @@ function run_build_doc()
 {
     # the documentaton build still uses the full seL4/CAmkES build system, so
     # there must be some actual project. Let's use the most simple one.
-    run_build DOC "seos_sandbox_doc seos_tests_doc" \
-              -DSEOS_SANDBOX_DOC=ON -DBUILD_PROJECT=test_hello_world $@
+    run_build \
+        DOC \
+        "seos_sandbox_doc seos_tests_doc" \
+        -DSEOS_SANDBOX_DOC=ON \
+        -DBUILD_PROJECT=${SEOS_PROJECTS_DIR}/test_hello_world \
+        $@
 
     (
         cd ${BUILD_DIR}
@@ -179,7 +156,9 @@ function run_build_mode()
 
     local CMAKE_PARAMS=(
         -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
-        -DBUILD_PROJECT=${BUILD_PROJECT}
+        # since the cmake root CMakeList file is in SEOS_SANDBOX_DIR,
+        # this must either be relative to it or hold an absolute path
+        -DBUILD_PROJECT=${SEOS_PROJECTS_DIR}/${BUILD_PROJECT}
     )
 
     case "${BUILD_TARGET}" in
@@ -247,8 +226,6 @@ function build_all_projects()
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 
-prepare_layout
-
 if [[ "${1:-}" == "doc" ]]; then
     shift
     run_build_doc $@
@@ -274,7 +251,6 @@ elif [[ "${1:-}" == "clean" ]]; then
     shift
 
     /bin/rm -rf build-*
-    clean_layout
 
 else
 
