@@ -1,4 +1,0 @@
-procedure UartInf {
-    /// writes synchronously len bytes from the input dataport to the uart
-    void            write      (size_t len);
-};

@@ -19,3 +19,6 @@
 [submodule "src/tests/pre_provisioned_keystore"]
 	path = src/tests/pre_provisioned_keystore
 	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/pre_provisioned_keystore.git
+[submodule "src/tests/test_proxy_nvm"]
+	path = src/tests/test_proxy_nvm
+	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ss/test_proxy_nvm.git
