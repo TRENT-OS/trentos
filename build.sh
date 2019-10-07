@@ -145,6 +145,7 @@ function run_build_doc()
         # over all the folders and invoke a documentation build there
         SEOS_PROJECTS_DOC_DIRS=(
             test_crypto_api/components/TEST_CRYPTO/src
+            test_spiffs_filestream/components/TestSpiffsFileStream/src
             keystore_demo_app/components/DemoApp/src
             pre_provisioned_keystore/components/DemoApp/src
         )
@@ -238,7 +239,7 @@ function build_all_projects()
         test_crypto_api
         test_picotcp_api
         test_proxy_nvm
-        test_spiffs_integration
+        test_spiffs_filestream
         # demos
         keystore_demo_app
         pre_provisioned_keystore

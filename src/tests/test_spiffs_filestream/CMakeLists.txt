@@ -11,9 +11,12 @@ seos_use_libs(
 
 project(tests_proxy_nvm C)
 
-DeclareCAmkESComponent(TestSpiffsIntegration
+DeclareCAmkESComponent(TestSpiffsFileStream
     SOURCES
-        components/TestSpiffsIntegration/src/testSpiffsIntegration.c
+        "components/TestSpiffsFileStream/src/testSpiffsFileStream.c"
+        "components/TestSpiffsFileStream/src/initTest.c"
+        "components/TestSpiffsFileStream/src/fileStreamUnitTests.c"
+        "components/TestSpiffsFileStream/src/fileStreamDemoTest.c"
     LIBS
         seos_libs
         seos_crypto
