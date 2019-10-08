@@ -25,3 +25,9 @@
 [submodule "keystore_provisioning_tool"]
 	path = keystore_provisioning_tool
 	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ss/keystore_provisioning_tool.git
+[submodule "src/tests/test_spiffs_filestream"]
+	path = src/tests/test_spiffs_filestream
+	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ss/test_spiffs_filestream.git
+[submodule "src/tests/test_crypto_api"]
+	path = src/tests/test_crypto_api
+	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ss/test_crypto_api.git
