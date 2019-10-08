@@ -48,10 +48,10 @@ function prepare_test()
         (
             mkdir -p ${PROVISIONING_TOOL_FOLDER}/src && cp -R ${PROJECT_DIR}/${PROVISIONING_TOOL_FOLDER}/* ${PROVISIONING_TOOL_FOLDER}/src/
             cd ${PROVISIONING_TOOL_FOLDER}
-            ./src/build.sh
+            ./src/build.sh ./src ./build ${PROJECT_DIR}/seos_sandbox
             #run the pre-provisioning tool and output the prepared binary to the test
             #folder to be used by the provisioning test
-            ./src/run.sh ./src/keysExample.xml ./build/src/keystore_provisioning_tool ../ta/tests/preProvisionedKeyStoreImg
+            ./src/run.sh ./src/keysExample.xml ./build/tool_build/src/keystore_provisioning_tool ../ta/tests/preProvisionedKeyStoreImg
         )
 
     )
