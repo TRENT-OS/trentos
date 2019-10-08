@@ -2,10 +2,10 @@
  * Copyright (C) 2019, Hensoldt Cyber GmbH
  *
  */
-#include "SeosCryptoClient.h"
+#include "SeosCryptoCtx.h"
 
 void
-testAgreementDH(SeosCryptoClient* client);
+testAgreementDH(SeosCryptoCtx* cryptoCtx);
 
 void
-testAgreementECDH(SeosCryptoClient* client);
+testAgreementECDH(SeosCryptoCtx* cryptoCtx);

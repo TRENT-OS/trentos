@@ -237,6 +237,7 @@ function build_all_projects()
         test_hello_world
         test_syslog
         test_crypto_api
+        test_keystore
         test_picotcp_api
         test_proxy_nvm
         test_spiffs_filestream

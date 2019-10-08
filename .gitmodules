@@ -22,3 +22,6 @@
 [submodule "src/tests/test_proxy_nvm"]
 	path = src/tests/test_proxy_nvm
 	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ss/test_proxy_nvm.git
+[submodule "src/tests/test_keystore"]
+	path = src/tests/test_keystore
+	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/seos/test_keystore.git

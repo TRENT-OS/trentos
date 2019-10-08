@@ -8,29 +8,27 @@
  *
  * Copyright (C) 2019, Hensoldt Cyber GmbH
  */
+
 #include "LibDebug/Debug.h"
 
-#include "SeosKeyStore.h"
-#include "SeosKeyStoreClient.h"
-
-#include "KeyStoreInit.h"
+#include "SeosCrypto.h"
 
 #include "testSignatureRsa.h"
 #include "testAgreement.h"
 #include "testCrypto.h"
-#include "testKeyStore.h"
+#include "testKey.h"
 
 #include <camkes.h>
+#include <string.h>
 
 /* Defines -------------------------------------------------------------------*/
-#define NVM_CHANNEL_NUMBER      (6)
-#define KEY_STORE_INSTANCE_NAME "KeyStore1"
 
 int entropyFunc(void*           ctx,
                 unsigned char*  buf,
                 size_t          len)
 {
     // This would be the platform specific function to obtain entropy
+    memset(buf, 0, len);
     return 0;
 }
 
@@ -42,17 +40,6 @@ int entropyFunc(void*           ctx,
  *
  * @test TestCrypto_scenario_1      Perform Crypto test cases for the local and remote version of the crypto api
  *
- * @test TestKeyStore_scenario_1    Perform TestKeyStore_testCase_01 - 05 for a local version of the KeyStore
- *                                  using key generation
- *
- * @test TestKeyStore_scenario_2    Perform TestKeyStore_testCase_01 - 05 for a local version of the KeyStore
- *                                  using key import
- *
- * @test TestKeyStore_scenario_3    Perform TestKeyStore_testCase_01 - 05 for a remote version of the KeyStore
- *                                  using key generation
- *
- * @test TestKeyStore_scenario_4    Perform TestKeyStore_testCase_01 - 05 for a remote version of the KeyStore
- *                                  using key import
  *
  * @}
  */
@@ -81,6 +68,9 @@ int run()
     testRNG(apiLocal);
     testRNG(apiRpc);
 
+    testKey(apiLocal);
+    testKey(apiRpc);
+
     testDigestMD5(apiLocal);
     testDigestMD5(apiRpc);
 
@@ -93,101 +83,10 @@ int run()
     testCipherAES_GCM(apiLocal);
     testCipherAES_GCM(apiRpc);
 
-    testSignatureRSA(&client);
+    testSignatureRSA(apiLocal);
 
-    testAgreementDH(&client);
-    testAgreementECDH(&client);
-
-    /***************************** KeyStore test *******************************/
-    KeyStoreContext keyStoreCtx;
-    SeosKeyStore localKeyStore;
-    SeosKeyStoreClient keyStoreClient;
-    SeosKeyStoreRpc_Handle keyStoreRpcHandle = NULL;
-
-    /************************** Init local version ****************************/
-    if (!keyStoreContext_ctor(&keyStoreCtx, NVM_CHANNEL_NUMBER,
-                              (void*)chanMuxDataPort))
-    {
-        Debug_LOG_ERROR("%s: Failed to initialize the test!", __func__);
-        return 0;
-    }
-    err = SeosKeyStore_init(&localKeyStore,
-                            keyStoreCtx.fileStreamFactory,
-                            &cryptoCtx,
-                            KEY_STORE_INSTANCE_NAME);
-
-    if (err != SEOS_SUCCESS)
-    {
-        Debug_LOG_ERROR("%s: SeosKeyStore_init failed with error code %d!", __func__,
-                        err);
-        return false;
-    }
-
-    /************************* Init remote version ***************************/
-    err = KeyStore_getRpcHandle(&keyStoreRpcHandle);
-    if (err != SEOS_SUCCESS)
-    {
-        Debug_LOG_ERROR("%s: KeyStore_getRpcHandle failed with error code %d!",
-                        __func__,
-                        err);
-        return 0;
-    }
-    err = SeosKeyStoreClient_init(&keyStoreClient,
-                                  keyStoreRpcHandle,
-                                  keyStoreClientDataport);
-    if (err != SEOS_SUCCESS)
-    {
-        Debug_LOG_ERROR("%s: SeosKeyStoreClient_init failed with error code %d!",
-                        __func__,
-                        err);
-        return 0;
-    }
-
-    /******************** Test local and remote versions **********************/
-    Debug_LOG_INFO("\n\n\n\n**************************** Starting 'TestKeyStore_scenario_1' ****************************\n");
-    if (!testKeyStore(&(localKeyStore.parent), apiLocal, true))
-    {
-        Debug_LOG_ERROR("\n\nTestKeyStore_scenario_1 FAILED!\n\n\n\n");
-    }
-    else
-    {
-        Debug_LOG_INFO("\n\nTestKeyStore_scenario_1 succeeded!\n\n\n\n");
-    }
-
-    Debug_LOG_INFO("\n**************************** Starting 'TestKeyStore_scenario_2' ****************************\n");
-    if (!testKeyStore(&(localKeyStore.parent), apiLocal, false))
-    {
-        Debug_LOG_ERROR("\n\nTestKeyStore_scenario_2 FAILED!\n\n\n\n");
-    }
-    else
-    {
-        Debug_LOG_INFO("\n\nTestKeyStore_scenario_2 succeeded!\n\n\n\n");
-    }
-
-    Debug_LOG_INFO("\n**************************** Starting 'TestKeyStore_scenario_3' ****************************\n");
-    if (!testKeyStore(&(keyStoreClient.parent), apiRpc, true))
-    {
-        Debug_LOG_ERROR("\n\nTestKeyStore_scenario_3 FAILED!\n\n\n\n");
-    }
-    else
-    {
-        Debug_LOG_INFO("\n\nTestKeyStore_scenario_3 succeeded!\n\n\n\n");
-    }
-
-    Debug_LOG_INFO("\n**************************** Starting 'TestKeyStore_scenario_4' ****************************\n");
-    if (!testKeyStore(&(keyStoreClient.parent), apiRpc, false))
-    {
-        Debug_LOG_ERROR("\n\nTestKeyStore_scenario_4 FAILED!\n\n\n\n");
-    }
-    else
-    {
-        Debug_LOG_INFO("\n\nTestKeyStore_scenario_4 succeeded!\n\n\n\n");
-    }
-
-    /***************************** Destruction *******************************/
-    SeosKeyStore_deInit(&(localKeyStore.parent));
-    keyStoreContext_dtor(&keyStoreCtx);
-    SeosKeyStoreClient_deInit(&(keyStoreClient.parent));
+    testAgreementDH(apiLocal);
+    testAgreementECDH(apiLocal);
 
     return 0;
 }

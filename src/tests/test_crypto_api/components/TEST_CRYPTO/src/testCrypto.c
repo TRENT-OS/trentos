@@ -3,6 +3,8 @@
  *
  */
 
+#include <string.h>
+
 #include "testCrypto.h"
 #include "SeosCryptoApi.h"
 
@@ -111,7 +113,10 @@ void testCipherAES_ECB(SeosCryptoCtx* cryptoCtx)
 
     SeosCrypto_KeyHandle keyHandle;
     SeosCrypto_CipherHandle handle;
-
+    SeosCryptoKey_AES keyData =
+    {
+        "0123456789ABCDEF", 16
+    };
     const char*  data   = "0123456789ABCDEF";
     size_t dataLen      = strlen(data);
 
@@ -119,12 +124,12 @@ void testCipherAES_ECB(SeosCryptoCtx* cryptoCtx)
     void* output = buff;
     size_t outputSize = sizeof(buff);
 
-    err = SeosCryptoApi_keyImport(cryptoCtx,
-                                  &keyHandle,
-                                  SeosCryptoCipher_Algorithm_AES_ECB_ENC,
-                                  BitMap_MASK_OF_BIT(SeosCryptoKey_Flags_IS_ALGO_CIPHER),
-                                  "0123456789ABCDEF",
-                                  128);
+    err = SeosCryptoApi_keyInit(cryptoCtx, &keyHandle, SeosCryptoKey_Type_AES, 0,
+                                128);
+    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+
+    err = SeosCryptoApi_keyImport(cryptoCtx, keyHandle, NULL, &keyData,
+                                  sizeof(keyData));
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     err = SeosCryptoApi_cipherInit(cryptoCtx,
@@ -192,8 +197,7 @@ void testCipherAES_ECB(SeosCryptoCtx* cryptoCtx)
     err = SeosCryptoApi_cipherClose(cryptoCtx, handle);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
-    err = SeosCryptoApi_keyClose(cryptoCtx, keyHandle);
-    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
+    SeosCryptoApi_keyDeInit(cryptoCtx, keyHandle);
 }
 
 void testCipherAES_GCM(SeosCryptoCtx* cryptoCtx)
@@ -202,6 +206,10 @@ void testCipherAES_GCM(SeosCryptoCtx* cryptoCtx)
 
     SeosCrypto_KeyHandle keyHandle;
     SeosCrypto_CipherHandle handle;
+    SeosCryptoKey_AES keyData =
+    {
+        "0123456789ABCDEF", 16
+    };
 
     const char* iv     = "0000000000000000";
     const char* data1  = "FFFFFFFFFFFFFFFF";
@@ -221,12 +229,12 @@ void testCipherAES_GCM(SeosCryptoCtx* cryptoCtx)
     void* encOutput    = enc_out_buf;
     void* tag          = tag_buf;
 
-    err = SeosCryptoApi_keyImport(cryptoCtx,
-                                  &keyHandle,
-                                  SeosCryptoCipher_Algorithm_AES_GCM_ENC,
-                                  BitMap_MASK_OF_BIT(SeosCryptoKey_Flags_IS_ALGO_CIPHER),
-                                  "0123456789ABCDEF",
-                                  128);
+    err = SeosCryptoApi_keyInit(cryptoCtx, &keyHandle, SeosCryptoKey_Type_AES, 0,
+                                128);
+    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+
+    err = SeosCryptoApi_keyImport(cryptoCtx, keyHandle, NULL, &keyData,
+                                  sizeof(keyData));
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     //
@@ -326,6 +334,5 @@ void testCipherAES_GCM(SeosCryptoCtx* cryptoCtx)
     err = SeosCryptoApi_cipherClose(cryptoCtx, handle);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
-    err = SeosCryptoApi_keyClose(cryptoCtx, keyHandle);
-    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
+    SeosCryptoApi_keyDeInit(cryptoCtx, keyHandle);
 }

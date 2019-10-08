@@ -30,7 +30,6 @@
 
 #define Memory_Config_USE_STDLIB_ALLOC
 
-
 //-----------------------------------------------------------------------------
 // Logs
 //-----------------------------------------------------------------------------
@@ -38,15 +37,3 @@
 #define Logs_Config_LOG_STRING_SIZE         128
 #define Logs_Config_INCLUDE_LEVEL_IN_MSG    1
 #define Logs_Config_SYSLOG_LEVEL            Log_TRACE
-
-
-//-----------------------------------------------------------------------------
-// Keystore
-//-----------------------------------------------------------------------------
-
-#define KEY_INT_PROPERTY_LEN    4   /* Used to initialize the buffers for serialization of the size_t type
-                                    key properties - it represents the number of bytes that size_t type
-                                    takes up in memory */
-
-#define MAX_KEY_LEN             256 /* Maximum length of the raw key in bytes */
-#define MAX_KEY_NAME_LEN        16  /* Maximum length of the key name (including the null char) */
