@@ -17,17 +17,50 @@ PROXY_FOLDER=proxy
 TA_FOLDER=ta
 PROVISIONING_TOOL_FOLDER=keystore_provisioning_tool
 SEOS_LIBS_FOLDER=${PROJECT_DIR}/seos_sandbox/projects/libs/seos_libs
+VENV_NAME="ta-env"
+
+#-------------------------------------------------------------------------------
+function check_pytest_requirements_and_install_if_needed()
+{
+    ### This function is for conveninency of a user that wants to run tests
+    ### locally. In CI environment the depenencies are usually always there
+    ### and therefore the function should alway skip the intallation part there.
+
+    local requirements_file="tests/requirements.txt"
+    local installed=$(pip3 freeze)
+    local required=$(cat ${requirements_file})
+    local missing_pkg=""
+
+    for pkg in ${required}; do
+        if [[ ! ${installed} =~ ${pkg} ]]; then
+            missing_pkg=${pkg}
+            break
+        fi
+    done
+
+    if [ ! -z "${missing_pkg}" ] ; then
+        echo "#### Creating '${VENV_NAME}' virtual environement."
+        python3 -m venv ${VENV_NAME}
+        source ${VENV_NAME}/bin/activate
+        pip3 install -r ${requirements_file}
+    fi
+}
 
 
 #-------------------------------------------------------------------------------
 function prepare_test()
 {
+    # check python3 packages
+    which python3 > /dev/null || { echo "python3 is required, please install it" && exit 1; }
+    which pip3    > /dev/null || { echo "python3-pip is required, please install it" && exit 1; }
+    which pytest  > /dev/null && pytest --version 2>&1 | grep python3 > /dev/null || { echo "python3-pytest is required, please install it" && exit 1; }
 
     # remove folder if it exists already. This should not happen in CI when we
     # have a clean workspace, but it's convenient for local builds
     if [ -d ${TEST_DIR} ]; then
         rm -rf ${TEST_DIR}
     fi
+
 
     (
         mkdir ${TEST_DIR}
@@ -49,7 +82,13 @@ function prepare_test()
 
         # copy files from test automation framework
         (
-            mkdir ${TA_FOLDER} && cp -R ${PROJECT_DIR}/${TA_FOLDER}/* ${TA_FOLDER}/
+            echo -e "\n\n############## Preparing TA scripts environment ################\n"
+
+            mkdir ${TA_FOLDER}
+            cp -R ${PROJECT_DIR}/${TA_FOLDER}/* ${TA_FOLDER}/
+            cd ${TA_FOLDER}
+
+            check_pytest_requirements_and_install_if_needed
         )
 
         # get and build the keystore provisioning tool and prepare the keystore image
@@ -81,6 +120,14 @@ function run_test()
     echo -e "\n\n############## Running TA integration tests  ###############\n"
     (
         cd ${TEST_DIR}/${TA_FOLDER}
+
+        ### This is again more likely for cases of running the script locally as
+        ### the CI environment (docker container) should instead alredy provide
+        ### all the needed packages
+        if [ -f ${VENV_NAME}/bin/activate ]; then
+            source ${VENV_NAME}/bin/activate
+        fi
+
         cd tests
 
         PYTEST_PARAMS=(
