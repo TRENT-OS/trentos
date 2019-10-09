@@ -57,7 +57,7 @@ pipeline {
         stage('prepare_test') {
             agent {
                 docker {
-                    image 'test_env_20190919'
+                    image 'test_env_20191009_1'
                     args '-v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro -v /etc/localtime:/etc/localtime:ro'
                 }
             }
@@ -70,7 +70,7 @@ pipeline {
         stage('test') {
             agent {
                  docker {
-                     image 'test_env_20190919'
+                     image 'test_env_20191009_1'
                      args '-v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro -v /etc/localtime:/etc/localtime:ro'
                  }
             }
