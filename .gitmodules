@@ -1,33 +1,33 @@
 [submodule "seos_sandbox"]
 	path = seos_sandbox
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/seos/sandbox.git
+	url = ../../seos/sandbox.git
 [submodule "ta/tests"]
 	path = ta/tests
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ta/seos_tests.git
+	url = ../../ta/seos_tests.git
 [submodule "ta/common"]
 	path = ta/common
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ta/common.git
+	url = ../../ta/common.git
 [submodule "proxy"]
 	path = proxy
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/hc/mqtt_proxy_demo.git
+	url = ../../hc/mqtt_proxy_demo.git
 [submodule "src/tests/test_proxy_nvm"]
 	path = src/tests/test_proxy_nvm
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ss/test_proxy_nvm.git
+	url = ../../ss/test_proxy_nvm.git
 [submodule "src/tests/test_keystore"]
 	path = src/tests/test_keystore
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ss/test_keystore.git
+	url = ../../ss/test_keystore.git
 [submodule "src/tests/demo_keystore"]
 	path = src/tests/demo_keystore
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ss/demo_keystore.git
+	url = ../../ss/demo_keystore.git
 [submodule "src/tests/demo_preprovisioned_keystore"]
 	path = src/tests/demo_preprovisioned_keystore
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ss/demo_preprovisioned_keystore.git
+	url = ../../ss/demo_preprovisioned_keystore.git
 [submodule "keystore_provisioning_tool"]
 	path = keystore_provisioning_tool
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ss/keystore_provisioning_tool.git
+	url = ../../ss/keystore_provisioning_tool.git
 [submodule "src/tests/test_spiffs_filestream"]
 	path = src/tests/test_spiffs_filestream
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ss/test_spiffs_filestream.git
+	url = ../../ss/test_spiffs_filestream.git
 [submodule "src/tests/test_crypto_api"]
 	path = src/tests/test_crypto_api
-	url = ssh://git@bitbucket.hensoldt-cyber.systems:7999/ss/test_crypto_api.git
+	url = ../../ss/test_crypto_api.git
