@@ -28,7 +28,7 @@ pipeline {
         stage('build_doc') {
             agent {
                 docker {
-                    image 'camkes_build_env_20190827'
+                    image 'seos_build_env_20191010'
                     // bind the localtime to avoid problems of gaps between the localtime of the container and the host
                     args '-v /etc/localtime:/etc/localtime:ro'
                 }
@@ -42,9 +42,10 @@ pipeline {
         stage('build') {
             agent {
                 docker {
-                    image 'camkes_build_env_20190827'
+                    image 'seos_build_env_20191010'
                     // bind the localtime to avoid problems of gaps between the localtime of the container and the host
-                    args '-v /etc/localtime:/etc/localtime:ro'
+                    // add to group stack in order to grant usage of Haskell stack in the docker image
+                    args '-v /etc/localtime:/etc/localtime:ro --group-add=1001'
                 }
             }
             options { skipDefaultCheckout(true) }
@@ -57,7 +58,7 @@ pipeline {
         stage('prepare_test') {
             agent {
                 docker {
-                    image 'test_env_20191009_1'
+                    image 'seos_test_env_20191010'
                     args '-v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro -v /etc/localtime:/etc/localtime:ro'
                 }
             }
@@ -70,7 +71,7 @@ pipeline {
         stage('test') {
             agent {
                  docker {
-                     image 'test_env_20191009_1'
+                     image 'seos_test_env_20191010'
                      args '-v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro -v /etc/localtime:/etc/localtime:ro'
                  }
             }
