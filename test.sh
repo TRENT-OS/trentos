@@ -137,7 +137,7 @@ function run_test()
             --proxy_path="${WORKSPACE_ROOT}/${TEST_DIR}/${PROXY_FOLDER}/build/mqtt_proxy"
         )
 
-        pytest ${PYTEST_PARAMS[@]}
+        pytest ${PYTEST_PARAMS[@]} $@
 
 
     )
@@ -159,9 +159,9 @@ if [[ "${1:-}" == "prepare" ]]; then
 elif [[ "${1:-}" == "run" ]]; then
     shift
 
-    run_test
+    run_test $@
 
 else
-    echo "invalid parameter, use \"prepare\" or \"run\""
+    echo "invalid parameter, use \"prepare\" or \"run [pytest_params_and_args] \""
     exit 1
 fi
