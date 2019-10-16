@@ -53,7 +53,6 @@ function prepare_test()
     # check python3 packages
     which python3 > /dev/null || { echo "python3 is required, please install it" && exit 1; }
     which pip3    > /dev/null || { echo "python3-pip is required, please install it" && exit 1; }
-    which pytest  > /dev/null && pytest --version 2>&1 | grep python3 > /dev/null || { echo "pytest is either not installed or not linked to python3, please install it (pip3 install pytest)" && exit 1; }
 
     # remove folder if it exists already. This should not happen in CI when we
     # have a clean workspace, but it's convenient for local builds
