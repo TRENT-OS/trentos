@@ -131,6 +131,7 @@ function run_test()
 
         PYTEST_PARAMS=(
             -v
+            # --capture=no   # show printf() from python scripts in console
             --workspace_path="${WORKSPACE_ROOT}"
 
             # even if it's called proxy_path, it the proxy binary actually
