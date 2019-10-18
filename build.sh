@@ -245,6 +245,8 @@ function build_all_projects()
         # demos
         demo_keystore
         demo_preprovisioned_keystore
+        demo_fs_as_components
+        demo_fs_as_libs
     )
 
     # for now, just loop over the list above and abort the whole build on the

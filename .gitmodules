@@ -31,3 +31,9 @@
 [submodule "src/tests/test_crypto_api"]
 	path = src/tests/test_crypto_api
 	url = ../../ss/test_crypto_api.git
+[submodule "src/tests/demo_fs_as_libs"]
+	path = src/tests/demo_fs_as_libs
+	url = ../../ss/demo_filesystem_as_lib_pm_as_lib.git
+[submodule "src/tests/demo_fs_as_components"]
+	path = src/tests/demo_fs_as_components
+	url = ../../ss/demo_filesystem_as_component_pm_as_component.git
