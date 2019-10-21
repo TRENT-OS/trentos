@@ -59,46 +59,51 @@ function prepare_test()
     if [ -d ${WORKSPACE_TEST_DIR} ]; then
         rm -rf ${WORKSPACE_TEST_DIR}
     fi
-
+    mkdir ${WORKSPACE_TEST_DIR}
 
     (
-        mkdir ${WORKSPACE_TEST_DIR}
         cd ${WORKSPACE_TEST_DIR}
 
-        # prepare seos_libs unit tests
+        echo -e "\n\n############ Building SEOS Libs Unit Tests ################\n"
+        # run preparation script in sub shell
         (
-            echo -e "\n\n############ Building SEOS Libs Unit Tests ################\n"
             ${SEOS_LIBS_FOLDER}/test.sh prepare
         )
 
-        # get and build the proxy
+        echo -e "\n\n############## Building Proxy Linux Application ################\n"
+        mkdir -p ${PROXY_FOLDER}/src
+        cp -R ${PROJECT_DIR}/${PROXY_FOLDER}/* ${PROXY_FOLDER}/src/
+        # run build in subshell
         (
-            echo -e "\n\n############## Building Proxy Linux Application ################\n"
-            mkdir -p ${PROXY_FOLDER}/src && cp -R ${PROJECT_DIR}/${PROXY_FOLDER}/* ${PROXY_FOLDER}/src/
             cd ${PROXY_FOLDER}
             src/build.sh
         )
 
+        echo -e "\n\n############## Preparing TA scripts environment ################\n"
         # copy files from test automation framework
-        (
-            echo -e "\n\n############## Preparing TA scripts environment ################\n"
-
-            mkdir ${TA_FOLDER}
-            cp -R ${PROJECT_DIR}/${TA_FOLDER}/* ${TA_FOLDER}/
-            cd ${TA_FOLDER}
-
-            check_pytest_requirements_and_install_if_needed
-        )
+        mkdir ${TA_FOLDER}
+        cp -R ${PROJECT_DIR}/${TA_FOLDER}/* ${TA_FOLDER}/
+        cd ${TA_FOLDER}
+        # setup a python virtual environment if needed
+        check_pytest_requirements_and_install_if_needed
 
         # get and build the keystore provisioning tool and prepare the keystore image
+        echo -e "\n\n############## Building KeyStore provisioning tool ################\n"
+        mkdir -p ${PROVISIONING_TOOL_FOLDER}/src
+        cp -R ${PROJECT_DIR}/${PROVISIONING_TOOL_FOLDER}/* ${PROVISIONING_TOOL_FOLDER}/src/
         (
-            echo -e "\n\n############## Building KeyStore provisioning tool ################\n"
-            mkdir -p ${PROVISIONING_TOOL_FOLDER}/src && cp -R ${PROJECT_DIR}/${PROVISIONING_TOOL_FOLDER}/* ${PROVISIONING_TOOL_FOLDER}/src/
             cd ${PROVISIONING_TOOL_FOLDER}
-            ./src/build.sh ./src ./build ${PROJECT_DIR}/seos_sandbox
-            #run the pre-provisioning tool and output the prepared binary to the test
-            #folder to be used by the provisioning test
-            ./src/run.sh ./src/keysExample.xml ./build/tool_build/src/keystore_provisioning_tool ../ta/tests/preProvisionedKeyStoreImg
+            # build tool
+            src/build.sh \
+                src \
+                build \
+                ${PROJECT_DIR}/seos_sandbox
+            # run the pre-provisioning tool and output the prepared binary to
+            # the test folder to be used by the provisioning test
+            src/run.sh \
+                src/keysExample.xml \
+                build/tool_build/src/keystore_provisioning_tool \
+                ../ta/tests/preProvisionedKeyStoreImg
         )
     )
 
@@ -109,25 +114,17 @@ function prepare_test()
 #-------------------------------------------------------------------------------
 function run_test()
 {
-    echo -e "\n\n############## Running SEOS Libs Unit Tests ################\n"
-    # run seos_libs unit tests
     (
         cd ${WORKSPACE_TEST_DIR}
-        ${SEOS_LIBS_FOLDER}/test.sh run
-    )
 
-    echo -e "\n\n############## Running TA integration tests  ###############\n"
-    (
-        cd ${WORKSPACE_TEST_DIR}/${TA_FOLDER}
+        echo -e "\n\n############## Running SEOS Libs Unit Tests ################\n"
+        # run seos_libs unit tests in sub shell
+        (
+            ${SEOS_LIBS_FOLDER}/test.sh run
+        )
 
-        ### This is again more likely for cases of running the script locally as
-        ### the CI environment (docker container) should instead alredy provide
-        ### all the needed packages
-        if [ -f ${VENV_NAME}/bin/activate ]; then
-            source ${VENV_NAME}/bin/activate
-        fi
+        echo -e "\n\n############## Running TA integration tests  ###############\n"
 
-        cd tests
 
         PYTEST_PARAMS=(
             -v
@@ -138,8 +135,17 @@ function run_test()
             --proxy_path="${WORKSPACE_ROOT}/${WORKSPACE_TEST_DIR}/${PROXY_FOLDER}/build/mqtt_proxy"
         )
 
-        pytest ${PYTEST_PARAMS[@]} $@
+        # run tests in sub shell
+        (
+            cd ${TA_FOLDER}/tests
 
+            # activate python virtual environment if it exists
+            if [ -f ${VENV_NAME}/bin/activate ]; then
+                source ${VENV_NAME}/bin/activate
+            fi
+
+            pytest ${PYTEST_PARAMS[@]} $@
+        )
 
     )
 
