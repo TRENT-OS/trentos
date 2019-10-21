@@ -11,7 +11,7 @@
 PROJECT_DIR=$(cd `dirname $0` && pwd)
 WORKSPACE_ROOT=$(pwd)
 
-TEST_DIR=workspace_test
+WORKSPACE_TEST_DIR=workspace_test
 
 PROXY_FOLDER=proxy
 TA_FOLDER=ta
@@ -56,14 +56,14 @@ function prepare_test()
 
     # remove folder if it exists already. This should not happen in CI when we
     # have a clean workspace, but it's convenient for local builds
-    if [ -d ${TEST_DIR} ]; then
-        rm -rf ${TEST_DIR}
+    if [ -d ${WORKSPACE_TEST_DIR} ]; then
+        rm -rf ${WORKSPACE_TEST_DIR}
     fi
 
 
     (
-        mkdir ${TEST_DIR}
-        cd ${TEST_DIR}
+        mkdir ${WORKSPACE_TEST_DIR}
+        cd ${WORKSPACE_TEST_DIR}
 
         # prepare seos_libs unit tests
         (
@@ -112,13 +112,13 @@ function run_test()
     echo -e "\n\n############## Running SEOS Libs Unit Tests ################\n"
     # run seos_libs unit tests
     (
-        cd ${TEST_DIR}
+        cd ${WORKSPACE_TEST_DIR}
         ${SEOS_LIBS_FOLDER}/test.sh run
     )
 
     echo -e "\n\n############## Running TA integration tests  ###############\n"
     (
-        cd ${TEST_DIR}/${TA_FOLDER}
+        cd ${WORKSPACE_TEST_DIR}/${TA_FOLDER}
 
         ### This is again more likely for cases of running the script locally as
         ### the CI environment (docker container) should instead alredy provide
@@ -135,7 +135,7 @@ function run_test()
             --workspace_path="${WORKSPACE_ROOT}"
 
             # even if it's called proxy_path, it the proxy binary actually
-            --proxy_path="${WORKSPACE_ROOT}/${TEST_DIR}/${PROXY_FOLDER}/build/mqtt_proxy"
+            --proxy_path="${WORKSPACE_ROOT}/${WORKSPACE_TEST_DIR}/${PROXY_FOLDER}/build/mqtt_proxy"
         )
 
         pytest ${PYTEST_PARAMS[@]} $@
