@@ -4,6 +4,7 @@ seos_set_config_file(config.h)
 
 seos_use_libs(
     SEOS_LIBS
+    SEOS_NETWORK_DRIVER_TAP_PROXY
     SEOS_NW_STACK
 )
 
@@ -17,6 +18,7 @@ DeclareCAmkESComponent(NwStack
     LIBS
         seos_libs
         seos_nw_lib
+        seos_nw_driver_tap_proxy_lib
 )
 
 DeclareCAmkESComponent(NwStack_2
@@ -27,6 +29,7 @@ DeclareCAmkESComponent(NwStack_2
     LIBS
         seos_libs
         seos_nw_lib
+        seos_nw_driver_tap_proxy_lib
 )
 
 DeclareCAmkESComponent(NwApp
