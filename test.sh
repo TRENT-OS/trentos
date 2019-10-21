@@ -80,30 +80,19 @@ function prepare_test()
         )
 
         echo -e "\n\n############## Preparing TA scripts environment ################\n"
-        # copy files from test automation framework
-        mkdir ${TA_FOLDER}
-        cp -R ${PROJECT_DIR}/${TA_FOLDER}/* ${TA_FOLDER}/
-        cd ${TA_FOLDER}
         # setup a python virtual environment if needed
         check_pytest_requirements_and_install_if_needed
 
-        # get and build the keystore provisioning tool and prepare the keystore image
         echo -e "\n\n############## Building KeyStore provisioning tool ################\n"
         mkdir -p ${PROVISIONING_TOOL_FOLDER}/src
         cp -R ${PROJECT_DIR}/${PROVISIONING_TOOL_FOLDER}/* ${PROVISIONING_TOOL_FOLDER}/src/
+        # run build in subshell
         (
             cd ${PROVISIONING_TOOL_FOLDER}
-            # build tool
             src/build.sh \
                 src \
                 build \
                 ${PROJECT_DIR}/seos_sandbox
-            # run the pre-provisioning tool and output the prepared binary to
-            # the test folder to be used by the provisioning test
-            src/run.sh \
-                src/keysExample.xml \
-                build/tool_build/src/keystore_provisioning_tool \
-                ../ta/tests/preProvisionedKeyStoreImg
         )
     )
 
@@ -123,8 +112,26 @@ function run_test()
             ${SEOS_LIBS_FOLDER}/test.sh run
         )
 
-        echo -e "\n\n############## Running TA integration tests  ###############\n"
+        echo -e "\n\n############## Prepare TA integration tests  ###############\n"
 
+        # copy files from test automation framework
+        if [ -d ${TA_FOLDER} ]; then
+            rm -rf ${TA_FOLDER}
+        fi
+        mkdir ${TA_FOLDER}
+        cp -R ${PROJECT_DIR}/${TA_FOLDER}/* ${TA_FOLDER}/
+
+        # run the pre-provisioning tool and output the prepared binary to
+        # the test folder to be used by the provisioning test
+        (
+            cd ${PROVISIONING_TOOL_FOLDER}
+            src/run.sh \
+                src/keysExample.xml \
+                build/tool_build/src/keystore_provisioning_tool \
+                ../${TA_FOLDER}/tests/preProvisionedKeyStoreImg
+        )
+
+        echo -e "\n\n############## Running TA integration tests  ###############\n"
 
         PYTEST_PARAMS=(
             -v
