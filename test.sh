@@ -13,12 +13,16 @@ WORKSPACE_ROOT=$(pwd)
 
 WORKSPACE_TEST_DIR=workspace_test
 
-PROXY_FOLDER=proxy
+
 TA_FOLDER=ta
 
 # Keystore Provisioning Tool
 KPT_SRC=${PROJECT_DIR}/keystore_provisioning_tool
 KPT_BUILD=ktp
+
+# Proxy
+PROXY_SRC=${PROJECT_DIR}/proxy
+PROXY_BUILD=proxy
 
 
 SEOS_LIBS_FOLDER=${PROJECT_DIR}/seos_sandbox/projects/libs/seos_libs
@@ -76,12 +80,11 @@ function prepare_test()
         )
 
         echo -e "\n\n############## Building Proxy Linux Application ################\n"
-        mkdir -p ${PROXY_FOLDER}/src
-        cp -R ${PROJECT_DIR}/${PROXY_FOLDER}/* ${PROXY_FOLDER}/src/
+        mkdir -p ${PROXY_BUILD}
         # run build in subshell
         (
-            cd ${PROXY_FOLDER}
-            src/build.sh
+            cd ${PROXY_BUILD}
+            ${PROXY_SRC}/build.sh
         )
 
         echo -e "\n\n############## Preparing TA scripts environment ################\n"
@@ -140,7 +143,7 @@ function run_test()
             --workspace_path="${WORKSPACE_ROOT}"
 
             # even if it's called proxy_path, it the proxy binary actually
-            --proxy_path="${WORKSPACE_ROOT}/${WORKSPACE_TEST_DIR}/${PROXY_FOLDER}/build/mqtt_proxy"
+            --proxy_path="${WORKSPACE_ROOT}/${WORKSPACE_TEST_DIR}/${PROXY_BUILD}/build/mqtt_proxy"
         )
 
         # run tests in sub shell
