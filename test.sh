@@ -15,7 +15,12 @@ WORKSPACE_TEST_DIR=workspace_test
 
 PROXY_FOLDER=proxy
 TA_FOLDER=ta
-PROVISIONING_TOOL_FOLDER=keystore_provisioning_tool
+
+# Keystore Provisioning Tool
+KPT_SRC=${PROJECT_DIR}/keystore_provisioning_tool
+KPT_BUILD=ktp
+
+
 SEOS_LIBS_FOLDER=${PROJECT_DIR}/seos_sandbox/projects/libs/seos_libs
 VENV_NAME="ta-env"
 
@@ -84,15 +89,11 @@ function prepare_test()
         check_pytest_requirements_and_install_if_needed
 
         echo -e "\n\n############## Building KeyStore provisioning tool ################\n"
-        mkdir -p ${PROVISIONING_TOOL_FOLDER}/src
-        cp -R ${PROJECT_DIR}/${PROVISIONING_TOOL_FOLDER}/* ${PROVISIONING_TOOL_FOLDER}/src/
+        mkdir -p ${KPT_BUILD}
         # run build in subshell
         (
-            cd ${PROVISIONING_TOOL_FOLDER}
-            src/build.sh \
-                src \
-                build \
-                ${PROJECT_DIR}/seos_sandbox
+            cd ${KPT_BUILD}
+            ${KPT_SRC}/build.sh ${PROJECT_DIR}/seos_sandbox
         )
     )
 
@@ -124,10 +125,10 @@ function run_test()
         # run the pre-provisioning tool and output the prepared binary to
         # the test folder to be used by the provisioning test
         (
-            cd ${PROVISIONING_TOOL_FOLDER}
-            src/run.sh \
-                src/keysExample.xml \
-                build/tool_build/src/keystore_provisioning_tool \
+            cd ${KPT_BUILD}
+            ${KPT_SRC}/run.sh \
+                ${KPT_SRC}/keysExample.xml \
+                build/src/keystore_provisioning_tool  \
                 ../${TA_FOLDER}/tests/preProvisionedKeyStoreImg
         )
 
