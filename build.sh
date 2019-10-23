@@ -184,10 +184,7 @@ function run_build_mode()
     local BUILD_PROJECT=${3}
     shift 3
 
-    # the tests use hard-coded folder names, where the project name is all
-    # upper case. We have to remain compatible and luckily, bash supports "^^"
-    # as modifier for variables to make them all upper case letters.
-    local TARGET_NAME=${BUILD_TARGET}-${BUILD_TYPE}-${BUILD_PROJECT^^}
+    local TARGET_NAME=${BUILD_TARGET}-${BUILD_TYPE}-${BUILD_PROJECT}
 
     local CMAKE_PARAMS=(
         -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
