@@ -78,7 +78,8 @@ pipeline {
             options { skipDefaultCheckout(true) }
             steps {
                 echo '########################################## Testing ##########################################'
-                sh 'scm-src/test.sh run'
+                sh 'scm-src/test.sh run --junitxml=test_results.xml'
+                junit '**/test_results.xml'
             }
         }
         stage('astyle_check') {
