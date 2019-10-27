@@ -11,8 +11,6 @@
 BUILD_SCRIPT_DIR=$(cd `dirname $0` && pwd)
 
 SEOS_SANDBOX_DIR="${BUILD_SCRIPT_DIR}/seos_sandbox"
-SEOS_PROJECTS_DIR="${BUILD_SCRIPT_DIR}/src/tests"
-
 
 #-------------------------------------------------------------------------------
 function run_astyle()
@@ -187,9 +185,9 @@ EOF
             echo "###"
             mkdir -p ${prj_name}
             (
-                export DOXYGEN_INPUT_DIR=${SEOS_PROJECTS_DIR}/${prj_name}/${prj_dir}
+                export DOXYGEN_INPUT_DIR=${BUILD_SCRIPT_DIR}/src/tests/${prj_name}/${prj_dir}
                 export DOXYGEN_OUTPUT_DIR=${prj_name}
-                doxygen ${SEOS_PROJECTS_DIR}/Doxyfile
+                doxygen ${BUILD_SCRIPT_DIR}/Doxyfile
                 cp -ar ${prj_name}/html/* ${prj_name}
                 rm -rf ${prj_name}/html
             )
