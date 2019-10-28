@@ -75,13 +75,13 @@ include(${BUILD_PROJECT}/CMakeLists.txt)
 # post processing
 #-------------------------------------------------------------------------------
 
-set(IMAGE_NAME capdl-loader-image-arm-${KernelARMPlatform})
+set(IMAGE_NAME "$<TARGET_PROPERTY:rootserver_image,IMAGE_NAME>")
 add_custom_command(
       TARGET rootserver_image
       POST_BUILD
       COMMAND ${CROSS_COMPILER_PREFIX}size ${IMAGE_NAME}  | tee ${IMAGE_NAME}.size
       COMMAND ${CROSS_COMPILER_PREFIX}objdump -dht ${IMAGE_NAME} > ${IMAGE_NAME}.lst
       COMMAND ${CROSS_COMPILER_PREFIX}objdump -dghlsStx ${IMAGE_NAME} > ${IMAGE_NAME}.dump
-      WORKING_DIRECTORY "../../images"
+      WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
       VERBATIM
 )
