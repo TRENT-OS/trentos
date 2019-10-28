@@ -41,7 +41,7 @@ endif()
 
 # Currently, all SEOS projects are based on CAmkES, so we include everything
 # here for them. If we have project that don't use CAmkES, then this should
-# become a macro again provide by the sandbox.
+# become a macro again provided by the sandbox.
 
 set(CAMKES_TOOLS_DIR "${CMAKE_SOURCE_DIR}/tools/camkes")
 set(CAPDL_DIR "${CMAKE_SOURCE_DIR}/projects/camkes/capdl")
