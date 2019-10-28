@@ -15,6 +15,7 @@ WORKSPACE_TEST_DIR=workspace_test
 
 
 TA_FOLDER=ta
+TA_SRC_FOLDER=${PROJECT_DIR}/${TA_FOLDER}
 
 # Keystore Provisioning Tool
 KPT_SRC=${PROJECT_DIR}/keystore_provisioning_tool
@@ -35,7 +36,7 @@ function check_pytest_requirements_and_install_if_needed()
     ### locally. In CI environment the depenencies are usually always there
     ### and therefore the function should alway skip the intallation part there.
 
-    local requirements_file="tests/requirements.txt"
+    local requirements_file="${TA_SRC_FOLDER}/tests/requirements.txt"
     local installed=$(pip3 freeze)
     local required=$(cat ${requirements_file})
     local missing_pkg=""
@@ -123,7 +124,7 @@ function run_test()
             rm -rf ${TA_FOLDER}
         fi
         mkdir ${TA_FOLDER}
-        cp -R ${PROJECT_DIR}/${TA_FOLDER}/* ${TA_FOLDER}/
+        cp -R ${TA_SRC_FOLDER}/* ${TA_FOLDER}/
 
         # run the pre-provisioning tool and output the prepared binary to
         # the test folder to be used by the provisioning test
