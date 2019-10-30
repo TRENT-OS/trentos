@@ -1,5 +1,14 @@
+def agentLabel
+if (BRANCH_NAME == "master" || BRANCH_NAME == "integration") {
+    agentLabel = "jenkins_slave"
+} else {
+    agentLabel = ""
+}
+
 pipeline {
-    agent any
+    agent {
+        label agentLabel
+    }
     options {
         skipDefaultCheckout true
     }
