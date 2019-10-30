@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('workspace_cleanup') {
             when {
-                   expression { return (env.BRANCH_NAME == 'integration-spiffs_filestream')  }
+                   expression { return (env.BRANCH_NAME ==~ /integration(.*)/)  }
             }
             steps {
                 echo '##################################### Workspace Cleanup ####################################'

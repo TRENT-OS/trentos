@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('workspace_cleanup') {
             when {
-                   expression { return (env.BRANCH_NAME == 'integration-picotcp_api')  }
+                   expression { return (env.BRANCH_NAME ==~ /integration(.*)/)  }
             }
             steps {
                 echo '##################################### Workspace Cleanup ####################################'
