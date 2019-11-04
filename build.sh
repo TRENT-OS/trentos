@@ -209,13 +209,13 @@ function run_build_mode()
     local BUILD_PROJECT=${3}
     shift 3
 
-    local TARGET_NAME=${BUILD_TARGET}-${BUILD_TYPE}-${BUILD_PROJECT}
+    local BUILD_PROJECT_NAME=$(basename ${BUILD_PROJECT})
+    local TARGET_NAME=${BUILD_TARGET}-${BUILD_TYPE}-${BUILD_PROJECT_NAME}
 
     local CMAKE_PARAMS=(
         -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
-        # since the cmake root CMakeList file is in SEOS_SANDBOX_DIR,
-        # this must either be relative to it or hold an absolute path
-        -DBUILD_PROJECT=${SEOS_PROJECTS_DIR}/${BUILD_PROJECT}
+        -DSEOS_PROJECT_DIR=${BUILD_SCRIPT_DIR}
+        -DSEOS_SYSTEM=${BUILD_PROJECT}
         -DKernelVerificationBuild=OFF
     )
 
@@ -257,18 +257,18 @@ function build_all_projects()
     # things because we likely run into the same problems again.
     ALL_PROJECTS=(
         # tests
-        test_hello_world
-        test_syslog
-        test_crypto_api
-        test_keystore
-        test_picotcp_api
-        test_proxy_nvm
-        test_spiffs_filestream
+        src/tests/test_hello_world
+        src/tests/test_syslog
+        src/tests/test_crypto_api
+        src/tests/test_keystore
+        src/tests/test_picotcp_api
+        src/tests/test_proxy_nvm
+        src/tests/test_spiffs_filestream
         # demos
-        demo_keystore
-        demo_preprovisioned_keystore
-        demo_fs_as_components
-        demo_fs_as_libs
+        src/tests/demo_keystore
+        src/tests/demo_preprovisioned_keystore
+        src/tests/demo_fs_as_components
+        src/tests/demo_fs_as_libs
     )
 
     # for now, just loop over the list above and abort the whole build on the
