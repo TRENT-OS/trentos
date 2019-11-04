@@ -21,11 +21,19 @@ endif()
 
 
 #-------------------------------------------------------------------------------
-# SEOS libs
+# SEOS
 #-------------------------------------------------------------------------------
 
-# The sandbox sets up everything. We just have a fail safe check here that
-# SEOS_LIBS_DIR is set.
+# fail safe check here that SEOS_SANDBOX_DIR is set
+if (NOT SEOS_SANDBOX_DIR)
+    message(FATAL_ERROR "missing SEOS_SANDBOX_DIR")
+endif()
+
+if (NOT EXISTS "${SEOS_SANDBOX_DIR}")
+    message(FATAL_ERROR "missing SEOS libs at ${SEOS_SANDBOX_DIR}")
+endif()
+
+# fail safe check here that SEOS_LIBS_DIR is set
 if (NOT SEOS_LIBS_DIR)
     message(FATAL_ERROR "missing SEOS_LIBS_DIR")
 endif()
@@ -36,36 +44,11 @@ endif()
 
 
 #-------------------------------------------------------------------------------
-# CAmkES
-#-------------------------------------------------------------------------------
-
-# Currently, all SEOS projects are based on CAmkES, so we include everything
-# here for them. If we have project that don't use CAmkES, then this should
-# become a macro again provided by the sandbox.
-
-set(CAMKES_TOOLS_DIR "${CMAKE_SOURCE_DIR}/tools/camkes")
-set(CAPDL_DIR "${CMAKE_SOURCE_DIR}/projects/camkes/capdl")
-
-set(PYTHON_CAPDL_PATH "${CAPDL_DIR}/python-capdl-tool")
-file(GLOB_RECURSE capdl_python ${PYTHON_CAPDL_PATH}/*.py)
-set(python_with_capdl    "${CMAKE_COMMAND} -E env PYTHONPATH=${PYTHON_CAPDL_PATH} python")
-set(capdl_linker_tool "${python_with_capdl} ${CAPDL_DIR}/cdl_utils/capdl_linker.py")
-set(CAPDL_TOOL_HELPERS "${CAPDL_DIR}/capDL-tool/capDL-tool.cmake")
-
-find_program(TPP_TOOL tpp PATHS "${CAMKES_TOOLS_DIR}/tools")
-
-# everything below is what the ImportCamkes() macro actually does
-set(CapDLLoaderMaxObjects 20000 CACHE STRING "" FORCE)
-set(KernelRootCNodeSizeBits 17 CACHE STRING "" FORCE)
-set(KernelNumDomains 1 CACHE STRING "" FORCE)
-include("${CAMKES_TOOLS_DIR}/camkes.cmake")
-add_subdirectory("${CAPDL_DIR}/capdl-loader-app" capdl-loader-app)
-add_subdirectory("${CAMKES_TOOLS_DIR}/libsel4camkes" libsel4camkes)
-
-
-#-------------------------------------------------------------------------------
 # use project specific cmake file
 #-------------------------------------------------------------------------------
+
+# All SEOS projects are based on CAmkES, so we include things here.
+seos_import_camkes()
 
 message("building project: ${BUILD_PROJECT}")
 include(${BUILD_PROJECT}/CMakeLists.txt)
