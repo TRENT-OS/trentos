@@ -127,6 +127,7 @@ function run_build_doc()
             echo "  ${TARGET_FOLDER} <- ${module}"
             cp -ar ${module} ${SEOS_DOC_OUTPUT}/${TARGET_FOLDER}
         done
+        cp -ar seos-api-index.html ${SEOS_DOC_OUTPUT}/index.html
     )
 
     # build SEOS projects documentation
@@ -150,6 +151,32 @@ function run_build_doc()
             demo_keystore/components/DemoApp/src
             demo_preprovisioned_keystore/components/DemoApp/src
         )
+
+        cat <<EOF >>index.html
+<!doctype html>
+<html>
+  <head></head>
+  <body>
+    <ul>
+      <li>Tests
+        <ul>
+          <li><a href="test_crypto_api/index.html">Cryptp</a></li>
+          <li><a href="test_keystore/index.html">Keystore</a></li>
+          <li><a href="test_spiffs_filestream/index.html">SPIFFS Filestream</a></li>
+        </ul>
+      </li>
+      <li>Demos
+        <ul>
+          <li><a href="hello_world_demo_app/index.html">Hallo World</a>
+          <li><a href="demo_keystore/index.html">Keystore</a></li>
+          <li><a href="demo_preprovisioned_keystore/index.html">Preprovisioned Keystore</a></li>
+          <li><a href="http_demo_app/index.html">HTTP Demo</a></li>
+        </ul>
+      </li>
+    </ul>
+  </body>
+</html>
+EOF
 
         for project_ctx in ${SEOS_PROJECTS_DOC_DIRS[@]}; do
             local prj_name=${project_ctx%%/*}
