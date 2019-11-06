@@ -330,4 +330,5 @@ else
         \n\t check_astyle_artifacts (to be run after a build, it tries to find astyle artifacts indicating discrepancies with the coding standards)\
         \n\t clean\
         \n\t <TEST_DIR> (folder with a test project)"
+        exit 1
 fi
