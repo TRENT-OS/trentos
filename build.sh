@@ -43,6 +43,33 @@ WELL_KNOWN_PROJECTS=(
 
 
 #-------------------------------------------------------------------------------
+function map_project()
+{
+    local VAR_PRJ_DIR=${1}
+    local TEST_SYSTEM=${2}
+
+    for PROJECT in ${WELL_KNOWN_PROJECTS[@]}; do
+        local PRJ_NAME=${PROJECT%,*}
+        local PRJ_DIR=${PROJECT#*,}
+
+        if [[ "${TEST_SYSTEM}" == "${PRJ_NAME}" ]]; then
+
+            if [[ "${PRJ_DIR}" == "-" ]]; then
+                echo "ERROR: no project directory for ${PRJ_NAME}"
+                exit 1
+            fi
+
+            eval "${VAR_PRJ_DIR}=${PRJ_DIR}"
+            return 0
+        fi
+
+    done
+
+    return 1
+}
+
+
+#-------------------------------------------------------------------------------
 function run_astyle()
 {
     echo "##"
@@ -173,14 +200,12 @@ function run_build_doc()
         # Actually, details should move to each test, so we should just iterate
         # over all the folders and invoke a documentation build there
         SEOS_PROJECTS_DOC_DIRS=(
-            test_crypto_api/components/TEST_CRYPTO/src
-            test_keystore/components/TestApplication/src
-            # The trailing slash is necessary here becasue 
-            # of the way the doxygen is called when iterated 
-            # over the entries (separating the path on the first slash)
-            test_seos_filestream/
-            demo_keystore/components/DemoApp/src
-            demo_preprovisioned_keystore/components/DemoApp/src
+            # format: <test project from WELL_KNOWN_PROJECTS>[:<doc root>]
+            test_crypto_api:components/TEST_CRYPTO/src
+            test_keystore:components/TestApplication/src
+            test_seos_filestream # can build doc from use project root
+            demo_keystore:components/DemoApp/src
+            demo_preprovisioned_keystore:components/DemoApp/src
         )
 
         cat <<EOF >>index.html
@@ -209,20 +234,39 @@ function run_build_doc()
 </html>
 EOF
 
-        for project_ctx in ${SEOS_PROJECTS_DOC_DIRS[@]}; do
-            local prj_name=${project_ctx%%/*}
-            local prj_dir=${project_ctx#*/}
+        for PROJECT in ${SEOS_PROJECTS_DOC_DIRS[@]}; do
+            local PRJ_NAME=${PROJECT/:*/}
+            local PRJ_DOC_DIR=""
+            if [[ "${PROJECT}" != "${PRJ_NAME}" ]]; then
+                PRJ_DOC_DIR=${PROJECT/*:/}
+            fi
+
+            if ! map_project MAPPED_PROJECT_DIR ${PRJ_NAME}; then
+                echo "ERROR: unknown project ${PRJ_NAME}"
+                exit 1
+            fi
+
+            if [[ "${MAPPED_PROJECT_DIR}" == "-" ]]; then
+                echo "ERROR: no project directory for ${PRJ_NAME}"
+                exit 1
+            fi
+
             echo ""
             echo "###"
-            echo "### project documentation for: ${prj_name}"
-            echo "###"
-            mkdir -p ${prj_name}
+            echo "### creating project documentation for ${PRJ_NAME}"
+            local DOC_ROOT=${MAPPED_PROJECT_DIR}
+            if [[ ! -z "${PRJ_DOC_DIR}" ]]; then
+                DOC_ROOT+=/${PRJ_DOC_DIR}
+            fi
+            echo "### doc root:  ${DOC_ROOT}"
+
+            mkdir -p ${PRJ_NAME}
             (
-                export DOXYGEN_INPUT_DIR=${BUILD_SCRIPT_DIR}/src/tests/${prj_name}/${prj_dir}
-                export DOXYGEN_OUTPUT_DIR=${prj_name}
+                export DOXYGEN_INPUT_DIR=${BUILD_SCRIPT_DIR}/${DOC_ROOT}
+                export DOXYGEN_OUTPUT_DIR=${PRJ_NAME}
                 doxygen ${BUILD_SCRIPT_DIR}/Doxyfile
-                cp -ar ${prj_name}/html/* ${prj_name}
-                rm -rf ${prj_name}/html
+                cp -ar ${PRJ_NAME}/html/* ${PRJ_NAME}
+                rm -rf ${PRJ_NAME}/html
             )
         done
     )
@@ -300,33 +344,6 @@ function build_all_projects()
 
 
 #-------------------------------------------------------------------------------
-function map_project()
-{
-    local VAR_PRJ_DIR=${1}
-    local TEST_SYSTEM=${2}
-
-    for PROJECT in ${WELL_KNOWN_PROJECTS[@]}; do
-        local PRJ_NAME=${PROJECT%,*}
-        local PRJ_DIR=${PROJECT#*,}
-
-        if [[ "${TEST_SYSTEM}" == "${PRJ_NAME}" ]]; then
-
-            if [[ "${PRJ_DIR}" == "-" ]]; then
-                echo "ERROR: no project directory for ${PRJ_NAME}"
-                exit 1
-            fi
-
-            echo "building ${PRJ_NAME} from ${PRJ_DIR} ..."
-            eval "${VAR_PRJ_DIR}=${PRJ_DIR}"
-            return 0
-        fi
-
-    done
-
-    return 1
-}
-
-#-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 
@@ -355,6 +372,7 @@ elif [[ "${1:-}" == "clean" ]]; then
     /bin/rm -rf build-*
 
 elif map_project MAPPED_PROJECT_DIR $@; then
+    echo "building ${1:-} from ${MAPPED_PROJECT_DIR} ..."
     shift
     run_build_mode zynq7000 Debug ${MAPPED_PROJECT_DIR} $@
     run_astyle
