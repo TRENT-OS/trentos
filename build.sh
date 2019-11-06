@@ -12,6 +12,36 @@ BUILD_SCRIPT_DIR=$(cd `dirname $0` && pwd)
 
 SEOS_SANDBOX_DIR="${BUILD_SCRIPT_DIR}/seos_sandbox"
 
+# This list is used for the targets "all-projects" and "all". The order within
+# the list starts with the most simple system to build, then moves on to more
+# complex test systems and finally has the demos. Rationale is, that if the
+# simpler builds fail, there is no point in building more complex things,
+# because we likely run into the same problems again. And the building the
+# demos does not make any sense if we can't even build the tests.
+WELL_KNOWN_PROJECTS=(
+    # the entry format is <test name>,<folder>. We don't make the fixed assumption
+    # that the folder name matched the test name or that there is a generic
+    # subfolder where all tests are. This assumption holds today, but there is
+    # a plan to drop using "src/tests" if the whole test system is a GIT
+    # submodule and we don't have any local sources.
+    # tests
+    test_hello_world,src/tests/test_hello_world
+    test_syslog,src/tests/test_syslog
+    test_configurator_api,- # ToDo: we need a test project
+    test_filesystem_api,- # ToDo: we need a test project
+    test_crypto_api,src/tests/test_crypto_api
+    test_keystore,src/tests/test_keystore
+    test_picotcp_api,src/tests/test_picotcp_api
+    test_proxy_nvm,src/tests/test_proxy_nvm
+    test_seos_filestream,src/tests/test_seos_filestream
+    # demos
+    demo_keystore,src/tests/demo_keystore
+    demo_preprovisioned_keystore,src/tests/demo_preprovisioned_keystore
+    demo_fs_as_components,src/tests/demo_fs_as_components
+    demo_fs_as_libs,src/tests/demo_fs_as_libs
+)
+
+
 #-------------------------------------------------------------------------------
 function run_astyle()
 {
@@ -252,39 +282,49 @@ function run_build_mode()
 #-------------------------------------------------------------------------------
 function build_all_projects()
 {
-    # we could drop this hard coded list and simply use all subdirectories in
-    # ${BUILD_SCRIPT_DIR}/src/tests. However, there is a certain order in the
-    # list here, starting with the most simple thing, then move on to more
-    # complex test systems and finally have the demos. Rationale is, that if
-    # the simpler builds fail, there is no point in building more complex
-    # things because we likely run into the same problems again.
-    ALL_PROJECTS=(
-        # tests
-        src/tests/test_hello_world
-        src/tests/test_syslog
-        src/tests/test_crypto_api
-        src/tests/test_keystore
-        src/tests/test_picotcp_api
-        src/tests/test_proxy_nvm
-        src/tests/test_seos_filestream
-        # demos
-        src/tests/demo_keystore
-        src/tests/demo_preprovisioned_keystore
-        src/tests/demo_fs_as_components
-        src/tests/demo_fs_as_libs
-    )
-
     # for now, just loop over the list above and abort the whole build on the
     # first error. Ideally we would not abort here, but try to do all builds
     # and then report which failed. Or better, the caller should invoke this
     # build script several times in parallel for each SEOS system.
-    for BUILD_PROJECT in ${ALL_PROJECTS[@]}; do
-        run_build_mode zynq7000 Debug ${BUILD_PROJECT} $@
+    for PROJECT in ${WELL_KNOWN_PROJECTS[@]}; do
+        local PRJ_NAME=${PROJECT%,*}
+        local PRJ_DIR=${PROJECT#*,}
+
+        if [[ "${PRJ_DIR}" != "-" ]]; then
+            run_build_mode zynq7000 Debug ${PRJ_DIR} $@
+        fi
     done
 
     run_astyle
 }
 
+
+#-------------------------------------------------------------------------------
+function map_project()
+{
+    local VAR_PRJ_DIR=${1}
+    local TEST_SYSTEM=${2}
+
+    for PROJECT in ${WELL_KNOWN_PROJECTS[@]}; do
+        local PRJ_NAME=${PROJECT%,*}
+        local PRJ_DIR=${PROJECT#*,}
+
+        if [[ "${TEST_SYSTEM}" == "${PRJ_NAME}" ]]; then
+
+            if [[ "${PRJ_DIR}" == "-" ]]; then
+                echo "ERROR: no project directory for ${PRJ_NAME}"
+                exit 1
+            fi
+
+            echo "building ${PRJ_NAME} from ${PRJ_DIR} ..."
+            eval "${VAR_PRJ_DIR}=${PRJ_DIR}"
+            return 0
+        fi
+
+    done
+
+    return 1
+}
 
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
@@ -314,7 +354,13 @@ elif [[ "${1:-}" == "clean" ]]; then
     shift
     /bin/rm -rf build-*
 
+elif map_project MAPPED_PROJECT_DIR $@; then
+    shift
+    run_build_mode zynq7000 Debug ${MAPPED_PROJECT_DIR} $@
+    run_astyle
+
 elif [ ! -z $@ ]; then
+    echo "custom build using params: '$@' ..."
     run_build_mode zynq7000 Debug $@
     run_astyle
 
@@ -326,6 +372,7 @@ else
     \n\t all-projects (everything but the documentation)\
     \n\t check_astyle_artifacts (to be run after a build, it tries to find astyle artifacts indicating discrepancies with the coding standards)\
     \n\t clean\
-    \n\t <TEST_DIR> (folder with a test project)"
+    \n\t <TEST_DIR> (folder with a test project)
+    \n\t <TEST_NAME> (well known name of a test project)"
     exit 1
 fi
