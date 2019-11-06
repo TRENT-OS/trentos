@@ -14,9 +14,6 @@ pipeline {
     }
     stages {
         stage('workspace_cleanup') {
-            when {
-                   expression { return (env.BRANCH_NAME == 'integration' || env.BRANCH_NAME == 'master')  }
-            }
             steps {
                 echo '##################################### Workspace Cleanup ####################################'
                 cleanWs()
