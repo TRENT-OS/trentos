@@ -37,7 +37,7 @@ pipeline {
             steps {
                 echo '########################################## Building #########################################'
                 // trigger the build
-                sh 'scm-src/build.sh test_spiffs_filestream'
+                sh 'scm-src/build.sh test_seos_filestream'
             }
         }
         stage('prepare_test') {
@@ -65,7 +65,7 @@ pipeline {
             options { skipDefaultCheckout(true) }
             steps {
                 echo '########################################## Testing ##########################################'
-                sh 'scm-src/test.sh run --junitxml=test_spiffs_filestream_results.xml test_spiffs_filestream*.py'
+                sh 'scm-src/test.sh run --junitxml=test_seos_filestream_results.xml test_seos_filestream*.py'
             }
         }
         stage('astyle_check') {
@@ -79,11 +79,11 @@ pipeline {
     }
     post {
         always {
-            junit '**/test_spiffs_filestream_results.xml'
+            junit '**/test_seos_filestream_results.xml'
             echo '#################################### Archive Artifacts #######################################'
-            sh 'tar -czf build-zynq7000-Debug-test_spiffs_filestream.tgz build-zynq7000-Debug-test_spiffs_filestream'
-            archiveArtifacts artifacts: 'build-zynq7000-Debug-test_spiffs_filestream.tgz', fingerprint: true
-            archiveArtifacts artifacts: 'workspace_test/ta/tests/test_spiffs_filestream_results.xml', fingerprint: true
+            sh 'tar -czf build-zynq7000-Debug-test_seos_filestream.tgz build-zynq7000-Debug-test_seos_filestream'
+            archiveArtifacts artifacts: 'build-zynq7000-Debug-test_seos_filestream.tgz', fingerprint: true
+            archiveArtifacts artifacts: 'workspace_test/ta/tests/test_seos_filestream_results.xml', fingerprint: true
         }
     }
 }

@@ -145,7 +145,10 @@ function run_build_doc()
         SEOS_PROJECTS_DOC_DIRS=(
             test_crypto_api/components/TEST_CRYPTO/src
             test_keystore/components/TestApplication/src
-            test_spiffs_filestream/components/TestSpiffsFileStream/src
+            # The trailing slash is necessary here becasue 
+            # of the way the doxygen is called when iterated 
+            # over the entries (separating the path on the first slash)
+            test_seos_filestream/
             demo_keystore/components/DemoApp/src
             demo_preprovisioned_keystore/components/DemoApp/src
         )
@@ -158,9 +161,9 @@ function run_build_doc()
     <ul>
       <li>Tests
         <ul>
-          <li><a href="test_crypto_api/index.html">Cryptp</a></li>
+          <li><a href="test_crypto_api/index.html">Crypto</a></li>
           <li><a href="test_keystore/index.html">Keystore</a></li>
-          <li><a href="test_spiffs_filestream/index.html">SPIFFS Filestream</a></li>
+          <li><a href="test_seos_filestream/index.html">SEOS Filestream</a></li>
         </ul>
       </li>
       <li>Demos
@@ -263,7 +266,7 @@ function build_all_projects()
         src/tests/test_keystore
         src/tests/test_picotcp_api
         src/tests/test_proxy_nvm
-        src/tests/test_spiffs_filestream
+        src/tests/test_seos_filestream
         # demos
         src/tests/demo_keystore
         src/tests/demo_preprovisioned_keystore
