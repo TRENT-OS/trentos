@@ -329,6 +329,5 @@ else
         \n\t all-projects (everything but the documentation)\
         \n\t check_astyle_artifacts (to be run after a build, it tries to find astyle artifacts indicating discrepancies with the coding standards)\
         \n\t clean\
-        \n\t TEST_NAME (the name of a test image project under 'tests' folder)"
-    fi
+        \n\t <TEST_DIR> (folder with a test project)"
 fi
