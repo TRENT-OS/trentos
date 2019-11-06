@@ -276,7 +276,7 @@ function build_all_projects()
 
     # for now, just loop over the list above and abort the whole build on the
     # first error. Ideally we would not abort here, but try to do all builds
-    # and ten report which failed. Or better, the caller should invoke this
+    # and then report which failed. Or better, the caller should invoke this
     # build script several times in parallel for each SEOS system.
     for BUILD_PROJECT in ${ALL_PROJECTS[@]}; do
         run_build_mode zynq7000 Debug ${BUILD_PROJECT} $@
