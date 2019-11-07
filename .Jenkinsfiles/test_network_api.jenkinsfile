@@ -1,3 +1,6 @@
+def TEST_SYSTEM = 'test_network_api'
+def BUILD_SPEC  = 'build-zynq7000-Debug-' + TEST_SYSTEM
+
 pipeline {
     agent {
         label 'jenkins_slave_hp_laptop'
@@ -39,7 +42,7 @@ pipeline {
             steps {
                 echo '########################################## Building #########################################'
                 // trigger the build
-                sh 'scm-src/build.sh test_picotcp_api'
+                sh 'scm-src/build.sh ' + TEST_SYSTEM
             }
         }
         stage('prepare_test') {
@@ -67,7 +70,7 @@ pipeline {
             options { skipDefaultCheckout(true) }
             steps {
                 echo '########################################## Testing ##########################################'
-                sh 'scm-src/test.sh run --junitxml=test_picotcp_api_results.xml test_picotcp_api*.py'
+                sh 'scm-src/test.sh run --junitxml=' + TEST_SYSTEM +'_results.xml ' + TEST_SYSTEM + '*.py'
             }
         }
         stage('astyle_check') {
@@ -81,11 +84,11 @@ pipeline {
     }
     post {
         always {
-            junit '**/test_picotcp_api_results.xml'
+            junit '**/' + TEST_SYSTEM + '_results.xml'
             echo '#################################### Archive Artifacts #######################################'
-            sh 'tar -czf build-zynq7000-Debug-test_picotcp_api.tgz build-zynq7000-Debug-test_picotcp_api'
-            archiveArtifacts artifacts: 'build-zynq7000-Debug-test_picotcp_api.tgz', fingerprint: true
-            archiveArtifacts artifacts: 'workspace_test/ta/tests/test_picotcp_api_results.xml', fingerprint: true
+            sh 'tar -czf ' + BUILD_SPEC + '.tgz ' + BUILD_SPEC
+            archiveArtifacts artifacts: BUILD_SPEC + '.tgz', fingerprint: true
+            archiveArtifacts artifacts: 'workspace_test/ta/tests/' + TEST_SYSTEM + '.xml', fingerprint: true
         }
     }
 }

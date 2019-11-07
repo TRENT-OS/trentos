@@ -31,7 +31,7 @@ WELL_KNOWN_PROJECTS=(
     test_filesystem_api,- # ToDo: we need a test project
     test_crypto_api,src/tests/test_crypto_api
     test_keystore,src/tests/test_keystore
-    test_picotcp_api,src/tests/test_picotcp_api
+    test_network_api,src/tests/test_network_api
     test_proxy_nvm,src/tests/test_proxy_nvm
     test_seos_filestream,src/tests/test_seos_filestream
     # demos

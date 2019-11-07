@@ -37,3 +37,6 @@
 [submodule "src/tests/test_seos_filestream"]
 	path = src/tests/test_seos_filestream
 	url = ../../ss/test_seos_filestream.git
+[submodule "src/tests/test_network_api"]
+	path = src/tests/test_network_api
+	url = ../../ss/test_network_api.git

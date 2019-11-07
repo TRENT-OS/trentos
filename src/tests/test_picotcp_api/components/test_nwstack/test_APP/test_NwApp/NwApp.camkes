@@ -1,7 +1,0 @@
-import "../../../../interfaces/NwStackInf.camkes";
-
-component NwApp {
-  control;  
-  uses      NwStackInf          seos;
-  dataport  Buf                 NwAppDataPort;
-}
