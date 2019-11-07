@@ -21,6 +21,9 @@ TA_SRC_FOLDER=${PROJECT_DIR}/${TA_FOLDER}
 KPT_SRC=${PROJECT_DIR}/keystore_provisioning_tool
 KPT_BUILD=ktp
 
+# Keystore Provisioning Demo
+KPD_SRC=${PROJECT_DIR}/src/tests/demo_preprovisioned_keystore
+
 # Proxy
 PROXY_SRC=${PROJECT_DIR}/proxy
 PROXY_BUILD=proxy
@@ -131,7 +134,7 @@ function run_test()
         (
             cd ${KPT_BUILD}
             ${KPT_SRC}/run.sh \
-                ${KPT_SRC}/keysExample.xml \
+                ${KPD_SRC}/preprovisionedKeys.xml \
                 build/src/keystore_provisioning_tool  \
                 ../${TA_FOLDER}/tests/preProvisionedKeyStoreImg
         )
