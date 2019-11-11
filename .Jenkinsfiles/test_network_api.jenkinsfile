@@ -12,8 +12,11 @@ def DOCKER_BUILD_ENV = [ image: 'seos_build_env_20191010',
                        ]
 
 def DOCKER_TEST_ENV  = [ image: 'seos_test_env_20191010',
-                         args: ' -v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro'+
-                               ' -v /etc/localtime:/etc/localtime:ro'
+                         args:  ' -v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro'+
+                                ' -v /etc/localtime:/etc/localtime:ro' +
+                                ' --network=host' +
+                                ' --cap-add=NET_ADMIN' +
+                                ' --device=/dev/net/tun'
                        ]
 
 pipeline {
@@ -82,8 +85,10 @@ pipeline {
             }
             options { skipDefaultCheckout(true) }
             steps {
+                lock('nw_test_lock'){
                 echo '########################################## Testing ##########################################'
                 sh 'scm-src/test.sh run --junitxml=' + TEST_SYSTEM +'_results.xml ' + TEST_SYSTEM + '*.py'
+             }
             }
         }
         stage('astyle_check') {
@@ -101,7 +106,7 @@ pipeline {
             echo '#################################### Archive Artifacts #######################################'
             sh 'tar -czf ' + BUILD_SPEC + '.tgz ' + BUILD_SPEC
             archiveArtifacts artifacts: BUILD_SPEC + '.tgz', fingerprint: true
-            archiveArtifacts artifacts: 'workspace_test/ta/tests/' + TEST_SYSTEM + '.xml', fingerprint: true
+            archiveArtifacts artifacts: 'workspace_test/ta/tests/' + TEST_SYSTEM + '_results.xml ', fingerprint: true
         }
     }
 }

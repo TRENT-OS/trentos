@@ -7,6 +7,9 @@
 def DOCKER_BUILD_ENV = [ image: 'seos_build_env_20191010',
                          args: ' -v /etc/localtime:/etc/localtime:ro '+
                                ' --group-add=1001'
+                               ' --network=host'
+                               ' --cap-add=NET_ADMIN'
+                               ' --device=/dev/net/tun'
                        ]
 
 def DOCKER_TEST_ENV  = [ image: 'seos_test_env_20191010',
@@ -100,8 +103,10 @@ pipeline {
             }
             options { skipDefaultCheckout(true) }
             steps {
-                print_step_info env.STAGE_NAME
-                sh 'scm-src/test.sh run --junitxml=test_results.xml'
+                lock('nw_test_lock'){
+                    print_step_info env.STAGE_NAME
+                    sh 'scm-src/test.sh run --junitxml=test_results.xml'
+                }
             }
         }
         stage('astyle_check') {
