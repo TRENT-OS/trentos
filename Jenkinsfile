@@ -11,6 +11,7 @@ pipeline {
     }
     options {
         skipDefaultCheckout true
+        disableConcurrentBuilds()
     }
     stages {
         stage('workspace_cleanup') {
