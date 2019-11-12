@@ -1,8 +1,8 @@
 def agentLabel
 if (BRANCH_NAME == "master" || BRANCH_NAME == "integration") {
-    agentLabel = "jenkins_slave"
+    agentLabel = "jenkins_primary_slave"
 } else {
-    agentLabel = ""
+    agentLabel = "jenkins_secondary_slave"
 }
 
 pipeline {
