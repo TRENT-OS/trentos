@@ -5,6 +5,8 @@ if (BRANCH_NAME == "master" || BRANCH_NAME == "integration") {
     agentLabel = "jenkins_secondary_slave"
 }
 
+def print_step_info(name) { echo "#################### " + name }
+
 pipeline {
     agent {
         label agentLabel
@@ -19,13 +21,13 @@ pipeline {
                 expression { return (env.BRANCH_NAME == 'integration' || env.BRANCH_NAME == 'master')  }
             }
             steps {
-                echo '##################################### Workspace Cleanup ####################################'
+                print_step_info env.STAGE_NAME
                 cleanWs()
             }
         }
         stage('checkout') {
             steps {
-                echo '######################################### Checkout #########################################'
+                print_step_info env.STAGE_NAME
                 // everything is in separate folders to avoid file conflicts. Sources are checked out into
                 // "scm-src", builds should generate "build-xxx" folders, tests will use "workspace_test" ...
                 dir('scm-src') {
@@ -44,7 +46,7 @@ pipeline {
             }
             options { skipDefaultCheckout(true) }
             steps {
-                echo '############################## Building SeOS Documentation ##################################'
+                print_step_info env.STAGE_NAME
                 sh 'scm-src/build.sh doc'
             }
         }
@@ -60,7 +62,7 @@ pipeline {
             }
             options { skipDefaultCheckout(true) }
             steps {
-                echo '########################################## Building #########################################'
+                print_step_info env.STAGE_NAME
                 // trigger the build
                 sh 'scm-src/build.sh all-projects'
             }
@@ -75,7 +77,7 @@ pipeline {
             }
             options { skipDefaultCheckout(true) }
             steps {
-                echo '####################################### Prepare Test Environment ############################'
+                print_step_info env.STAGE_NAME
                 sh 'scm-src/test.sh prepare'
             }
         }
@@ -89,7 +91,7 @@ pipeline {
             }
             options { skipDefaultCheckout(true) }
             steps {
-                echo '########################################## Testing ##########################################'
+                print_step_info env.STAGE_NAME
                 sh 'scm-src/test.sh run --junitxml=test_results.xml'
             }
         }
@@ -97,7 +99,7 @@ pipeline {
             // run this after the tests, so we have test results even if source formatting is still not fine.
             options { skipDefaultCheckout(true) }
             steps {
-                echo '####################################### Astyle Check ########################################'
+                print_step_info env.STAGE_NAME
                 sh 'scm-src/build.sh check_astyle_artifacts'
             }
         }
