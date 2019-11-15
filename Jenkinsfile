@@ -73,7 +73,6 @@ pipeline {
             options { skipDefaultCheckout(true) }
             steps {
                 print_step_info env.STAGE_NAME
-                // trigger the build
                 sh 'scm-src/build.sh all-projects'
             }
         }
