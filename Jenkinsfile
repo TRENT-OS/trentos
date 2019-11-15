@@ -1,6 +1,3 @@
-def agentLabel
-if (BRANCH_NAME == "master" || BRANCH_NAME == "integration") {
-    agentLabel = "jenkins_primary_slave"
 
 // bind the localtime to docker container to avoid problems of gaps between the
 // localtime of the container and the host.
@@ -17,6 +14,9 @@ def DOCKER_TEST_ENV  = [ image: 'seos_test_env_20191010',
                                ' -v /etc/localtime:/etc/localtime:ro'
                        ]
 
+def agentLabel = ( env.BRANCH_NAME in ["master", "integration"] ) ?
+                 "jenkins_primary_slave"
+                 : "jenkins_secondary_slave"
 
 def print_step_info(name) { echo "#################### " + name }
 
@@ -31,7 +31,7 @@ pipeline {
     stages {
         stage('workspace_cleanup') {
             when {
-                expression { return (env.BRANCH_NAME == 'integration' || env.BRANCH_NAME == 'master')  }
+                expression { return (env.BRANCH_NAME in ["master", "integration"])  }
             }
             steps {
                 print_step_info env.STAGE_NAME
