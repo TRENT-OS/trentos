@@ -1,9 +1,22 @@
 def agentLabel
 if (BRANCH_NAME == "master" || BRANCH_NAME == "integration") {
     agentLabel = "jenkins_primary_slave"
-} else {
-    agentLabel = "jenkins_secondary_slave"
-}
+
+// bind the localtime to docker container to avoid problems of gaps between the
+// localtime of the container and the host.
+// add to group "stack" in order to grant usage of Haskell stack in the docker
+// image
+
+def DOCKER_BUILD_ENV = [ image: 'seos_build_env_20191010',
+                         args: ' -v /etc/localtime:/etc/localtime:ro '+
+                               ' --group-add=1001'
+                       ]
+
+def DOCKER_TEST_ENV  = [ image: 'seos_test_env_20191010',
+                         args: ' -v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro'+
+                               ' -v /etc/localtime:/etc/localtime:ro'
+                       ]
+
 
 def print_step_info(name) { echo "#################### " + name }
 
@@ -39,9 +52,8 @@ pipeline {
             agent {
                 docker {
                     reuseNode true
-                    image 'seos_build_env_20191010'
-                    // bind the localtime to avoid problems of gaps between the localtime of the container and the host
-                    args '-v /etc/localtime:/etc/localtime:ro'
+                    image DOCKER_BUILD_ENV.image
+                    args DOCKER_BUILD_ENV.args
                 }
             }
             options { skipDefaultCheckout(true) }
@@ -54,10 +66,8 @@ pipeline {
             agent {
                 docker {
                     reuseNode true
-                    image 'seos_build_env_20191010'
-                    // bind the localtime to avoid problems of gaps between the localtime of the container and the host
-                    // add to group stack in order to grant usage of Haskell stack in the docker image
-                    args '-v /etc/localtime:/etc/localtime:ro --group-add=1001'
+                    image DOCKER_BUILD_ENV.image
+                    args DOCKER_BUILD_ENV.args
                 }
             }
             options { skipDefaultCheckout(true) }
@@ -71,9 +81,8 @@ pipeline {
             agent {
                 docker {
                     reuseNode true
-                    image 'seos_test_env_20191010'
-                    args '-v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro -v /etc/localtime:/etc/localtime:ro'
-                }
+                    image DOCKER_TEST_ENV.image
+                    args DOCKER_TEST_ENV.args
             }
             options { skipDefaultCheckout(true) }
             steps {
@@ -85,8 +94,8 @@ pipeline {
             agent {
                 docker {
                     reuseNode true
-                    image 'seos_test_env_20191010'
-                    args '-v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro -v /etc/localtime:/etc/localtime:ro'
+                    image DOCKER_TEST_ENV.image
+                    args DOCKER_TEST_ENV.args                }
                 }
             }
             options { skipDefaultCheckout(true) }
