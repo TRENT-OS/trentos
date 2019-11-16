@@ -44,9 +44,9 @@ function print_info()
 #-------------------------------------------------------------------------------
 function check_pytest_requirements_and_install_if_needed()
 {
-    ### This function is for conveninency of a user that wants to run tests
-    ### locally. In CI environment the depenencies are usually always there
-    ### and therefore the function should alway skip the intallation part there.
+    ### This is a convenience function for users who want to run tests locally.
+    ### In the CI environment the dependencies are usually always there and
+    ### therefore this functions should always skip the installation.
 
     local requirements_file="${TA_SRC_FOLDER}/tests/requirements.txt"
     local installed=$(pip3 freeze)
@@ -61,7 +61,7 @@ function check_pytest_requirements_and_install_if_needed()
     done
 
     if [ ! -z "${missing_pkg}" ] ; then
-        echo "#### Creating '${VENV_NAME}' virtual environement."
+        echo "#### Creating '${VENV_NAME}' virtual environment."
         python3 -m venv ${VENV_NAME}
         source ${VENV_NAME}/bin/activate
         pip3 install -r ${requirements_file}
