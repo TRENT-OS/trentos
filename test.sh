@@ -33,6 +33,15 @@ SEOS_LIBS_FOLDER=${PROJECT_DIR}/seos_sandbox/projects/libs/seos_libs
 VENV_NAME="ta-env"
 
 #-------------------------------------------------------------------------------
+function print_info()
+{
+    local INFO=$1
+
+    echo -e "\n\n############ ${INFO}\n"
+}
+
+
+#-------------------------------------------------------------------------------
 function check_pytest_requirements_and_install_if_needed()
 {
     ### This function is for conveninency of a user that wants to run tests
@@ -77,13 +86,13 @@ function prepare_test()
     (
         cd ${WORKSPACE_TEST_DIR}
 
-        echo -e "\n\n############ Building SEOS Libs Unit Tests ################\n"
+        print_info "Building SEOS Libs Unit Tests"
         # run preparation script in sub shell
         (
             ${SEOS_LIBS_FOLDER}/test.sh prepare
         )
 
-        echo -e "\n\n############## Building Proxy Linux Application ################\n"
+        print_info "Building Proxy Linux Application"
         mkdir -p ${PROXY_BUILD}
         # run build in subshell
         (
@@ -91,11 +100,11 @@ function prepare_test()
             ${PROXY_SRC}/build.sh
         )
 
-        echo -e "\n\n############## Preparing TA scripts environment ################\n"
+        print_info "Preparing TA scripts environment"
         # setup a python virtual environment if needed
         check_pytest_requirements_and_install_if_needed
 
-        echo -e "\n\n############## Building KeyStore provisioning tool ################\n"
+        print_info "Building KeyStore provisioning tool"
         mkdir -p ${KPT_BUILD}
         # run build in subshell
         (
@@ -114,13 +123,13 @@ function run_test()
     (
         cd ${WORKSPACE_TEST_DIR}
 
-        echo -e "\n\n############## Running SEOS Libs Unit Tests ################\n"
+        print_info "Running SEOS Libs Unit Tests"
         # run seos_libs unit tests in sub shell
         (
             ${SEOS_LIBS_FOLDER}/test.sh run
         )
 
-        echo -e "\n\n############## Prepare TA integration tests  ###############\n"
+        print_info "Prepare TA integration tests"
 
         # copy files from test automation framework
         if [ -d ${TA_FOLDER} ]; then
@@ -139,7 +148,7 @@ function run_test()
                 ../${TA_FOLDER}/tests/preProvisionedKeyStoreImg
         )
 
-        echo -e "\n\n############## Running TA integration tests  ###############\n"
+        print_info "Running TA integration tests"
 
         PYTEST_PARAMS=(
             -v
