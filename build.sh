@@ -46,7 +46,7 @@ WELL_KNOWN_PROJECTS=(
 function map_project()
 {
     local VAR_PRJ_DIR=${1}
-    local TEST_SYSTEM=${2}
+    local TEST_SYSTEM=${2:-}
 
     for PROJECT in ${WELL_KNOWN_PROJECTS[@]}; do
         local PRJ_NAME=${PROJECT%,*}
