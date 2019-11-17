@@ -46,40 +46,8 @@ function print_info()
 
 
 #-------------------------------------------------------------------------------
-function check_pytest_requirements_and_install_if_needed()
+function build_test_tools()
 {
-    ### This is a convenience function for users who want to run tests locally.
-    ### In the CI environment the dependencies are usually always there and
-    ### therefore this functions should always skip the installation.
-
-    local requirements_file="${TA_SRC_FOLDER}/tests/requirements.txt"
-    local installed=$(pip3 freeze)
-    local required=$(cat ${requirements_file})
-    local missing_pkg=""
-
-    for pkg in ${required}; do
-        if [[ ! ${installed} =~ ${pkg} ]]; then
-            missing_pkg=${pkg}
-            break
-        fi
-    done
-
-    if [ ! -z "${missing_pkg}" ] ; then
-        print_info "Creating python virtual environment '${PYTHON_VENV_NAME}'"
-        python3 -m venv ${PYTHON_VENV_NAME}
-        source ${PYTHON_VENV_ACTIVATE}
-        pip3 install -r ${requirements_file}
-    fi
-}
-
-
-#-------------------------------------------------------------------------------
-function prepare_test()
-{
-    # check python3 packages
-    which python3 > /dev/null || { echo "python3 is required, please install it" && exit 1; }
-    which pip3    > /dev/null || { echo "python3-pip is required, please install it" && exit 1; }
-
     # remove folder if it exists already. This should not happen in CI when we
     # have a clean workspace, but it's convenient for local builds
     if [ -d ${WORKSPACE_TEST_DIR} ]; then
@@ -104,10 +72,6 @@ function prepare_test()
             ${PROXY_SRC}/build.sh ${SEOS_SANDBOX_FOLDER}
         )
 
-        print_info "Preparing TA scripts environment"
-        # setup a python virtual environment if needed
-        check_pytest_requirements_and_install_if_needed
-
         print_info "Building KeyStore provisioning tool"
         mkdir -p ${KPT_BUILD}
         # run build in subshell
@@ -117,6 +81,48 @@ function prepare_test()
         )
     )
 
+    echo "test tool building complete"
+}
+
+#-------------------------------------------------------------------------------
+function prepare_test()
+{
+    if [ ! -d ${WORKSPACE_TEST_DIR} ]; then
+        echo "ERROR: missing test workspace"
+        exit 1
+    fi
+
+    (
+        cd ${WORKSPACE_TEST_DIR}
+
+        print_info "Check Python version and packages"
+        which python3 > /dev/null || { echo "python3 is required, please install it" && exit 1; }
+        which pip3    > /dev/null || { echo "python3-pip (pip3) is required, please install it" && exit 1; }
+
+        # setup a python virtual environment if needed. This is a convenience
+        # function for users who want to run the tests locally. In the CI
+        # environment the dependencies are usually always there and therefore
+        # this functions should always skip the installation.
+        local requirements_file="${TA_SRC_FOLDER}/tests/requirements.txt"
+        local installed=$(pip3 freeze)
+        local required=$(cat ${requirements_file})
+        local missing_pkg=""
+
+        for pkg in ${required}; do
+            if [[ ! ${installed} =~ ${pkg} ]]; then
+                missing_pkg=${pkg}
+                break
+            fi
+        done
+
+        if [ ! -z "${missing_pkg}" ] ; then
+            print_info "Creating virtual environment '${VENV_NAME}'"
+            python3 -m venv ${PYTHON_VENV_NAME}
+            source ${PYTHON_VENV_ACTIVATE}
+            pip3 install -r ${requirements_file}
+        fi
+    )
+
     echo "test preparation complete"
 }
 
@@ -124,6 +130,11 @@ function prepare_test()
 #-------------------------------------------------------------------------------
 function run_test()
 {
+    if [ ! -d ${WORKSPACE_TEST_DIR} ]; then
+        echo "ERROR: missing test workspace"
+        exit 1
+    fi
+
     (
         cd ${WORKSPACE_TEST_DIR}
 
@@ -185,9 +196,19 @@ function run_test()
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 
-if [[ "${1:-}" == "prepare" ]]; then
+if [[ "${1:-}" == "build" ]]; then
     shift
 
+    build_test_tools
+
+
+elif [[ "${1:-}" == "prepare" ]]; then
+    shift
+
+    # ToDo: the step "build_test_tools" is executed here to keep backwards
+    #       compatibility. It will be removed once all script have been updated
+    #       to invoke the build step above.
+    build_test_tools
     prepare_test
 
 
@@ -196,7 +217,12 @@ elif [[ "${1:-}" == "run" ]]; then
 
     run_test $@
 
+
 else
-    echo "invalid parameter, use \"prepare\" or \"run [pytest_params_and_args] \""
+    echo "invalid parameter, use"
+    echo "   build"
+    echo "   prepare"
+    echo "   run [pytest_params_and_args]"
     exit 1
+
 fi
