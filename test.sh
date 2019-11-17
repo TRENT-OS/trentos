@@ -32,8 +32,9 @@ KPD_SRC=${PROJECT_DIR}/src/tests/demo_preprovisioned_keystore
 PROXY_SRC=${PROJECT_DIR}/proxy
 PROXY_BUILD=proxy
 
-
-VENV_NAME="ta-env"
+# Python virtual environment
+PYTHON_VENV_NAME=ta-env
+PYTHON_VENV_ACTIVATE=${PYTHON_VENV_NAME}/bin/activate
 
 #-------------------------------------------------------------------------------
 function print_info()
@@ -64,9 +65,9 @@ function check_pytest_requirements_and_install_if_needed()
     done
 
     if [ ! -z "${missing_pkg}" ] ; then
-        echo "#### Creating '${VENV_NAME}' virtual environment."
-        python3 -m venv ${VENV_NAME}
-        source ${VENV_NAME}/bin/activate
+        print_info "Creating python virtual environment '${PYTHON_VENV_NAME}'"
+        python3 -m venv ${PYTHON_VENV_NAME}
+        source ${PYTHON_VENV_ACTIVATE}
         pip3 install -r ${requirements_file}
     fi
 }
@@ -167,8 +168,8 @@ function run_test()
             cd ${TA_FOLDER}/tests
 
             # activate python virtual environment if it exists
-            if [ -f ${VENV_NAME}/bin/activate ]; then
-                source ${VENV_NAME}/bin/activate
+            if [ -f ${PYTHON_VENV_ACTIVATE} ]; then
+                source ${PYTHON_VENV_ACTIVATE}
             fi
 
             pytest ${PYTEST_PARAMS[@]} $@
