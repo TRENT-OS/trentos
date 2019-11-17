@@ -105,6 +105,7 @@ function prepare_test()
         print_info "Check Python version and packages"
         check_tool_installed python3
         check_tool_installed pip3
+        check_tool_installed pytest
 
         # setup a python virtual environment if needed. This is a convenience
         # function for users who want to run the tests locally. In the CI
