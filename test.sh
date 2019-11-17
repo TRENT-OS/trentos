@@ -23,7 +23,7 @@ SEOS_LIBS_FOLDER=${SEOS_SANDBOX_FOLDER}/projects/libs/seos_libs
 
 # Keystore Provisioning Tool
 KPT_SRC=${PROJECT_DIR}/keystore_provisioning_tool
-KPT_BUILD=ktp
+KPT_BUILD=kpt
 
 # Keystore Provisioning Demo
 KPD_SRC=${PROJECT_DIR}/src/tests/demo_preprovisioned_keystore
