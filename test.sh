@@ -188,6 +188,7 @@ function run_test()
 
             # activate python virtual environment if it exists
             if [ -f ${PYTHON_VENV_ACTIVATE} ]; then
+                print_info "entering python virtual environment '${VENV_NAME}'"
                 source ${PYTHON_VENV_ACTIVATE}
             fi
 
