@@ -30,7 +30,7 @@ if (NOT SEOS_SANDBOX_DIR)
 endif()
 
 if (NOT EXISTS "${SEOS_SANDBOX_DIR}")
-    message(FATAL_ERROR "missing SEOS libs at ${SEOS_SANDBOX_DIR}")
+    message(FATAL_ERROR "missing SEOS sandbox at ${SEOS_SANDBOX_DIR}")
 endif()
 
 # fail safe check here that SEOS_LIBS_DIR is set
