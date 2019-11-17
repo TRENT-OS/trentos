@@ -17,6 +17,10 @@ WORKSPACE_TEST_DIR=workspace_test
 TA_FOLDER=ta
 TA_SRC_FOLDER=${PROJECT_DIR}/${TA_FOLDER}
 
+# SEOS Sandbox
+SEOS_SANDBOX_FOLDER=${PROJECT_DIR}/seos_sandbox
+SEOS_LIBS_FOLDER=${SEOS_SANDBOX_FOLDER}/projects/libs/seos_libs
+
 # Keystore Provisioning Tool
 KPT_SRC=${PROJECT_DIR}/keystore_provisioning_tool
 KPT_BUILD=ktp
@@ -29,7 +33,6 @@ PROXY_SRC=${PROJECT_DIR}/proxy
 PROXY_BUILD=proxy
 
 
-SEOS_LIBS_FOLDER=${PROJECT_DIR}/seos_sandbox/projects/libs/seos_libs
 VENV_NAME="ta-env"
 
 #-------------------------------------------------------------------------------
@@ -97,7 +100,7 @@ function prepare_test()
         # run build in subshell
         (
             cd ${PROXY_BUILD}
-            ${PROXY_SRC}/build.sh
+            ${PROXY_SRC}/build.sh ${SEOS_SANDBOX_FOLDER}
         )
 
         print_info "Preparing TA scripts environment"
@@ -109,7 +112,7 @@ function prepare_test()
         # run build in subshell
         (
             cd ${KPT_BUILD}
-            ${KPT_SRC}/build.sh ${PROJECT_DIR}/seos_sandbox
+            ${KPT_SRC}/build.sh ${SEOS_SANDBOX_FOLDER}
         )
     )
 
@@ -144,7 +147,7 @@ function run_test()
             cd ${KPT_BUILD}
             ${KPT_SRC}/run.sh \
                 ${KPD_SRC}/preprovisionedKeys.xml \
-                build/src/keystore_provisioning_tool  \
+                build/keystore_provisioning_tool  \
                 ../${TA_FOLDER}/tests/preProvisionedKeyStoreImg
         )
 
