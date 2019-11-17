@@ -85,6 +85,13 @@ function build_test_tools()
 }
 
 #-------------------------------------------------------------------------------
+function check_tool_installed()
+{
+    local TOOL=$1
+    which ${TOOL} > /dev/null || { echo "${TOOL} is required, please install it" && exit 1; }
+}
+
+#-------------------------------------------------------------------------------
 function prepare_test()
 {
     if [ ! -d ${WORKSPACE_TEST_DIR} ]; then
@@ -96,8 +103,8 @@ function prepare_test()
         cd ${WORKSPACE_TEST_DIR}
 
         print_info "Check Python version and packages"
-        which python3 > /dev/null || { echo "python3 is required, please install it" && exit 1; }
-        which pip3    > /dev/null || { echo "python3-pip (pip3) is required, please install it" && exit 1; }
+        check_tool_installed python3
+        check_tool_installed pip3
 
         # setup a python virtual environment if needed. This is a convenience
         # function for users who want to run the tests locally. In the CI
