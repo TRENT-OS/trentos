@@ -82,6 +82,7 @@ pipeline {
                     reuseNode true
                     image DOCKER_TEST_ENV.image
                     args DOCKER_TEST_ENV.args
+                }
             }
             options { skipDefaultCheckout(true) }
             steps {
@@ -94,7 +95,7 @@ pipeline {
                 docker {
                     reuseNode true
                     image DOCKER_TEST_ENV.image
-                    args DOCKER_TEST_ENV.args                }
+                    args DOCKER_TEST_ENV.args
                 }
             }
             options { skipDefaultCheckout(true) }
