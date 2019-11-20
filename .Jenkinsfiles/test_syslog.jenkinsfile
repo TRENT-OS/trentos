@@ -1,5 +1,10 @@
+def agentLabel = ( env.BRANCH_NAME in ["master", "integration"] ) ?
+                 "jenkins_secondary_slave" : "any"
+
 pipeline {
-    agent any
+    agent {
+        label agentLabel
+    }
     options {
         skipDefaultCheckout true
     }

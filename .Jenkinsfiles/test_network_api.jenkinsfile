@@ -18,7 +18,7 @@ def DOCKER_TEST_ENV  = [ image: 'seos_test_env_20191010',
 
 pipeline {
     agent {
-        label 'jenkins_slave_hp_laptop'
+        label 'jenkins_secondary_slave'
     }
     options {
         skipDefaultCheckout true

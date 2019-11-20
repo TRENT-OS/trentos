@@ -1,7 +1,9 @@
+def agentLabel = ( env.BRANCH_NAME in ["master", "integration"] ) ?
+                 "jenkins_secondary_slave" : "any"
+
 pipeline {
-    agent any
-    options {
-        skipDefaultCheckout true
+    agent {
+        label agentLabel
     }
     stages {
         stage('workspace_cleanup') {
