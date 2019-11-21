@@ -129,7 +129,8 @@ function prepare_test()
         done
 
         if [ ! -z "${missing_pkg}" ] ; then
-            print_info "Creating virtual environment '${VENV_NAME}'"
+            print_info "Missing python package: '${missing_pkg}'"
+            print_info "Creating virtual environment '${PYTHON_VENV_NAME}'"
             python3 -m venv ${PYTHON_VENV_NAME}
             source ${PYTHON_VENV_ACTIVATE}
             pip3 install -r ${requirements_file}
@@ -196,7 +197,7 @@ function run_test()
 
             # activate python virtual environment if it exists
             if [ -f ${PYTHON_VENV_ACTIVATE} ]; then
-                print_info "entering python virtual environment '${VENV_NAME}'"
+                print_info "entering python virtual environment '${PYTHON_VENV_NAME}'"
                 source ${PYTHON_VENV_ACTIVATE}
             fi
 
