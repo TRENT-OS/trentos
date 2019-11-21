@@ -1,5 +1,5 @@
 def agentLabel = ( env.BRANCH_NAME in ["master", "integration"] ) ?
-                 "jenkins_secondary_slave" : "any"
+                 "jenkins_secondary_slave" : ""
 
 pipeline {
     agent {
