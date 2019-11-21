@@ -1,3 +1,20 @@
+def TEST_SYSTEM = 'test_seos_filestream'
+def BUILD_SPEC  = 'build-zynq7000-Debug-' + TEST_SYSTEM
+
+// bind the localtime to docker container to avoid problems of gaps between the
+// localtime of the container and the host.
+// add to group "stack" in order to grant usage of Haskell stack in the docker
+// image
+
+def DOCKER_BUILD_ENV = [ image: 'seos_build_env_20191010',
+                         args: ' -v /etc/localtime:/etc/localtime:ro '+
+                               ' --group-add=1001'
+                       ]
+
+def DOCKER_TEST_ENV  = [ image: 'seos_test_env_20191010',
+                         args:  ' -v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro'+
+                                ' -v /etc/localtime:/etc/localtime:ro'
+                       ]
 def agentLabel = ( env.BRANCH_NAME in ["master", "integration"] ) ?
                  "jenkins_secondary_slave" : ""
 
@@ -32,25 +49,23 @@ pipeline {
             agent {
                 docker {
                     reuseNode true
-                    image 'seos_build_env_20191010'
-                    // bind the localtime to avoid problems of gaps between the localtime of the container and the host
-                    // add to group stack in order to grant usage of Haskell stack in the docker image
-                    args '-v /etc/localtime:/etc/localtime:ro --group-add=1001'
+                    image DOCKER_BUILD_ENV.image
+                    args DOCKER_BUILD_ENV.args
                 }
             }
             options { skipDefaultCheckout(true) }
             steps {
                 echo '########################################## Building #########################################'
                 // trigger the build
-                sh 'scm-src/build.sh test_seos_filestream'
+                sh 'scm-src/build.sh ' + TEST_SYSTEM
             }
         }
         stage('prepare_test') {
             agent {
                 docker {
                     reuseNode true
-                    image 'seos_test_env_20191010'
-                    args '-v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro -v /etc/localtime:/etc/localtime:ro'
+                    image DOCKER_TEST_ENV.image
+                    args DOCKER_TEST_ENV.args
                 }
             }
             options { skipDefaultCheckout(true) }
@@ -63,14 +78,14 @@ pipeline {
             agent {
                 docker {
                     reuseNode true
-                    image 'seos_test_env_20191010'
-                    args '-v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro -v /etc/localtime:/etc/localtime:ro'
+                    image DOCKER_TEST_ENV.image
+                    args DOCKER_TEST_ENV.args
                 }
             }
             options { skipDefaultCheckout(true) }
             steps {
                 echo '########################################## Testing ##########################################'
-                sh 'scm-src/test.sh run --junitxml=test_seos_filestream_results.xml test_seos_filestream*.py'
+                sh 'scm-src/test.sh run --junitxml=' + TEST_SYSTEM +'_results.xml ' + TEST_SYSTEM + '*.py'
             }
         }
         stage('astyle_check') {
@@ -84,11 +99,11 @@ pipeline {
     }
     post {
         always {
-            junit '**/test_seos_filestream_results.xml'
+            junit '**/' + TEST_SYSTEM + '_results.xml'
             echo '#################################### Archive Artifacts #######################################'
-            sh 'tar -czf build-zynq7000-Debug-test_seos_filestream.tgz build-zynq7000-Debug-test_seos_filestream'
-            archiveArtifacts artifacts: 'build-zynq7000-Debug-test_seos_filestream.tgz', fingerprint: true
-            archiveArtifacts artifacts: 'workspace_test/ta/tests/test_seos_filestream_results.xml', fingerprint: true
+            sh 'tar -czf ' + BUILD_SPEC + '.tgz ' + BUILD_SPEC
+            archiveArtifacts artifacts: BUILD_SPEC + '.tgz', fingerprint: true
+            archiveArtifacts artifacts: 'workspace_test/ta/tests/' + TEST_SYSTEM + '_results.xml ', fingerprint: true
         }
     }
 }
