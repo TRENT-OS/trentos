@@ -79,11 +79,6 @@ function build_test_tools()
             cd ${KPT_BUILD}
             ${KPT_SRC}/build.sh ${SEOS_SANDBOX_FOLDER}
         )
-
-        print_info "Building tap_server_test tool"
-        (
-            gcc ${TA_SRC_FOLDER}/tests/tap_server_test.c -o tap_server_test
-        )
     )
 
     echo "test tool building complete"
@@ -166,9 +161,6 @@ function run_test()
         fi
         mkdir ${TA_FOLDER}
         cp -R ${TA_SRC_FOLDER}/* ${TA_FOLDER}/
-
-        # copy the binary needed by network tests into the test script folder
-        cp tap_server_test ${TA_FOLDER}/tests/
 
         # run the pre-provisioning tool and output the prepared binary to
         # the test folder to be used by the provisioning test
