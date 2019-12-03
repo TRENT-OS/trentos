@@ -103,12 +103,27 @@ pipeline {
             }
             options { skipDefaultCheckout(true) }
             steps {
+                print_step_info env.STAGE_NAME
+                sh 'scm-src/test.sh run --junitxml=$WORKSPACE/test_results.xml --ignore-glob=test_network*'
+            }
+        }
+        stage('test_network') {
+            agent {
+                docker {
+                    reuseNode true
+                    image DOCKER_TEST_ENV.image
+                    args DOCKER_TEST_ENV.args
+                }
+            }
+            options { skipDefaultCheckout(true) }
+            steps {
                 lock('nw_test_lock'){
                     print_step_info env.STAGE_NAME
-                    sh 'scm-src/test.sh run --junitxml=test_results.xml'
+                    sh 'scm-src/test.sh run --junitxml=$WORKSPACE/test_network_results.xml test_network*'
                 }
             }
         }
+
         stage('astyle_check') {
             // run this after the tests, so we have test results even if source formatting is still not fine.
             options { skipDefaultCheckout(true) }
@@ -121,6 +136,7 @@ pipeline {
     post {
         always {
             junit '**/test_results.xml'
+            junit '**/test_network_results.xml'
         }
     }
 }
