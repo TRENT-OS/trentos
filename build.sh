@@ -290,6 +290,7 @@ function run_build_mode()
     local TARGET_NAME=${BUILD_TARGET}-${BUILD_TYPE}-${BUILD_PROJECT_NAME}
 
     local CMAKE_PARAMS=(
+        -DPLATFORM=${BUILD_TARGET}
         -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
         -DSEOS_PROJECT_DIR=${BUILD_SCRIPT_DIR}
         -DSEOS_SYSTEM=${BUILD_PROJECT}
@@ -298,25 +299,55 @@ function run_build_mode()
 
     case "${BUILD_TARGET}" in
         #-------------------------------------
-        zynq7000)
+        am335x | am335x-boneblack | am335x-boneblue | \
+        apq8064 |\
+        bcm2837 | rpi3 | bcm2837-rpi3 |\
+        exynos4 |\
+        exynos5 | exynos5250 | exynos5410 | exynos5422 |\
+        hikey |\
+        imx6 | sabre | imx6-sabre | wandq | imx6-wandq |\
+        imx7  | imx7-sabre |\
+        imx31 | kzm | imx31-kzm |\
+        omap3 |\
+        qemu-arm-virt |\
+        tk1 |\
+        zynq7000 )
+
             CMAKE_PARAMS+=(
                 -DCROSS_COMPILER_PREFIX=arm-linux-gnueabi-
-                -DKernelARMPlatform=${BUILD_TARGET}
             )
             ;;
         #-------------------------------------
-        spike)
+        fvp  |\
+        imx8mq-evk | imx8mm-evk |\
+        odroidc2 |\
+        rockpro64 |\
+        tx1 |\
+        tx2 |\
+        zynqmp | zynqmp-zcu102 | zynqmp-ultra96 | ultra96 )
+            CMAKE_PARAMS+=(
+                -DCROSS_COMPILER_PREFIX=aarch64-linux-gnu-
+            )
+            ;;
+        #-------------------------------------
+        ariane |\
+        hifive |\
+        spike )
             CMAKE_PARAMS+=(
                 -DCROSS_COMPILER_PREFIX=riscv64-unknown-linux-gnu-
-                -DKernelRiscVPlatform=${BUILD_TARGET}
-                -DKernelArch=riscv
-                -DKernelRiscVSel4Arch=riscv64
+            )
+            ;;
+        #-------------------------------------
+        pc99)
+            CMAKE_PARAMS+=(
+                -DCROSS_COMPILER_PREFIX=x86_64-linux-gnu-
             )
             ;;
         #-------------------------------------
         *)
             echo "invalid target: ${BUILD_TARGET}"
             exit 1
+            ;;
     esac
 
     run_build ${TARGET_NAME} all ${CMAKE_PARAMS[@]} $@
@@ -326,6 +357,49 @@ function run_build_mode()
 #-------------------------------------------------------------------------------
 function build_all_projects()
 {
+    ALL_PLATFORMS=(
+      #  # --- ARM ---
+      #  am335x
+      #  # am335x-boneblack
+      #  # am335x-boneblue
+      #  # apq8064
+      #  # bcm2837
+      #      rpi3
+      #  # exynos4
+      #  # exynos5 # -> exynos5250
+      #  #     exynos5250
+      #  #     exynos5410
+      #  #     exynos5422
+      #  # #fvp    !!!build error
+      #  # hikey
+      #  # imx6 # -> sabre
+      #  #     sabre
+      #  #     wandq
+      #  # #imx7/imx7sabre, but does not compile)
+      #  # imx8mq-evk
+      #  # imx8mm-evk
+      #  # imx31 # should default to kzm, but does not
+      #  #     kzm # imx31
+      #  # odroidc2
+      #  # omap3
+      #  # # qemu-arm-virt  !!!build error
+      #  # rockpro64
+      #  # tk1
+      #  # tx1
+      #  # tx2
+        zynq7000
+      #  zynqmp
+      #      # ultra96 #zynqmp, but does not compile
+      #
+      #  # --- RISC-V ---
+      #  # ariane
+      #  hifive
+      #  # spike
+      #
+      #  # --- x86 ---
+      #  # pc99 # does not compile
+    )
+
     # for now, just loop over the list above and abort the whole build on the
     # first error. Ideally we would not abort here, but try to do all builds
     # and then report which failed. Or better, the caller should invoke this
@@ -335,7 +409,9 @@ function build_all_projects()
         local PRJ_DIR=${PROJECT#*,}
 
         if [[ "${PRJ_DIR}" != "-" ]]; then
-            run_build_mode zynq7000 Debug ${PRJ_DIR} $@
+            for BUILD_PLATFORM in ${ALL_PLATFORMS[@]}; do
+                run_build_mode ${BUILD_PLATFORM} Debug ${PRJ_DIR} $@
+            done
         fi
     done
 
