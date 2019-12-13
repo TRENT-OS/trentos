@@ -40,6 +40,7 @@ WELL_KNOWN_PROJECTS=(
     demo_preprovisioned_keystore,src/tests/demo_preprovisioned_keystore
     demo_fs_as_components,src/tests/demo_fs_as_components
     demo_fs_as_libs,src/tests/demo_fs_as_libs
+    demo_configuration_as_lib,src/tests/demo_configuration_as_lib
 )
 
 
