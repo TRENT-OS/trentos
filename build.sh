@@ -285,17 +285,17 @@ function run_build_mode()
 
     local BUILD_TARGET=${1}
     local BUILD_TYPE=${2}
-    local BUILD_PROJECT=${3}
+    local BUILD_PROJECT_DIR=${3}
     shift 3
 
-    local BUILD_PROJECT_NAME=$(basename ${BUILD_PROJECT})
+    local BUILD_PROJECT_NAME=$(basename ${BUILD_PROJECT_DIR})
     local TARGET_NAME=${BUILD_TARGET}-${BUILD_TYPE}-${BUILD_PROJECT_NAME}
 
     local CMAKE_PARAMS=(
         -DPLATFORM=${BUILD_TARGET}
         -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
         -DSEOS_PROJECT_DIR=${BUILD_SCRIPT_DIR}
-        -DSEOS_SYSTEM=${BUILD_PROJECT}
+        -DSEOS_SYSTEM=${BUILD_PROJECT_DIR}
         -DKernelVerificationBuild=OFF
     )
 
