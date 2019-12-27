@@ -137,11 +137,7 @@ function run_build()
             mkdir -p ${BUILD_DIR}
             cd ${BUILD_DIR}
 
-            CMAKE_PARAMS=(
-                -DCMAKE_TOOLCHAIN_FILE=${SEOS_SANDBOX_DIR}/kernel/gcc.cmake
-            )
-
-            cmake ${CMAKE_PARAMS[@]} $@ -G Ninja ${SEOS_SANDBOX_DIR}
+            cmake $@ -G Ninja ${SEOS_SANDBOX_DIR}
 
             # must run cmake multiple times, so config settings propagate properly
             echo "re-run cmake (1/2)"
@@ -292,11 +288,15 @@ function run_build_mode()
     local TARGET_NAME=${BUILD_TARGET}-${BUILD_TYPE}-${BUILD_PROJECT_NAME}
 
     local CMAKE_PARAMS=(
-        -DPLATFORM=${BUILD_TARGET}
+        # settings processed by CMake directly
+        -DCMAKE_TOOLCHAIN_FILE=${SEOS_SANDBOX_DIR}/kernel/gcc.cmake
         -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+        # seL4 build system settings
+        -DPLATFORM=${BUILD_TARGET}
+        -DKernelVerificationBuild=OFF
+        # SEOS build system settings
         -DSEOS_PROJECT_DIR=${BUILD_SCRIPT_DIR}
         -DSEOS_SYSTEM=${BUILD_PROJECT_DIR}
-        -DKernelVerificationBuild=OFF
     )
 
     case "${BUILD_TARGET}" in
