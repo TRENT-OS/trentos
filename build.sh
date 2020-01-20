@@ -279,27 +279,31 @@ function run_build_mode()
         return 1
     fi
 
-    local BUILD_TARGET=${1}
-    local BUILD_TYPE=${2}
-    local BUILD_PROJECT_DIR=${3}
+    local BUILD_PROJECT_DIR=${1}
+    local BUILD_PLATFORM=${2}
+    local BUILD_TYPE=${3}
     shift 3
 
     local BUILD_PROJECT_NAME=$(basename ${BUILD_PROJECT_DIR})
-    local TARGET_NAME=${BUILD_TARGET}-${BUILD_TYPE}-${BUILD_PROJECT_NAME}
+    local TARGET_NAME=${BUILD_PLATFORM}-${BUILD_TYPE}-${BUILD_PROJECT_NAME}
 
     local CMAKE_PARAMS=(
         # settings processed by CMake directly
         -DCMAKE_TOOLCHAIN_FILE=${SEOS_SANDBOX_DIR}/kernel/gcc.cmake
         -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
         # seL4 build system settings
-        -DPLATFORM=${BUILD_TARGET}
+        # SEL4_CACHE_DIR is a binary cache. There are some binaries (currently
+        # musllibc and capDL-toolthat) that project agnostic, so we don't have
+        # to rebuild them every time. This reduces the build time a lot.
+        -DSEL4_CACHE_DIR=$(pwd)/cache-${BUILD_PLATFORM}
+        -DPLATFORM=${BUILD_PLATFORM}
         -DKernelVerificationBuild=OFF
         # SEOS build system settings
         -DSEOS_PROJECT_DIR=${BUILD_SCRIPT_DIR}
         -DSEOS_SYSTEM=${BUILD_PROJECT_DIR}
     )
 
-    case "${BUILD_TARGET}" in
+    case "${BUILD_PLATFORM}" in
         #-------------------------------------
         am335x | am335x-boneblack | am335x-boneblue | \
         apq8064 |\
@@ -412,7 +416,7 @@ function build_all_projects()
 
         if [[ "${PRJ_DIR}" != "-" ]]; then
             for BUILD_PLATFORM in ${ALL_PLATFORMS[@]}; do
-                run_build_mode ${BUILD_PLATFORM} Debug ${PRJ_DIR} $@
+                run_build_mode ${PRJ_DIR} ${BUILD_PLATFORM} Debug $@
             done
         fi
     done
@@ -452,12 +456,14 @@ elif [[ "${1:-}" == "clean" ]]; then
 elif map_project MAPPED_PROJECT_DIR $@; then
     echo "building ${1:-} from ${MAPPED_PROJECT_DIR} ..."
     shift
-    run_build_mode zynq7000 Debug ${MAPPED_PROJECT_DIR} $@
+    run_build_mode ${MAPPED_PROJECT_DIR} zynq7000 Debug $@
     run_astyle
 
 elif [ ! -z $@ ]; then
-    echo "custom build using params: '$@' ..."
-    run_build_mode zynq7000 Debug $@
+    BUILD_PROJECT_DIR=${1:-}
+    shift
+    echo "building ${BUILD_PROJECT_DIR} using params: '$@' ..."
+    run_build_mode ${BUILD_PROJECT_DIR} zynq7000 Debug $@
     run_astyle
 
 else
