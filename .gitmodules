@@ -46,3 +46,6 @@
 [submodule "src/tests/demo_configuration_as_lib"]
 	path = src/tests/demo_configuration_as_lib
 	url = ../../ss/demo_configuration_as_lib.git
+[submodule "src/tests/demo_configuration_as_component"]
+	path = src/tests/demo_configuration_as_component
+	url = ../../ss/demo_configuration_as_component.git
