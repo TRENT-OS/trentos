@@ -8,30 +8,32 @@
 #
 #-------------------------------------------------------------------------------
 
-PROJECT_DIR=$(cd `dirname $0` && pwd)
+DIR_SRC=$(cd `dirname $0` && pwd)
 WORKSPACE_ROOT=$(pwd)
 
 WORKSPACE_TEST_DIR=workspace_test
 
 
 # Test Automation
-TA_FOLDER=ta
-TA_SRC_FOLDER=${PROJECT_DIR}/${TA_FOLDER}
+DIR_SRC_TA=${DIR_SRC}/ta
+FOLDER_BUILD_TA=ta
+
 
 # SEOS Sandbox
-SEOS_SANDBOX_FOLDER=${PROJECT_DIR}/seos_sandbox
-SEOS_LIBS_FOLDER=${SEOS_SANDBOX_FOLDER}/projects/libs/seos_libs
+DIR_SRC_SANDBOX=${DIR_SRC}/seos_sandbox
+DIR_SRC_SEOS_LIBS=${DIR_SRC_SANDBOX}/projects/libs/seos_libs
 
 # Keystore Provisioning Tool
-KPT_SRC=${PROJECT_DIR}/keystore_provisioning_tool
-KPT_BUILD=kpt
+DIR_SRC_KPT=${DIR_SRC}/keystore_provisioning_tool
+FOLDER_BUILD_KPT=kpt
 
 # Keystore Provisioning Demo
-KPD_SRC=${PROJECT_DIR}/src/tests/demo_preprovisioned_keystore
+DIR_SRC_KPD=${DIR_SRC}/src/tests/demo_preprovisioned_keystore
 
 # Proxy
-PROXY_SRC=${PROJECT_DIR}/proxy
-PROXY_BUILD=proxy
+PROXY_SRC=${DIR_SRC}/proxy
+FOLDER_BUILD_PROXY=proxy
+
 
 # Python virtual environment
 PYTHON_VENV_NAME=ta-env
@@ -62,23 +64,23 @@ function build_test_tools()
         print_info "Building SEOS Libs Unit Tests"
         # run preparation script in sub shell
         (
-            ${SEOS_LIBS_FOLDER}/test.sh prepare
+            ${DIR_SRC_SEOS_LIBS}/test.sh prepare
         )
 
         print_info "Building Proxy Linux Application"
-        mkdir -p ${PROXY_BUILD}
+        mkdir -p ${FOLDER_BUILD_PROXY}
         # run build in subshell
         (
-            cd ${PROXY_BUILD}
-            ${PROXY_SRC}/build.sh ${SEOS_SANDBOX_FOLDER}
+            cd ${FOLDER_BUILD_PROXY}
+            ${PROXY_SRC}/build.sh ${DIR_SRC_SANDBOX}
         )
 
         print_info "Building KeyStore provisioning tool"
-        mkdir -p ${KPT_BUILD}
+        mkdir -p ${FOLDER_BUILD_KPT}
         # run build in subshell
         (
-            cd ${KPT_BUILD}
-            ${KPT_SRC}/build.sh ${SEOS_SANDBOX_FOLDER}
+            cd ${FOLDER_BUILD_KPT}
+            ${DIR_SRC_KPT}/build.sh ${DIR_SRC_SANDBOX}
         )
     )
 
@@ -112,7 +114,7 @@ function prepare_test()
         # function for users who want to run the tests locally. In the CI
         # environment the dependencies are usually always there and therefore
         # this functions should always skip the installation.
-        local requirements_file="${TA_SRC_FOLDER}/tests/requirements.txt"
+        local requirements_file="${DIR_SRC_TA}/tests/requirements.txt"
         local installed=$(pip3 freeze)
         local required=$(cat ${requirements_file})
         local missing_pkg=""
@@ -151,26 +153,26 @@ function run_test()
         print_info "Running SEOS Libs Unit Tests"
         # run seos_libs unit tests in sub shell
         (
-            ${SEOS_LIBS_FOLDER}/test.sh run
+            ${DIR_SRC_SEOS_LIBS}/test.sh run
         )
 
         print_info "Prepare TA integration tests"
 
         # copy files from test automation framework
-        if [ -d ${TA_FOLDER} ]; then
-            rm -rf ${TA_FOLDER}
+        if [ -d ${FOLDER_BUILD_TA} ]; then
+            rm -rf ${FOLDER_BUILD_TA}
         fi
-        mkdir ${TA_FOLDER}
-        cp -R ${TA_SRC_FOLDER}/* ${TA_FOLDER}/
+        mkdir ${FOLDER_BUILD_TA}
+        cp -R ${DIR_SRC_TA}/* ${FOLDER_BUILD_TA}/
 
         # run the pre-provisioning tool and output the prepared binary to
         # the test folder to be used by the provisioning test
         (
-            cd ${KPT_BUILD}
-            ${KPT_SRC}/run.sh \
-                ${KPD_SRC}/preprovisionedKeys.xml \
+            cd ${FOLDER_BUILD_KPT}
+            ${DIR_SRC_KPT}/run.sh \
+                ${DIR_SRC_KPD}/preprovisionedKeys.xml \
                 build/keystore_provisioning_tool  \
-                ../${TA_FOLDER}/tests/preProvisionedKeyStoreImg
+                ../${FOLDER_BUILD_TA}/tests/preProvisionedKeyStoreImg
         )
 
         print_info "Running TA integration tests"
@@ -181,12 +183,12 @@ function run_test()
             --workspace_path="${WORKSPACE_ROOT}"
 
             # even if it's called proxy_path, it the proxy binary actually
-            --proxy_path="${WORKSPACE_ROOT}/${WORKSPACE_TEST_DIR}/${PROXY_BUILD}/build/mqtt_proxy"
+            --proxy_path="${WORKSPACE_ROOT}/${WORKSPACE_TEST_DIR}/${FOLDER_BUILD_PROXY}/build/mqtt_proxy"
         )
 
         # run tests in sub shell
         (
-            cd ${TA_FOLDER}/tests
+            cd ${FOLDER_BUILD_TA}/tests
 
             # activate python virtual environment if it exists
             if [ -f ${PYTHON_VENV_ACTIVATE} ]; then
