@@ -14,6 +14,7 @@ WORKSPACE_ROOT=$(pwd)
 WORKSPACE_TEST_DIR=workspace_test
 
 
+# Test Automation
 TA_FOLDER=ta
 TA_SRC_FOLDER=${PROJECT_DIR}/${TA_FOLDER}
 
