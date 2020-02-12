@@ -177,15 +177,6 @@ function run_test()
 
         print_info "Running TA integration tests"
 
-        PYTEST_PARAMS=(
-            -v
-            # --capture=no   # show printf() from python scripts in console
-            --workspace_path="${WORKSPACE_ROOT}"
-
-            # even if it's called proxy_path, it the proxy binary actually
-            --proxy_path="${WORKSPACE_ROOT}/${WORKSPACE_TEST_DIR}/${FOLDER_BUILD_PROXY}/build/mqtt_proxy"
-        )
-
         # run tests in sub shell
         (
             cd ${FOLDER_BUILD_TA}/tests
@@ -195,6 +186,22 @@ function run_test()
                 print_info "entering python virtual environment '${PYTHON_VENV_NAME}'"
                 source ${PYTHON_VENV_ACTIVATE}
             fi
+
+            # use a relative paths here, since they are guaranteed to be the
+            # same. The absolute paths cab be different depending on the CI
+            # slave or in case or parallel builds, which will lead to the test
+            # report analyzer thinking these are different tests then.
+            local DIR_REL_WORKSPACE_ROOT=$(realpath --relative-to="$(pwd)" "${WORKSPACE_ROOT}")
+            local DIR_REL_PROXY=$(realpath --relative-to="$(pwd)" "${WORKSPACE_ROOT}/${WORKSPACE_TEST_DIR}/${FOLDER_BUILD_PROXY}/build/mqtt_proxy")
+
+            PYTEST_PARAMS=(
+                -v
+                # --capture=no   # show printf() from python scripts in console
+                --workspace_path=${DIR_REL_WORKSPACE_ROOT}
+
+                # even if it's called proxy_path, it the proxy binary actually
+                --proxy_path=${DIR_REL_PROXY}
+            )
 
             pytest ${PYTEST_PARAMS[@]} $@
         )
