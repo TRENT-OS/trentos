@@ -61,6 +61,15 @@ function build_test_tools()
     (
         cd ${WORKSPACE_TEST_DIR}
 
+        print_info "Building test plan documentation"
+        mkdir -p ${DIR_SRC_TA}/doc
+        # run build in subshell
+        (
+            cd ${DIR_SRC_TA}/doc
+            pydoc3 -w ../tests/*.py
+        )
+        mv ${DIR_SRC_TA}/doc .
+
         print_info "Building SEOS Libs Unit Tests"
         # run preparation script in sub shell
         (
