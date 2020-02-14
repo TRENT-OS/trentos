@@ -14,6 +14,7 @@ def DOCKER_TEST_ENV  = [ image: 'seos_test_env_20191010',
                                ' -v /etc/localtime:/etc/localtime:ro' +
                                ' --network=host'+
                                ' --cap-add=NET_ADMIN' +
+                               ' --cap-add=NET_RAW' +
                                ' --device=/dev/net/tun'
                        ]
 
