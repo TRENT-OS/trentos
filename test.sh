@@ -201,7 +201,7 @@ function run_test()
             # slave or in case or parallel builds, which will lead to the test
             # report analyzer thinking these are different tests then.
             local DIR_REL_WORKSPACE_ROOT=$(realpath --relative-to="$(pwd)" "${WORKSPACE_ROOT}")
-            local DIR_REL_PROXY=$(realpath --relative-to="$(pwd)" "${WORKSPACE_ROOT}/${WORKSPACE_TEST_DIR}/${FOLDER_BUILD_PROXY}/build/mqtt_proxy")
+            local DIR_REL_PROXY=$(realpath --relative-to="$(pwd)" "${WORKSPACE_ROOT}/${WORKSPACE_TEST_DIR}/${FOLDER_BUILD_PROXY}/build/proxy_app")
 
             PYTEST_PARAMS=(
                 -v
