@@ -101,7 +101,10 @@ pipeline {
             }
             steps {
                 print_step_info env.STAGE_NAME
-                // sh 'scm-src/test.sh run --junitxml=$WORKSPACE/test_results.xml --ignore-glob=test_network*'
+                sh '''scm-src/test.sh run                       \
+                        --junitxml=$WORKSPACE/test_results.xml  \
+                        --ignore-glob=test_network*             \
+                        test_chanmux*'''
             }
         }
         stage('test_network') {
@@ -128,10 +131,10 @@ pipeline {
             }
         }
     }
-    // post {
-        // always {
-            // junit '**/test_results.xml'
+    post {
+        always {
+            junit '**/test_results.xml'
             // junit '**/test_network_results.xml'
-        // }
-    // }
+        }
+    }
 }
