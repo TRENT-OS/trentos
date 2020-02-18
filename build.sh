@@ -35,6 +35,7 @@ WELL_KNOWN_PROJECTS=(
     test_network_api,src/tests/test_network_api
     test_proxy_nvm,src/tests/test_proxy_nvm
     test_seos_filestream,src/tests/test_seos_filestream
+    test_chanmux,src/tests/test_chanmux
     # demos
     demo_keystore,src/tests/demo_keystore
     demo_preprovisioned_keystore,src/tests/demo_preprovisioned_keystore

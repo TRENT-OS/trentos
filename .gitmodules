@@ -49,3 +49,6 @@
 [submodule "src/tests/demo_configuration_as_component"]
 	path = src/tests/demo_configuration_as_component
 	url = ../../ss/demo_configuration_as_component.git
+[submodule "src/tests/test_chanmux"]
+	path = src/tests/test_chanmux
+	url = ../../ss/test_chanmux.git
