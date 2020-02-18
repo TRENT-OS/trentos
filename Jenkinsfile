@@ -101,7 +101,7 @@ pipeline {
             }
             steps {
                 print_step_info env.STAGE_NAME
-                sh 'scm-src/test.sh run --junitxml=$WORKSPACE/test_results.xml --ignore-glob=test_network*'
+                // sh 'scm-src/test.sh run --junitxml=$WORKSPACE/test_results.xml --ignore-glob=test_network*'
             }
         }
         stage('test_network') {
@@ -113,10 +113,10 @@ pipeline {
                 }
             }
             steps {
-                lock('nw_test_lock'){
+                //lock('nw_test_lock'){
                     print_step_info env.STAGE_NAME
-                    sh 'scm-src/test.sh run --junitxml=$WORKSPACE/test_network_results.xml test_network*'
-                }
+                //    sh 'scm-src/test.sh run --junitxml=$WORKSPACE/test_network_results.xml test_network*'
+                //}
             }
         }
 
@@ -128,10 +128,10 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            junit '**/test_results.xml'
-            junit '**/test_network_results.xml'
-        }
-    }
+    // post {
+        // always {
+            // junit '**/test_results.xml'
+            // junit '**/test_network_results.xml'
+        // }
+    // }
 }
