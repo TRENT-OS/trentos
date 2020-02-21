@@ -201,7 +201,6 @@ function run_build_doc()
         # over all the folders and invoke a documentation build there
         SEOS_PROJECTS_DOC_DIRS=(
             # format: <test project from WELL_KNOWN_PROJECTS>[:<doc root>]
-            test_crypto_api:components/TEST_CRYPTO/src
             test_keystore
             test_seos_filestream # can build doc from use project root
             demo_keystore:components/DemoApp/src
