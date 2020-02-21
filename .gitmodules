@@ -52,3 +52,7 @@
 [submodule "src/tests/test_chanmux"]
 	path = src/tests/test_chanmux
 	url = ../../ss/test_chanmux.git
+[submodule "src/tests/test_cryptoserver"]
+	path = src/tests/test_cryptoserver
+	url = ../../ss/test_cryptoserver.git
+
