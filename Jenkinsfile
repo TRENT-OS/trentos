@@ -106,6 +106,7 @@ pipeline {
                         --ignore-glob=test_network*             \
                         test_hello_world.py                     \
                         test_chanmux.py                         \
+                        test_proxy_nvm.py                       \
                         test_crypto_api.py                      \
                         test_partition_manager.py               \
                         test_filesystem_as_lib.py'''

@@ -33,7 +33,7 @@ WELL_KNOWN_PROJECTS=(
     # test_tls_api,src/tests/test_tls_api
     # test_keystore,src/tests/test_keystore
     # test_network_api,src/tests/test_network_api
-    # test_proxy_nvm,src/tests/test_proxy_nvm
+    test_proxy_nvm,src/tests/test_proxy_nvm
     # test_seos_filestream,src/tests/test_seos_filestream
     test_chanmux,src/tests/test_chanmux
     test_partition_manager,src/tests/test_partition_manager
