@@ -36,8 +36,8 @@ WELL_KNOWN_PROJECTS=(
     # test_proxy_nvm,src/tests/test_proxy_nvm
     # test_seos_filestream,src/tests/test_seos_filestream
     test_chanmux,src/tests/test_chanmux
-    # test_partition_manager,src/tests/test_partition_manager
-    # test_filesystem_as_lib,src/tests/test_filesystem_as_lib
+    test_partition_manager,src/tests/test_partition_manager
+    test_filesystem_as_lib,src/tests/test_filesystem_as_lib
     # demos
     # demo_keystore,src/tests/demo_keystore
     # demo_preprovisioned_keystore,src/tests/demo_preprovisioned_keystore

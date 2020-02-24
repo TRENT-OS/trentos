@@ -1,4 +1,4 @@
-def TEST_SYSTEM = 'test_filesystem_api'
+def TEST_SYSTEM = 'test_filesystem_as_lib'
 def BUILD_SPEC  = 'build-zynq7000-Debug-' + TEST_SYSTEM
 
 // bind the localtime to docker container to avoid problems of gaps between the
@@ -27,9 +27,6 @@ pipeline {
     }
     stages {
         stage('workspace_cleanup') {
-            when {
-                   expression { return (env.BRANCH_NAME ==~ /integration(.*)/)  }
-            }
             steps {
                 echo '##################################### Workspace Cleanup ####################################'
                 cleanWs()
