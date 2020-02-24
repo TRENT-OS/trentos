@@ -60,6 +60,7 @@ pipeline {
                     args DOCKER_BUILD_ENV.args
                 }
             }
+            options { skipDefaultCheckout(true) }
             steps {
                 print_step_info env.STAGE_NAME
                 sh 'scm-src/build.sh doc'
@@ -73,6 +74,7 @@ pipeline {
                     args DOCKER_BUILD_ENV.args
                 }
             }
+            options { skipDefaultCheckout(true) }
             steps {
                 print_step_info env.STAGE_NAME
                 sh 'scm-src/build.sh all-projects'
@@ -86,6 +88,7 @@ pipeline {
                     args DOCKER_TEST_ENV.args
                 }
             }
+            options { skipDefaultCheckout(true) }
             steps {
                 print_step_info env.STAGE_NAME
                 sh 'scm-src/test.sh prepare'
@@ -99,12 +102,15 @@ pipeline {
                     args DOCKER_TEST_ENV.args
                 }
             }
+            options { skipDefaultCheckout(true) }
             steps {
                 print_step_info env.STAGE_NAME
                 sh '''scm-src/test.sh run                       \
                         --junitxml=$WORKSPACE/test_results.xml  \
                         --ignore-glob=test_network*             \
-                        test_chanmux*'''
+                        test_hello_world.py                     \
+                        test_chanmux.py                         \
+                        test_crypto_api.py'''
             }
         }
         stage('test_network') {
@@ -115,6 +121,7 @@ pipeline {
                     args DOCKER_TEST_ENV.args
                 }
             }
+            options { skipDefaultCheckout(true) }
             steps {
                 //lock('nw_test_lock'){
                     print_step_info env.STAGE_NAME
@@ -125,6 +132,7 @@ pipeline {
 
         stage('astyle_check') {
             // run this after the tests, so we have test results even if source formatting is still not fine.
+            options { skipDefaultCheckout(true) }
             steps {
                 print_step_info env.STAGE_NAME
                 sh 'scm-src/build.sh check_astyle_artifacts'

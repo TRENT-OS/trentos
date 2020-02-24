@@ -26,23 +26,25 @@ WELL_KNOWN_PROJECTS=(
     # submodule and we don't have any local sources.
     # tests
     test_hello_world,src/tests/test_hello_world
-    test_syslog,src/tests/test_syslog
-    test_configurator_api,- # ToDo: we need a test project
-    test_filesystem_api,- # ToDo: we need a test project
+    # test_syslog,src/tests/test_syslog
+    # test_configurator_api,- # ToDo: we need a test project
+    # test_filesystem_api,- # ToDo: we need a test project
     test_crypto_api,src/tests/test_crypto_api
-    test_tls_api,src/tests/test_tls_api
-    test_keystore,src/tests/test_keystore
-    test_network_api,src/tests/test_network_api
-    test_proxy_nvm,src/tests/test_proxy_nvm
-    test_seos_filestream,src/tests/test_seos_filestream
+    # test_tls_api,src/tests/test_tls_api
+    # test_keystore,src/tests/test_keystore
+    # test_network_api,src/tests/test_network_api
+    # test_proxy_nvm,src/tests/test_proxy_nvm
+    # test_seos_filestream,src/tests/test_seos_filestream
     test_chanmux,src/tests/test_chanmux
+    # test_partition_manager,src/tests/test_partition_manager
+    # test_filesystem_as_lib,src/tests/test_filesystem_as_lib
     # demos
-    demo_keystore,src/tests/demo_keystore
-    demo_preprovisioned_keystore,src/tests/demo_preprovisioned_keystore
-    demo_fs_as_components,src/tests/demo_fs_as_components
-    demo_fs_as_libs,src/tests/demo_fs_as_libs
-    demo_configuration_as_lib,src/tests/demo_configuration_as_lib
-    demo_configuration_as_component,src/tests/demo_configuration_as_component
+    # demo_keystore,src/tests/demo_keystore
+    # demo_preprovisioned_keystore,src/tests/demo_preprovisioned_keystore
+    # demo_fs_as_components,src/tests/demo_fs_as_components
+    # demo_fs_as_libs,src/tests/demo_fs_as_libs
+    # demo_configuration_as_lib,src/tests/demo_configuration_as_lib
+    # demo_configuration_as_component,src/tests/demo_configuration_as_component
 )
 
 
@@ -201,10 +203,11 @@ function run_build_doc()
         # over all the folders and invoke a documentation build there
         SEOS_PROJECTS_DOC_DIRS=(
             # format: <test project from WELL_KNOWN_PROJECTS>[:<doc root>]
-            test_keystore
-            test_seos_filestream # can build doc from use project root
-            demo_keystore:components/DemoApp/src
-            demo_preprovisioned_keystore:components/DemoApp/src
+            # test_crypto_api:components/TEST_CRYPTO/src
+            # test_keystore
+            # test_seos_filestream # can build doc from use project root
+            # demo_keystore:components/DemoApp/src
+            # demo_preprovisioned_keystore:components/DemoApp/src
         )
 
         cat <<EOF >>index.html
