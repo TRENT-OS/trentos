@@ -1,9 +1,0 @@
-//import "../../interfaces/LogSpooler.camkes";
-
-component StdOutLogSpooler {
-    include "instance/LogFifoDataPort_t.h";
-
-    control;
-    dataport    LogFifoDataPort_t   logFifoDataPort;
-    consumes    LogAvailableEvent   logAvailable;
-}
