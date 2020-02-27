@@ -64,3 +64,9 @@
 [submodule "src/tests/test_filesystem_as_lib"]
 	path = src/tests/test_filesystem_as_lib
 	url = ../../ss/test_filesystem_as_lib.git
+[submodule "src/tests/test_config_server"]
+	path = src/tests/test_config_server
+	url = ../../ss/test_config_server.git
+[submodule "src/tests/test_config_server_fs_backend"]
+	path = src/tests/test_config_server_fs_backend
+	url = ../../ss/test_config_server_fs_backend.git

@@ -27,7 +27,8 @@ WELL_KNOWN_PROJECTS=(
     # tests
     test_hello_world,src/tests/test_hello_world
     # test_syslog,src/tests/test_syslog
-    # test_configurator_api,- # ToDo: we need a test project
+    test_config_server,src/tests/test_config_server
+    test_config_server_fs_backend,src/tests/test_config_server_fs_backend
     # test_filesystem_api,- # ToDo: we need a test project
     test_crypto_api,src/tests/test_crypto_api
     test_tls_api,src/tests/test_tls_api

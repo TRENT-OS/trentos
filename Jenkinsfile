@@ -110,7 +110,10 @@ pipeline {
                         test_proxy_nvm.py                       \
                         test_crypto_api.py                      \
                         test_partition_manager.py               \
-                        test_filesystem_as_lib.py'''
+                        test_filesystem_as_lib.py               \
+                        test_config_server.py                   \
+                        test_config_server_fs_backend.py'''
+
             }
         }
         stage('test_network') {
