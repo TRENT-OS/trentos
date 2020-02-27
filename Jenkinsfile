@@ -122,10 +122,11 @@ pipeline {
                 }
             }
             steps {
-                //lock('nw_test_lock'){
+                lock('nw_test_lock'){
                     print_step_info env.STAGE_NAME
-                //    sh 'scm-src/test.sh run --junitxml=$WORKSPACE/test_network_results.xml test_network* test_tls_api.py '
-                //}
+                    sh 'scm-src/test.sh run --junitxml=$WORKSPACE/test_network_results.xml test_tls_api.py '
+                    //sh 'scm-src/test.sh run --junitxml=$WORKSPACE/test_network_results.xml test_network* test_tls_api.py '
+                }
             }
         }
         stage('astyle_check') {
@@ -139,7 +140,7 @@ pipeline {
     post {
         always {
             junit '**/test_results.xml'
-            // junit '**/test_network_results.xml'
+            junit '**/test_network_results.xml'
         }
     }
 }
