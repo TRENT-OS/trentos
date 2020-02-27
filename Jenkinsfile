@@ -104,6 +104,7 @@ pipeline {
                 sh '''scm-src/test.sh run                       \
                         --junitxml=$WORKSPACE/test_results.xml  \
                         --ignore-glob=test_network*             \
+                        --ignore-glob=test_tls_api.py           \ 
                         test_hello_world.py                     \
                         test_chanmux.py                         \
                         test_proxy_nvm.py                       \
@@ -123,11 +124,10 @@ pipeline {
             steps {
                 //lock('nw_test_lock'){
                     print_step_info env.STAGE_NAME
-                //    sh 'scm-src/test.sh run --junitxml=$WORKSPACE/test_network_results.xml test_network*'
+                //    sh 'scm-src/test.sh run --junitxml=$WORKSPACE/test_network_results.xml test_network* test_tls_api.py '
                 //}
             }
         }
-
         stage('astyle_check') {
             // run this after the tests, so we have test results even if source formatting is still not fine.
             steps {
