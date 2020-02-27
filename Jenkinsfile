@@ -104,7 +104,7 @@ pipeline {
                 sh '''scm-src/test.sh run                       \
                         --junitxml=$WORKSPACE/test_results.xml  \
                         --ignore-glob=test_network*             \
-                        --ignore-glob=test_tls_api.py           \ 
+                        --ignore-glob=test_tls_api.py           \
                         test_hello_world.py                     \
                         test_chanmux.py                         \
                         test_proxy_nvm.py                       \
