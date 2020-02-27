@@ -55,7 +55,6 @@ pipeline {
                     args DOCKER_BUILD_ENV.args
                 }
             }
-            options { skipDefaultCheckout(true) }
             steps {
                 echo '########################################## Building #########################################'
                 // trigger the build
@@ -70,7 +69,6 @@ pipeline {
                     args DOCKER_TEST_ENV.args
                 }
             }
-            options { skipDefaultCheckout(true) }
             steps {
                 echo '################################### Prepare Test Environment ################################'
                 sh 'scm-src/test.sh prepare'
@@ -84,7 +82,6 @@ pipeline {
                     args DOCKER_TEST_ENV.args
                 }
             }
-            options { skipDefaultCheckout(true) }
             steps {
                 lock('nw_test_lock'){
                 echo '########################################## Testing ##########################################'
@@ -94,7 +91,6 @@ pipeline {
         }
         stage('astyle_check') {
             // run this after the tests, so we have test results even if source formatting is still not fine.
-            options { skipDefaultCheckout(true) }
             steps {
                 echo '####################################### Astyle Check ########################################'
                 sh 'scm-src/build.sh check_astyle_artifacts'
