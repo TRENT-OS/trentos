@@ -1,4 +1,4 @@
-def TEST_SYSTEM = 'test_crypto_api'
+def TEST_SYSTEM = 'test_chanmux'
 def BUILD_SPEC  = 'build-zynq7000-Debug-' + TEST_SYSTEM
 
 // bind the localtime to docker container to avoid problems of gaps between the
