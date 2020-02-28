@@ -24,9 +24,9 @@ WELL_KNOWN_PROJECTS=(
     # subfolder where all tests are. This assumption holds today, but there is
     # a plan to drop using "src/tests" if the whole test system is a GIT
     # submodule and we don't have any local sources.
+
     # tests
     test_hello_world,src/tests/test_hello_world
-    # test_syslog,src/tests/test_syslog
     test_config_server,src/tests/test_config_server
     test_config_server_fs_backend,src/tests/test_config_server_fs_backend
     # test_filesystem_api,- # ToDo: we need a test project
@@ -39,6 +39,8 @@ WELL_KNOWN_PROJECTS=(
     test_chanmux,src/tests/test_chanmux
     test_partition_manager,src/tests/test_partition_manager
     test_filesystem_as_lib,src/tests/test_filesystem_as_lib
+    test_logserver,src/tests/test_logserver
+
     # demos
     # demo_keystore,src/tests/demo_keystore
     # demo_preprovisioned_keystore,src/tests/demo_preprovisioned_keystore
