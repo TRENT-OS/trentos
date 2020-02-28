@@ -113,8 +113,8 @@ pipeline {
                         test_filesystem_as_lib.py               \
                         test_config_server.py                   \
                         test_config_server_fs_backend.py        \
-                        test_keystore.py'''
-
+                        test_keystore.py                        \
+                        test_logserver.py'''
             }
         }
         stage('test_network') {
