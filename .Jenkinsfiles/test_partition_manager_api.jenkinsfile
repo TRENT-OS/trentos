@@ -26,15 +26,10 @@ pipeline {
         skipDefaultCheckout true
     }
     stages {
-        stage('workspace_cleanup') {
+        stage('clean_checkout') {
             steps {
-                echo '##################################### Workspace Cleanup ####################################'
+                echo '######################################### Clean Checkout #########################################'
                 cleanWs()
-            }
-        }
-        stage('checkout') {
-            steps {
-                echo '######################################### Checkout #########################################'
                 // everything is in separate folders to avoid file conflicts. Sources are checked out into
                 // "scm-src", builds should generate "build-xxx" folders, tests will use "workspace_test" ...
                 dir('scm-src') {
