@@ -18,6 +18,18 @@ def DOCKER_TEST_ENV  = [ image: 'seos_test_env_20191010',
                                ' --device=/dev/net/tun'
                        ]
 
+def DOCKER_TEST_ENV_REGISTRY = [
+    image:      'docker:5000/seos_test_env:latest',
+    args:       ' -v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro'+
+                    ' -v /etc/localtime:/etc/localtime:ro' +
+                    ' --network=host' +
+                    ' --cap-add=NET_ADMIN' +
+                    ' --cap-add=NET_RAW' +
+                    ' --device=/dev/net/tun',
+    registry:   'http://docker:5000'
+]
+
+
 def agentLabel = ( env.BRANCH_NAME in ["master", "integration"] ) ?
                  "jenkins_primary_slave"
                  : "jenkins_secondary_slave"
@@ -50,6 +62,14 @@ pipeline {
                 dir('scm-src') {
                     checkout scm
                 }
+            }
+        }
+        stage('docker_update') {
+            steps {
+                echo '######################################### Checkout #########################################'
+                // everything is in separate folders to avoid file conflicts. Sources are checked out into
+                // "scm-src", builds should generate "build-xxx" folders, tests will use "workspace_test" ...
+                sh 'docker pull ' + DOCKER_TEST_ENV_REGISTRY.image
             }
         }
         stage('build_doc') {
@@ -122,8 +142,9 @@ pipeline {
             agent {
                 docker {
                     reuseNode true
-                    image DOCKER_TEST_ENV.image
-                    args DOCKER_TEST_ENV.args
+                    registryUrl DOCKER_TEST_ENV_REGISTRY.registry
+                    image DOCKER_TEST_ENV_REGISTRY.image
+                    args DOCKER_TEST_ENV_REGISTRY.args
                 }
             }
             steps {
