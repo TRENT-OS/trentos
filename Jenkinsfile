@@ -9,16 +9,7 @@ def DOCKER_BUILD_ENV = [ image: 'seos_build_env_20191010',
                                ' --group-add=1001'
                        ]
 
-def DOCKER_TEST_ENV  = [ image: 'seos_test_env_20191010',
-                         args: ' -v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro'+
-                               ' -v /etc/localtime:/etc/localtime:ro' +
-                               ' --network=host'+
-                               ' --cap-add=NET_ADMIN' +
-                               ' --cap-add=NET_RAW' +
-                               ' --device=/dev/net/tun'
-                       ]
-
-def DOCKER_TEST_ENV_REGISTRY = [
+def DOCKER_TEST_ENV = [
     image:      'docker:5000/seos_test_env:latest',
     args:       ' -v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro'+
                     ' -v /etc/localtime:/etc/localtime:ro' +
@@ -69,7 +60,7 @@ pipeline {
                 echo '######################################### Checkout #########################################'
                 // everything is in separate folders to avoid file conflicts. Sources are checked out into
                 // "scm-src", builds should generate "build-xxx" folders, tests will use "workspace_test" ...
-                sh 'docker pull ' + DOCKER_TEST_ENV_REGISTRY.image
+                sh 'docker pull ' + DOCKER_TEST_ENV.image
             }
         }
         stage('build_doc') {
@@ -102,6 +93,7 @@ pipeline {
             agent {
                 docker {
                     reuseNode true
+                    registryUrl DOCKER_TEST_ENV.registry
                     image DOCKER_TEST_ENV.image
                     args DOCKER_TEST_ENV.args
                 }
@@ -115,6 +107,7 @@ pipeline {
             agent {
                 docker {
                     reuseNode true
+                    registryUrl DOCKER_TEST_ENV.registry
                     image DOCKER_TEST_ENV.image
                     args DOCKER_TEST_ENV.args
                 }
@@ -140,9 +133,9 @@ pipeline {
             agent {
                 docker {
                     reuseNode true
-                    registryUrl DOCKER_TEST_ENV_REGISTRY.registry
-                    image DOCKER_TEST_ENV_REGISTRY.image
-                    args DOCKER_TEST_ENV_REGISTRY.args
+                    registryUrl DOCKER_TEST_ENV.registry
+                    image DOCKER_TEST_ENV.image
+                    args DOCKER_TEST_ENV.args
                 }
             }
             steps {
