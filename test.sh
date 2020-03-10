@@ -116,13 +116,20 @@ function prepare_test()
         cd ${WORKSPACE_TEST_DIR}
 
         print_info "Building test plan documentation"
-        mkdir -p ${DIR_SRC_TA}/doc
+        mkdir -p doc
         # run build in subshell
         (
-            cd ${DIR_SRC_TA}/doc
-            pydoc3 -w ../tests/*.py
+            cd doc
+            export PYTHONPATH="${DIR_SRC_TA}/common:${DIR_SRC_TA}/tests"
+            # Sometimes there can be odd errors, use this to analyze them in
+            # detail
+            #   for f in ${DIR_SRC_TA}/tests/*.py; do
+            #       echo ${f}
+            #       pydoc3 -w ${f}
+            #   done
+            pydoc3 -w ${DIR_SRC_TA}/tests/*.py
         )
-        mv ${DIR_SRC_TA}/doc .
+        #mv ${DIR_SRC_TA}/doc .
 
         print_info "Building SEOS Libs Unit Tests"
         # run preparation script in sub shell
