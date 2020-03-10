@@ -297,7 +297,7 @@ function run_build_mode()
 
     local CMAKE_PARAMS=(
         # settings processed by CMake directly
-        -DCMAKE_TOOLCHAIN_FILE=${SEOS_SANDBOX_DIR}/kernel/gcc.cmake
+        -DCMAKE_TOOLCHAIN_FILE=${SEOS_SANDBOX_DIR}/sdk-sel4-camkes/kernel/gcc.cmake
         -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
         # seL4 build system settings
         # SEL4_CACHE_DIR is a binary cache. There are some binaries (currently
