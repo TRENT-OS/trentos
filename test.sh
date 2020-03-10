@@ -23,11 +23,9 @@ DIR_SRC_SANDBOX=${DIR_SRC}/seos_sandbox
 DIR_SRC_SEOS_LIBS=${DIR_SRC_SANDBOX}/projects/libs/seos_libs
 
 # Keystore Provisioning Tool
-DIR_SRC_KPT=${DIR_SRC_SANDBOX}/tools/keystore_provisioning_tool
 FOLDER_BUILD_KPT=kpt
 
 # Proxy
-PROXY_SRC=${DIR_SRC_SANDBOX}/tools/proxy
 FOLDER_BUILD_PROXY=proxy
 
 
@@ -58,6 +56,26 @@ function print_info()
 
 
 #-------------------------------------------------------------------------------
+function build_seos_sdk_tool()
+{
+    local SDK_TOOLS_SRC_DIR=$1
+    local FOLDER_BUILD=$2
+
+    print_info "Building SDK tool: ${SDK_TOOLS_SRC_DIR}"
+
+    if [ ! -d ${FOLDER_BUILD} ]; then
+        mkdir -p ${FOLDER_BUILD}
+    fi
+
+    # run build in subshell
+    (
+        cd ${FOLDER_BUILD}
+        ${DIR_SRC_SANDBOX}/${SDK_TOOLS_SRC_DIR}/build.sh ${DIR_SRC_SANDBOX}
+    )
+}
+
+
+#-------------------------------------------------------------------------------
 function build_test_tools()
 {
     # remove folder if it exists already. This should not happen in CI when we
@@ -70,36 +88,10 @@ function build_test_tools()
     (
         cd ${WORKSPACE_TEST_DIR}
 
-        print_info "Building Proxy Linux Application"
-        mkdir -p ${FOLDER_BUILD_PROXY}
-        # run build in subshell
-        (
-            cd ${FOLDER_BUILD_PROXY}
-            ${PROXY_SRC}/build.sh ${DIR_SRC_SANDBOX}
-        )
+        build_seos_sdk_tool tools/proxy ${FOLDER_BUILD_PROXY}
 
-        print_info "Building KeyStore provisioning tool"
-        mkdir -p ${FOLDER_BUILD_KPT}
-        # run build in subshell
-        (
-            cd ${FOLDER_BUILD_KPT}
-            ${DIR_SRC_KPT}/build.sh ${DIR_SRC_SANDBOX}
-        )
-
-        print_info "Building test plan documentation"
-        mkdir -p ${DIR_SRC_TA}/doc
-        # run build in subshell
-        (
-            cd ${DIR_SRC_TA}/doc
-            pydoc3 -w ../tests/*.py
-        )
-        mv ${DIR_SRC_TA}/doc .
-
-        print_info "Building SEOS Libs Unit Tests"
-        # run preparation script in sub shell
-        (
-            ${DIR_SRC_SEOS_LIBS}/test.sh prepare
-        )
+        build_seos_sdk_tool tools/keystore_provisioning_tool ${FOLDER_BUILD_KPT}
+        cp -v ${DIR_SRC_SANDBOX}/tools/keystore_provisioning_tool/{xmlParser.py,run.sh} ${FOLDER_BUILD_KPT}
     )
 
     echo "test tool building complete"
@@ -122,6 +114,22 @@ function prepare_test()
 
     (
         cd ${WORKSPACE_TEST_DIR}
+
+        print_info "Building test plan documentation"
+        mkdir -p ${DIR_SRC_TA}/doc
+        # run build in subshell
+        (
+            cd ${DIR_SRC_TA}/doc
+            pydoc3 -w ../tests/*.py
+        )
+        mv ${DIR_SRC_TA}/doc .
+
+        print_info "Building SEOS Libs Unit Tests"
+        # run preparation script in sub shell
+        (
+            ${DIR_SRC_SEOS_LIBS}/test.sh prepare
+        )
+
 
         print_info "Check Python version and packages"
         check_tool_installed python3
@@ -186,11 +194,10 @@ function run_test()
         # run the pre-provisioning tool and output the prepared binary to
         # the test folder to be used by the provisioning test
         (
-            cd ${FOLDER_BUILD_KPT}
-            ${DIR_SRC_KPT}/run.sh \
+            ${FOLDER_BUILD_KPT}/run.sh \
                 ${DIR_SRC_KPD}/preprovisionedKeys.xml \
-                build/keystore_provisioning_tool  \
-                ../${FOLDER_BUILD_TA}/tests/preProvisionedKeyStoreImg
+                ${FOLDER_BUILD_KPT}/build/keystore_provisioning_tool  \
+                ${FOLDER_BUILD_TA}/tests/preProvisionedKeyStoreImg
         )
 
         print_info "Running TA integration tests"
