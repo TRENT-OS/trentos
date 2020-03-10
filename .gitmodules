@@ -7,9 +7,6 @@
 [submodule "ta/common"]
 	path = ta/common
 	url = ../../ta/common.git
-[submodule "proxy"]
-	path = proxy
-	url = ../../hc/mqtt_proxy_demo.git
 [submodule "src/tests/test_proxy_nvm"]
 	path = src/tests/test_proxy_nvm
 	url = ../../ss/test_proxy_nvm.git
@@ -22,9 +19,6 @@
 [submodule "src/tests/demo_preprovisioned_keystore"]
 	path = src/tests/demo_preprovisioned_keystore
 	url = ../../ss/demo_preprovisioned_keystore.git
-[submodule "keystore_provisioning_tool"]
-	path = keystore_provisioning_tool
-	url = ../../ss/keystore_provisioning_tool.git
 [submodule "src/tests/test_crypto_api"]
 	path = src/tests/test_crypto_api
 	url = ../../ss/test_crypto_api.git

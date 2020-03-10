@@ -11,33 +11,42 @@
 DIR_SRC=$(cd `dirname $0` && pwd)
 WORKSPACE_ROOT=$(pwd)
 
+
+#-------------------------------------------------------------------------------
+# our workspace name
 WORKSPACE_TEST_DIR=workspace_test
 
 
-# Test Automation
-DIR_SRC_TA=${DIR_SRC}/ta
-FOLDER_BUILD_TA=ta
-
-
+#-------------------------------------------------------------------------------
 # SEOS Sandbox
 DIR_SRC_SANDBOX=${DIR_SRC}/seos_sandbox
 DIR_SRC_SEOS_LIBS=${DIR_SRC_SANDBOX}/projects/libs/seos_libs
 
 # Keystore Provisioning Tool
-DIR_SRC_KPT=${DIR_SRC}/keystore_provisioning_tool
+DIR_SRC_KPT=${DIR_SRC_SANDBOX}/tools/keystore_provisioning_tool
 FOLDER_BUILD_KPT=kpt
 
-# Keystore Provisioning Demo
-DIR_SRC_KPD=${DIR_SRC}/src/tests/demo_preprovisioned_keystore
-
 # Proxy
-PROXY_SRC=${DIR_SRC}/proxy
+PROXY_SRC=${DIR_SRC_SANDBOX}/tools/proxy
 FOLDER_BUILD_PROXY=proxy
 
 
+#-------------------------------------------------------------------------------
+# Test Automation
+DIR_SRC_TA=${DIR_SRC}/ta
+FOLDER_BUILD_TA=ta
+
+
+#-------------------------------------------------------------------------------
+# Keystore Provisioning Demo
+DIR_SRC_KPD=${DIR_SRC}/src/tests/demo_preprovisioned_keystore
+
+
+#-------------------------------------------------------------------------------
 # Python virtual environment
 PYTHON_VENV_NAME=ta-env
 PYTHON_VENV_ACTIVATE=${PYTHON_VENV_NAME}/bin/activate
+
 
 #-------------------------------------------------------------------------------
 function print_info()
@@ -61,21 +70,6 @@ function build_test_tools()
     (
         cd ${WORKSPACE_TEST_DIR}
 
-        print_info "Building test plan documentation"
-        mkdir -p ${DIR_SRC_TA}/doc
-        # run build in subshell
-        (
-            cd ${DIR_SRC_TA}/doc
-            pydoc3 -w ../tests/*.py
-        )
-        mv ${DIR_SRC_TA}/doc .
-
-        print_info "Building SEOS Libs Unit Tests"
-        # run preparation script in sub shell
-        (
-            ${DIR_SRC_SEOS_LIBS}/test.sh prepare
-        )
-
         print_info "Building Proxy Linux Application"
         mkdir -p ${FOLDER_BUILD_PROXY}
         # run build in subshell
@@ -90,6 +84,21 @@ function build_test_tools()
         (
             cd ${FOLDER_BUILD_KPT}
             ${DIR_SRC_KPT}/build.sh ${DIR_SRC_SANDBOX}
+        )
+
+        print_info "Building test plan documentation"
+        mkdir -p ${DIR_SRC_TA}/doc
+        # run build in subshell
+        (
+            cd ${DIR_SRC_TA}/doc
+            pydoc3 -w ../tests/*.py
+        )
+        mv ${DIR_SRC_TA}/doc .
+
+        print_info "Building SEOS Libs Unit Tests"
+        # run preparation script in sub shell
+        (
+            ${DIR_SRC_SEOS_LIBS}/test.sh prepare
         )
     )
 
