@@ -90,9 +90,9 @@ pipeline {
             }
             steps {
                 lock('nw_test_lock'){
-                echo '########################################## Testing ##########################################'
-                sh 'scm-src/test.sh run --junitxml=' + TEST_SYSTEM +'_results.xml ' + TEST_SYSTEM + '*.py'
-             }
+                    echo '########################################## Testing ##########################################'
+                    sh 'scm-src/test.sh run --junitxml=' + TEST_SYSTEM +'_results.xml ' + TEST_SYSTEM + '*.py'
+                }
             }
         }
         stage('astyle_check') {
