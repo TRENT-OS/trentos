@@ -89,6 +89,14 @@ pipeline {
                 sh 'scm-src/build.sh all-projects'
             }
         }
+        stage('astyle_check') {
+            steps {
+                print_step_info env.STAGE_NAME
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    sh 'scm-src/build.sh check_astyle_artifacts'
+                }
+            }
+        }
         stage('prepare_test') {
             agent {
                 docker {
@@ -114,19 +122,21 @@ pipeline {
             }
             steps {
                 print_step_info env.STAGE_NAME
-                sh '''scm-src/test.sh run                       \
-                        --junitxml=$WORKSPACE/test_results.xml  \
-                        test_hello_world.py                     \
-                        test_chanmux.py                         \
-                        test_proxy_nvm.py                       \
-                        test_crypto_api.py                      \
-                        test_partition_manager.py               \
-                        test_filesystem_as_lib.py               \
-                        test_config_server.py                   \
-                        test_config_server_fs_backend.py        \
-                        test_keystore.py                        \
-                        test_logserver.py                       \
-                        test_cryptoserver.py'''
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    sh '''scm-src/test.sh run                       \
+                            --junitxml=$WORKSPACE/test_results.xml  \
+                            test_hello_world.py                     \
+                            test_chanmux.py                         \
+                            test_proxy_nvm.py                       \
+                            test_crypto_api.py                      \
+                            test_partition_manager.py               \
+                            test_filesystem_as_lib.py               \
+                            test_config_server.py                   \
+                            test_config_server_fs_backend.py        \
+                            test_keystore.py                        \
+                            test_logserver.py                       \
+                            test_cryptoserver.py'''
+                }
             }
         }
         stage('test_network') {
@@ -141,18 +151,13 @@ pipeline {
             steps {
                 lock('nw_test_lock'){
                     print_step_info env.STAGE_NAME
-                    sh '''scm-src/test.sh run                              \
-                            --junitxml=$WORKSPACE/test_network_results.xml \
-                            test_network_api.py                            \
-                            test_tls_api.py'''
+                    catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                        sh '''scm-src/test.sh run                              \
+                                --junitxml=$WORKSPACE/test_network_results.xml \
+                                test_network_api.py                            \
+                                test_tls_api.py'''
+                    }
                 }
-            }
-        }
-        stage('astyle_check') {
-            // run this after the tests, so we have test results even if source formatting is still not fine.
-            steps {
-                print_step_info env.STAGE_NAME
-                sh 'scm-src/build.sh check_astyle_artifacts'
             }
         }
     }

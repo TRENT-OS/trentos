@@ -51,6 +51,14 @@ pipeline {
                 sh 'scm-src/build.sh ' + TEST_SYSTEM
             }
         }
+        stage('astyle_check') {
+            steps {
+                echo '####################################### Astyle Check ########################################'
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    sh 'scm-src/build.sh check_astyle_artifacts'
+                }
+            }
+        }
         stage('prepare_test') {
             agent {
                 docker {
@@ -74,14 +82,9 @@ pipeline {
             }
             steps {
                 echo '########################################## Testing ##########################################'
-                sh 'scm-src/test.sh run --junitxml=' + TEST_SYSTEM +'_results.xml ' + TEST_SYSTEM + '.py'
-            }
-        }
-        stage('astyle_check') {
-            // run this after the tests, so we have test results even if source formatting is still not fine.
-            steps {
-                echo '####################################### Astyle Check ########################################'
-                sh 'scm-src/build.sh check_astyle_artifacts'
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    sh 'scm-src/test.sh run --junitxml=' + TEST_SYSTEM +'_results.xml ' + TEST_SYSTEM + '.py'
+                }
             }
         }
     }
