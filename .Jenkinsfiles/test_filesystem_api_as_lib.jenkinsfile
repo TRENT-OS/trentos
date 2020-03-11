@@ -18,6 +18,8 @@ def DOCKER_TEST_ENV  = [ image: 'seos_test_env_20191010',
 def agentLabel = ( env.BRANCH_NAME in ["master", "integration"] ) ?
                  "jenkins_secondary_slave" : ""
 
+def print_step_info(name) { echo "#################### " + name }
+
 pipeline {
     agent {
         label agentLabel
@@ -28,7 +30,7 @@ pipeline {
     stages {
         stage('clean_checkout') {
             steps {
-                echo '######################################### Clean Checkout #########################################'
+                print_step_info env.STAGE_NAME
                 cleanWs()
                 // everything is in separate folders to avoid file conflicts. Sources are checked out into
                 // "scm-src", builds should generate "build-xxx" folders, tests will use "workspace_test" ...
@@ -46,14 +48,14 @@ pipeline {
                 }
             }
             steps {
-                echo '########################################## Building #########################################'
+                print_step_info env.STAGE_NAME
                 // trigger the build
                 sh 'scm-src/build.sh ' + TEST_SYSTEM
             }
         }
         stage('astyle_check') {
             steps {
-                echo '####################################### Astyle Check ########################################'
+                print_step_info env.STAGE_NAME
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                     sh 'scm-src/build.sh check_astyle_artifacts'
                 }
@@ -68,7 +70,7 @@ pipeline {
                 }
             }
             steps {
-                echo '################################### Prepare Test Environment ################################'
+                print_step_info env.STAGE_NAME
                 sh 'scm-src/test.sh prepare'
             }
         }
@@ -81,7 +83,7 @@ pipeline {
                 }
             }
             steps {
-                echo '########################################## Testing ##########################################'
+                print_step_info env.STAGE_NAME
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                     sh 'scm-src/test.sh run --junitxml=' + TEST_SYSTEM +'_results.xml ' + TEST_SYSTEM + '.py'
                 }
@@ -91,7 +93,8 @@ pipeline {
     post {
         always {
             junit '**/' + TEST_SYSTEM + '_results.xml'
-            echo '#################################### Archive Artifacts #######################################'
+
+            print_step_info 'Archive Artifacts'
             sh 'tar -czf ' + BUILD_SPEC + '.tgz ' + BUILD_SPEC
             archiveArtifacts artifacts: BUILD_SPEC + '.tgz', fingerprint: true
             archiveArtifacts artifacts: 'workspace_test/ta/tests/' + TEST_SYSTEM + '_results.xml ', fingerprint: true
