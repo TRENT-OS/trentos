@@ -57,9 +57,7 @@ pipeline {
         }
         stage('docker_update') {
             steps {
-                echo '######################################### Checkout #########################################'
-                // everything is in separate folders to avoid file conflicts. Sources are checked out into
-                // "scm-src", builds should generate "build-xxx" folders, tests will use "workspace_test" ...
+                print_step_info env.STAGE_NAME
                 sh 'docker pull ' + DOCKER_TEST_ENV.image
             }
         }
