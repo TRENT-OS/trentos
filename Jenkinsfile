@@ -121,19 +121,21 @@ pipeline {
             steps {
                 print_step_info env.STAGE_NAME
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    sh '''scm-src/test.sh run                       \
-                            --junitxml=$WORKSPACE/test_results.xml  \
-                            test_hello_world.py                     \
-                            test_chanmux.py                         \
-                            test_proxy_nvm.py                       \
-                            test_crypto_api.py                      \
-                            test_partition_manager.py               \
-                            test_filesystem_as_lib.py               \
-                            test_config_server.py                   \
-                            test_config_server_fs_backend.py        \
-                            test_keystore.py                        \
-                            test_logserver.py                       \
-                            test_cryptoserver.py'''
+                    sh 'scm-src/test.sh                      \
+                            run                              \
+                            test_hello_world.py              \
+                            test_chanmux.py                  \
+                            test_proxy_nvm.py                \
+                            test_crypto_api.py               \
+                            test_partition_manager.py        \
+                            test_filesystem_as_lib.py        \
+                            test_config_server.py            \
+                            test_config_server_fs_backend.py \
+                            test_keystore.py                 \
+                            test_logserver.py                \
+                            test_cryptoserver.py'
+                    junit 'test_results.xml'
+                    sh 'mv test_results.xml \$(ls -d test-logs* | tail -1)/'
                 }
             }
         }
@@ -150,10 +152,12 @@ pipeline {
                 lock('nw_test_lock'){
                     print_step_info env.STAGE_NAME
                     catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                        sh '''scm-src/test.sh run                              \
-                                --junitxml=$WORKSPACE/test_network_results.xml \
-                                test_network_api.py                            \
-                                test_tls_api.py'''
+                        sh 'scm-src/test.sh          \
+                                run                  \
+                                test_network_api.py  \
+                                test_tls_api.py'
+                        junit 'test_results.xml'
+                        sh 'mv test_results.xml \$(ls -d test-logs* | tail -1)/'
                     }
                 }
             }
@@ -161,8 +165,17 @@ pipeline {
     }
     post {
         always {
-            junit '**/test_results.xml'
-            junit '**/test_network_results.xml'
+
+            print_step_info 'archive artifacts'
+
+            sh 'tar                                 \
+                    -czf build.tgz                  \
+                    build-*                           \
+                    \$(ls -d test-logs* | tail -2)'
+
+
+            archiveArtifacts artifacts: 'build.tgz', fingerprint: true
         }
+
     }
 }

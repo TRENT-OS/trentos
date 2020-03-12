@@ -233,6 +233,8 @@ function run_test()
 
                 # even if it's called proxy_path, it the proxy binary actually
                 --proxy_path=${DIR_REL_PROXY}
+
+                --junitxml=${WORKSPACE_ROOT}/test_results.xml
             )
 
             pytest ${PYTEST_PARAMS[@]} $@

@@ -85,19 +85,21 @@ pipeline {
             steps {
                 print_step_info env.STAGE_NAME
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    sh 'scm-src/test.sh run --junitxml=' + TEST_SYSTEM +'_results.xml ' + TEST_SYSTEM + '.py'
+                    sh 'scm-src/test.sh run ' + TEST_SYSTEM + '.py'
                 }
+                junit 'test_results.xml'
+                sh 'mv test_results.xml \$(ls -d test-logs* | tail -1)/'
             }
         }
     }
     post {
         always {
-            junit '**/' + TEST_SYSTEM + '_results.xml'
-
-            print_step_info 'Archive Artifacts'
-            sh 'tar -czf ' + BUILD_SPEC + '.tgz ' + BUILD_SPEC
+            print_step_info 'archive artifacts'
+            sh 'tar                                \
+                    -czf ' + BUILD_SPEC + '.tgz    \
+                    ' + BUILD_SPEC + '             \
+                    \$(ls -d test-logs* | tail -1)'
             archiveArtifacts artifacts: BUILD_SPEC + '.tgz', fingerprint: true
-            archiveArtifacts artifacts: 'workspace_test/ta/tests/' + TEST_SYSTEM + '_results.xml ', fingerprint: true
         }
     }
 }
