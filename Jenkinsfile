@@ -134,9 +134,9 @@ pipeline {
                             test_keystore.py                 \
                             test_logserver.py                \
                             test_cryptoserver.py'
-                    junit 'test_results.xml'
-                    sh 'mv test_results.xml \$(ls -d test-logs* | tail -1)/'
                 }
+                junit 'test_results.xml'
+                sh 'mv test_results.xml \$(ls -d test-logs* | tail -1)/'
             }
         }
         stage('test_network') {
@@ -156,9 +156,9 @@ pipeline {
                                 run                  \
                                 test_network_api.py  \
                                 test_tls_api.py'
-                        junit 'test_results.xml'
-                        sh 'mv test_results.xml \$(ls -d test-logs* | tail -1)/'
                     }
+                    junit 'test_results.xml'
+                    sh 'mv test_results.xml \$(ls -d test-logs* | tail -1)/'
                 }
             }
         }
