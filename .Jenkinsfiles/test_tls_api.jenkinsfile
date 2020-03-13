@@ -28,7 +28,7 @@ pipeline {
     // This may be removed again later, when we can retrieve the IP of the QEMU
     // host via a dedicated proxy command.
     agent {
-        label 'jenkins_primary_slave'
+        label 'test_tls'
     }
     options {
         skipDefaultCheckout true
