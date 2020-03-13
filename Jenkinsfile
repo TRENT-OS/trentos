@@ -149,17 +149,17 @@ pipeline {
                 }
             }
             steps {
-                lock('nw_test_lock'){
-                    print_step_info env.STAGE_NAME
-                    catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                print_step_info env.STAGE_NAME
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    lock('nw_test_lock'){
                         sh 'scm-src/test.sh          \
                                 run                  \
                                 test_network_api.py  \
                                 test_tls_api.py'
                     }
-                    junit 'test_results.xml'
-                    sh 'mv test_results.xml \$(ls -d test-logs* | tail -1)/'
                 }
+                junit 'test_results.xml'
+                sh 'mv test_results.xml \$(ls -d test-logs* | tail -1)/'
             }
         }
     }
