@@ -167,10 +167,12 @@ pipeline {
     post {
         always {
             print_step_info 'archive artifacts'
-            sh 'tar                                 \
-                    -czf build.tgz                  \
-                    build-*                         \
-                    \$(ls -d test-logs* | tail -2)'
+            // An archive with binaries (ie the build-* folders) is 530 MiB,
+            // this makes CI run out of disk space quickly. Thus we just
+            // archive the logs, which take about 300 KiB only. We have
+            // dedicated build/test runs for each system also, they create an
+            // archive with binaries and logs.
+            sh 'tar -czf build.tgz \$(ls -d test-logs* | tail -2)'
             archiveArtifacts artifacts: 'build.tgz', fingerprint: true
         }
     }
