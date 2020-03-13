@@ -88,6 +88,7 @@ pipeline {
             }
         }
         stage('astyle_check') {
+            // there is no need to run this in a container
             steps {
                 print_step_info env.STAGE_NAME
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
@@ -165,17 +166,12 @@ pipeline {
     }
     post {
         always {
-
             print_step_info 'archive artifacts'
-
             sh 'tar                                 \
                     -czf build.tgz                  \
-                    build-*                           \
+                    build-*                         \
                     \$(ls -d test-logs* | tail -2)'
-
-
             archiveArtifacts artifacts: 'build.tgz', fingerprint: true
         }
-
     }
 }
