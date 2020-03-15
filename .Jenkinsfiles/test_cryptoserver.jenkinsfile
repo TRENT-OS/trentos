@@ -89,7 +89,7 @@ pipeline {
                     sh 'scm-src/test.sh run ' + TEST_SYSTEM + '.py'
                 }
                 junit 'test_results.xml'
-                sh 'mv test_results.xml \$(ls -d test-logs* | tail -1)/'
+                sh 'mv test_results.xml \$(ls -d test-logs-* | tail -1)/'
             }
         }
     }
@@ -99,7 +99,7 @@ pipeline {
             sh 'tar                                \
                     -czf ' + BUILD_SPEC + '.tgz    \
                     ' + BUILD_SPEC + '             \
-                    \$(ls -d test-logs* | tail -1)'
+                    \$(ls -d test-logs-* | tail -1)'
             archiveArtifacts artifacts: BUILD_SPEC + '.tgz', fingerprint: true
         }
     }

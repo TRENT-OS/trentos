@@ -137,7 +137,7 @@ pipeline {
                             test_cryptoserver.py'
                 }
                 junit 'test_results.xml'
-                sh 'mv test_results.xml \$(ls -d test-logs* | tail -1)/'
+                sh 'mv test_results.xml \$(ls -d test-logs-* | tail -1)/'
             }
         }
         stage('test_network') {
@@ -160,7 +160,7 @@ pipeline {
                     }
                 }
                 junit 'test_results.xml'
-                sh 'mv test_results.xml \$(ls -d test-logs* | tail -1)/'
+                sh 'mv test_results.xml \$(ls -d test-logs-* | tail -1)/'
             }
         }
     }
@@ -172,7 +172,7 @@ pipeline {
             // archive the logs, which take about 300 KiB only. We have
             // dedicated build/test runs for each system also, they create an
             // archive with binaries and logs.
-            sh 'tar -czf build.tgz \$(ls -d test-logs* | tail -2)'
+            sh 'tar -czf build.tgz \$(ls -d test-logs-* | tail -2)'
             archiveArtifacts artifacts: 'build.tgz', fingerprint: true
         }
     }
