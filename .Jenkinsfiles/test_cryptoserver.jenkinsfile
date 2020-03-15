@@ -97,10 +97,10 @@ pipeline {
         always {
             print_step_info 'archive artifacts'
             sh 'tar                                \
-                    -czf ' + BUILD_SPEC + '.tgz    \
+                    -cjf ' + BUILD_SPEC + '.bz2    \
                     ' + BUILD_SPEC + '             \
                     \$(ls -d test-logs-* | tail -1)'
-            archiveArtifacts artifacts: BUILD_SPEC + '.tgz', fingerprint: true
+            archiveArtifacts artifacts: BUILD_SPEC + '.bz2', fingerprint: true
         }
     }
 }

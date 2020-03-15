@@ -172,8 +172,8 @@ pipeline {
             // archive the logs, which take about 300 KiB only. We have
             // dedicated build/test runs for each system also, they create an
             // archive with binaries and logs.
-            sh 'tar -czf build.tgz \$(ls -d test-logs-* | tail -2)'
-            archiveArtifacts artifacts: 'build.tgz', fingerprint: true
+            sh 'tar -cjf build.bz2 \$(ls -d test-logs-* | tail -2)'
+            archiveArtifacts artifacts: 'build.bz2', fingerprint: true
         }
     }
 }
