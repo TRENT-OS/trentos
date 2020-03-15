@@ -26,7 +26,7 @@ def print_step_info(name) { echo "#################### " + name }
 
 pipeline {
     agent {
-        label 'jenkins_secondary_slave'
+        label 'test_network'
     }
     options {
         skipDefaultCheckout true
