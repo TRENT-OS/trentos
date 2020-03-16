@@ -61,7 +61,6 @@ pipeline {
                 }
             }
         }
-
         stage('prepare_test') {
             agent {
                 docker {
