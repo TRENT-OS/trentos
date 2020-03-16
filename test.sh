@@ -191,13 +191,22 @@ function run_test()
 
         print_info "Prepare TA integration tests"
 
-        # copy files from test automation framework
         if [ -d ${FOLDER_BUILD_TA} ]; then
             rm -rf ${FOLDER_BUILD_TA}
         fi
         mkdir ${FOLDER_BUILD_TA}
+
+        # copy files from test automation framework to execute them from the
+        # test workspace. We do this, because we do not want to pollute the
+        # sources, since python creates a folder __pycache__ with "compiled"
+        # python scripts at the location of the scripts.
+        # ToDo: The copy operaction should better happen in the preparation,
+        #       step. It's done here for convenince reasons, as it allows
+        #       working on a test script and then just executing the "run"
+        #       stage, which will use the changed script then
         cp -R ${DIR_SRC_TA}/* ${FOLDER_BUILD_TA}/
 
+        print_info "Prepare KeyStore image"
         # run the pre-provisioning tool and output the prepared binary to
         # the test folder to be used by the provisioning test
         (
@@ -208,7 +217,6 @@ function run_test()
         )
 
         print_info "Running TA integration tests"
-
         # run tests in sub shell
         (
             cd ${FOLDER_BUILD_TA}/tests
