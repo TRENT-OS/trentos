@@ -35,6 +35,9 @@ pipeline {
         skipDefaultCheckout()
         disableConcurrentBuilds()
     }
+    environment {
+        TEST_RUN_BASE = "test-logs-${env.BUILD_TIMESTAMP}"
+    }
     stages {
         stage('workspace_cleanup') {
             when {
@@ -119,6 +122,9 @@ pipeline {
                     args DOCKER_TEST_ENV.args
                 }
             }
+            environment {
+                TEST_RUN_ID = "${env.TEST_RUN_BASE}-${env.STAGE_NAME}"
+            }
             steps {
                 print_step_info env.STAGE_NAME
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
@@ -136,8 +142,6 @@ pipeline {
                             test_logserver.py                \
                             test_cryptoserver.py'
                 }
-                junit 'test_results.xml'
-                sh 'mv test_results.xml \$(ls -d test-logs-* | tail -1)/'
             }
         }
         stage('test_network') {
@@ -149,6 +153,9 @@ pipeline {
                     args DOCKER_TEST_ENV.args
                 }
             }
+            environment {
+                TEST_RUN_ID = "${env.TEST_RUN_BASE}-${env.STAGE_NAME}"
+            }
             steps {
                 print_step_info env.STAGE_NAME
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
@@ -159,20 +166,27 @@ pipeline {
                                 test_tls_api.py'
                     }
                 }
-                junit 'test_results.xml'
-                sh 'mv test_results.xml \$(ls -d test-logs-* | tail -1)/'
             }
         }
     }
     post {
         always {
+            print_step_info 'process test results'
+            // running junit in a stage will prefix all the test with the stage
+            // name. This is not useful for us, because we just need the two
+            // different stages ro run network related tests separately. Thus
+            // we run jeunit here for all results of this pipeline run.
+            catchError {
+                junit env.TEST_RUN_BASE + '*/test_results.xml'
+            }
+
             print_step_info 'archive artifacts'
             // An archive with binaries (ie the build-* folders) is 530 MiB,
             // this makes CI run out of disk space quickly. Thus we just
             // archive the logs, which take about 300 KiB only. We have
             // dedicated build/test runs for each system also, they create an
             // archive with binaries and logs.
-            sh 'tar -cjf build.bz2 \$(ls -d test-logs-* | tail -2)'
+            sh 'tar -cjf build.bz2 ' + env.TEST_RUN_BASE + '*/'
             archiveArtifacts artifacts: 'build.bz2', fingerprint: true
         }
     }

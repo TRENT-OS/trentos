@@ -87,18 +87,14 @@ pipeline {
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                     sh 'scm-src/test.sh run ' + TEST_SYSTEM + '.py'
                 }
-                junit 'test_results.xml'
-                sh 'mv test_results.xml \$(ls -d test-logs-* | tail -1)/'
+                junit 'test-logs-*/test_results.xml'
             }
         }
     }
     post {
         always {
             print_step_info 'archive artifacts'
-            sh 'tar                                \
-                    -cjf ' + BUILD_SPEC + '.bz2    \
-                    ' + BUILD_SPEC + '             \
-                    \$(ls -d test-logs-* | tail -1)'
+            sh 'tar -cjf '+BUILD_SPEC+'.bz2 '+BUILD_SPEC+'/ test-logs-*/'
             archiveArtifacts artifacts: BUILD_SPEC + '.bz2', fingerprint: true
         }
     }

@@ -227,6 +227,13 @@ function run_test()
                 source ${PYTHON_VENV_ACTIVATE}
             fi
 
+            if [ -z "${TEST_RUN_ID:-}" ]; then
+                local TEST_RUN_ID=test-logs-$(date +%Y%m%d-%H%M%S)
+                echo "TEST_RUN_ID not set, using ${TEST_RUN_ID}"
+            else
+                echo "TEST_RUN_ID is ${TEST_RUN_ID}"
+            fi
+
             # use a relative paths here, since they are guaranteed to be the
             # same. The absolute paths cab be different depending on the CI
             # slave or in case or parallel builds, which will lead to the test
@@ -242,7 +249,8 @@ function run_test()
                 # even if it's called proxy_path, it the proxy binary actually
                 --proxy_path=${DIR_REL_PROXY}
 
-                --junitxml=${WORKSPACE_ROOT}/test_results.xml
+                --test_run_id=${TEST_RUN_ID}
+                --junitxml=${WORKSPACE_ROOT}/${TEST_RUN_ID}/test_results.xml
             )
 
             pytest ${PYTEST_PARAMS[@]} $@
