@@ -168,6 +168,23 @@ pipeline {
                 }
             }
         }
+        stage('stash_build_doc') {
+            steps {
+                stash name: "stash_build_doc", includes: "build-DOC/"
+            }
+        }
+        stage('publish_doc_and_reports') {
+            agent {
+                label "jenkins_slave_vm_1"
+            }
+            when {
+                expression { return (env.BRANCH_NAME in ["master", "integration"])  }
+            }
+            steps {
+                unstash "stash_build_doc"
+                sh 'scm-src/publish_doc.sh'
+            }
+        }
     }
     post {
         always {
