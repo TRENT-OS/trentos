@@ -234,20 +234,13 @@ function run_test()
                 echo "TEST_RUN_ID is ${TEST_RUN_ID}"
             fi
 
-            # use a relative paths here, since they are guaranteed to be the
-            # same. The absolute paths cab be different depending on the CI
-            # slave or in case or parallel builds, which will lead to the test
-            # report analyzer thinking these are different tests then.
-            local DIR_REL_WORKSPACE_ROOT=$(realpath --relative-to="$(pwd)" "${WORKSPACE_ROOT}")
-            local DIR_REL_PROXY=$(realpath --relative-to="$(pwd)" "${WORKSPACE_ROOT}/${WORKSPACE_TEST_DIR}/${FOLDER_BUILD_PROXY}/build/proxy_app")
-
             PYTEST_PARAMS=(
                 -v
                 # --capture=no   # show printf() from python scripts in console
-                --workspace_path=${DIR_REL_WORKSPACE_ROOT}
+                --workspace_path=${WORKSPACE_ROOT}
 
                 # even if it's called proxy_path, it the proxy binary actually
-                --proxy_path=${DIR_REL_PROXY}
+                --proxy_path=${WORKSPACE_ROOT}/${WORKSPACE_TEST_DIR}/${FOLDER_BUILD_PROXY}/build/proxy_app
 
                 --test_run_id=${TEST_RUN_ID}
                 --junitxml=${WORKSPACE_ROOT}/${TEST_RUN_ID}/test_results.xml
