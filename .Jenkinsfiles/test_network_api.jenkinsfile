@@ -28,6 +28,15 @@ def agent_testerLabel  = "test"
 
 def agent_testerLabel_specialized  = "test_network"
 
+// Channels and users to notify on Slack with the build result.
+//
+// notify_channels = "#channel_name @USV2L0ACX @USV2L0ACX @USV2L0ACX"
+//
+//             posts to the slack channel and to the 3 users as private message
+// @USV2L0ACX is a slack member ID, you can copy yours from your slack profile.
+def notify_success = ""
+def notify_failure = "#jenkins"
+
 def print_step_info(name) { echo "#################### " + name }
 
 pipeline {
@@ -47,6 +56,8 @@ pipeline {
                         // "scm-src", builds should generate "build-xxx" folders, tests will use "workspace_test" ...
                         dir('scm-src') {
                             checkout scm
+                            // Notify Bitbucket that job is in progress
+                            step([$class: 'StashNotifier'])
                         }
                     }
                 }
@@ -134,7 +145,24 @@ pipeline {
                 sh 'tar -cjf '+BUILD_SPEC+'.bz2 '+BUILD_SPEC+'/ test-logs-*/'
                 archiveArtifacts artifacts: BUILD_SPEC + '.bz2', fingerprint: true
                 sh 'rm -rf *'
+                // Notify Bitbucket that job is done
+                step([$class: 'StashNotifier'])
             }
+        }
+        success {
+            // Notify slack that build succeded
+            slackSend color: 'good', channel : notify_success, message: \
+            "${currentBuild.currentResult} : `${env.JOB_NAME}` #${env.BUILD_NUMBER}"
+        }
+        failure {
+            // Notify slack that build failed
+            slackSend color: 'bad', channel : notify_failure, message: \
+            "${currentBuild.currentResult} : `${env.JOB_NAME}` #${env.BUILD_NUMBER}"
+        }
+        unstable {
+            // Notify slack that build is unstable
+            slackSend color: 'bad', channel : notify_failure, message: \
+            "${currentBuild.currentResult} : `${env.JOB_NAME}` #${env.BUILD_NUMBER}"
         }
     }
 }
