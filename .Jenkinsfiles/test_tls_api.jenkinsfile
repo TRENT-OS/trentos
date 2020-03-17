@@ -19,57 +19,69 @@ def DOCKER_TEST_ENV  = [ image: 'seos_test_env_20191010',
                                 ' --device=/dev/net/tun'
                        ]
 
+def agent_builderLabel = "build"
+
+def agent_testerLabel  = "test"
+
+// We need to make sure the TLS test runs on the primary slave (which should be
+// a single machine) because -- for now -- we need to hardcode the IP of the
+// host system the TLS test server is running on.
+// This may be removed again later, when we can retrieve the IP of the QEMU
+// host via a dedicated proxy command.
+def agent_testerLabel_specialized  = "test_tls"
+
 def print_step_info(name) { echo "#################### " + name }
 
 pipeline {
-    // We need to make sure the TLS test runs on the primary slave (which should be
-    // a single machine) because -- for now -- we need to hardcode the IP of the
-    // host system the TLS test server is running on.
-    // This may be removed again later, when we can retrieve the IP of the QEMU
-    // host via a dedicated proxy command.
-    agent {
-        label 'test_tls'
-    }
+    agent none
     options {
         skipDefaultCheckout true
     }
     stages {
-        stage('clean_checkout') {
-            steps {
-                print_step_info env.STAGE_NAME
-                cleanWs()
-                // everything is in separate folders to avoid file conflicts. Sources are checked out into
-                // "scm-src", builds should generate "build-xxx" folders, tests will use "workspace_test" ...
-                dir('scm-src') {
-                    checkout scm
+        stage('Build_stage'){
+            agent { label agent_builderLabel }
+            stages {
+                stage('clean_checkout') {
+                    steps {
+                        print_step_info env.STAGE_NAME
+                        cleanWs()
+                        // everything is in separate folders to avoid file conflicts. Sources are checked out into
+                        // "scm-src", builds should generate "build-xxx" folders, tests will use "workspace_test" ...
+                        dir('scm-src') {
+                            checkout scm
+                        }
+                    }
                 }
-            }
-        }
-        stage('build') {
-            agent {
-                docker {
-                    reuseNode true
-                    image DOCKER_BUILD_ENV.image
-                    args DOCKER_BUILD_ENV.args
+                stage('build') {
+                    agent {
+                        docker {
+                            reuseNode true
+                            image DOCKER_BUILD_ENV.image
+                            args DOCKER_BUILD_ENV.args
+                        }
+                    }
+                    steps {
+                        print_step_info env.STAGE_NAME
+                        // trigger the build
+                        sh 'scm-src/build.sh ' + TEST_SYSTEM
+                        stash name: 'build_stash', includes: '**'
+                    }
                 }
-            }
-            steps {
-                print_step_info env.STAGE_NAME
-                // trigger the build
-                sh 'scm-src/build.sh ' + TEST_SYSTEM
-            }
-        }
-        stage('astyle_check') {
-            steps {
-                print_step_info env.STAGE_NAME
-                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    sh 'scm-src/build.sh check_astyle_artifacts'
+                stage('astyle_check') {
+                    steps {
+                        print_step_info env.STAGE_NAME
+                        catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                            sh 'scm-src/build.sh check_astyle_artifacts'
+                        }
+                        sh 'rm -rf *'
+                    }
                 }
             }
         }
         stage('prepare_test') {
             agent {
                 docker {
+                    label agent_testerLabel
                     reuseNode true
                     image DOCKER_TEST_ENV.image
                     args DOCKER_TEST_ENV.args
@@ -77,12 +89,17 @@ pipeline {
             }
             steps {
                 print_step_info env.STAGE_NAME
+                sh 'rm -rf *'
+                unstash 'build_stash'
                 sh 'scm-src/test.sh prepare'
+                stash name: 'test_env_stash', includes: 'scm-src/**, workspace_test/**,' + BUILD_SPEC + '/**'
+                sh 'rm -rf *'
             }
         }
         stage('test') {
             agent {
                 docker {
+                    label agent_testerLabel_specialized
                     reuseNode true
                     image DOCKER_TEST_ENV.image
                     args DOCKER_TEST_ENV.args
@@ -90,20 +107,30 @@ pipeline {
             }
             steps {
                 print_step_info env.STAGE_NAME
+                sh 'rm -rf *'
+                unstash 'test_env_stash'
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                     lock('nw_test_lock') {
                         sh 'scm-src/test.sh run ' + TEST_SYSTEM + '.py'
                     }
                 }
                 junit 'test-logs-*/test_results.xml'
+                stash name: 'test_result_stash', includes: ' test-logs*/**,' + BUILD_SPEC + '/**'
+                sh 'rm -rf *'
             }
         }
     }
     post {
         always {
-            print_step_info 'archive artifacts'
-            sh 'tar -cjf '+BUILD_SPEC+'.bz2 '+BUILD_SPEC+'/ test-logs-*/'
-            archiveArtifacts artifacts: BUILD_SPEC + '.bz2', fingerprint: true
+            node(agent_testerLabel)
+            {
+                print_step_info 'archive artifacts'
+                sh 'rm -rf *'
+                unstash 'test_result_stash'
+                sh 'tar -cjf '+BUILD_SPEC+'.bz2 '+BUILD_SPEC+'/ test-logs-*/'
+                archiveArtifacts artifacts: BUILD_SPEC + '.bz2', fingerprint: true
+                sh 'rm -rf *'
+            }
         }
     }
 }
