@@ -58,12 +58,6 @@ pipeline {
                 }
             }
         }
-        stage('docker_update') {
-            steps {
-                print_step_info env.STAGE_NAME
-                sh 'docker pull ' + DOCKER_TEST_ENV.image
-            }
-        }
         stage('build_doc') {
             agent {
                 docker {
@@ -103,6 +97,7 @@ pipeline {
             agent {
                 docker {
                     reuseNode true
+                    alwaysPull true
                     registryUrl DOCKER_TEST_ENV.registry
                     image DOCKER_TEST_ENV.image
                     args DOCKER_TEST_ENV.args
@@ -117,6 +112,7 @@ pipeline {
             agent {
                 docker {
                     reuseNode true
+                    alwaysPull true
                     registryUrl DOCKER_TEST_ENV.registry
                     image DOCKER_TEST_ENV.image
                     args DOCKER_TEST_ENV.args
@@ -148,6 +144,7 @@ pipeline {
             agent {
                 docker {
                     reuseNode true
+                    alwaysPull true
                     registryUrl DOCKER_TEST_ENV.registry
                     image DOCKER_TEST_ENV.image
                     args DOCKER_TEST_ENV.args
