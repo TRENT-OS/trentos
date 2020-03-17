@@ -175,7 +175,7 @@ pipeline {
         }
         stage('publish_doc_and_reports') {
             agent {
-                label "jenkins_slave_vm_1"
+                label "publish_doc"
             }
             when {
                 expression { return (env.BRANCH_NAME in ["master", "integration"])  }
