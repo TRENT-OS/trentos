@@ -14,4 +14,6 @@ rm -rf /var/www/${BRANCH_NAME}
 mkdir -p /var/www/${BRANCH_NAME}
 mv build-DOC/SEOS-API_doc-html /var/www/${BRANCH_NAME}/
 mv build-DOC/SEOS-Projects_doc-html /var/www/${BRANCH_NAME}/
-mv build-DOC/test_seos_libs /var/www/${BRANCH_NAME}/
+
+# this is no longer there
+# mv build-DOC/test_seos_libs /var/www/${BRANCH_NAME}/
