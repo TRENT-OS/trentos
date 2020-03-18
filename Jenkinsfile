@@ -166,8 +166,11 @@ pipeline {
             }
         }
         stage('stash_build_doc') {
+            when {
+                expression { return (env.BRANCH_NAME in ["master", "integration"])  }
+            }
             steps {
-                stash name: "stash_build_doc", includes: "build-DOC/"
+                stash name: "stash_build_doc", includes: "build-DOC/, scm-src/publish_doc.sh"
             }
         }
         stage('publish_doc_and_reports') {
@@ -179,7 +182,7 @@ pipeline {
             }
             steps {
                 unstash "stash_build_doc"
-                sh 'scm-src/publish_doc.sh'
+                sh 'scm-src/publish_doc.sh ' + env.BRANCH_NAME
             }
         }
     }
