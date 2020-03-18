@@ -88,6 +88,12 @@ function build_test_tools()
     (
         cd ${WORKSPACE_TEST_DIR}
 
+        # before building any SDK tools, do the unit test first to check if the
+        # the code of the SDK works properly.
+        print_info "Building and Running SEOS Libs Unit Tests"
+        ${DIR_SRC_SEOS_LIBS}/test.sh
+
+        # now buld the SDK tool
         build_seos_sdk_tool tools/proxy ${FOLDER_BUILD_PROXY}
 
         build_seos_sdk_tool tools/keystore_provisioning_tool ${FOLDER_BUILD_KPT}
@@ -130,12 +136,6 @@ function prepare_test()
             pydoc3 -w ${DIR_SRC_TA}/tests/*.py
         )
         #mv ${DIR_SRC_TA}/doc .
-
-        print_info "Building SEOS Libs Unit Tests"
-        # run preparation script in sub shell
-        (
-            ${DIR_SRC_SEOS_LIBS}/test.sh prepare
-        )
 
 
         print_info "Check Python version and packages"
@@ -182,12 +182,6 @@ function run_test()
 
     (
         cd ${WORKSPACE_TEST_DIR}
-
-        print_info "Running SEOS Libs Unit Tests"
-        # run seos_libs unit tests in sub shell
-        (
-            ${DIR_SRC_SEOS_LIBS}/test.sh run
-        )
 
         print_info "Prepare TA integration tests"
 
