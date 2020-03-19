@@ -34,6 +34,13 @@ pipeline {
     options {
         skipDefaultCheckout()
         disableConcurrentBuilds()
+
+        // unfortunately there is no way to have build discarding conditional
+        // for development branches only, so "master" and "integration" would
+        // keep their builds. The potential work around is having a conditional
+        // stage where "master" and "integration" push a package to an artifact
+        // server, which then preserves this.
+        buildDiscarder(logRotator(numToKeepStr: '20'))
     }
     environment {
         TEST_RUN_BASE = "test-logs-${env.BUILD_TIMESTAMP}"
