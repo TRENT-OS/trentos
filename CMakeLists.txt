@@ -19,30 +19,6 @@ if (ENABLE_LINT)
     set(CMAKE_C_CLANG_TIDY "clang-tidy;-checks=*")
 endif()
 
-
-#-------------------------------------------------------------------------------
-# SEOS
-#-------------------------------------------------------------------------------
-
-# fail safe check here that SEOS_SANDBOX_DIR is set
-if (NOT SEOS_SANDBOX_DIR)
-    message(FATAL_ERROR "missing SEOS_SANDBOX_DIR")
-endif()
-
-if (NOT EXISTS "${SEOS_SANDBOX_DIR}")
-    message(FATAL_ERROR "missing SEOS sandbox at ${SEOS_SANDBOX_DIR}")
-endif()
-
-# fail safe check here that SEOS_LIBS_DIR is set
-if (NOT SEOS_LIBS_DIR)
-    message(FATAL_ERROR "missing SEOS_LIBS_DIR")
-endif()
-
-if (NOT EXISTS "${SEOS_LIBS_DIR}")
-    message(FATAL_ERROR "missing SEOS libs at ${SEOS_LIBS_DIR}")
-endif()
-
-
 #-------------------------------------------------------------------------------
 # use project specific cmake file
 #-------------------------------------------------------------------------------
