@@ -8,12 +8,13 @@
 #
 #-------------------------------------------------------------------------------
 
+DOC_ROOT=/var/www
+
 BRANCH_NAME=$1
+DOC_DIR=${DOC_ROOT}/seos_tests/${BRANCH_NAME}
 
-rm -rf /var/www/${BRANCH_NAME}
-mkdir -p /var/www/${BRANCH_NAME}
-mv build-DOC/SEOS-API_doc-html /var/www/${BRANCH_NAME}/
-mv build-DOC/SEOS-Projects_doc-html /var/www/${BRANCH_NAME}/
+rm -rf ${DOC_DIR}
+mkdir -p ${DOC_DIR}
 
-# this is no longer there
-# mv build-DOC/test_seos_libs /var/www/${BRANCH_NAME}/
+# ToDo: should better copy and not move
+mv build-DOC/SEOS-Projects_doc-html ${DOC_DIR}/

@@ -14,19 +14,31 @@ WORKSPACE_ROOT=$(pwd)
 
 #-------------------------------------------------------------------------------
 # our workspace name
-WORKSPACE_TEST_DIR=workspace_test
+WORKSPACE_TEST_FOLDER=workspace_test
 
 
 #-------------------------------------------------------------------------------
 # SEOS Sandbox
 DIR_SRC_SANDBOX=${DIR_SRC}/seos_sandbox
-DIR_SRC_SEOS_LIBS=${DIR_SRC_SANDBOX}/projects/libs/seos_libs
+DIR_BIN_SDK=${WORKSPACE_ROOT}/${WORKSPACE_TEST_FOLDER}/seos-sdk/bin
 
-# Keystore Provisioning Tool
-FOLDER_BUILD_KPT=kpt
 
-# Proxy
-FOLDER_BUILD_PROXY=proxy
+# Keystore Provisioning Tool usage wrapper
+function sdk_kstp()
+{
+    local CFG_XML=$1
+    local IMG_OUT=$2
+
+    # The keystore provisioning tool currently works by feeding a XML file into
+    # a python script that will create command line arguments for the actual
+    # tool. The tool creates a file "nvm_06", which we rename into the desired
+    # image file name then.
+    # Since this function can be called from a different working directory, we
+    # must ensure DIR_BIN_SDK is an absolute path
+    python3 ${DIR_BIN_SDK}/xmlParser.py ${CFG_XML} ${DIR_BIN_SDK}/kspt
+
+    mv nvm_06 ${IMG_OUT}
+}
 
 
 #-------------------------------------------------------------------------------
@@ -56,51 +68,23 @@ function print_info()
 
 
 #-------------------------------------------------------------------------------
-function build_seos_sdk_tool()
-{
-    local SDK_TOOLS_SRC_DIR=$1
-    local FOLDER_BUILD=$2
-
-    print_info "Building SDK tool: ${SDK_TOOLS_SRC_DIR}"
-
-    if [ ! -d ${FOLDER_BUILD} ]; then
-        mkdir -p ${FOLDER_BUILD}
-    fi
-
-    # run build in subshell
-    (
-        cd ${FOLDER_BUILD}
-        ${DIR_SRC_SANDBOX}/${SDK_TOOLS_SRC_DIR}/build.sh ${DIR_SRC_SANDBOX}
-    )
-}
-
-
-#-------------------------------------------------------------------------------
-function build_test_tools()
+function build_seos_sdk()
 {
     # remove folder if it exists already. This should not happen in CI when we
     # have a clean workspace, but it's convenient for local builds
-    if [ -d ${WORKSPACE_TEST_DIR} ]; then
-        rm -rf ${WORKSPACE_TEST_DIR}
+    if [ -d ${WORKSPACE_TEST_FOLDER} ]; then
+        rm -rf ${WORKSPACE_TEST_FOLDER}
     fi
-    mkdir ${WORKSPACE_TEST_DIR}
+    mkdir ${WORKSPACE_TEST_FOLDER}
 
-    (
-        cd ${WORKSPACE_TEST_DIR}
+    # if we have a SDK apackage, these stept are no longer required, because
+    # they have been executed when the packages was created and released. Since
+    # we still use the SEOS snadbox, we have to build the SDK package here and
+    # also give it some testing
+    ${DIR_SRC_SANDBOX}/build-sdk.sh build-bin ${WORKSPACE_TEST_FOLDER}/seos-sdk
+    ${DIR_SRC_SANDBOX}/build-sdk.sh unit-tests ${WORKSPACE_TEST_FOLDER}/seos-sdk
 
-        # before building any SDK tools, do the unit test first to check if the
-        # the code of the SDK works properly.
-        print_info "Building and Running SEOS Libs Unit Tests"
-        ${DIR_SRC_SEOS_LIBS}/test.sh
-
-        # now buld the SDK tool
-        build_seos_sdk_tool tools/proxy ${FOLDER_BUILD_PROXY}
-
-        build_seos_sdk_tool tools/keystore_provisioning_tool ${FOLDER_BUILD_KPT}
-        cp -v ${DIR_SRC_SANDBOX}/tools/keystore_provisioning_tool/{xmlParser.py,run.sh} ${FOLDER_BUILD_KPT}
-    )
-
-    echo "test tool building complete"
+    print_info "SEOS SDK build complete"
 }
 
 #-------------------------------------------------------------------------------
@@ -113,13 +97,13 @@ function check_tool_installed()
 #-------------------------------------------------------------------------------
 function prepare_test()
 {
-    if [ ! -d ${WORKSPACE_TEST_DIR} ]; then
+    if [ ! -d ${WORKSPACE_TEST_FOLDER} ]; then
         echo "ERROR: missing test workspace"
         exit 1
     fi
 
     (
-        cd ${WORKSPACE_TEST_DIR}
+        cd ${WORKSPACE_TEST_FOLDER}
 
         print_info "Building test plan documentation"
         mkdir -p doc
@@ -175,13 +159,13 @@ function prepare_test()
 #-------------------------------------------------------------------------------
 function run_test()
 {
-    if [ ! -d ${WORKSPACE_TEST_DIR} ]; then
+    if [ ! -d ${WORKSPACE_TEST_FOLDER} ]; then
         echo "ERROR: missing test workspace"
         exit 1
     fi
 
     (
-        cd ${WORKSPACE_TEST_DIR}
+        cd ${WORKSPACE_TEST_FOLDER}
 
         print_info "Prepare TA integration tests"
 
@@ -201,14 +185,10 @@ function run_test()
         cp -R ${DIR_SRC_TA}/* ${FOLDER_BUILD_TA}/
 
         print_info "Prepare KeyStore image"
-        # run the pre-provisioning tool and output the prepared binary to
-        # the test folder to be used by the provisioning test
-        (
-            ${FOLDER_BUILD_KPT}/run.sh \
-                ${DIR_SRC_KPD}/preprovisionedKeys.xml \
-                ${FOLDER_BUILD_KPT}/build/keystore_provisioning_tool  \
-                ${FOLDER_BUILD_TA}/tests/preProvisionedKeyStoreImg
-        )
+        # Create a fresh keystore image for each test run.
+        sdk_kstp \
+            ${DIR_SRC_KPD}/preprovisionedKeys.xml \
+            ${FOLDER_BUILD_TA}/tests/preProvisionedKeyStoreImg
 
         print_info "Running TA integration tests"
         # run tests in sub shell
@@ -234,7 +214,7 @@ function run_test()
                 --workspace_path=${WORKSPACE_ROOT}
 
                 # even if it's called proxy_path, it the proxy binary actually
-                --proxy_path=${WORKSPACE_ROOT}/${WORKSPACE_TEST_DIR}/${FOLDER_BUILD_PROXY}/build/proxy_app
+                --proxy_path=${DIR_BIN_SDK}/proxy_app
 
                 --test_run_id=${TEST_RUN_ID}
                 --junitxml=${WORKSPACE_ROOT}/${TEST_RUN_ID}/test_results.xml
@@ -256,7 +236,7 @@ function run_test()
 if [[ "${1:-}" == "build" ]]; then
     shift
 
-    build_test_tools
+    build_seos_sdk
 
 
 elif [[ "${1:-}" == "prepare" ]]; then
@@ -265,7 +245,7 @@ elif [[ "${1:-}" == "prepare" ]]; then
     # ToDo: the step "build_test_tools" is executed here to keep backwards
     #       compatibility. It will be removed once all script have been updated
     #       to invoke the build step above.
-    build_test_tools
+    build_seos_sdk
     prepare_test
 
 

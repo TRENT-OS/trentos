@@ -9,8 +9,8 @@
 #-------------------------------------------------------------------------------
 
 BUILD_SCRIPT_DIR=$(cd `dirname $0` && pwd)
-
-SEOS_SANDBOX_DIR="${BUILD_SCRIPT_DIR}/seos_sandbox"
+SDK_SRC_DIR="${BUILD_SCRIPT_DIR}/seos_sandbox"
+SDK_OUT_DIR="SEOS-SDK"
 
 # This list is used for the targets "all-projects" and "all". The order within
 # the list starts with the most simple system to build, then moves on to more
@@ -111,90 +111,39 @@ function check_astyle_artifacts()
     fi
 }
 
-#-------------------------------------------------------------------------------
-function run_build()
-{
-    if [ "$#" -lt 2 ]; then
-        echo "ERROR: invalid parameters for ${FUNCNAME[0]}()"
-        return 1
-    fi
 
-    local TARGET_NAME=${1}
-    local NINJA_TARGETS=${2}
-    shift 2
+#-------------------------------------------------------------------------------
+function run_build_sdk()
+{
+    local BUILD_MODE=$1
+    local BUILD_DIR=$2
 
     echo ""
     echo "##"
-    echo "## building: ${TARGET_NAME}"
+    echo "## building SEOS SDK Package (${BUILD_MODE}) in ${BUILD_DIR}"
     echo "##"
 
-    # build dir will be a subdirectory of the current directory, where this
-    # script is invoked in. We make this a global variable, so all following
-    # steps can find the build directory easily
-    BUILD_DIR=$(pwd)/build-${TARGET_NAME}
-
-    # check if cmake init has failed previously
-    if [[ -e ${BUILD_DIR} ]] && [[ ! -e ${BUILD_DIR}/rules.ninja ]]; then
-        echo "deleting broken build folder and re-initialize it"
-        rm -rf ${BUILD_DIR}
-    fi
-
-    if [[ ! -e ${BUILD_DIR} ]]; then
-        # use subshell to configure the build
-        (
-            mkdir -p ${BUILD_DIR}
-            cd ${BUILD_DIR}
-
-            cmake $@ -G Ninja ${SEOS_SANDBOX_DIR}
-
-            # must run cmake multiple times, so config settings propagate properly
-            echo "re-run cmake (1/2)"
-            cmake .
-            echo "re-run cmake (2/2)"
-            cmake .
-        )
-    fi
-
-    # build in subshell
-    (
-        cd ${BUILD_DIR}
-        ninja ${NINJA_TARGETS}
-    )
+    ${SDK_SRC_DIR}/build-sdk.sh ${BUILD_MODE} ${BUILD_DIR}
 }
-
 
 #-------------------------------------------------------------------------------
 function run_build_doc()
 {
+    # we support out-of-source builds, thus the documentation build output
+    # will be placed into a subdirectory of the current working directory.
+    local BUILD_DIR=build-DOC
 
-    # build SEOS API documentation
-    run_build DOC "seos_sandbox_doc" -DSEOS_SANDBOX_DOC=ON $@
+    # remove folder if it exists already. This should not happen in CI when we
+    # have a clean workspace, but it's convenient for local builds
+    if [ -d ${BUILD_DIR} ]; then
+        rm -rf ${BUILD_DIR}
+    fi
+    mkdir ${BUILD_DIR}
 
-    # collect SEOS API documentation
+    # build in subshell
     (
         cd ${BUILD_DIR}
-        local DOC_MODULES=$(find . -name html -type d -printf "%P\n")
-
-        # folder where we collect things
-        local SEOS_DOC_OUTPUT=SEOS-API_doc-html
-        if [[ -e ${SEOS_DOC_OUTPUT} ]]; then
-            echo "removing attic SEOS API documentation collection folder"
-            rm -rf ${SEOS_DOC_OUTPUT}
-        fi
-        mkdir ${SEOS_DOC_OUTPUT}
-        echo "collecting HTML documentation in ${SEOS_DOC_OUTPUT}..."
-        for module in ${DOC_MODULES[@]}; do
-            local TARGET_FOLDER=$(basename $(dirname ${module}))
-            echo "  ${TARGET_FOLDER} <- ${module}"
-            cp -ar ${module} ${SEOS_DOC_OUTPUT}/${TARGET_FOLDER}
-        done
-        cp -ar seos-api-index.html ${SEOS_DOC_OUTPUT}/index.html
-    )
-
-    # build SEOS projects documentation
-    (
-        cd ${BUILD_DIR}
-
+        # build SEOS projects documentation
         SEOS_PROJECTS_DOC_OUTPUT=SEOS-Projects_doc-html
         if [[ -e ${SEOS_PROJECTS_DOC_OUTPUT} ]]; then
             echo "removing attic SEOS projects documentation collection folder"
@@ -280,97 +229,85 @@ EOF
 
 
 #-------------------------------------------------------------------------------
-function run_build_mode()
+function run_system_build()
 {
     if [ "$#" -lt 3 ]; then
         echo "ERROR: invalid parameters for ${FUNCNAME[0]}()"
         return 1
     fi
 
-    local BUILD_PROJECT_DIR=${1}
+    local SDK_DIR=${1}
+    local PROJECT_DIR=${2}
+    local BUILD_PLATFORM=${3}
+    local BUILD_TYPE=${4}
+    shift 4
+
+    local PROJECT_NAME=$(basename ${PROJECT_DIR})
+
+    # build output will be generated in this folder
+    local BUILD_DIR=build-${BUILD_PLATFORM}-${BUILD_TYPE}-${PROJECT_NAME}
+
+    local PARAMS=(
+        # BUILD_DIR and BUILD_PLATFORM must be first two params
+        ${BUILD_DIR}
+        ${BUILD_PLATFORM}
+        #------------------------------------------------
+        # everything below is passed to CMake
+
+        # settings processed by CMake directly
+        -D CMAKE_BUILD_TYPE=${BUILD_TYPE}
+        # setting for build system from SEOS SDK
+        -D SEOS_PROJECT_DIR=${BUILD_SCRIPT_DIR}
+        # setting for seos_tests CMprocessed by seos_test C
+        -D SEOS_SYSTEM=${PROJECT_DIR}
+    )
+
+    if [ ! -d ${SDK_DIR} ]; then
+        echo "missing SDK in ${SDK_DIR}"
+        return 1
+    fi
+
+    ${SDK_DIR}/build-system.sh ${PARAMS[@]} $@
+}
+
+
+#-------------------------------------------------------------------------------
+function run_sdk_and_system_build()
+{
+    if [ "$#" -lt 3 ]; then
+        echo "ERROR: invalid parameters for ${FUNCNAME[0]}()"
+        return 1
+    fi
+
+    local PROJECT_DIR=${1}
     local BUILD_PLATFORM=${2}
     local BUILD_TYPE=${3}
     shift 3
 
-    local BUILD_PROJECT_NAME=$(basename ${BUILD_PROJECT_DIR})
-    local TARGET_NAME=${BUILD_PLATFORM}-${BUILD_TYPE}-${BUILD_PROJECT_NAME}
+    # first build a source-only SDK package from the SDK sources and then use
+    # this to build the system. This does not cost much time and ensures we can
+    # build a the system with the SDK package. We don't need to build the full
+    # package, because no SDK tools or docs are needed to build a system. In
+    # case the SDK shall really be used directly, simply comment out the
+    # "run_build_sdk" step and pass ${SDK_SRC_DIR}
+    run_build_sdk only-sources ${SDK_OUT_DIR}
 
-    local CMAKE_PARAMS=(
-        # settings processed by CMake directly
-        -DCMAKE_TOOLCHAIN_FILE=${SEOS_SANDBOX_DIR}/sdk-sel4-camkes/kernel/gcc.cmake
-        -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
-        # seL4 build system settings
-        # SEL4_CACHE_DIR is a binary cache. There are some binaries (currently
-        # musllibc and capDL-toolthat) that project agnostic, so we don't have
-        # to rebuild them every time. This reduces the build time a lot.
-        -DSEL4_CACHE_DIR=$(pwd)/cache-${BUILD_PLATFORM}
-        -DPLATFORM=${BUILD_PLATFORM}
-        -DKernelVerificationBuild=OFF
-        # SEOS build system settings
-        -DSEOS_PROJECT_DIR=${BUILD_SCRIPT_DIR}
-        -DSEOS_SYSTEM=${BUILD_PROJECT_DIR}
+    local PARAMS=(
+        ${SDK_OUT_DIR}/src   # ${SDK_SRC_DIR} to sue SDK sources directly
+        ${PROJECT_DIR}
+        ${BUILD_PLATFORM}
+        ${BUILD_TYPE}
     )
-
-    case "${BUILD_PLATFORM}" in
-        #-------------------------------------
-        am335x | am335x-boneblack | am335x-boneblue | \
-        apq8064 |\
-        bcm2837 | rpi3 | bcm2837-rpi3 |\
-        exynos4 |\
-        exynos5 | exynos5250 | exynos5410 | exynos5422 |\
-        hikey |\
-        imx6 | sabre | imx6-sabre | wandq | imx6-wandq |\
-        imx7  | imx7-sabre |\
-        imx31 | kzm | imx31-kzm |\
-        omap3 |\
-        qemu-arm-virt |\
-        tk1 |\
-        zynq7000 )
-
-            CMAKE_PARAMS+=(
-                -DCROSS_COMPILER_PREFIX=arm-linux-gnueabi-
-            )
-            ;;
-        #-------------------------------------
-        fvp  |\
-        imx8mq-evk | imx8mm-evk |\
-        odroidc2 |\
-        rockpro64 |\
-        tx1 |\
-        tx2 |\
-        zynqmp | zynqmp-zcu102 | zynqmp-ultra96 | ultra96 )
-            CMAKE_PARAMS+=(
-                -DCROSS_COMPILER_PREFIX=aarch64-linux-gnu-
-            )
-            ;;
-        #-------------------------------------
-        ariane |\
-        hifive |\
-        spike )
-            CMAKE_PARAMS+=(
-                -DCROSS_COMPILER_PREFIX=riscv64-unknown-linux-gnu-
-            )
-            ;;
-        #-------------------------------------
-        pc99)
-            CMAKE_PARAMS+=(
-                -DCROSS_COMPILER_PREFIX=x86_64-linux-gnu-
-            )
-            ;;
-        #-------------------------------------
-        *)
-            echo "invalid target: ${BUILD_TARGET}"
-            exit 1
-            ;;
-    esac
-
-    run_build ${TARGET_NAME} all ${CMAKE_PARAMS[@]} $@
+    run_system_build ${PARAMS[@]} $@
 }
 
 
 #-------------------------------------------------------------------------------
 function build_all_projects()
 {
+    local BUILD_MODE_SDK=$1
+    shift
+
     ALL_PLATFORMS=(
       #  # --- ARM ---
       #  am335x
@@ -414,6 +351,8 @@ function build_all_projects()
       #  # pc99 # does not compile
     )
 
+    run_build_sdk ${BUILD_MODE_SDK} ${SDK_OUT_DIR}
+
     # for now, just loop over the list above and abort the whole build on the
     # first error. Ideally we would not abort here, but try to do all builds
     # and then report which failed. Or better, the caller should invoke this
@@ -424,7 +363,15 @@ function build_all_projects()
 
         if [[ "${PRJ_DIR}" != "-" ]]; then
             for BUILD_PLATFORM in ${ALL_PLATFORMS[@]}; do
-                run_build_mode ${PRJ_DIR} ${BUILD_PLATFORM} Debug $@
+
+                local PARAMS=(
+                    ${SDK_OUT_DIR}/src   # ${SDK_SRC_DIR} to sue SDK sources directly
+                    ${PRJ_DIR}
+                    ${BUILD_PLATFORM}
+                    Debug
+                    $@
+                )
+                run_system_build ${PARAMS[@]}
             done
         fi
     done
@@ -443,12 +390,15 @@ if [[ "${1:-}" == "doc" ]]; then
 
 elif [[ "${1:-}" == "all-projects" ]]; then
     shift
-    build_all_projects $@
+    # build SDK package with binaries and use this to build all projects
+    build_all_projects build-bin $@
 
 elif [[ "${1:-}" == "all" ]]; then
     shift
     run_build_doc $@
-    build_all_projects $@
+    # build SDK package with binaries and docs, then use this to build all
+    # projects
+    build_all_projects all $@
 
 elif [[ "${1:-}" == "check_astyle_artifacts" ]]; then
     shift
@@ -464,14 +414,14 @@ elif [[ "${1:-}" == "clean" ]]; then
 elif map_project MAPPED_PROJECT_DIR $@; then
     echo "building ${1:-} from ${MAPPED_PROJECT_DIR} ..."
     shift
-    run_build_mode ${MAPPED_PROJECT_DIR} zynq7000 Debug $@
+    run_sdk_and_system_build ${MAPPED_PROJECT_DIR} zynq7000 Debug $@
     run_astyle
 
 elif [ ! -z $@ ]; then
     BUILD_PROJECT_DIR=${1:-}
     shift
     echo "building ${BUILD_PROJECT_DIR} using params: '$@' ..."
-    run_build_mode ${BUILD_PROJECT_DIR} zynq7000 Debug $@
+    run_sdk_and_system_build ${BUILD_PROJECT_DIR} zynq7000 Debug $@
     run_astyle
 
 else

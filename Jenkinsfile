@@ -205,9 +205,7 @@ pipeline {
             // archive with binaries and logs.
             sh 'tar -cjf build.bz2 \
                     ' + env.TEST_RUN_BASE + '*/ \
-                    build-DOC/SEOS-API_doc-html/ \
-                    build-DOC/SEOS-Projects_doc-html/ \
-                    build-DOC/seos-api-index.html'
+                    build-DOC/SEOS-Projects_doc-html'
             archiveArtifacts artifacts: 'build.bz2', fingerprint: true
         }
     }
