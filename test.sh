@@ -208,6 +208,17 @@ function run_test()
                 echo "TEST_RUN_ID is ${TEST_RUN_ID}"
             fi
 
+            local QEMU_CONN="${1}"
+
+            # the current use case assumes that a proxy is always required
+            if [[ ${QEMU_CONN} != "PTY" && ${QEMU_CONN} != "TCP" ]]; then
+                QEMU_CONN="PTY"
+                echo "QEMU connection was set to $QEMU_CONN as default."
+            else
+                echo "QEMU connection was set to $QEMU_CONN."
+                shift
+            fi
+
             PYTEST_PARAMS=(
                 -v
                 # --capture=no   # show printf() from python scripts in console
@@ -215,6 +226,9 @@ function run_test()
 
                 # even if it's called proxy_path, it the proxy binary actually
                 --proxy_path=${DIR_BIN_SDK}/proxy_app
+
+                # QEMU connection mode (PTY or TCP)
+                --qemu_connection=${QEMU_CONN}
 
                 --test_run_id=${TEST_RUN_ID}
                 --junitxml=${WORKSPACE_ROOT}/${TEST_RUN_ID}/test_results.xml
