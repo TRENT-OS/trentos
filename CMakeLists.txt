@@ -38,19 +38,3 @@ seos_import_camkes()
 
 get_filename_component(SEOS_SYSTEM_NAME "${SEOS_SYSTEM}" NAME)
 add_subdirectory(${SEOS_SYSTEM} ${SEOS_SYSTEM_NAME})
-
-
-#-------------------------------------------------------------------------------
-# post processing
-#-------------------------------------------------------------------------------
-
-set(IMAGE_NAME "$<TARGET_PROPERTY:rootserver_image,IMAGE_NAME>")
-add_custom_target(
-    seos_image_dump ALL
-    DEPENDS ${CMAKE_BINARY_DIR}/${IMAGE_NAME}
-    COMMAND ${CROSS_COMPILER_PREFIX}size ${IMAGE_NAME} | tee ${IMAGE_NAME}.size
-    COMMAND ${CROSS_COMPILER_PREFIX}objdump -dht ${IMAGE_NAME} > ${IMAGE_NAME}.lst
-    COMMAND ${CROSS_COMPILER_PREFIX}objdump -dghlsStx ${IMAGE_NAME} > ${IMAGE_NAME}.dump
-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
-    VERBATIM
-)
