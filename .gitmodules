@@ -67,3 +67,6 @@
 [submodule "src/tests/test_logserver"]
 	path = src/tests/test_logserver
 	url = ../../ss/test_logserver.git
+[submodule "src/demos/demo_iot_app"]
+	path = src/demos/demo_iot_app
+	url = ../../ss/demo_iot_app.git
