@@ -24,7 +24,7 @@ DIR_BIN_SDK=${WORKSPACE_ROOT}/${WORKSPACE_TEST_FOLDER}/seos-sdk/bin
 
 
 # Keystore Provisioning Tool usage wrapper
-function sdk_kstp()
+function sdk_kpt()
 {
     local CFG_XML=$1
     local IMG_OUT=$2
@@ -35,7 +35,7 @@ function sdk_kstp()
     # image file name then.
     # Since this function can be called from a different working directory, we
     # must ensure DIR_BIN_SDK is an absolute path
-    python3 ${DIR_BIN_SDK}/xmlParser.py ${CFG_XML} ${DIR_BIN_SDK}/kspt
+    python3 ${DIR_BIN_SDK}/xmlParser.py ${CFG_XML} ${DIR_BIN_SDK}/kpt
 
     mv nvm_06 ${IMG_OUT}
 }
@@ -186,7 +186,7 @@ function run_test()
 
         print_info "Prepare KeyStore image"
         # Create a fresh keystore image for each test run.
-        sdk_kstp \
+        sdk_kpt \
             ${DIR_SRC_KPD}/preprovisionedKeys.xml \
             ${FOLDER_BUILD_TA}/tests/preProvisionedKeyStoreImg
 
