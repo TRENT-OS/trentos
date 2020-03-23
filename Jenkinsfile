@@ -10,14 +10,15 @@ def DOCKER_BUILD_ENV = [ image: 'seos_build_env_20191010',
                        ]
 
 def DOCKER_TEST_ENV = [
-    image:      'docker:5000/seos_test_env:latest',
+    image:      'docker:5000/seos_test_env:test',
     args:       ' -v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro'+
                     ' -v /etc/localtime:/etc/localtime:ro' +
-                    ' --network=host' +
+                    ' --network=bridge' +
                     ' --cap-add=NET_ADMIN' +
                     ' --cap-add=NET_RAW' +
-                    ' --device=/dev/net/tun',
-    registry:   'http://docker:5000'
+                    ' --device=/dev/net/tun' +
+                    ' --group-add=sudo',
+    registry:   'https://docker:5000'
 ]
 
 

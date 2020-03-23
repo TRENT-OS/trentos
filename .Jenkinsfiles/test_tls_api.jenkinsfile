@@ -11,12 +11,14 @@ def DOCKER_BUILD_ENV = [ image: 'seos_build_env_20191010',
                                ' --group-add=1001'
                        ]
 
-def DOCKER_TEST_ENV  = [ image: 'seos_test_env_20191010',
+def DOCKER_TEST_ENV  = [ image: 'docker:5000/seos_test_env:test',
                          args:  ' -v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro'+
                                 ' -v /etc/localtime:/etc/localtime:ro' +
-                                ' --network=host' +
+                                ' --network=bridge' +
                                 ' --cap-add=NET_ADMIN' +
-                                ' --device=/dev/net/tun'
+                                ' --device=/dev/net/tun' +
+                                ' --group-add=sudo',
+                         registry:   'https://docker:5000'
                        ]
 
 def agent_builderLabel = "build"
@@ -100,7 +102,9 @@ pipeline {
             agent {
                 docker {
                     label agent_testerLabel
+                    alwaysPull true
                     reuseNode true
+                    registryUrl DOCKER_TEST_ENV.registry
                     image DOCKER_TEST_ENV.image
                     args DOCKER_TEST_ENV.args
                 }
@@ -118,7 +122,9 @@ pipeline {
             agent {
                 docker {
                     label agent_testerLabel_specialized
+                    alwaysPull true
                     reuseNode true
+                    registryUrl DOCKER_TEST_ENV.registry
                     image DOCKER_TEST_ENV.image
                     args DOCKER_TEST_ENV.args
                 }
@@ -128,9 +134,7 @@ pipeline {
                 sh 'rm -rf *'
                 unstash 'test_env_stash'
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    lock('nw_test_lock') {
                         sh 'scm-src/test.sh run ' + TEST_SYSTEM + '.py'
-                    }
                 }
                 junit 'test-logs-*/test_results.xml'
                 stash name: 'test_result_stash', includes: ' test-logs*/**,' + BUILD_SPEC + '/**'

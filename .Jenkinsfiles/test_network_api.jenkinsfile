@@ -9,17 +9,18 @@ def BUILD_SPEC  = 'build-zynq7000-Debug-' + TEST_SYSTEM
 def DOCKER_BUILD_ENV = [ image: 'docker:5000/seos_build_env:latest',
                          args: ' -v /etc/localtime:/etc/localtime:ro '+
                                ' --group-add=1001',
-                         registry: 'http://docker:5000'
+                         registry: 'https://docker:5000'
                        ]
 
-def DOCKER_TEST_ENV  = [ image: 'docker:5000/seos_test_env:latest',
+def DOCKER_TEST_ENV  = [ image: 'docker:5000/seos_test_env:test',
                          args:  ' -v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro'+
                                 ' -v /etc/localtime:/etc/localtime:ro' +
-                                ' --network=host' +
+                                ' --network=bridge' +
                                 ' --cap-add=NET_ADMIN' +
                                 ' --cap-add=NET_RAW' +
-                                ' --device=/dev/net/tun',
-                         registry: 'http://docker:5000'
+                                ' --device=/dev/net/tun' +
+                                ' --group-add=sudo',
+                         registry: 'https://docker:5000'
                        ]
 
 def agent_builderLabel = "build"
@@ -132,9 +133,7 @@ pipeline {
                 sh 'rm -rf *'
                 unstash 'test_env_stash'
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    lock('nw_test_lock'){
                         sh 'scm-src/test.sh run ' + TEST_SYSTEM + '.py'
-                    }
                 }
                 junit 'test-logs-*/test_results.xml'
                 stash name: 'test_result_stash', includes: ' test-logs*/**,' + BUILD_SPEC + '/**'
