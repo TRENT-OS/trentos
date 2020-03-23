@@ -134,7 +134,7 @@ pipeline {
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                     sh 'scm-src/test.sh                      \
                             run                              \
-                            test_hello_world.py              \
+                            test_demo_hello_world.py         \
                             test_chanmux.py                  \
                             test_proxy_nvm.py                \
                             test_crypto_api.py               \

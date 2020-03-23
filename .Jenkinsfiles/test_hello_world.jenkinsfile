@@ -1,4 +1,4 @@
-def TEST_SYSTEM = 'test_hello_world'
+def TEST_SYSTEM = 'demo_hello_world'
 def BUILD_SPEC  = 'build-zynq7000-Debug-' + TEST_SYSTEM
 
 // bind the localtime to docker container to avoid problems of gaps between the
@@ -120,7 +120,7 @@ pipeline {
                 sh 'rm -rf *'
                 unstash 'test_env_stash'
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    sh 'scm-src/test.sh run ' + TEST_SYSTEM + '.py'
+                    sh 'scm-src/test.sh run test_' + TEST_SYSTEM + '.py'
                 }
                 junit 'test-logs-*/test_results.xml'
                 stash name: 'test_result_stash', includes: ' test-logs*/**,' + BUILD_SPEC + '/**'

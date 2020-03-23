@@ -25,8 +25,9 @@ WELL_KNOWN_PROJECTS=(
     # a plan to drop using "src/tests" if the whole test system is a GIT
     # submodule and we don't have any local sources.
 
+    demo_hello_world,src/demos/demo_hello_world
+
     # tests
-    test_hello_world,src/tests/test_hello_world
     test_config_server,src/tests/test_config_server
     test_config_server_fs_backend,src/tests/test_config_server_fs_backend
     # test_filesystem_api,- # ToDo: we need a test project
