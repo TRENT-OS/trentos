@@ -411,7 +411,8 @@ elif [[ "${1:-}" == "check_astyle_artifacts" ]]; then
 
 elif [[ "${1:-}" == "clean" ]]; then
     shift
-    /bin/rm -rf build-*
+    rm -rf build-*
+    rm -rf ${SDK_OUT_DIR}
 
 elif map_project MAPPED_PROJECT_DIR $@; then
     echo "building ${1:-} from ${MAPPED_PROJECT_DIR} ..."
