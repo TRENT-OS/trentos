@@ -295,7 +295,7 @@ function run_sdk_and_system_build()
     run_build_sdk only-sources ${SDK_OUT_DIR}
 
     local PARAMS=(
-        ${SDK_OUT_DIR}/src   # ${SDK_SRC_DIR} to sue SDK sources directly
+        ${SDK_OUT_DIR}/src   # ${SDK_SRC_DIR} to use the SDK sources directly
         ${PROJECT_DIR}
         ${BUILD_PLATFORM}
         ${BUILD_TYPE}
