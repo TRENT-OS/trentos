@@ -71,7 +71,7 @@ function map_project()
                 exit 1
             fi
 
-            eval "${VAR_PRJ_DIR}=${PRJ_DIR}"
+            eval "${VAR_PRJ_DIR}=${BUILD_SCRIPT_DIR}/${PRJ_DIR}"
             return 0
         fi
 
@@ -259,9 +259,7 @@ function run_system_build()
         # settings processed by CMake directly
         -D CMAKE_BUILD_TYPE=${BUILD_TYPE}
         # setting for build system from SEOS SDK
-        -D OS_PROJECT_DIR=${BUILD_SCRIPT_DIR}
-        # setting for seos_tests CMprocessed by seos_test C
-        -D OS_SYSTEM=${PROJECT_DIR}
+        -D OS_PROJECT_DIR=${PROJECT_DIR}
     )
 
     if [ ! -d ${SDK_DIR} ]; then
@@ -368,7 +366,7 @@ function build_all_projects()
 
                 local PARAMS=(
                     ${SDK_OUT_DIR}/src   # ${SDK_SRC_DIR} to sue SDK sources directly
-                    ${PRJ_DIR}
+                    ${BUILD_SCRIPT_DIR}/${PRJ_DIR}
                     ${BUILD_PLATFORM}
                     Debug
                     $@
