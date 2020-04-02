@@ -245,21 +245,17 @@ function run_system_build()
     shift 4
 
     local PROJECT_NAME=$(basename ${PROJECT_DIR})
-
     # build output will be generated in this folder
     local BUILD_DIR=build-${BUILD_PLATFORM}-${BUILD_TYPE}-${PROJECT_NAME}
 
     local PARAMS=(
-        # BUILD_DIR and BUILD_PLATFORM must be first two params
-        ${BUILD_DIR}
+        # build-system.sh expect at least these parameters
+        ${PROJECT_DIR}
         ${BUILD_PLATFORM}
+        ${BUILD_DIR}
         #------------------------------------------------
-        # everything below is passed to CMake
-
-        # settings processed by CMake directly
+        # every parameter below is passed to CMake
         -D CMAKE_BUILD_TYPE=${BUILD_TYPE}
-        # setting for build system from SEOS SDK
-        -D OS_PROJECT_DIR=${PROJECT_DIR}
     )
 
     if [ ! -d ${SDK_DIR} ]; then
