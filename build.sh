@@ -259,9 +259,9 @@ function run_system_build()
         # settings processed by CMake directly
         -D CMAKE_BUILD_TYPE=${BUILD_TYPE}
         # setting for build system from SEOS SDK
-        -D SEOS_PROJECT_DIR=${BUILD_SCRIPT_DIR}
+        -D OS_PROJECT_DIR=${BUILD_SCRIPT_DIR}
         # setting for seos_tests CMprocessed by seos_test C
-        -D SEOS_SYSTEM=${PROJECT_DIR}
+        -D OS_SYSTEM=${PROJECT_DIR}
     )
 
     if [ ! -d ${SDK_DIR} ]; then
