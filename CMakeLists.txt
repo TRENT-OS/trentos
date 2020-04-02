@@ -7,17 +7,6 @@
 
 cmake_minimum_required(VERSION 3.7.2)
 
-#-------------------------------------------------------------------------------
-# Lint
-#-------------------------------------------------------------------------------
-
-# we enable linting for all projects by default
-set(ENABLE_LINT ON CACHE BOOL "enable linting")
-
-if (ENABLE_LINT)
-    set(CMAKE_C_CPPCHECK "cppcheck;--enable=warning;--inline-suppr")
-    set(CMAKE_C_CLANG_TIDY "clang-tidy;-checks=*")
-endif()
 
 #-------------------------------------------------------------------------------
 # use project specific cmake file
