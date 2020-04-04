@@ -10,7 +10,7 @@
 
 BUILD_SCRIPT_DIR=$(cd `dirname $0` && pwd)
 SDK_SRC_DIR="${BUILD_SCRIPT_DIR}/seos_sandbox"
-SDK_OUT_DIR="SEOS-SDK"
+SDK_OUT_DIR="OS-SDK"
 
 # This list is used for the targets "all-projects" and "all". The order within
 # the list starts with the most simple system to build, then moves on to more
@@ -289,7 +289,7 @@ function run_sdk_and_system_build()
     run_build_sdk only-sources ${SDK_OUT_DIR}
 
     local PARAMS=(
-        ${SDK_OUT_DIR}/src   # ${SDK_SRC_DIR} to use the SDK sources directly
+        ${SDK_OUT_DIR}/pkg  # ${SDK_SRC_DIR} to use the SDK sources directly
         ${PROJECT_DIR}
         ${BUILD_PLATFORM}
         ${BUILD_TYPE}
@@ -361,7 +361,7 @@ function build_all_projects()
             for BUILD_PLATFORM in ${ALL_PLATFORMS[@]}; do
 
                 local PARAMS=(
-                    ${SDK_OUT_DIR}/src   # ${SDK_SRC_DIR} to sue SDK sources directly
+                    ${SDK_OUT_DIR}/pkg   # ${SDK_SRC_DIR} to sue SDK sources directly
                     ${BUILD_SCRIPT_DIR}/${PRJ_DIR}
                     ${BUILD_PLATFORM}
                     Debug

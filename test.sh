@@ -18,9 +18,11 @@ WORKSPACE_TEST_FOLDER=workspace_test
 
 
 #-------------------------------------------------------------------------------
-# SEOS Sandbox
+# SEOS Sandbox and OS SDK
 DIR_SRC_SANDBOX=${DIR_SRC}/seos_sandbox
-DIR_BIN_SDK=${WORKSPACE_ROOT}/${WORKSPACE_TEST_FOLDER}/seos-sdk/bin
+DIR_BASE_SDK=${WORKSPACE_TEST_FOLDER}/OS-SDK
+DIR_BIN_SDK=${DIR_BASE_SDK}/pkg/bin
+ABS_DIR_BIN_SDK=${WORKSPACE_ROOT}/${DIR_BIN_SDK}
 
 
 # Keystore Provisioning Tool usage wrapper
@@ -34,8 +36,8 @@ function sdk_kpt()
     # tool. The tool creates a file "nvm_06", which we rename into the desired
     # image file name then.
     # Since this function can be called from a different working directory, we
-    # must ensure DIR_BIN_SDK is an absolute path
-    python3 ${DIR_BIN_SDK}/xmlParser.py ${CFG_XML} ${DIR_BIN_SDK}/kpt
+    # can't use DIR_BIN_SDK, but need ABS_DIR_BIN_SDK with the absolute path
+    python3 ${ABS_DIR_BIN_SDK}/xmlParser.py ${CFG_XML} ${ABS_DIR_BIN_SDK}/kpt
 
     mv nvm_06 ${IMG_OUT}
 }
@@ -68,7 +70,7 @@ function print_info()
 
 
 #-------------------------------------------------------------------------------
-function build_seos_sdk()
+function build_os_sdk()
 {
     # remove folder if it exists already. This should not happen in CI when we
     # have a clean workspace, but it's convenient for local builds
@@ -79,12 +81,12 @@ function build_seos_sdk()
 
     # if we have a SDK apackage, these stept are no longer required, because
     # they have been executed when the packages was created and released. Since
-    # we still use the SEOS snadbox, we have to build the SDK package here and
+    # we still use seos_sandbox, we have to build the SDK package here and
     # also give it some testing
-    ${DIR_SRC_SANDBOX}/build-sdk.sh build-bin ${WORKSPACE_TEST_FOLDER}/seos-sdk
-    ${DIR_SRC_SANDBOX}/build-sdk.sh unit-tests ${WORKSPACE_TEST_FOLDER}/seos-sdk
+    ${DIR_SRC_SANDBOX}/build-sdk.sh build-bin ${DIR_BASE_SDK}
+    ${DIR_SRC_SANDBOX}/build-sdk.sh unit-tests ${DIR_BASE_SDK}
 
-    print_info "SEOS SDK build complete"
+    print_info "OS SDK build complete"
 }
 
 #-------------------------------------------------------------------------------
@@ -225,7 +227,7 @@ function run_test()
                 --workspace_path=${WORKSPACE_ROOT}
 
                 # even if it's called proxy_path, it the proxy binary actually
-                --proxy_path=${DIR_BIN_SDK}/proxy_app
+                --proxy_path=${ABS_DIR_BIN_SDK}/proxy_app
 
                 # QEMU connection mode (PTY or TCP)
                 --qemu_connection=${QEMU_CONN}
@@ -250,7 +252,7 @@ function run_test()
 if [[ "${1:-}" == "build" ]]; then
     shift
 
-    build_seos_sdk
+    build_os_sdk
 
 
 elif [[ "${1:-}" == "prepare" ]]; then
@@ -259,7 +261,7 @@ elif [[ "${1:-}" == "prepare" ]]; then
     # ToDo: the step "build_test_tools" is executed here to keep backwards
     #       compatibility. It will be removed once all script have been updated
     #       to invoke the build step above.
-    build_seos_sdk
+    build_os_sdk
     prepare_test
 
 
