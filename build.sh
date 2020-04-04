@@ -365,9 +365,8 @@ function build_all_projects()
                     ${BUILD_SCRIPT_DIR}/${PRJ_DIR}
                     ${BUILD_PLATFORM}
                     Debug
-                    $@
                 )
-                run_system_build ${PARAMS[@]}
+                run_system_build ${PARAMS[@]} $@
             done
         fi
     done
