@@ -385,12 +385,13 @@ if [[ "${1:-}" == "doc" ]]; then
 
 elif [[ "${1:-}" == "sdk" ]]; then
     shift
-    run_build_sdk all ${SDK_OUT_DIR}
+    SDK_BUILD_MODE=${2:-all}
+    run_build_sdk ${SDK_BUILD_MODE} ${SDK_OUT_DIR}
 
 elif [[ "${1:-}" == "all-projects" ]]; then
     shift
     # build SDK package with binaries and use this to build all projects
-    build_all_projects build-bin $@
+    build_all_projects only-sources $@
 
 elif [[ "${1:-}" == "all" ]]; then
     shift
