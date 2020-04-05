@@ -16,12 +16,6 @@ def DOCKER_TEST_ENV  = [ image: 'seos_test_env_20191010',
                                 ' -v /etc/localtime:/etc/localtime:ro'
                        ]
 
-def agent_builderLabel = "build"
-
-def agent_testerLabel  = "test"
-
-def agent_testerLabel_specialized  = "test"
-
 // Channels and users to notify on Slack with the build result.
 //   notify_channels = "#jenkins @USV2L0ACX"
 // posts to slack channel #jenkins and to user @USV2L0ACX as private message,
@@ -45,7 +39,7 @@ pipeline {
     }
     stages {
         stage('Build_stage'){
-            agent { label agent_builderLabel }
+            agent { label "build" }
             stages {
                 stage('clean_checkout') {
                     steps {
@@ -89,7 +83,7 @@ pipeline {
         stage('prepare_test') {
             agent {
                 docker {
-                    label agent_testerLabel
+                    label "test"
                     reuseNode true
                     image DOCKER_TEST_ENV.image
                     args DOCKER_TEST_ENV.args
@@ -107,7 +101,7 @@ pipeline {
         stage('test') {
             agent {
                 docker {
-                    label agent_testerLabel_specialized
+                    label "test"
                     reuseNode true
                     image DOCKER_TEST_ENV.image
                     args DOCKER_TEST_ENV.args
@@ -128,7 +122,7 @@ pipeline {
     }
     post {
         always {
-            node(agent_testerLabel)
+            node("test")
             {
                 print_step_info 'archive artifacts'
                 sh 'rm -rf *'

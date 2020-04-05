@@ -23,12 +23,6 @@ def DOCKER_TEST_ENV  = [ image: 'docker:5000/seos_test_env:test',
                          registry: 'https://docker:5000'
                        ]
 
-def agent_builderLabel = "build"
-
-def agent_testerLabel  = "test"
-
-def agent_testerLabel_specialized  = "test_network"
-
 // Channels and users to notify on Slack with the build result.
 //   notify_channels = "#jenkins @USV2L0ACX"
 // posts to slack channel #jenkins and to user @USV2L0ACX as private message,
@@ -52,7 +46,7 @@ pipeline {
     }
     stages {
         stage('Build_stage'){
-            agent { label agent_builderLabel }
+            agent { label "build" }
             stages {
                 stage('clean_checkout') {
                     steps {
@@ -98,7 +92,7 @@ pipeline {
         stage('prepare_test') {
             agent {
                 docker {
-                    label agent_testerLabel
+                    label "test"
                     alwaysPull true
                     reuseNode true
                     registryUrl DOCKER_TEST_ENV.registry
@@ -118,7 +112,7 @@ pipeline {
         stage('test') {
             agent {
                 docker {
-                    label agent_testerLabel_specialized
+                    label "test_network"
                     alwaysPull true
                     reuseNode true
                     registryUrl DOCKER_TEST_ENV.registry
@@ -141,7 +135,7 @@ pipeline {
     }
     post {
         always {
-            node(agent_testerLabel)
+            node("test")
             {
                 print_step_info 'archive artifacts'
                 sh 'rm -rf *'

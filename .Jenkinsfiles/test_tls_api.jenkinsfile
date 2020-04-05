@@ -21,17 +21,6 @@ def DOCKER_TEST_ENV  = [ image: 'docker:5000/seos_test_env:test',
                          registry:   'https://docker:5000'
                        ]
 
-def agent_builderLabel = "build"
-
-def agent_testerLabel  = "test"
-
-// We need to make sure the TLS test runs on the primary slave (which should be
-// a single machine) because -- for now -- we need to hardcode the IP of the
-// host system the TLS test server is running on.
-// This may be removed again later, when we can retrieve the IP of the QEMU
-// host via a dedicated proxy command.
-def agent_testerLabel_specialized  = "test_tls"
-
 // Channels and users to notify on Slack with the build result.
 //   notify_channels = "#jenkins @USV2L0ACX"
 // posts to slack channel #jenkins and to user @USV2L0ACX as private message,
@@ -55,7 +44,7 @@ pipeline {
     }
     stages {
         stage('Build_stage'){
-            agent { label agent_builderLabel }
+            agent { label "build" }
             stages {
                 stage('clean_checkout') {
                     steps {
@@ -99,7 +88,7 @@ pipeline {
         stage('prepare_test') {
             agent {
                 docker {
-                    label agent_testerLabel
+                    label "test"
                     alwaysPull true
                     reuseNode true
                     registryUrl DOCKER_TEST_ENV.registry
@@ -119,7 +108,13 @@ pipeline {
         stage('test') {
             agent {
                 docker {
-                    label agent_testerLabel_specialized
+                    // In the current implementation the TLS tests must run on
+                    // a specific machine because the IP of the host system
+                    // where a TLS test server runs is hard coded. In the
+                    // future the test system should allows passing the IP of
+                    // the TLS server or everything is isolated in a dedicated
+                    // test network where fixed IPs can be used.
+                    label "test_tls"
                     alwaysPull true
                     reuseNode true
                     registryUrl DOCKER_TEST_ENV.registry
@@ -142,7 +137,7 @@ pipeline {
     }
     post {
         always {
-            node(agent_testerLabel)
+            node("test")
             {
                 print_step_info 'archive artifacts'
                 sh 'rm -rf *'
