@@ -6,15 +6,19 @@ def BUILD_SPEC  = 'build-zynq7000-Debug-' + TEST_SYSTEM
 // add to group "stack" in order to grant usage of Haskell stack in the docker
 // image
 
-def DOCKER_BUILD_ENV = [ image: 'seos_build_env_20191010',
-                         args: ' -v /etc/localtime:/etc/localtime:ro '+
-                               ' --group-add=1001'
-                       ]
+def DOCKER_BUILD_ENV = [
+    image: 'seos_build_env_20191010',
+    args:  ['-v /etc/localtime:/etc/localtime:ro',
+            '--group-add=1001'
+           ].join(' ')
+]
 
-def DOCKER_TEST_ENV  = [ image: 'seos_test_env_20191010',
-                         args:  ' -v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro'+
-                                ' -v /etc/localtime:/etc/localtime:ro'
-                       ]
+def DOCKER_TEST_ENV  = [
+    image: 'seos_test_env_20191010',
+    args:  ['-v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro',
+            '-v /etc/localtime:/etc/localtime:ro'
+           ].join(' ')
+]
 
 // Channels and users to notify on Slack with the build result.
 //   notify_channels = "#jenkins @USV2L0ACX"
