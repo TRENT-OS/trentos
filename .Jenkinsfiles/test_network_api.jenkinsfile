@@ -8,7 +8,7 @@ def BUILD_SPEC  = 'build-zynq7000-Debug-' + TEST_SYSTEM
 
 def DOCKER_BUILD_ENV = [
     registry: 'https://docker:5000',
-    image:    'docker:5000/seos_build_env:latest',
+    image:    'docker:5000/trentos_build:trentos_0.9',
     args:     ['-v /etc/localtime:/etc/localtime:ro',
                '--group-add=1001'
               ].join(' ')
@@ -16,7 +16,7 @@ def DOCKER_BUILD_ENV = [
 
 def DOCKER_TEST_ENV  = [
     registry: 'https://docker:5000',
-    image:    'docker:5000/seos_test_env:test',
+    image:    'docker:5000/trentos_test:trentos_0.9',
     args:     ['-v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro',
                '-v /etc/localtime:/etc/localtime:ro',
                '--network=bridge',

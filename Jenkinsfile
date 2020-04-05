@@ -5,15 +5,16 @@
 // image
 
 def DOCKER_BUILD_ENV = [
-    image: 'seos_build_env_20191010',
-    args:  ['-v /etc/localtime:/etc/localtime:ro',
-            '--group-add=1001'
-           ].join(' ')
+    registry: 'https://docker:5000',
+    image:    'docker:5000/trentos_build:trentos_0.9',
+    args:     ['-v /etc/localtime:/etc/localtime:ro',
+               '--group-add=1001'
+              ].join(' ')
 ]
 
 def DOCKER_TEST_ENV = [
     registry: 'https://docker:5000',
-    image:    'docker:5000/seos_test_env:test',
+    image:    'docker:5000/trentos_test:trentos_0.9',
     args:     ['-v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro',
                '-v /etc/localtime:/etc/localtime:ro',
                '--network=bridge',
@@ -73,6 +74,8 @@ pipeline {
             agent {
                 docker {
                     reuseNode true
+                    alwaysPull true
+                    registryUrl DOCKER_BUILD_ENV.registry
                     image DOCKER_BUILD_ENV.image
                     args DOCKER_BUILD_ENV.args
                 }
@@ -86,6 +89,8 @@ pipeline {
             agent {
                 docker {
                     reuseNode true
+                    alwaysPull true
+                    registryUrl DOCKER_BUILD_ENV.registry
                     image DOCKER_BUILD_ENV.image
                     args DOCKER_BUILD_ENV.args
                 }
