@@ -144,7 +144,8 @@ pipeline {
                             test_config_server_fs_backend.py \
                             test_keystore.py                 \
                             test_logserver.py                \
-                            test_cryptoserver.py'
+                            test_cryptoserver.py             \
+                            test_demo_iot_app.py'
                 }
             }
         }

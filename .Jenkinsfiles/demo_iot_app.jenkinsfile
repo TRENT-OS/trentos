@@ -80,6 +80,45 @@ pipeline {
                 }
             }
         }
+        stage('prepare_test') {
+            agent {
+                docker {
+                    label "test"
+                    reuseNode true
+                    image DOCKER_TEST_ENV.image
+                    args DOCKER_TEST_ENV.args
+                }
+            }
+            steps {
+                print_step_info env.STAGE_NAME
+                sh 'rm -rf *'
+                unstash 'build_stash'
+                sh 'scm-src/test.sh prepare'
+                stash name: 'test_env_stash', includes: 'scm-src/**, workspace_test/**,' + BUILD_SPEC + '/**'
+                sh 'rm -rf *'
+            }
+        }
+        stage('test') {
+            agent {
+                docker {
+                    label "test"
+                    reuseNode true
+                    image DOCKER_TEST_ENV.image
+                    args DOCKER_TEST_ENV.args
+                }
+            }
+            steps {
+                print_step_info env.STAGE_NAME
+                sh 'rm -rf *'
+                unstash 'test_env_stash'
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    sh 'scm-src/test.sh run test_' + TEST_SYSTEM + '.py'
+                }
+                junit 'test-logs-*/test_results.xml'
+                stash name: 'test_result_stash', includes: ' test-logs*/**,' + BUILD_SPEC + '/**'
+                sh 'rm -rf *'
+            }
+        }
     }
     post {
         always {
@@ -87,8 +126,8 @@ pipeline {
             {
                 print_step_info 'archive artifacts'
                 sh 'rm -rf *'
-                unstash 'build_stash'
-                sh 'tar -cjf '+BUILD_SPEC+'.bz2 '+BUILD_SPEC
+                unstash 'test_result_stash'
+                sh 'tar -cjf '+BUILD_SPEC+'.bz2 '+BUILD_SPEC+'/ test-logs-*/'
                 archiveArtifacts artifacts: BUILD_SPEC + '.bz2', fingerprint: true
                 sh 'rm -rf *'
                 // Notify Bitbucket that job is done
