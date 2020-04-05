@@ -23,11 +23,9 @@ def agent_testerLabel  = "test"
 def agent_testerLabel_specialized  = "test"
 
 // Channels and users to notify on Slack with the build result.
-//
-// notify_channels = "#channel_name @USV2L0ACX @USV2L0ACX @USV2L0ACX"
-//
-//             posts to the slack channel and to the 3 users as private message
-// @USV2L0ACX is a slack member ID, you can copy yours from your slack profile.
+//   notify_channels = "#jenkins @USV2L0ACX"
+// posts to slack channel #jenkins and to user @USV2L0ACX as private message,
+// slack user IDs can be found in the slack profile.
 def notify_success = ""
 def notify_failure = "#jenkins @UJYFFS5FV"
 
