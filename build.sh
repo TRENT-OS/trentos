@@ -385,7 +385,7 @@ if [[ "${1:-}" == "doc" ]]; then
 
 elif [[ "${1:-}" == "sdk" ]]; then
     shift
-    SDK_BUILD_MODE=${2:-all}
+    SDK_BUILD_MODE=${1:-all}
     run_build_sdk ${SDK_BUILD_MODE} ${SDK_OUT_DIR}
 
 elif [[ "${1:-}" == "all-projects" ]]; then
