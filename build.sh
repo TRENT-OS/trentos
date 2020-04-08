@@ -8,7 +8,7 @@
 #
 #-------------------------------------------------------------------------------
 
-BUILD_SCRIPT_DIR=$(cd `dirname $0` && pwd)
+BUILD_SCRIPT_DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd)"
 SDK_SRC_DIR="${BUILD_SCRIPT_DIR}/seos_sandbox"
 SDK_OUT_DIR="OS-SDK"
 

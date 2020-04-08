@@ -8,7 +8,7 @@
 #
 #-------------------------------------------------------------------------------
 
-DIR_SRC=$(cd `dirname $0` && pwd)
+CURRENT_SCRIPT_DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd)"
 WORKSPACE_ROOT=$(pwd)
 
 
@@ -18,8 +18,9 @@ WORKSPACE_TEST_FOLDER=workspace_test
 
 
 #-------------------------------------------------------------------------------
-# SEOS Sandbox and OS SDK
-DIR_SRC_SANDBOX=${DIR_SRC}/seos_sandbox
+# sandbox is in a subfolder of the current script dir
+DIR_SRC_SANDBOX=${CURRENT_SCRIPT_DIR}/seos_sandbox
+# SDK is created in the workspace
 DIR_BASE_SDK=${WORKSPACE_TEST_FOLDER}/OS-SDK
 DIR_BIN_SDK=${DIR_BASE_SDK}/pkg/bin
 ABS_DIR_BIN_SDK=${WORKSPACE_ROOT}/${DIR_BIN_SDK}
@@ -45,13 +46,13 @@ function sdk_kpt()
 
 #-------------------------------------------------------------------------------
 # Test Automation
-DIR_SRC_TA=${DIR_SRC}/ta
+DIR_SRC_TA=${CURRENT_SCRIPT_DIR}/ta
 FOLDER_BUILD_TA=ta
 
 
 #-------------------------------------------------------------------------------
 # Keystore Provisioning Demo
-DIR_SRC_KPD=${DIR_SRC}/src/tests/demo_preprovisioned_keystore
+DIR_SRC_KPD=${CURRENT_SCRIPT_DIR}/src/tests/demo_preprovisioned_keystore
 
 
 #-------------------------------------------------------------------------------
