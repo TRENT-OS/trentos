@@ -406,9 +406,9 @@ elif [[ "${1:-}" == "all" ]]; then
 
 elif [[ "${1:-}" == "check_astyle_artifacts" ]]; then
     shift
-    # astyle failures do not abort the build normally, but in CI we don't allow
-    # them to happen. Thus this step runs after the build step and we allows
-    # differentiate build failures from astyle failures easily then.
+    # on the command line astyle failures do not make the build fail, but in CI
+    # we don't allow them to happen. However, they are run as a separate step
+    # there after a successful build
     check_astyle_artifacts
 
 elif [[ "${1:-}" == "clean" ]]; then
