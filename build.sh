@@ -90,7 +90,8 @@ function run_astyle()
 
     (
         cd ${BUILD_SCRIPT_DIR}
-        # ensure there are not existing astyle files anywhere
+
+        # ensure there are no existing astyle files anywhere
         find . -name '*.astyle' -exec rm -v {} \;
 
         # there should be an astyle script in the root folder, but we also
