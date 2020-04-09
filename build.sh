@@ -418,7 +418,7 @@ elif [[ "${1:-}" == "clean" ]]; then
 
 elif map_project MAPPED_PROJECT_DIR $@; then
     echo "building ${1:-} from ${MAPPED_PROJECT_DIR} ..."
-    shift
+    shift 2
     run_sdk_and_system_build ${MAPPED_PROJECT_DIR} ${BUILD_PLATFORM} ${BUILD_TYPE} $@
     run_astyle
 
