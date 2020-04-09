@@ -379,6 +379,10 @@ function build_all_projects()
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 
+# default settings
+BUILD_PLATFORM=zynq7000
+BUILD_TYPE=Debug
+
 if [[ "${1:-}" == "doc" ]]; then
     shift
     run_build_doc $@
@@ -415,14 +419,14 @@ elif [[ "${1:-}" == "clean" ]]; then
 elif map_project MAPPED_PROJECT_DIR $@; then
     echo "building ${1:-} from ${MAPPED_PROJECT_DIR} ..."
     shift
-    run_sdk_and_system_build ${MAPPED_PROJECT_DIR} zynq7000 Debug $@
+    run_sdk_and_system_build ${MAPPED_PROJECT_DIR} ${BUILD_PLATFORM} ${BUILD_TYPE} $@
     run_astyle
 
 elif [ ! -z $@ ]; then
     BUILD_PROJECT_DIR=${1:-}
     shift
     echo "building ${BUILD_PROJECT_DIR} using params: '$@' ..."
-    run_sdk_and_system_build ${BUILD_PROJECT_DIR} zynq7000 Debug $@
+    run_sdk_and_system_build ${BUILD_PROJECT_DIR} ${BUILD_PLATFORM} ${BUILD_TYPE} $@
     run_astyle
 
 else
