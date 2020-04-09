@@ -422,7 +422,7 @@ elif map_project MAPPED_PROJECT_DIR $@; then
     run_sdk_and_system_build ${MAPPED_PROJECT_DIR} ${BUILD_PLATFORM} ${BUILD_TYPE} $@
     run_astyle
 
-elif [ ! -z $@ ]; then
+elif [ "$#" -ne "0" ]; then
     BUILD_PROJECT_DIR=${1:-}
     shift
     echo "building ${BUILD_PROJECT_DIR} using params: '$@' ..."
