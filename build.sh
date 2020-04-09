@@ -88,13 +88,16 @@ function run_astyle()
     echo "## running astyle check ..."
     echo "##"
 
-    # ensure there are not existing astyle files anywhere
-    find . -name '*.astyle' -exec rm -v {} \;
+    (
+        cd ${BUILD_SCRIPT_DIR}
+        # ensure there are not existing astyle files anywhere
+        find . -name '*.astyle' -exec rm -v {} \;
 
-    # there should be an astyle script in the root folder, but we also search
-    # recursively in all subfolders, as modules can come with their own version
-    # of the script
-    find . -name 'astyle_check.sh' -printf 'running %p\n' -execdir {} \;
+        # there should be an astyle script in the root folder, but we also
+        # search recursively in all subfolders, as modules can come with their
+        # own version of the script
+        find . -name 'astyle_check.sh' -printf 'running %p\n' -execdir {} \;
+    )
 }
 
 
@@ -418,7 +421,7 @@ elif [[ "${1:-}" == "clean" ]]; then
 
 elif map_project MAPPED_PROJECT_DIR $@; then
     echo "building ${1:-} from ${MAPPED_PROJECT_DIR} ..."
-    shift 2
+    shift
     run_sdk_and_system_build ${MAPPED_PROJECT_DIR} ${BUILD_PLATFORM} ${BUILD_TYPE} $@
     run_astyle
 
