@@ -73,3 +73,6 @@
 [submodule "src/demos/demo_hello_world"]
 	path = src/demos/demo_hello_world
 	url = ../../ss/demo_hello_world.git
+[submodule "src/tests/test_tlsserver"]
+	path = src/tests/test_tlsserver
+	url = ../../ss/test_tlsserver.git
