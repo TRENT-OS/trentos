@@ -42,6 +42,7 @@ WELL_KNOWN_PROJECTS=(
     test_keystore,src/tests/test_keystore
     test_network_api,src/tests/test_network_api
     test_tls_api,src/tests/test_tls_api
+    test_tlsserver,src/tests/test_tlsserver
 
     # demos
     # demo_keystore,src/tests/demo_keystore

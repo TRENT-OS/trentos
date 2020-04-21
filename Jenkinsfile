@@ -177,7 +177,8 @@ pipeline {
                         sh 'scm-src/test.sh          \
                                 run                  \
                                 test_network_api.py  \
-                                test_tls_api.py'
+                                test_tls_api.py      \
+                                test_tlsserver.py'
                     }
                 }
             }
