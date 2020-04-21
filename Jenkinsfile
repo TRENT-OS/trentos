@@ -146,13 +146,13 @@ pipeline {
                             test_chanmux.py                  \
                             test_proxy_nvm.py                \
                             test_crypto_api.py               \
+                            test_cryptoserver.py             \
                             test_partition_manager.py        \
                             test_filesystem_as_lib.py        \
                             test_config_server.py            \
                             test_config_server_fs_backend.py \
                             test_keystore.py                 \
                             test_logserver.py                \
-                            test_cryptoserver.py             \
                             test_demo_iot_app.py'
                 }
             }

@@ -29,6 +29,7 @@ WELL_KNOWN_PROJECTS=(
 
     # tests
     test_crypto_api,src/tests/test_crypto_api
+    test_cryptoserver,src/tests/test_cryptoserver
     test_chanmux,src/tests/test_chanmux
     test_proxy_nvm,src/tests/test_proxy_nvm
     test_partition_manager,src/tests/test_partition_manager
@@ -39,7 +40,6 @@ WELL_KNOWN_PROJECTS=(
     test_config_server,src/tests/test_config_server
     test_config_server_fs_backend,src/tests/test_config_server_fs_backend
     test_keystore,src/tests/test_keystore
-    test_cryptoserver,src/tests/test_cryptoserver
     test_network_api,src/tests/test_network_api
     test_tls_api,src/tests/test_tls_api
 
