@@ -215,7 +215,7 @@ function run_test()
 
             # the current use case assumes that a proxy is always required
             if [[ ${QEMU_CONN} != "PTY" && ${QEMU_CONN} != "TCP" ]]; then
-                QEMU_CONN="PTY"
+                QEMU_CONN="TCP"
                 echo "QEMU connection was set to $QEMU_CONN as default."
             else
                 echo "QEMU connection was set to $QEMU_CONN."
