@@ -385,8 +385,8 @@ function build_all_projects()
 #-------------------------------------------------------------------------------
 
 # default settings
-BUILD_PLATFORM=zynq7000
-BUILD_TYPE=Debug
+BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
+BUILD_TYPE=${BUILD_TYPE:-"Debug"}
 
 if [[ "${1:-}" == "doc" ]]; then
     shift
