@@ -32,7 +32,7 @@ def DOCKER_TEST_ENV  = [
 // posts to slack channel #jenkins and to user @USV2L0ACX as private message,
 // slack user IDs can be found in the slack profile.
 def notify_success = ""
-def notify_failure = "#jenkins @UJYFFS5FV"
+def notify_failure = "#jenkins"
 
 def print_step_info(name) { echo "#################### " + name }
 
