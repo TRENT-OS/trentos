@@ -19,11 +19,11 @@ SDK_OUT_DIR="OS-SDK"
 # because we likely run into the same problems again. And the building the
 # demos does not make any sense if we can't even build the tests.
 WELL_KNOWN_PROJECTS=(
-    # the entry format is <test name>,<folder>. We don't make the fixed assumption
-    # that the folder name matched the test name or that there is a generic
-    # subfolder where all tests are. This assumption holds today, but there is
-    # a plan to drop using "src/tests" if the whole test system is a GIT
-    # submodule and we don't have any local sources.
+    # the entry format is <test name>,<folder>. We don't make the fixed
+    # assumption that the folder name matches the test name or that there is a
+    # generic subfolder where all tests are. This assumption holds today, but
+    # there is a plan to drop using "src/tests" if the whole test system is a
+    # GIT submodule and we don't have any local sources.
 
     demo_hello_world,src/demos/demo_hello_world
 
