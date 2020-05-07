@@ -33,7 +33,6 @@ WELL_KNOWN_PROJECTS=(
     test_chanmux,src/tests/test_chanmux
     test_proxy_nvm,src/tests/test_proxy_nvm
     test_partition_manager,src/tests/test_partition_manager
-    # test_filesystem_api,- # ToDo: we need a test project
     # test_seos_filestream,src/tests/test_seos_filestream
     test_filesystem_as_lib,src/tests/test_filesystem_as_lib
     test_logserver,src/tests/test_logserver
