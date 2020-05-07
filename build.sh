@@ -51,6 +51,7 @@ WELL_KNOWN_PROJECTS=(
     # demo_fs_as_libs,src/tests/demo_fs_as_libs
     # demo_configuration_as_lib,src/tests/demo_configuration_as_lib
     # demo_configuration_as_component,src/tests/demo_configuration_as_component
+    # demo_partition_manager,tests/demo_partition_manager
     demo_iot_app,src/demos/demo_iot_app
 )
 
