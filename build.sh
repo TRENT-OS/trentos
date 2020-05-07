@@ -33,7 +33,7 @@ WELL_KNOWN_PROJECTS=(
     test_chanmux,src/tests/test_chanmux
     test_proxy_nvm,src/tests/test_proxy_nvm
     test_partition_manager,src/tests/test_partition_manager
-    # test_seos_filestream,src/tests/test_seos_filestream
+    test_seos_filestream,src/tests/test_seos_filestream
     test_filesystem_as_lib,src/tests/test_filesystem_as_lib
     test_logserver,src/tests/test_logserver
     test_config_server,src/tests/test_config_server
@@ -52,6 +52,11 @@ WELL_KNOWN_PROJECTS=(
     # demo_configuration_as_component,src/tests/demo_configuration_as_component
     # demo_partition_manager,tests/demo_partition_manager
     demo_iot_app,src/demos/demo_iot_app
+)
+
+
+ALL_PROJECTS_EXCLUDE_zynq7000=(
+    test_seos_filestream   # needs to be updated, does not compile
 )
 
 
@@ -365,13 +370,20 @@ function build_all_projects()
         if [[ "${PRJ_DIR}" != "-" ]]; then
             for BUILD_PLATFORM in ${ALL_PLATFORMS[@]}; do
 
-                local PARAMS=(
-                    ${SDK_OUT_DIR}/pkg   # ${SDK_SRC_DIR} to sue SDK sources directly
-                    ${BUILD_SCRIPT_DIR}/${PRJ_DIR}
-                    ${BUILD_PLATFORM}
-                    Debug
-                )
-                run_system_build ${PARAMS[@]} $@
+                eval EXCLUDE_LIST=\${ALL_PROJECTS_EXCLUDE_${BUILD_PLATFORM}[@]}
+
+                if [[ ${EXCLUDE_LIST} =~ ${PRJ_NAME} ]]; then
+                    echo -e "\nSkipping excluded project: ${PRJ_NAME}"
+                else
+
+                    local PARAMS=(
+                        ${SDK_OUT_DIR}/pkg   # ${SDK_SRC_DIR} to sue SDK sources directly
+                        ${BUILD_SCRIPT_DIR}/${PRJ_DIR}
+                        ${BUILD_PLATFORM}
+                        Debug
+                    )
+                    run_system_build ${PARAMS[@]} $@
+                fi
             done
         fi
     done
