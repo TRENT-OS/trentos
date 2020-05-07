@@ -73,3 +73,6 @@
 [submodule "src/demos/demo_hello_world"]
 	path = src/demos/demo_hello_world
 	url = ../../ss/demo_hello_world.git
+[submodule "src/demos/demo_tls_api"]
+	path = src/demos/demo_tls_api
+	url = ../../ss/demo_tls_api.git
