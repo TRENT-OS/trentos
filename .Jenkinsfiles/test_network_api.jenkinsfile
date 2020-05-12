@@ -129,7 +129,7 @@ pipeline {
                 sh 'rm -rf *'
                 unstash 'test_env_stash'
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                        sh 'scm-src/test.sh run ' + TEST_SYSTEM + '.py'
+                    sh 'scm-src/test.sh run ' + TEST_SYSTEM + '.py'
                 }
                 junit 'test-logs-*/test_results.xml'
                 stash name: 'test_result_stash', includes: ' test-logs*/**,' + BUILD_SPEC + '/**'
