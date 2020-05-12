@@ -116,12 +116,6 @@ pipeline {
         stage('test') {
             agent {
                 docker {
-                    // In the current implementation the TLS tests must run on
-                    // a specific machine because the IP of the host system
-                    // where a TLS test server runs is hard coded. In the
-                    // future the test system should allows passing the IP of
-                    // the TLS server or everything is isolated in a dedicated
-                    // test network where fixed IPs can be used.
                     label "test_tls"
                     alwaysPull true
                     reuseNode true
