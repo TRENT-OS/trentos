@@ -1,0 +1,273 @@
+//------------------------------------------------------------------------------
+//
+// Generic Jenkins Pipeline Script
+//
+// Copyright (C) 2019, Hensoldt Cyber GmbH
+//
+//-------------------------------------------------------------------------------
+
+// Parameters from job:
+//
+//    BRANCH_OR_COMMIT
+//    PLATFORM
+//    JENKINSFILE
+//    TEST_SYSTEM
+//    TEST_MACHINE_LABEL
+//    TEST_SCRIPT
+
+params.each { println it.key + " = " + it.value }
+
+def test_machine_label = TEST_MACHINE_LABEL ?: 'test'
+def test_script = TEST_SCRIPT ?: (TEST_SYSTEM+'.py')
+def SYSTEM_IMAGE  = 'build-' + PLATFORM + '-Debug-' + TEST_SYSTEM
+
+def info_str = BRANCH_OR_COMMIT+', '+PLATFORM+', '+TEST_SYSTEM
+
+addShortText \
+    text: info_str, \
+    background: "khaki", \
+    border: 1, \
+    borderColor: "gray", \
+    color: "black"
+
+
+manager.createSummary("text.gif").appendText(
+    '<table style="border: 1px solid black; border-collapse: collapse;">'+
+        ['BRANCH_OR_COMMIT',
+         'PLATFORM',
+         'JENKINSFILE',
+         'TEST_SYSTEM',
+         'TEST_MACHINE_LABEL',
+         'TEST_SCRIPT',
+        ].collect{
+            '<tr>'+
+                '<td style="border: 1px solid black"><b><code>'+it+'</code></b></td>'+
+                '<td style="border: 1px solid black">'+(evaluate(it)?:'<i>(null)</i>')+'</td></tr>'
+        }.join('') +
+    '</table>')
+
+
+
+//------------------------------------------------------------------------------
+// Docker
+//------------------------------------------------------------------------------
+//
+// Notes:
+// * bind the localtime to docker container to avoid problems of gaps between
+//   the localtime of the container and the host.
+// * add user to group "stack" (1001) in order to grant usage of Haskell stack
+//   in the docker image
+//
+// ToDo
+// * why are sudo right needed in the test container
+//
+
+def DOCKER_BASE = 'docker:5000'
+def DOCKER_REGISTRY = 'https://' + DOCKER_BASE
+
+def DOCKER_BUILD_ENV = [
+    registry: DOCKER_REGISTRY,
+    image:    DOCKER_BASE + '/trentos_build:trentos_0.9',
+    args:     ['-v /etc/localtime:/etc/localtime:ro',
+               '--group-add=1001'
+              ].join(' ')
+]
+
+def DOCKER_TEST_ENV  = [
+    registry: DOCKER_REGISTRY,
+    image:    DOCKER_BASE + '/trentos_test:20200428',
+    args:     ['-v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro',
+               '-v /etc/localtime:/etc/localtime:ro',
+               '--network=bridge',
+               '--cap-add=NET_ADMIN',
+               '--cap-add=NET_RAW',
+               '--device=/dev/net/tun',
+               '--group-add=sudo'
+              ].join(' ')
+]
+
+
+//------------------------------------------------------------------------------
+// Pipeline
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+def print_step_info(name) { echo "#################### " + name }
+
+
+//------------------------------------------------------------------------------
+// Bitbucket notification.
+def notitfy_bitbucket()
+{
+    step([$class: 'StashNotifier'])
+}
+
+
+//------------------------------------------------------------------------------
+// Slack notification.
+// Channels and users to notify on Slack with the build result.
+// posts to slack channel #jenkins and to user @USV2L0ACX as private message,
+// slack user IDs can be found in the slack profile.
+
+def notify_success = ""
+def notify_failure = "#jenkins"
+
+def notitfy_slack(col, chan)
+{
+    slackSend \
+        color: col, \
+        channel: chan, \
+        message: "${currentBuild.currentResult} : `${env.JOB_NAME}` #${env.BUILD_NUMBER} ${TEST_SYSTEM}"
+}
+
+//------------------------------------------------------------------------------
+pipeline {
+    agent none
+    options {
+        skipDefaultCheckout true
+
+        // unfortunately there is no way to have build discarding conditional
+        // for development branches only, so "master" and "integration" would
+        // keep their builds. The potential work around is having a conditional
+        // stage where "master" and "integration" push a package to an artifact
+        // server, which then preserves this.
+        buildDiscarder(logRotator(numToKeepStr: '100'))
+    }
+    stages {
+        stage('Build_stage'){
+            agent { label "build" }
+            stages {
+                stage('clean_checkout') {
+                    steps {
+                        print_step_info env.STAGE_NAME
+                        notitfy_bitbucket()
+                        cleanWs()
+
+                        // everything is in separate folders to avoid file
+                        // conflicts. Sources are checked out into "scm-src",
+                        // builds should generate "build-xxx" folders, tests
+                        // will use "workspace_test" ...
+                        dir('scm-src') {
+                            checkout([
+                                $class: 'GitSCM',
+                                branches: scm.branches,
+                                doGenerateSubmoduleConfigurations: false,
+                                extensions: [[
+                                  $class: 'SubmoduleOption',
+                                  disableSubmodules: false,
+                                  parentCredentials: true,
+                                  recursiveSubmodules: true,
+                                  reference: '',
+                                  trackingSubmodules: false
+                                ]],
+                                submoduleCfg: [],
+                                userRemoteConfigs: scm.userRemoteConfigs
+                              ])
+                        }
+                    }
+                }
+                stage('build') {
+                    agent {
+                        docker {
+                            reuseNode true
+                            alwaysPull true
+                            registryUrl DOCKER_BUILD_ENV.registry
+                            image DOCKER_BUILD_ENV.image
+                            args DOCKER_BUILD_ENV.args
+                        }
+                    }
+                    steps {
+                        print_step_info env.STAGE_NAME
+                        sh 'BUILD_PLATFORM=' + PLATFORM + ' scm-src/build.sh ' + TEST_SYSTEM
+                    }
+                }
+                stage('astyle_check') {
+                    steps {
+                        print_step_info env.STAGE_NAME
+                        catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                            sh 'scm-src/build.sh check_astyle_artifacts'
+                        }
+                    }
+                }
+                stage('prepare_test') {
+                    agent {
+                        docker {
+                            reuseNode true
+                            alwaysPull true
+                            registryUrl DOCKER_TEST_ENV.registry
+                            image DOCKER_TEST_ENV.image
+                            args DOCKER_TEST_ENV.args
+                        }
+                    }
+                    steps {
+                        print_step_info env.STAGE_NAME
+                        sh 'scm-src/test.sh prepare'
+                    }
+                }
+                stage('stash_cleanup') {
+                    steps {
+                        print_step_info env.STAGE_NAME
+                        stash \
+                            name: 'test_package', \
+                            includes: [ 'scm-src/**',
+                                        'workspace_test/**',
+                                        [ 'elfloader/elfloader',
+                                          'images/*-' + PLATFORM,
+                                          'kernel/kernel_all.c',
+                                          'kernel/kernel_all.i',
+                                          'kernel/kernel.elf',
+                                          'kernel/kernel.dts',
+                                          'kernel/gen_config/**',
+                                          'kernel/gen_headers/**',
+                                          'kernel/generated/**',
+                                          'os_system/**',
+                                        ].collect{ SYSTEM_IMAGE + '/' + it }.join(',')
+                                      ].join(',')
+                        cleanWs()
+                    }
+                }
+            }
+        }
+        stage('test') {
+            agent {
+                docker {
+                    label test_machine_label
+                    reuseNode true
+                    alwaysPull true
+                    registryUrl DOCKER_TEST_ENV.registry
+                    image DOCKER_TEST_ENV.image
+                    args DOCKER_TEST_ENV.args
+                }
+            }
+            steps {
+                print_step_info env.STAGE_NAME+' (on '+test_machine_label+')'
+                sh 'rm -rf *' // using cleanWs() seems to kill the workspace
+                unstash 'test_package'
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    sh 'scm-src/test.sh run ' + test_script
+                }
+                stash \
+                    name: 'test_result_package', \
+                    includes: ['test-logs*/**', SYSTEM_IMAGE+'/**'].join(',')
+                cleanWs()
+            }
+        }
+    }
+    post {
+        always {
+            node('test')
+            {
+                print_step_info 'archive artifacts'
+                cleanWs()
+                unstash 'test_result_package'
+                sh 'tar -cjf package.bz2 '+SYSTEM_IMAGE+'/ test-logs-*/'
+                archiveArtifacts artifacts: 'package.bz2', fingerprint: true
+                cleanWs()
+                notitfy_bitbucket()
+            }
+        }
+        success  { notitfy_slack('good', notify_success) }
+        failure  { notitfy_slack('bad', notify_failure) }
+        unstable { notitfy_slack('bad', notify_failure) }
+    }
+}
