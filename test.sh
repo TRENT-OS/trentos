@@ -56,12 +56,6 @@ DIR_SRC_KPD=${CURRENT_SCRIPT_DIR}/src/tests/demo_preprovisioned_keystore
 
 
 #-------------------------------------------------------------------------------
-# Python virtual environment
-PYTHON_VENV_NAME=ta-env
-PYTHON_VENV_ACTIVATE=${PYTHON_VENV_NAME}/bin/activate
-
-
-#-------------------------------------------------------------------------------
 function print_info()
 {
     local INFO=$1
@@ -123,36 +117,6 @@ function prepare_test()
             pydoc3 -w ${DIR_SRC_TA}/tests/*.py
         )
         #mv ${DIR_SRC_TA}/doc .
-
-
-        print_info "Check Python version and packages"
-        check_tool_installed python3
-        check_tool_installed pip3
-        check_tool_installed pytest
-
-        # setup a python virtual environment if needed. This is a convenience
-        # function for users who want to run the tests locally. In the CI
-        # environment the dependencies are usually always there and therefore
-        # this functions should always skip the installation.
-        local requirements_file="${DIR_SRC_TA}/tests/requirements.txt"
-        local installed=$(pip3 freeze)
-        local required=$(cat ${requirements_file})
-        local missing_pkg=""
-
-        for pkg in ${required}; do
-            if [[ ! ${installed} =~ ${pkg} ]]; then
-                missing_pkg=${pkg}
-                break
-            fi
-        done
-
-        if [ ! -z "${missing_pkg}" ] ; then
-            print_info "Missing python package: '${missing_pkg}'"
-            print_info "Creating virtual environment '${PYTHON_VENV_NAME}'"
-            python3 -m venv ${PYTHON_VENV_NAME}
-            source ${PYTHON_VENV_ACTIVATE}
-            pip3 install -r ${requirements_file}
-        fi
     )
 
     echo "test preparation complete"
@@ -197,12 +161,6 @@ function run_test()
         # run tests in sub shell
         (
             cd ${FOLDER_BUILD_TA}/tests
-
-            # activate python virtual environment if it exists
-            if [ -f ${PYTHON_VENV_ACTIVATE} ]; then
-                print_info "entering python virtual environment '${PYTHON_VENV_NAME}'"
-                source ${PYTHON_VENV_ACTIVATE}
-            fi
 
             if [ -z "${TEST_RUN_ID:-}" ]; then
                 local TEST_RUN_ID=test-logs-$(date +%Y%m%d-%H%M%S)
