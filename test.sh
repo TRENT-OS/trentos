@@ -191,6 +191,7 @@ function run_test()
                 # QEMU connection mode (PTY or TCP)
                 --qemu_connection=${QEMU_CONN}
 
+                --target=${BUILD_PLATFORM:-"zynq7000"}
                 --test_run_id=${TEST_RUN_ID}
                 --junitxml=${WORKSPACE_ROOT}/${TEST_RUN_ID}/test_results.xml
             )
