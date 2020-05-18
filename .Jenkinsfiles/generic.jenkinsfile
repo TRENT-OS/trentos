@@ -265,7 +265,12 @@ pipeline {
             {
                 print_step_info 'archive artifacts'
                 cleanWs()
-                unstash 'test_result_package'
+
+                // there might be no stash if things failed badly
+                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                    unstash 'test_result_package'
+                }
+
                 sh 'tar -cjf package.bz2 '+SYSTEM_IMAGE+'/ test-logs-*/'
                 archiveArtifacts artifacts: 'package.bz2', fingerprint: true
                 cleanWs()
