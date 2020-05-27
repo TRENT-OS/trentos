@@ -145,6 +145,7 @@ pipeline {
                     steps {
                         print_step_info env.STAGE_NAME
                         notitfy_bitbucket()
+                        buildName BRANCH_OR_COMMIT+' '+TEST_SYSTEM+' '+PLATFORM
                         cleanWs()
 
                         // everything is in separate folders to avoid file
