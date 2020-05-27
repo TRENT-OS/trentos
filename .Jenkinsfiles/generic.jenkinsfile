@@ -275,7 +275,7 @@ pipeline {
                 // get the current build's log. One day we should find a nicer
                 // way for this ...
                 sh 'wget -q --no-check-certificate -O build.log ' + BUILD_URL + 'consoleText'
-                
+
                 sh 'tar --ignore-failed-read -cjf package.bz2 ' +
                         ['build.log',
                          SYSTEM_IMAGE + '/',
