@@ -134,10 +134,6 @@ pipeline {
         // server, which then preserves this.
         buildDiscarder(logRotator(numToKeepStr: '100'))
     }
-   environment {
-        // see, we can't use groovy variables here directly
-        BUILD_PLATFORM = "${PLATFORM}"
-   }
     stages {
         stage('Build_stage'){
             agent { label "build" }
@@ -184,8 +180,9 @@ pipeline {
                     }
                     steps {
                         print_step_info env.STAGE_NAME
-                        // env var BUILD_PLATFORM is set by pipeline
-                        sh 'scm-src/build.sh ' + TEST_SYSTEM
+                        withEnv(["BUILD_PLATFORM=${PLATFORM}"]) {
+                            sh 'scm-src/build.sh ' + TEST_SYSTEM
+                        }
                     }
                 }
                 stage('astyle_check') {
@@ -269,8 +266,9 @@ pipeline {
                 sh 'rm -rf *' // using cleanWs() seems to kill the workspace
                 unstash 'test_package'
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    // env var BUILD_PLATFORM is set by pipeline
-                    sh 'scm-src/test.sh run ' + test_script
+                    withEnv(["BUILD_PLATFORM=${PLATFORM}"]) {
+                        sh 'scm-src/test.sh run ' + test_script
+                    }
                 }
                 stash \
                     name: 'test_result_package', \
