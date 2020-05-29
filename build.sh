@@ -133,7 +133,7 @@ function run_build_sdk()
 
     echo ""
     echo "##"
-    echo "## building SEOS SDK Package (${BUILD_MODE}) in ${BUILD_DIR}"
+    echo "## building SDK Package (${BUILD_MODE}) in ${BUILD_DIR}"
     echo "##"
 
     ${SDK_SRC_DIR}/build-sdk.sh ${BUILD_MODE} ${BUILD_DIR}
@@ -156,18 +156,18 @@ function run_build_doc()
     # build in subshell
     (
         cd ${BUILD_DIR}
-        # build SEOS projects documentation
-        SEOS_PROJECTS_DOC_OUTPUT=SEOS-Projects_doc-html
-        if [[ -e ${SEOS_PROJECTS_DOC_OUTPUT} ]]; then
-            echo "removing attic SEOS projects documentation collection folder"
-            rm -rf ${SEOS_PROJECTS_DOC_OUTPUT}
+        # build projects documentation
+        OS_PROJECTS_DOC_OUTPUT=OS-Projects_doc-html
+        if [[ -e ${OS_PROJECTS_DOC_OUTPUT} ]]; then
+            echo "removing attic projects documentation collection folder"
+            rm -rf ${OS_PROJECTS_DOC_OUTPUT}
         fi
-        mkdir ${SEOS_PROJECTS_DOC_OUTPUT}
-        cd ${SEOS_PROJECTS_DOC_OUTPUT}
+        mkdir ${OS_PROJECTS_DOC_OUTPUT}
+        cd ${OS_PROJECTS_DOC_OUTPUT}
 
         # Actually, details should move to each test, so we should just iterate
         # over all the folders and invoke a documentation build there
-        SEOS_PROJECTS_DOC_DIRS=(
+        OS_PROJECTS_DOC_DIRS=(
             # format: <test project from WELL_KNOWN_PROJECTS>[:<doc root>]
             # test_crypto_api:components/TEST_CRYPTO/src
             # test_keystore
@@ -202,7 +202,7 @@ function run_build_doc()
 </html>
 EOF
 
-        for PROJECT in ${SEOS_PROJECTS_DOC_DIRS[@]}; do
+        for PROJECT in ${OS_PROJECTS_DOC_DIRS[@]}; do
             local PRJ_NAME=${PROJECT/:*/}
             local PRJ_DOC_DIR=""
             if [[ "${PROJECT}" != "${PRJ_NAME}" ]]; then
@@ -363,7 +363,7 @@ function build_all_projects()
     # for now, just loop over the list above and abort the whole build on the
     # first error. Ideally we would not abort here, but try to do all builds
     # and then report which failed. Or better, the caller should invoke this
-    # build script several times in parallel for each SEOS system.
+    # build script several times in parallel for each system.
     for PROJECT in ${WELL_KNOWN_PROJECTS[@]}; do
         local PRJ_NAME=${PROJECT%,*}
         local PRJ_DIR=${PROJECT#*,}
