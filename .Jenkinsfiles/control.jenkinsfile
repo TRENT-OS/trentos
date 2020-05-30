@@ -143,25 +143,23 @@ def execute_build(global_ctx, test_ctx, branch, platform)
         '<br>',
         false)
 
-    lock('generic-control-job') {
-        node {
-            cleanWs()
+    node {
+        cleanWs()
 
-            catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE')
-            {
-                def artifact_name = 'package.bz2'
-                copyArtifacts(
-                    filter: artifact_name,
-                    projectName: jobBuild.getFullProjectName(),
-                    selector: specific("${jobBuild.getNumber()}") // need to ensure this is a string
-                )
+        catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE')
+        {
+            def artifact_name = 'package.bz2'
+            copyArtifacts(
+                filter: artifact_name,
+                projectName: jobBuild.getFullProjectName(),
+                selector: specific("${jobBuild.getNumber()}") // need to ensure this is a string
+            )
 
-                sh 'mv ' + artifact_name + ' ' + pkg_name + '.bz2'
-                stash name: pkg_name, includes: '**'
-            }
-
-            cleanWs()
+            sh 'mv ' + artifact_name + ' ' + pkg_name + '.bz2'
+            stash name: pkg_name, includes: '**'
         }
+
+        cleanWs()
     }
 }
 
