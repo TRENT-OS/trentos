@@ -153,7 +153,7 @@ def execute_build(global_ctx, test_ctx, branch, platform)
                 copyArtifacts(
                     filter: artifact_name,
                     projectName: jobBuild.getFullProjectName(),
-                    selector: specific("${jobBuild.getNumber()}") // need to endure this is a string
+                    selector: specific("${jobBuild.getNumber()}") // need to ensure this is a string
                 )
 
                 sh 'mv ' + artifact_name + ' ' + pkg_name + '.bz2'
