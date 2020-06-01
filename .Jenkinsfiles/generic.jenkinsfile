@@ -189,7 +189,7 @@ pipeline {
                     steps {
                         print_step_info env.STAGE_NAME
                         catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                            sh 'scm-src/build.sh check_astyle_artifacts'
+                            sh 'scm-src/check_astyle_artifacts.sh'
                         }
                     }
                 }

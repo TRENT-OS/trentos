@@ -110,22 +110,6 @@ function run_astyle()
 
 
 #-------------------------------------------------------------------------------
-function check_astyle_artifacts()
-{
-    # *.astyle files are generated when file are not astyle compliant. Check if
-    # any such file exists in the workspace and fail in this case.
-    local files=$(find . -name '*.astyle')
-    if [ ! -z "${files}" ]; then
-        echo "ERROR: source is not astyle compliant, check: "
-        for file in ${files}; do
-            echo "  ${file}"
-        done
-        exit 1
-    fi
-}
-
-
-#-------------------------------------------------------------------------------
 function run_build_sdk()
 {
     local BUILD_MODE=$1
@@ -422,13 +406,6 @@ elif [[ "${1:-}" == "all" ]]; then
     # projects
     build_all_projects all $@
 
-elif [[ "${1:-}" == "check_astyle_artifacts" ]]; then
-    shift
-    # on the command line astyle failures do not make the build fail, but in CI
-    # we don't allow them to happen. However, they are run as a separate step
-    # there after a successful build
-    check_astyle_artifacts
-
 elif [[ "${1:-}" == "clean" ]]; then
     shift
     rm -rf build-*
@@ -453,7 +430,6 @@ else
     \n\t doc (documentation)\
     \n\t all\
     \n\t all-projects (everything but the documentation)\
-    \n\t check_astyle_artifacts (to be run after a build, it tries to find astyle artifacts indicating discrepancies with the coding standards)\
     \n\t clean\
     \n\t <TEST_DIR> (folder with a test project)
     \n\t <TEST_NAME> (well known name of a test project)"
