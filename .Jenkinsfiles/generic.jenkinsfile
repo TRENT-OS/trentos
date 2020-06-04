@@ -20,7 +20,8 @@ params.each { println it.key + " = " + it.value }
 def test_machine_label = TEST_MACHINE_LABEL ?: 'test'
 def test_script = TEST_SCRIPT ?: (TEST_SYSTEM+'.py')
 def SYSTEM_IMAGE  = 'build-' + PLATFORM + '-Debug-' + TEST_SYSTEM
-def cppcheck_file = SYSTEM_IMAGE + '/cppcheck_output.txt'
+def cppcheck_file = 'cppcheck_output.txt'
+def cppcheck_file_location = SYSTEM_IMAGE + '/' + cppcheck_file
 
 def info_str = BRANCH_OR_COMMIT+', '+PLATFORM+', '+TEST_SYSTEM
 
@@ -205,8 +206,8 @@ pipeline {
                     }
                     steps {
                         print_step_info env.STAGE_NAME
-                        catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                            sh 'scm-src/check_static_analyzer.sh ' + cppcheck_file
+                        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                            sh 'scm-src/check_static_analyzer.sh ' + cppcheck_file_location
                         }
                     }
                 }
