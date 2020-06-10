@@ -29,6 +29,7 @@ WELL_KNOWN_PROJECTS=(
 
     # tests
     test_crypto_api,src/tests/test_crypto_api
+    test_cert_lib,src/tests/test_cert_lib
     test_cryptoserver,src/tests/test_cryptoserver
     test_chanmux,src/tests/test_chanmux
     test_proxy_nvm,src/tests/test_proxy_nvm
@@ -42,7 +43,6 @@ WELL_KNOWN_PROJECTS=(
     test_network_api,src/tests/test_network_api
     test_tls_api,src/tests/test_tls_api
     test_tlsserver,src/tests/test_tlsserver
-    test_cert_lib,src/tests/test_cert_lib
 
     # demos
     # demo_keystore,src/tests/demo_keystore
