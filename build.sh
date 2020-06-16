@@ -31,6 +31,7 @@ WELL_KNOWN_PROJECTS=(
     test_crypto_api,src/tests/test_crypto_api
     test_cert_lib,src/tests/test_cert_lib
     test_cryptoserver,src/tests/test_cryptoserver
+    test_entropysource,src/tests/test_entropysource
     test_chanmux,src/tests/test_chanmux
     test_proxy_nvm,src/tests/test_proxy_nvm
     test_partition_manager,src/tests/test_partition_manager
