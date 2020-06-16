@@ -82,3 +82,6 @@
 [submodule "src/tests/test_entropysource"]
 	path = src/tests/test_entropysource
 	url = ../../ss/test_entropysource.git
+[submodule "src/tests/test_storage_interface"]
+	path = src/tests/test_storage_interface
+	url = ../../ss/test_storage_interface.git

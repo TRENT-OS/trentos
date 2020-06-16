@@ -41,6 +41,7 @@ def ACTIVE_TESTS = [
     ['test_network_api',              'test_network',      null],
     ['test_tls_api',                  'test_tls',          null],
     ['test_tlsserver',                'test_tls',          null],
+    ['test_storage_interface',        null,                null],
 ]
 
 //------------------------------------------------------------------------------
