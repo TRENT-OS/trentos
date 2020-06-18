@@ -30,6 +30,7 @@ def ACTIVE_TESTS = [
     ['test_cert_lib',                 null,                null],
     ['test_crypto_api',               null,                null],
     ['test_cryptoserver',             null,                null],
+    ['test_entropysource',            null,                null],
     ['test_partition_manager',        null,                null],
     // ['test_seos_filestream',          null,                null], // broken build:
     ['test_filesystem_as_lib',        null,                null],
