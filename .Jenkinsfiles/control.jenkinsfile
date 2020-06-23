@@ -25,7 +25,7 @@ def ACTIVE_TESTS = [
 
     ['demo_hello_world',              null,                'test_demo_hello_world.py'],
     ['demo_iot_app',                  'test_in_isolation', 'test_demo_iot_app.py'],
-    ['test_chanmux',                  null,                null],
+    ['test_chanmux',                  'test_in_isolation',  null], // reasons to put this in test_in_isolation are explained in SEOS-1257
     ['test_proxy_nvm',                null,                null],
     ['test_cert_lib',                 null,                null],
     ['test_crypto_api',               null,                null],
