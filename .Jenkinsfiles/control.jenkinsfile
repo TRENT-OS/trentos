@@ -219,7 +219,7 @@ node {
             }
         }
 
-        // ToDo: support multiple platform here, currently this would see the
+        // ToDo: support multiple platforms here, currently this would see the
         //       same test case for each platform and it's likely messing up
         //       the analysis
         junit 'package-*/test-logs-*/test_results.xml'

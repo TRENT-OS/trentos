@@ -37,7 +37,7 @@ function sdk_kpt()
     # tool. The tool creates a file "nvm_06", which we rename into the desired
     # image file name then.
     # Since this function can be called from a different working directory, we
-    # can't use DIR_BIN_SDK, but need ABS_DIR_BIN_SDK with the absolute path
+    # can't use DIR_BIN_SDK, but need ABS_DIR_BIN_SDK with the absolute path.
     python3 ${ABS_DIR_BIN_SDK}/xmlParser.py ${CFG_XML} ${ABS_DIR_BIN_SDK}/kpt
 
     mv nvm_06 ${IMG_OUT}
@@ -145,8 +145,8 @@ function run_test()
         # test workspace. We do this, because we do not want to pollute the
         # sources, since python creates a folder __pycache__ with "compiled"
         # python scripts at the location of the scripts.
-        # ToDo: The copy operaction should better happen in the preparation,
-        #       step. It's done here for convenince reasons, as it allows
+        # ToDo: The copy operation should better happen in the preparation,
+        #       step. It's done here for convenience reasons, as it allows
         #       working on a test script and then just executing the "run"
         #       stage, which will use the changed script then
         cp -R ${DIR_SRC_TA}/* ${FOLDER_BUILD_TA}/
