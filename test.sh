@@ -84,12 +84,6 @@ function build_os_sdk()
     print_info "OS SDK build complete"
 }
 
-#-------------------------------------------------------------------------------
-function check_tool_installed()
-{
-    local TOOL=$1
-    which ${TOOL} > /dev/null || { echo "${TOOL} is required, please install it" && exit 1; }
-}
 
 #-------------------------------------------------------------------------------
 function prepare_test()
