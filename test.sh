@@ -38,7 +38,7 @@ function sdk_kpt()
     # image file name then.
     # Since this function can be called from a different working directory, we
     # can't use DIR_BIN_SDK, but need ABS_DIR_BIN_SDK with the absolute path.
-    python3 ${ABS_DIR_BIN_SDK}/xmlParser.py ${CFG_XML} ${ABS_DIR_BIN_SDK}/kpt
+    python3 -B ${ABS_DIR_BIN_SDK}/xmlParser.py ${CFG_XML} ${ABS_DIR_BIN_SDK}/kpt
 
     mv nvm_06 ${IMG_OUT}
 }
@@ -108,7 +108,7 @@ function prepare_test()
             #       echo ${f}
             #       pydoc3 -w ${f}
             #   done
-            pydoc3 -w ${DIR_SRC_TA}/tests/*.py
+            python3 -B -m pydoc -w ${DIR_SRC_TA}/tests/*.py
         )
         #mv ${DIR_SRC_TA}/doc .
     )
@@ -192,7 +192,7 @@ function run_test()
                 --junitxml=${WORKSPACE_ROOT}/${TEST_RUN_ID}/test_results.xml
             )
 
-            pytest ${PYTEST_PARAMS[@]} $@
+            python3 -B -m pytest ${PYTEST_PARAMS[@]} $@
         )
 
     )
