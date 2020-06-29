@@ -120,6 +120,26 @@ function prepare_test()
 #-------------------------------------------------------------------------------
 function run_test()
 {
+    if [ -z "${TEST_RUN_ID:-}" ]; then
+        local TEST_RUN_ID=test-logs-$(date +%Y%m%d-%H%M%S)
+        echo "TEST_RUN_ID not set, using ${TEST_RUN_ID}"
+    else
+        echo "TEST_RUN_ID is ${TEST_RUN_ID}"
+    fi
+
+    local QEMU_CONN="${1}"
+
+    # the current use case assumes that a proxy is always required
+    local QEMU_CONN="${1}"
+    if [[ ${QEMU_CONN} != "PTY" && ${QEMU_CONN} != "TCP" ]]; then
+        QEMU_CONN="TCP"
+        echo "QEMU connection: ${QEMU_CONN} (using default)"
+    else
+        echo "QEMU connection: ${QEMU_CONN}"
+        shift
+    fi
+
+
     if [ ! -d ${WORKSPACE_TEST_FOLDER} ]; then
         echo "ERROR: missing test workspace"
         exit 1
@@ -155,24 +175,6 @@ function run_test()
         # run tests in sub shell
         (
             cd ${FOLDER_BUILD_TA}/tests
-
-            if [ -z "${TEST_RUN_ID:-}" ]; then
-                local TEST_RUN_ID=test-logs-$(date +%Y%m%d-%H%M%S)
-                echo "TEST_RUN_ID not set, using ${TEST_RUN_ID}"
-            else
-                echo "TEST_RUN_ID is ${TEST_RUN_ID}"
-            fi
-
-            local QEMU_CONN="${1}"
-
-            # the current use case assumes that a proxy is always required
-            if [[ ${QEMU_CONN} != "PTY" && ${QEMU_CONN} != "TCP" ]]; then
-                QEMU_CONN="TCP"
-                echo "QEMU connection was set to $QEMU_CONN as default."
-            else
-                echo "QEMU connection was set to $QEMU_CONN."
-                shift
-            fi
 
             PYTEST_PARAMS=(
                 -v
