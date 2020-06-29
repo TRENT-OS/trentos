@@ -47,7 +47,6 @@ function sdk_kpt()
 #-------------------------------------------------------------------------------
 # Test Automation
 DIR_SRC_TA=${CURRENT_SCRIPT_DIR}/ta
-FOLDER_BUILD_TA=ta
 
 
 #-------------------------------------------------------------------------------
@@ -148,53 +147,37 @@ function run_test()
     (
         cd ${WORKSPACE_TEST_FOLDER}
 
-        print_info "Prepare TA integration tests"
-
-        if [ -d ${FOLDER_BUILD_TA} ]; then
-            rm -rf ${FOLDER_BUILD_TA}
-        fi
-        mkdir ${FOLDER_BUILD_TA}
-
-        # copy files from test automation framework to execute them from the
-        # test workspace. We do this, because we do not want to pollute the
-        # sources, since python creates a folder __pycache__ with "compiled"
-        # python scripts at the location of the scripts.
-        # ToDo: The copy operation should better happen in the preparation,
-        #       step. It's done here for convenience reasons, as it allows
-        #       working on a test script and then just executing the "run"
-        #       stage, which will use the changed script then
-        cp -R ${DIR_SRC_TA}/* ${FOLDER_BUILD_TA}/
-
-        print_info "Prepare KeyStore image"
         # Create a fresh keystore image for each test run.
+        print_info "Prepare KeyStore image"
         sdk_kpt \
             ${DIR_SRC_KPD}/preprovisionedKeys.xml \
-            ${FOLDER_BUILD_TA}/tests/preProvisionedKeyStoreImg
+            preProvisionedKeyStoreImg
+    )
 
         print_info "Running TA integration tests"
         # run tests in sub shell
-        (
-            cd ${FOLDER_BUILD_TA}/tests
+    (
+        cd ${DIR_SRC_TA}/tests
 
-            PYTEST_PARAMS=(
-                -v
-                # --capture=no   # show printf() from python scripts in console
-                --workspace_path=${WORKSPACE_ROOT}
+        PYTEST_PARAMS=(
+            -v
+            -o cache_dir=${WORKSPACE_ROOT}/${WORKSPACE_TEST_FOLDER}/.pytest_cache
+            # --capture=no   # show printf() from python scripts in console
+            --workspace_path=${WORKSPACE_ROOT}
 
-                # even if it's called proxy_path, it the proxy binary actually
-                --proxy_path=${ABS_DIR_BIN_SDK}/proxy_app
+            # even if it's called proxy_path, it the proxy binary actually
+            --proxy_path=${ABS_DIR_BIN_SDK}/proxy_app
 
-                # QEMU connection mode (PTY or TCP)
-                --qemu_connection=${QEMU_CONN}
+            # QEMU connection mode (PTY or TCP)
+            --qemu_connection=${QEMU_CONN}
 
-                --target=${BUILD_PLATFORM:-"zynq7000"}
-                --test_run_id=${TEST_RUN_ID}
-                --junitxml=${WORKSPACE_ROOT}/${TEST_RUN_ID}/test_results.xml
-            )
-
-            python3 -B -m pytest ${PYTEST_PARAMS[@]} $@
+            --target=${BUILD_PLATFORM:-"zynq7000"}
+            --test_run_id=${TEST_RUN_ID}
+            --junitxml=${WORKSPACE_ROOT}/${TEST_RUN_ID}/test_results.xml
         )
 
+        print_info "Running TA integration tests"
+        python3 -B -m pytest ${PYTEST_PARAMS[@]} $@
     )
 
     echo "test run complete"
