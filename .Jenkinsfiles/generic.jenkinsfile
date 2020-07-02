@@ -162,7 +162,7 @@ pipeline {
                                   recursiveSubmodules: true,
                                   reference: '',
                                   trackingSubmodules: false,
-                                  threads: 8
+                                  threads: 4
                                 ]],
                                 submoduleCfg: [],
                                 userRemoteConfigs: scm.userRemoteConfigs
