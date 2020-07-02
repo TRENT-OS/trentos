@@ -69,15 +69,15 @@ def DOCKER_REGISTRY = 'https://' + DOCKER_BASE
 
 def DOCKER_BUILD_ENV = [
     registry: DOCKER_REGISTRY,
-    image:    DOCKER_BASE + '/trentos_build:trentos_0.9',
+    image:    DOCKER_BASE + '/trentos_build:20200701',
     args:     ['-v /etc/localtime:/etc/localtime:ro',
-               '--group-add=1001'
+               '--group-add=stack'
               ].join(' ')
 ]
 
 def DOCKER_TEST_ENV  = [
     registry: DOCKER_REGISTRY,
-    image:    DOCKER_BASE + '/trentos_test:20200618',
+    image:    DOCKER_BASE + '/trentos_test:20200701',
     args:     ['-v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro',
                '-v /etc/localtime:/etc/localtime:ro',
                '--network=bridge',
