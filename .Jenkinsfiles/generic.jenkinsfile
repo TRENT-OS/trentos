@@ -268,13 +268,16 @@ pipeline {
                 sh 'rm -rf *' // using cleanWs() seems to kill the workspace
                 unstash 'test_package'
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    withEnv(["BUILD_PLATFORM=${PLATFORM}"]) {
+                    withEnv([
+                        "BUILD_PLATFORM=${PLATFORM}",
+                        "TEST_LOGS_DIR=test-logs"
+                    ]) {
                         sh 'scm-src/test.sh run ' + test_script
                     }
                 }
                 stash \
                     name: 'test_result_package', \
-                    includes: ['test-logs*/**', SYSTEM_IMAGE+'/**'].join(',')
+                    includes: ['test-logs/**', SYSTEM_IMAGE+'/**'].join(',')
                 cleanWs()
             }
         }
@@ -298,7 +301,7 @@ pipeline {
                 sh 'tar --ignore-failed-read -cjf package.bz2 ' +
                         ['build.log',
                          SYSTEM_IMAGE + '/',
-                         'test-logs-*/',
+                         'test-logs/',
                         ].join(' ')
                 archiveArtifacts artifacts: 'package.bz2', fingerprint: true
                 cleanWs()

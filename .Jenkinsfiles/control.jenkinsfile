@@ -222,7 +222,7 @@ node {
         // ToDo: support multiple platforms here, currently this would see the
         //       same test case for each platform and it's likely messing up
         //       the analysis
-        junit 'package-*/test-logs-*/test_results.xml'
+        junit 'package-*/test-logs/test_results.xml'
 
         sh 'tar -cjf package.bz2 package-*/'
         archiveArtifacts artifacts: 'package.bz2', fingerprint: true

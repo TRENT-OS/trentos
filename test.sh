@@ -9,8 +9,6 @@
 #-------------------------------------------------------------------------------
 
 CURRENT_SCRIPT_DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd)"
-WORKSPACE_ROOT=$(pwd)
-
 
 #-------------------------------------------------------------------------------
 # our workspace name
@@ -23,25 +21,6 @@ DIR_SRC_SANDBOX=${CURRENT_SCRIPT_DIR}/seos_sandbox
 # SDK is created in the workspace
 DIR_BASE_SDK=${WORKSPACE_TEST_FOLDER}/OS-SDK
 DIR_BIN_SDK=${DIR_BASE_SDK}/pkg/bin
-ABS_DIR_BIN_SDK=${WORKSPACE_ROOT}/${DIR_BIN_SDK}
-
-
-# Keystore Provisioning Tool usage wrapper
-function sdk_kpt()
-{
-    local CFG_XML=$1
-    local IMG_OUT=$2
-
-    # The keystore provisioning tool currently works by feeding a XML file into
-    # a python script that will create command line arguments for the actual
-    # tool. The tool creates a file "nvm_06", which we rename into the desired
-    # image file name then.
-    # Since this function can be called from a different working directory, we
-    # can't use DIR_BIN_SDK, but need ABS_DIR_BIN_SDK with the absolute path.
-    python3 -B ${ABS_DIR_BIN_SDK}/xmlParser.py ${CFG_XML} ${ABS_DIR_BIN_SDK}/kpt
-
-    mv nvm_06 ${IMG_OUT}
-}
 
 
 #-------------------------------------------------------------------------------
@@ -117,18 +96,20 @@ function prepare_test()
 
 
 #-------------------------------------------------------------------------------
-function run_test()
+# Params: BUILD_PLATFORM [QEMU_CONN] [pytest params ...]
+function run_tests()
 {
-    if [ -z "${TEST_RUN_ID:-}" ]; then
-        local TEST_RUN_ID=test-logs-$(date +%Y%m%d-%H%M%S)
-        echo "TEST_RUN_ID not set, using ${TEST_RUN_ID}"
-    else
-        echo "TEST_RUN_ID is ${TEST_RUN_ID}"
+    local BUILD_PLATFORM=$1
+    shift
+
+    # the workspace holds the SDK+tools, temporary files and partition images,
+    if [ ! -d ${WORKSPACE_TEST_FOLDER} ]; then
+        echo "ERROR: missing test workspace"
+        exit 1
     fi
 
-    local QEMU_CONN="${1}"
-
-    # the current use case assumes that a proxy is always required
+    # proxy connection defaults to TCP. We always pass the proxy params, even
+    # if the actual system under test does not use the proxy.
     local QEMU_CONN="${1}"
     if [[ ${QEMU_CONN} != "PTY" && ${QEMU_CONN} != "TCP" ]]; then
         QEMU_CONN="TCP"
@@ -138,47 +119,105 @@ function run_test()
         shift
     fi
 
+    # process command line parameters. Note that QEMU_CONN above we may have
+    # consumed one parameter already.
+    local TEST_SCRIPTS=()
+    local TEST_PARAMS=()
+    for param in $@; do
+        # everything that starts with a dash is considered a parameter,
+        # oherwise it's considered a script name.
+        if [[ ${param} =~ -.*  ]]; then
+            TEST_PARAMS+=(${param})
+        else
+            TEST_SCRIPTS+=(${param})
+        fi
+    done
 
-    if [ ! -d ${WORKSPACE_TEST_FOLDER} ]; then
-        echo "ERROR: missing test workspace"
-        exit 1
+    # folder where the logs are created. Partition images can be placed here if
+    # they should be archived wit the log
+    if [ -z "${TEST_LOGS_DIR:-}" ]; then
+        local TEST_LOGS_DIR=test-logs-$(date +%Y%m%d-%H%M%S)
+        echo "TEST_LOGS_DIR not set, using ${TEST_LOGS_DIR}"
+    else
+        echo "TEST_LOGS_DIR is ${TEST_LOGS_DIR}"
     fi
 
-    (
-        cd ${WORKSPACE_TEST_FOLDER}
 
-        # Create a fresh keystore image for each test run.
-        print_info "Prepare KeyStore image"
-        sdk_kpt \
-            ${DIR_SRC_KPD}/preprovisionedKeys.xml \
-            preProvisionedKeyStoreImg
+    # unfortunately, the system image name contains the architecture in the
+    # name also, so we need this table to derive it. It would be much easier
+    # if the build process creates the image with a generic name.
+    declare -A SEL4_ARCH_MAPPING=(
+        [imx6]=arm
+        [migv]=riscv
+        [rpi3]=arm
+        [spike]=arm
+        [zynq7000]=arm
+    )
+    SEL4_ARCH=${SEL4_ARCH_MAPPING[${BUILD_PLATFORM}]:-}
+    if [ -z "${SEL4_ARCH}" ]; then
+        echo "ERROR: could not determine architecture for platform ${BUILD_PLATFORM}"
+        exit 1
+    fi
+    SYSTEM_IMG="images/capdl-loader-image-${SEL4_ARCH}-${BUILD_PLATFORM}"
+
+    # usually the test script name matched the system name, but there are some
+    # special cases
+    declare -A IMG_MAPPING=(
+        [test_demo_hello_world]=demo_hello_world
+        [test_demo_iot_app]=demo_iot_app
     )
 
-        print_info "Running TA integration tests"
-        # run tests in sub shell
-    (
-        cd ${DIR_SRC_TA}/tests
+    for TEST_SCRIPT in ${TEST_SCRIPTS}; do
+        f=$(basename ${TEST_SCRIPT})
+        f=${f%.*}
+        PROJECT=${IMG_MAPPING[${f}]:-}
+        if [ -z "${PROJECT}" ]; then
+            PROJECT=${f}
+        fi
+
+        local BUILD_FOLDER="build-${BUILD_PLATFORM}-Debug-${PROJECT}"
+
+        # ToDo: if ${PROJECT} does keystore test ...
+        #
+        # (
+        #     print_info "Prepare KeyStore image"
+        #     ABS_DIR_BIN_SDK=$(realpath ${DIR_BIN_SDK})
+        #     cd ${WORKSPACE_TEST_FOLDER}
+        #
+        #     # Create a fresh keystore image for each test run. The keystore
+        #     # provisioning tool currently works by feeding a XML file into
+        #     # a python script that will create command line arguments for the
+        #     # actual tool. The tool creates a file "nvm_06", which we rename
+        #     # into the desired image file name then.
+        #
+        #     python3 \
+        #         -B \
+        #         ${ABS_DIR_BIN_SDK}/xmlParser.py \
+        #         ${DIR_SRC_KPD}/preprovisionedKeys.xml \
+        #         ${ABS_DIR_BIN_SDK}/kpt
+        #    mv nvm_06 preProvisionedKeyStoreImg
+        # )
+
+        print_info "running test for system: ${PROJECT}"
 
         PYTEST_PARAMS=(
             -v
-            -o cache_dir=${WORKSPACE_ROOT}/${WORKSPACE_TEST_FOLDER}/.pytest_cache
+            -o cache_dir=$(realpath ${WORKSPACE_TEST_FOLDER})/.pytest_cache
             # --capture=no   # show printf() from python scripts in console
-            --workspace_path=${WORKSPACE_ROOT}
-
-            # even if it's called proxy_path, it the proxy binary actually
-            --proxy_path=${ABS_DIR_BIN_SDK}/proxy_app
-
-            # QEMU connection mode (PTY or TCP)
-            --qemu_connection=${QEMU_CONN}
-
-            --target=${BUILD_PLATFORM:-"zynq7000"}
-            --test_run_id=${TEST_RUN_ID}
-            --junitxml=${WORKSPACE_ROOT}/${TEST_RUN_ID}/test_results.xml
+            --target=${BUILD_PLATFORM}
+            --system_image=$(realpath ${BUILD_FOLDER}/${SYSTEM_IMG})
+            --proxy=$(realpath ${DIR_BIN_SDK}/proxy_app),${QEMU_CONN}
+            --log_dir=$(realpath ${TEST_LOGS_DIR})
+            --junitxml=$(realpath ${TEST_LOGS_DIR})/test_results.xml
         )
 
-        print_info "Running TA integration tests"
-        python3 -B -m pytest ${PYTEST_PARAMS[@]} $@
-    )
+        (
+            cd ${DIR_SRC_TA}/tests
+            set -x
+            python3 -B -m pytest ${PYTEST_PARAMS[@]} ${TEST_PARAMS[@]} ${TEST_SCRIPT}
+        )
+
+    done
 
     echo "test run complete"
 }
@@ -187,6 +226,9 @@ function run_test()
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
+
+BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
+
 
 if [[ "${1:-}" == "build" ]]; then
     shift
@@ -206,8 +248,7 @@ elif [[ "${1:-}" == "prepare" ]]; then
 
 elif [[ "${1:-}" == "run" ]]; then
     shift
-
-    run_test $@
+    run_tests ${BUILD_PLATFORM} $@
 
 
 else
