@@ -117,7 +117,6 @@ def execute_build(global_ctx, test_ctx, branch, platform)
     def jobBuild = build(
                         job: 'generic_jobs/generic_pipeline',
                         wait: true,
-                        propagate: false,
                         parameters: [
                             string(name: 'BRANCH_OR_COMMIT',   value: branch),
                             string(name: 'JENKINSFILE',        value: '.Jenkinsfiles/generic.jenkinsfile'),
@@ -200,7 +199,10 @@ ACTIVE_TESTS.each { test_ctx ->
 
 // start the build and wait until all finish. We don't need to take en executor
 // here for this.
-parallel global_ctx.buildStages
+catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE')
+{
+    parallel global_ctx.buildStages
+}
 
 // builds are done, collect results. Now we need to run somewhere and have a
 // workspace, thus we take do things in a node
