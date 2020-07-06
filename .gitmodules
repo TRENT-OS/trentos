@@ -88,3 +88,6 @@
 [submodule "src/demos/demo_iot_app_rpi3"]
 	path = src/demos/demo_iot_app_rpi3
 	url = ../../ss/demo_iot_app_rpi3.git
+[submodule "src/tests/test_filesystem"]
+	path = src/tests/test_filesystem
+	url = ../../ss/test_filesystem.git
