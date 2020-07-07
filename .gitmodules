@@ -85,3 +85,6 @@
 [submodule "src/tests/test_storage_interface"]
 	path = src/tests/test_storage_interface
 	url = ../../ss/test_storage_interface.git
+[submodule "src/demos/demo_iot_app_rpi3"]
+	path = src/demos/demo_iot_app_rpi3
+	url = ../../ss/demo_iot_app_rpi3.git
