@@ -37,6 +37,7 @@ WELL_KNOWN_PROJECTS=(
     test_partition_manager,src/tests/test_partition_manager
     test_seos_filestream,src/tests/test_seos_filestream
     test_filesystem_as_lib,src/tests/test_filesystem_as_lib
+    test_filesystem,src/tests/test_filesystem
     test_logserver,src/tests/test_logserver
     test_config_server,src/tests/test_config_server
     test_config_server_fs_backend,src/tests/test_config_server_fs_backend
