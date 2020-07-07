@@ -175,6 +175,13 @@ function run_tests()
             PROJECT=${f}
         fi
 
+        # create the folder to run the test in and collect all output and test
+        # setup files in
+        TEST_SYSTEM_LOG_DIR=${TEST_LOGS_DIR}/${f}
+        mkdir -p ${TEST_SYSTEM_LOG_DIR}
+
+        # derive test or demo project folder from our naming convention
+        PROJECT_SRC_DIR=${PROJECT::4}s/${PROJECT}
         local BUILD_FOLDER="build-${BUILD_PLATFORM}-Debug-${PROJECT}"
 
         # ToDo: if ${PROJECT} does keystore test ...
@@ -202,7 +209,6 @@ function run_tests()
 
         PYTEST_PARAMS=(
             -v
-            -o cache_dir=$(realpath ${WORKSPACE_TEST_FOLDER})/.pytest_cache
             # --capture=no   # show printf() from python scripts in console
             --target=${BUILD_PLATFORM}
             --system_image=$(realpath ${BUILD_FOLDER}/${SYSTEM_IMG})
@@ -212,9 +218,13 @@ function run_tests()
         )
 
         (
-            cd ${DIR_SRC_TA}/tests
+            cd ${TEST_SYSTEM_LOG_DIR}
+            export PYTHONPATH="${DIR_SRC_TA}/common:${DIR_SRC_TA}/tests"
+
             set -x
-            python3 -B -m pytest ${PYTEST_PARAMS[@]} ${TEST_PARAMS[@]} ${TEST_SCRIPT}
+            # run pytest but prevent it from creating any pycache folder
+            python3 -B -m pytest -p no:cacheprovider ${PYTEST_PARAMS[@]} \
+                        ${TEST_PARAMS[@]} ${DIR_SRC_TA}/tests/${TEST_SCRIPT}
         )
 
     done
