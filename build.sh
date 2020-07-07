@@ -55,6 +55,7 @@ WELL_KNOWN_PROJECTS=(
     # demo_configuration_as_component,src/tests/demo_configuration_as_component
     # demo_partition_manager,tests/demo_partition_manager
     demo_iot_app,src/demos/demo_iot_app
+    demo_iot_app_rpi3,src/demos/demo_iot_app_rpi3
 )
 
 
