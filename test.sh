@@ -20,7 +20,8 @@ WORKSPACE_TEST_FOLDER=workspace_test
 DIR_SRC_SANDBOX=${CURRENT_SCRIPT_DIR}/seos_sandbox
 # SDK is created in the workspace
 DIR_BASE_SDK=${WORKSPACE_TEST_FOLDER}/OS-SDK
-DIR_BIN_SDK=${DIR_BASE_SDK}/pkg/bin
+DIR_PKG_SDK=${DIR_BASE_SDK}/pkg
+DIR_BIN_SDK=${DIR_PKG_SDK}/bin
 
 
 #-------------------------------------------------------------------------------
@@ -182,6 +183,18 @@ function run_tests()
 
         # derive test or demo project folder from our naming convention
         PROJECT_SRC_DIR=${PROJECT::4}s/${PROJECT}
+
+        # if the project provides a test preparation script, execute this prior
+        # to the test run
+        TEST_SYSTEM_SETUP=${CURRENT_SCRIPT_DIR}/src/${PROJECT_SRC_DIR}/prepare_test.sh
+        if [ -f "${TEST_SYSTEM_SETUP}" ]; then
+            ABS_DIR_PGK_SDK=$(realpath ${DIR_PKG_SDK})
+            (
+                cd ${TEST_SYSTEM_LOG_DIR}
+                ${CURRENT_SCRIPT_DIR}/src/${PROJECT_SRC_DIR}/prepare_test.sh ${ABS_DIR_PGK_SDK}
+            )
+        fi
+
         local BUILD_FOLDER="build-${BUILD_PLATFORM}-Debug-${PROJECT}"
 
         # ToDo: if ${PROJECT} does keystore test ...
