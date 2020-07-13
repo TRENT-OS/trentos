@@ -108,6 +108,8 @@ function run_astyle()
         # search recursively in all subfolders, as modules can come with their
         # own version of the script
         find . -name 'astyle_check.sh' -printf 'running %p\n' -execdir {} \;
+
+        ${SDK_SRC_DIR}/astyle_check_sdk.sh
     )
 }
 
