@@ -32,9 +32,9 @@ def ACTIVE_TESTS = [
     ['test_crypto_api',               null,                null],
     ['test_cryptoserver',             null,                null],
     ['test_entropysource',            null,                null],
-    ['test_partition_manager',        null,                null],
-    // ['test_seos_filestream',          null,                null], // broken build:
-    ['test_filesystem_as_lib',        null,                null],
+    //['test_partition_manager',        null,                null], // redundant with new FS
+    //['test_seos_filestream',          null,                null], // broken build:
+    //['test_filesystem_as_lib',        null,                null], // redundant with new FS
     ['test_filesystem',               null,                null],
     ['test_config_server_fs_backend', null,                null],
     ['test_config_server',            null,                null],
