@@ -34,9 +34,9 @@ WELL_KNOWN_PROJECTS=(
     test_entropysource,src/tests/test_entropysource
     test_chanmux,src/tests/test_chanmux
     test_proxy_nvm,src/tests/test_proxy_nvm
-    test_partition_manager,src/tests/test_partition_manager
-    test_seos_filestream,src/tests/test_seos_filestream
-    test_filesystem_as_lib,src/tests/test_filesystem_as_lib
+    #test_partition_manager,src/tests/test_partition_manager    # obsolete
+    #test_seos_filestream,src/tests/test_seos_filestream        # obsolete
+    #test_filesystem_as_lib,src/tests/test_filesystem_as_lib    # obsolete
     test_filesystem,src/tests/test_filesystem
     test_logserver,src/tests/test_logserver
     test_config_server,src/tests/test_config_server
@@ -60,9 +60,10 @@ WELL_KNOWN_PROJECTS=(
 )
 
 
-ALL_PROJECTS_EXCLUDE_zynq7000=(
-    test_seos_filestream   # needs to be updated, does not compile
-)
+# obsolete
+#ALL_PROJECTS_EXCLUDE_zynq7000=(
+#    test_seos_filestream   # needs to be updated, does not compile
+#)
 
 
 #-------------------------------------------------------------------------------
