@@ -29,7 +29,7 @@ WELL_KNOWN_PROJECTS=(
 
     # tests
     test_crypto_api,src/tests/test_crypto_api
-    test_cert_lib,src/tests/test_cert_lib
+    test_certparser,src/tests/test_certparser
     test_cryptoserver,src/tests/test_cryptoserver
     test_entropysource,src/tests/test_entropysource
     test_chanmux,src/tests/test_chanmux
