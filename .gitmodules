@@ -76,9 +76,6 @@
 [submodule "src/tests/test_tlsserver"]
 	path = src/tests/test_tlsserver
 	url = ../../ss/test_tlsserver.git
-[submodule "src/tests/test_cert_lib"]
-	path = src/tests/test_cert_lib
-	url = ../../ss/test_cert_lib.git
 [submodule "src/tests/test_entropysource"]
 	path = src/tests/test_entropysource
 	url = ../../ss/test_entropysource.git
