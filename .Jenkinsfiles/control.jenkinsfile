@@ -28,7 +28,7 @@ def ACTIVE_TESTS = [
     ['demo_iot_app_rpi3',             'test_in_isolation', 'test_demo_iot_app_rpi3.py'],
     ['test_chanmux',                  null,                null],
     ['test_proxy_nvm',                null,                null],
-    ['test_cert_lib',                 null,                null],
+    ['test_certparser',               null,                null],
     ['test_crypto_api',               null,                null],
     ['test_cryptoserver',             null,                null],
     ['test_entropysource',            null,                null],
