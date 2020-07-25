@@ -25,7 +25,7 @@ def ACTIVE_TESTS = [
 
     ['demo_hello_world',              null,                'test_demo_hello_world.py'],
     ['demo_iot_app',                  'test_in_isolation', 'test_demo_iot_app.py'],
-    ['demo_iot_app_rpi3',             'test_in_isolation', 'test_demo_iot_app_rpi3.py'],
+    //['demo_iot_app_rpi3',             'test_in_isolation', 'test_demo_iot_app_rpi3.py'], // compiles for rpi3 target only
     ['test_chanmux',                  null,                null],
     ['test_proxy_nvm',                null,                null],
     ['test_certparser',               null,                null],
