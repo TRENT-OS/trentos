@@ -235,7 +235,7 @@ pipeline {
                             includes: [ 'scm-src/**',
                                         'workspace_test/**',
                                         [ 'elfloader/elfloader',
-                                          'images/*-' + PLATFORM,
+                                          'images/os_image.bin',
                                           cppcheck_file,
                                           'kernel/kernel_all.c',
                                           'kernel/kernel_all.i',

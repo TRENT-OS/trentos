@@ -143,24 +143,6 @@ function run_tests()
         echo "TEST_LOGS_DIR is ${TEST_LOGS_DIR}"
     fi
 
-
-    # unfortunately, the system image name contains the architecture in the
-    # name also, so we need this table to derive it. It would be much easier
-    # if the build process creates the image with a generic name.
-    declare -A SEL4_ARCH_MAPPING=(
-        [imx6]=arm
-        [migv]=riscv
-        [rpi3]=arm
-        [spike]=arm
-        [zynq7000]=arm
-    )
-    SEL4_ARCH=${SEL4_ARCH_MAPPING[${BUILD_PLATFORM}]:-}
-    if [ -z "${SEL4_ARCH}" ]; then
-        echo "ERROR: could not determine architecture for platform ${BUILD_PLATFORM}"
-        exit 1
-    fi
-    SYSTEM_IMG="images/capdl-loader-image-${SEL4_ARCH}-${BUILD_PLATFORM}"
-
     # usually the test script name matches the system name, but there are some
     # special cases
     declare -A TEST_SCRIPT_MAPPING=(
@@ -224,7 +206,7 @@ function run_tests()
             -v
             # --capture=no   # show printf() from python scripts in console
             --target=${BUILD_PLATFORM}
-            --system_image=$(realpath ${BUILD_FOLDER}/${SYSTEM_IMG})
+            --system_image=$(realpath ${BUILD_FOLDER}/images/os_image.bin)
             --proxy=$(realpath ${DIR_BIN_SDK}/proxy_app),${QEMU_CONN}
             --log_dir=$(realpath ${TEST_LOGS_DIR})
             --junitxml=$(realpath ${TEST_LOGS_DIR})/test_results.xml
