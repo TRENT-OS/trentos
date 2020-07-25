@@ -163,7 +163,7 @@ function run_tests()
 
     # usually the test script name matches the system name, but there are some
     # special cases
-    declare -A IMG_MAPPING=(
+    declare -A TEST_SCRIPT_MAPPING=(
         [test_demo_hello_world]=demo_hello_world
         [test_demo_iot_app]=demo_iot_app
     )
@@ -171,7 +171,7 @@ function run_tests()
     for TEST_SCRIPT in ${TEST_SCRIPTS}; do
         f=$(basename ${TEST_SCRIPT})
         f=${f%.*}
-        PROJECT=${IMG_MAPPING[${f}]:-}
+        PROJECT=${TEST_SCRIPT_MAPPING[${f}]:-}
         if [ -z "${PROJECT}" ]; then
             PROJECT=${f}
         fi
