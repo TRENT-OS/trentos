@@ -161,7 +161,7 @@ function run_tests()
     fi
     SYSTEM_IMG="images/capdl-loader-image-${SEL4_ARCH}-${BUILD_PLATFORM}"
 
-    # usually the test script name matched the system name, but there are some
+    # usually the test script name matches the system name, but there are some
     # special cases
     declare -A IMG_MAPPING=(
         [test_demo_hello_world]=demo_hello_world
