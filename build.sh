@@ -236,7 +236,7 @@ EOF
 #-------------------------------------------------------------------------------
 function run_system_build()
 {
-    if [ "$#" -lt 3 ]; then
+    if [ "$#" -lt 4 ]; then
         echo "ERROR: invalid parameters for ${FUNCNAME[0]}()"
         return 1
     fi
