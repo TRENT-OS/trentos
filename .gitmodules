@@ -94,3 +94,6 @@
 [submodule "src/demos/demo_raspi_ethernet"]
 	path = src/demos/demo_raspi_ethernet
 	url = ../../ss/demo_raspi_ethernet.git
+[submodule "src/tests/test_uart"]
+	path = src/tests/test_uart
+	url = ../../ss/test_uart.git

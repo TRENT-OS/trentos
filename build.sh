@@ -32,6 +32,7 @@ WELL_KNOWN_PROJECTS=(
     test_certparser,src/tests/test_certparser
     test_cryptoserver,src/tests/test_cryptoserver
     test_entropysource,src/tests/test_entropysource
+    test_uart,src/tests/test_uart
     test_chanmux,src/tests/test_chanmux
     test_proxy_nvm,src/tests/test_proxy_nvm
     #test_partition_manager,src/tests/test_partition_manager    # obsolete
