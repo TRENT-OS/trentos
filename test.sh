@@ -53,7 +53,7 @@ function build_os_sdk()
     fi
     mkdir ${WORKSPACE_TEST_FOLDER}
 
-    # if we have a SDK apackage, these stept are no longer required, because
+    # if we have a SDK package, these steps are no longer required, because
     # they have been executed when the packages was created and released. Since
     # we still use seos_sandbox, we have to build the SDK package here and
     # also give it some testing
