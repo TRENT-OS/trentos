@@ -44,7 +44,7 @@ function print_info()
 
 
 #-------------------------------------------------------------------------------
-function build_os_sdk()
+function prepare_test()
 {
     # remove folder if it exists already. This should not happen in CI when we
     # have a clean workspace, but it's convenient for local builds
@@ -52,6 +52,16 @@ function build_os_sdk()
         rm -rf ${WORKSPACE_TEST_FOLDER}
     fi
     mkdir ${WORKSPACE_TEST_FOLDER}
+}
+
+
+#-------------------------------------------------------------------------------
+function build_os_sdk()
+{
+    if [ ! -d ${WORKSPACE_TEST_FOLDER} ]; then
+        echo "ERROR: missing test workspace"
+        exit 1
+    fi
 
     # if we have a SDK package, these steps are no longer required, because
     # they have been executed when the packages was created and released. Since
@@ -65,7 +75,7 @@ function build_os_sdk()
 
 
 #-------------------------------------------------------------------------------
-function prepare_test()
+function build_test_plan_docs()
 {
     if [ ! -d ${WORKSPACE_TEST_FOLDER} ]; then
         echo "ERROR: missing test workspace"
@@ -237,9 +247,9 @@ BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
 
 if [[ "${1:-}" == "prepare" ]]; then
     shift
-
-    build_os_sdk
     prepare_test
+    build_os_sdk
+    build_test_plan_docs
 
 
 elif [[ "${1:-}" == "run" ]]; then
