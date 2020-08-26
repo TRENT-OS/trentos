@@ -235,18 +235,9 @@ function run_tests()
 BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
 
 
-if [[ "${1:-}" == "build" ]]; then
+if [[ "${1:-}" == "prepare" ]]; then
     shift
 
-    build_os_sdk
-
-
-elif [[ "${1:-}" == "prepare" ]]; then
-    shift
-
-    # ToDo: the step "build_test_tools" is executed here to keep backwards
-    #       compatibility. It will be removed once all script have been updated
-    #       to invoke the build step above.
     build_os_sdk
     prepare_test
 
@@ -258,7 +249,6 @@ elif [[ "${1:-}" == "run" ]]; then
 
 else
     echo "invalid parameter, use"
-    echo "   build"
     echo "   prepare"
     echo "   run [pytest_params_and_args]"
     exit 1
