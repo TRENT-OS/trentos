@@ -217,9 +217,9 @@ pipeline {
                         docker {
                             reuseNode true
                             alwaysPull true
-                            registryUrl DOCKER_TEST_ENV.registry
-                            image DOCKER_TEST_ENV.image
-                            args DOCKER_TEST_ENV.args
+                            registryUrl DOCKER_BUILD_ENV.registry
+                            image DOCKER_BUILD_ENV.image
+                            args DOCKER_BUILD_ENV.args
                         }
                     }
                     steps {
