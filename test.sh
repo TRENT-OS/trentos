@@ -257,6 +257,13 @@ elif [[ "${1:-}" == "run" ]]; then
     run_tests ${BUILD_PLATFORM} $@
 
 
+elif [[ "${1:-}" == "qemu" ]]; then
+    shift
+    QEMU_SYSTEM="build-${BUILD_PLATFORM}-Debug-${1:-demo_hello_world}"
+    export BUILD_PLATFORM
+    ${DIR_SRC_SANDBOX}/scripts/run_qemu.sh ${QEMU_SYSTEM}/images/os_image.bin
+
+
 else
     echo "invalid parameter, use"
     echo "   prepare"
