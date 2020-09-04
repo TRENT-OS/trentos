@@ -86,19 +86,18 @@ function build_test_plan_docs()
         cd ${WORKSPACE_TEST_FOLDER}
 
         print_info "Building test plan documentation"
+
         mkdir -p doc
-        # run build in subshell
-        (
-            cd doc
-            export PYTHONPATH="${DIR_SRC_TA}/common:${DIR_SRC_TA}/tests"
-            # Sometimes there can be odd errors, use this to analyze them in
-            # detail
-            #   for f in ${DIR_SRC_TA}/tests/*.py; do
-            #       echo ${f}
-            #       pydoc3 -w ${f}
-            #   done
-            python3 -B -m pydoc -w ${DIR_SRC_TA}/tests/*.py
-        )
+        cd doc
+
+        export PYTHONPATH="${DIR_SRC_TA}/common:${DIR_SRC_TA}/tests"
+        # Sometimes there can be odd errors, use this to analyze them in
+        # detail
+        #   for f in ${DIR_SRC_TA}/tests/*.py; do
+        #       echo ${f}
+        #       pydoc3 -w ${f}
+        #   done
+        python3 -B -m pydoc -w ${DIR_SRC_TA}/tests/*.py
     )
 }
 
@@ -246,6 +245,10 @@ if [[ "${1:-}" == "prepare" ]]; then
     shift
     prepare_workspace
     build_os_sdk
+
+
+elif [[ "${1:-}" == "doc" ]]; then
+    shift
     build_test_plan_docs
 
 

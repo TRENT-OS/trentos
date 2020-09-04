@@ -227,6 +227,22 @@ pipeline {
                         sh 'scm-src/test.sh prepare'
                     }
                 }
+                stage('test_doc') {
+                    agent {
+                        docker {
+                            reuseNode true
+                            alwaysPull true
+                            registryUrl DOCKER_TEST_ENV.registry
+                            image DOCKER_TEST_ENV.image
+                            args DOCKER_TEST_ENV.args
+                        }
+                    }
+                    steps {
+                        print_step_info env.STAGE_NAME
+                        sh 'scm-src/test.sh doc'
+                    }
+                }
+
                 stage('stash_cleanup') {
                     steps {
                         print_step_info env.STAGE_NAME
