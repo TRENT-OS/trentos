@@ -99,7 +99,6 @@ function build_test_plan_docs()
             #   done
             python3 -B -m pydoc -w ${DIR_SRC_TA}/tests/*.py
         )
-        #mv ${DIR_SRC_TA}/doc .
     )
 
     echo "test preparation complete"
