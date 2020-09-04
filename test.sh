@@ -44,7 +44,7 @@ function print_info()
 
 
 #-------------------------------------------------------------------------------
-function prepare_test()
+function prepare_workspace()
 {
     # remove folder if it exists already. This should not happen in CI when we
     # have a clean workspace, but it's convenient for local builds
@@ -244,7 +244,7 @@ BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
 
 if [[ "${1:-}" == "prepare" ]]; then
     shift
-    prepare_test
+    prepare_workspace
     build_os_sdk
     build_test_plan_docs
 
