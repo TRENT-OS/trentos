@@ -62,10 +62,14 @@ WELL_KNOWN_PROJECTS=(
 )
 
 
-# obsolete
-#ALL_PROJECTS_EXCLUDE_zynq7000=(
-#    test_seos_filestream   # needs to be updated, does not compile
-#)
+ALL_PROJECTS_EXCLUDE_zynq7000=(
+    demo_iot_app_rpi3
+    demo_raspi_ethernet
+)
+
+ALL_PROJECTS_EXCLUDE_rpi3=(
+    demo_iot_app
+)
 
 
 #-------------------------------------------------------------------------------
@@ -361,25 +365,36 @@ function build_all_projects()
         local PRJ_NAME=${PROJECT%,*}
         local PRJ_DIR=${PROJECT#*,}
 
-        if [[ "${PRJ_DIR}" != "-" ]]; then
-            for BUILD_PLATFORM in ${ALL_PLATFORMS[@]}; do
+        # if there is no project then do nothing
+        if [[ "${PRJ_DIR}" == "-" ]]; then
+            continue
+        fi
 
-                eval EXCLUDE_LIST=\${ALL_PROJECTS_EXCLUDE_${BUILD_PLATFORM}[@]}
+        for BUILD_PLATFORM in ${ALL_PLATFORMS[@]}; do
 
-                if [[ ${EXCLUDE_LIST} =~ ${PRJ_NAME} ]]; then
+            eval EXCLUDE_LIST=\${ALL_PROJECTS_EXCLUDE_${BUILD_PLATFORM}[@]}
+            local skip=0
+            for EXCL_PRJ in ${EXCLUDE_LIST[@]}; do
+                if [[ ${EXCL_PRJ} == ${PRJ_NAME} ]]; then
                     echo -e "\nSkipping excluded project: ${PRJ_NAME}"
-                else
-
-                    local PARAMS=(
-                        ${SDK_OUT_DIR}/pkg   # ${SDK_SRC_DIR} to sue SDK sources directly
-                        ${BUILD_SCRIPT_DIR}/${PRJ_DIR}
-                        ${BUILD_PLATFORM}
-                        Debug
-                    )
-                    run_system_build ${PARAMS[@]} $@
+                    skip=1
+                    break
                 fi
             done
-        fi
+
+            if [[ ${skip} -ne 0 ]]; then
+                break
+            fi
+
+            local PARAMS=(
+                ${SDK_OUT_DIR}/pkg   # ${SDK_SRC_DIR} to sue SDK sources directly
+                ${BUILD_SCRIPT_DIR}/${PRJ_DIR}
+                ${BUILD_PLATFORM}
+                Debug
+            )
+            run_system_build ${PARAMS[@]} $@
+
+        done
     done
 
     run_astyle
