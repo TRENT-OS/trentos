@@ -216,6 +216,7 @@ function run_tests()
             --proxy=$(realpath ${DIR_BIN_SDK}/proxy_app),${QEMU_CONN}
             --log_dir=$(realpath ${TEST_LOGS_DIR})
             --junitxml=$(realpath ${TEST_LOGS_DIR})/test_results.xml
+            # --print_logs
         )
 
         (
@@ -239,6 +240,7 @@ function run_tests()
 #-------------------------------------------------------------------------------
 
 BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
+#BUILD_PLATFORM=${BUILD_PLATFORM:-"rpi3"}
 
 
 if [[ "${1:-}" == "prepare" ]]; then
