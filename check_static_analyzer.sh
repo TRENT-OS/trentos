@@ -1,30 +1,26 @@
 #!/bin/bash
 
-# $1 - path to cppcheck output file
-# cppcheck outputs warnings with the filename attached to them
+cppcheck --project="$1" --output-file=cppcheck_output.txt \
+    -i "`pwd`/OS-SDK/pkg/libs/os_network_stack/3rdParty/" \
+    -i "`pwd`/OS-SDK/pkg/sdk-sel4-camkes/"
 
-excluded_paths=( 
-    sdk-sel4-camkes
-    capdl_spec.c
+excluded=( 
+    \#error
 )
-
-if [ ! -f "$1" ]; then
-    exit 0
-fi
 
 # Print the file so we have it in the Jenkins log
 
-cat "$1"
+cat "cppcheck_output.txt"
 
 # remove all lines from the output file which match elements in the 
 # exclusion list
 
-grep -v `printf '%s '"${excluded_paths[@]/#/-e }"` "$1" > "$1.out"
+grep -v `printf '%s '"${excluded[@]/#/-e }"` "cppcheck_output.txt" > "cppcheck_output.txt.out"
 
 
 # if there still are warnings left, fail the stage
 
-if [[ $(wc -l < "$1.out") -gt 0 ]]; then
+if [[ $(wc -l < "cppcheck_output.txt.out") -gt 0 ]]; then
     exit 1
 fi
 

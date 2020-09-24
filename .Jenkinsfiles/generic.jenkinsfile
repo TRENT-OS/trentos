@@ -20,8 +20,7 @@ params.each { println it.key + " = " + it.value }
 def test_machine_label = TEST_MACHINE_LABEL ?: 'test'
 def test_script = TEST_SCRIPT ?: (TEST_SYSTEM+'.py')
 def SYSTEM_IMAGE  = 'build-' + PLATFORM + '-Debug-' + TEST_SYSTEM
-def cppcheck_file = 'cppcheck_output.txt'
-def cppcheck_file_location = SYSTEM_IMAGE + '/' + cppcheck_file
+def compile_commands_file = SYSTEM_IMAGE + '/compile_commands.json'
 
 def info_str = BRANCH_OR_COMMIT+', '+PLATFORM+', '+TEST_SYSTEM
 
@@ -208,7 +207,7 @@ pipeline {
                     steps {
                         print_step_info env.STAGE_NAME
                         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                            sh 'scm-src/check_static_analyzer.sh ' + cppcheck_file_location
+                            sh 'scm-src/check_static_analyzer.sh ' + compile_commands_file
                         }
                     }
                 }
@@ -252,7 +251,7 @@ pipeline {
                                         'workspace_test/**',
                                         [ 'elfloader/elfloader',
                                           'images/os_image.bin',
-                                          cppcheck_file,
+                                           compile_commands_file,
                                           'kernel/kernel_all.c',
                                           'kernel/kernel_all.i',
                                           'kernel/kernel.elf',
