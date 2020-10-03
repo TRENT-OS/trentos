@@ -210,13 +210,13 @@ function run_tests()
 
         PYTEST_PARAMS=(
             -v
-            # --capture=no   # show printf() from python scripts in console
+            --capture=no   # show printf() from python scripts in console
+            --print_logs   # show system log in console
             --target=${BUILD_PLATFORM}
             --system_image=$(realpath ${BUILD_FOLDER}/images/os_image.bin)
             --proxy=$(realpath ${DIR_BIN_SDK}/proxy_app),${QEMU_CONN}
             --log_dir=$(realpath ${TEST_LOGS_DIR})
             --junitxml=$(realpath ${TEST_LOGS_DIR})/test_results.xml
-            # --print_logs
         )
 
         (
