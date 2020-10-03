@@ -27,6 +27,10 @@ WELL_KNOWN_PROJECTS=(
 
     demo_hello_world,src/demos/demo_hello_world
 
+    # native systems, require compiling with -DSDK_USE_CAMKES=0 -DENABLE_LINT=0
+    native_sel4test,src/native/sel4test
+    native_hello_world,src/native/hello_world
+
     # tests
     test_crypto_api,src/tests/test_crypto_api
     test_certparser,src/tests/test_certparser
@@ -265,6 +269,15 @@ function run_system_build()
         # every parameter below is passed to CMake
         -D CMAKE_BUILD_TYPE=${BUILD_TYPE}
     )
+
+    # special handling for the seL4 native projects
+    if [[ "${PROJECT_DIR}" =~ ^.*/src/native/(sel4test|hello_world)$ ]]; then
+        echo "seL4 native project, disable CAMKES and LINTING"
+        PARAMS+=(
+            -DSDK_USE_CAMKES=0
+            -DENABLE_LINT=0
+        )
+    fi
 
     if [ ! -d ${SDK_DIR} ]; then
         echo "missing SDK in ${SDK_DIR}"

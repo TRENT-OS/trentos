@@ -45,6 +45,11 @@ def ACTIVE_TESTS = [
     ['test_tls_api',                  'test_tls',          null],
     ['test_tlsserver',                'test_tls',          null],
     ['test_storage_interface',        null,                null],
+
+    // ToDo: create test scripts
+    // ['native_hello_world',            null,                null],
+    // ['native_sel4test',               null,                null],
+
 ]
 
 //------------------------------------------------------------------------------
