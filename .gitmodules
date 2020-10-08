@@ -103,3 +103,6 @@
 [submodule "src/tests/test_certparser"]
 	path = src/tests/test_certparser
 	url = ../../ss/test_certparser.git
+[submodule "src/tests/test_secure_update"]
+	path = src/tests/test_secure_update
+	url = ../../ss/test_secure_update.git

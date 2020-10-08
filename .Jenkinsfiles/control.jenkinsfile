@@ -60,6 +60,7 @@ def ACTIVE_TESTS = [
     new TestCtx('test_logserver',                null,                null,                            null),
     new TestCtx('test_network_api',              'test_network',      null,                            null),
     new TestCtx('test_tls_api',                  'test_tls',          null,                            null),
+    new TestCtx('test_secure_update',            null,                null,                            null),
     new TestCtx('test_tlsserver',                'test_tls',          null,                            null)
 
     // ToDo: create test scripts

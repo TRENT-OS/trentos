@@ -50,6 +50,7 @@ WELL_KNOWN_PROJECTS=(
     test_keystore,src/tests/test_keystore
     test_network_api,src/tests/test_network_api
     test_storage_interface,src/tests/test_storage_interface
+    test_secure_update,src/tests/test_secure_update
     test_tls_api,src/tests/test_tls_api
     test_tlsserver,src/tests/test_tlsserver
 
