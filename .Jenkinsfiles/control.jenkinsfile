@@ -20,35 +20,36 @@ properties([
 //   <SYSTEM_NAME>:  system name
 //   <TEST_MACHINE>: defaults to 'test'
 //   <TEST_SCRTIPT>: defaults to <SYSTEM_NAME>.py
+//   <PLATFORMS>:    List of supported plarforms. `null` if full support.
 //
 def ACTIVE_TESTS = [
 
-    ['demo_hello_world',              null,                'test_demo_hello_world.py'],
-    ['demo_iot_app',                  'test_in_isolation', 'test_demo_iot_app.py'],
-    //['demo_iot_app_rpi3',             'test_in_isolation', 'test_demo_iot_app_rpi3.py'], // compiles for rpi3 target only
-    ['test_uart',                     null,                null],
-    ['test_chanmux',                  null,                null],
-    ['test_proxy_nvm',                null,                null],
-    ['test_certparser',               null,                null],
-    ['test_crypto_api',               null,                null],
-    ['test_cryptoserver',             null,                null],
-    ['test_entropysource',            null,                null],
-    //['test_partition_manager',        null,                null], // redundant with new FS
-    //['test_seos_filestream',          null,                null], // broken build:
-    //['test_filesystem_as_lib',        null,                null], // redundant with new FS
-    ['test_filesystem',               null,                null],
-    ['test_config_server_fs_backend', null,                null],
-    ['test_config_server',            null,                null],
-    ['test_keystore',                 null,                null],
-    ['test_logserver',                null,                null],
-    ['test_network_api',              'test_network',      null],
-    ['test_tls_api',                  'test_tls',          null],
-    ['test_tlsserver',                'test_tls',          null],
-    ['test_storage_interface',        null,                null],
+    ['demo_hello_world',              null,                'test_demo_hello_world.py',  null],
+    ['demo_iot_app',                  'test_in_isolation', 'test_demo_iot_app.py',      null],
+    //['demo_iot_app_rpi3',             'test_in_isolation', 'test_demo_iot_app_rpi3.py', null], // compiles for rpi3 target only
+    ['test_uart',                     null,                null,                        null],
+    ['test_chanmux',                  null,                null,                        null],
+    ['test_proxy_nvm',                null,                null,                        null],
+    ['test_certparser',               null,                null,                        null],
+    ['test_crypto_api',               null,                null,                        null],
+    ['test_cryptoserver',             null,                null,                        null],
+    ['test_entropysource',            null,                null,                        null],
+    //['test_partition_manager',        null,                null,                        null], // redundant with new FS
+    //['test_seos_filestream',          null,                null,                        null], // broken build:
+    //['test_filesystem_as_lib',        null,                null,                        null], // redundant with new FS
+    ['test_filesystem',               null,                null,                        null],
+    ['test_config_server_fs_backend', null,                null,                        null],
+    ['test_config_server',            null,                null,                        null],
+    ['test_keystore',                 null,                null,                        null],
+    ['test_logserver',                null,                null,                        null],
+    ['test_network_api',              'test_network',      null,                        null],
+    ['test_tls_api',                  'test_tls',          null,                        null],
+    ['test_tlsserver',                'test_tls',          null,                        null],
+    ['test_storage_interface',        null,                null,                        null],
 
     // ToDo: create test scripts
-    // ['native_hello_world',            null,                null],
-    // ['native_sel4test',               null,                null],
+    // ['native_hello_world',            null,                null,                        null],
+    // ['native_sel4test',               null,                null,                        null],
 
 ]
 
@@ -196,9 +197,15 @@ ACTIVE_TESTS.each { test_ctx ->
 
     PLATFORMS.each { platform ->
         def pkg_name = get_job_package_name(platform, test_system)
-        global_ctx.buildStages[pkg_name] = {
-            stage(pkg_name) {
-                execute_build(global_ctx, test_ctx, env.BRANCH_NAME, platform)
+        if(test_ctx[3] == null || test_ctx[3].any{ it == platform} ){
+            global_ctx.buildStages[pkg_name] = {
+                stage(pkg_name) {
+                    execute_build(
+                        global_ctx,
+                        test_ctx,
+                        env.BRANCH_NAME,
+                        platform)
+                }
             }
         }
     }
