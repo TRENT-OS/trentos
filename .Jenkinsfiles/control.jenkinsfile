@@ -15,37 +15,51 @@ properties([
 
 //------------------------------------------------------------------------------
 // Test system list
-//
-// Elements:
-//   <SYSTEM_NAME>:  system name
-//   <TEST_MACHINE>: defaults to 'test'
-//   <TEST_SCRTIPT>: defaults to <SYSTEM_NAME>.py
-//   <PLATFORMS>:    List of supported plarforms. `null` if full support.
-//
+class TestCtx {
+    String      systemName;  // Name of the system to build.
+    String      testMachine; // Test machine label. Defaults to 'test'.
+    String      testScript;  // Test script to be executed. Defaults to
+                             // <systemName>.py.
+    ArrayList   platforms;   // List of supported platforms. `null` if full
+                             // support.
+
+    public TestCtx(
+        String systemName,
+        String testMachine,
+        String testScript,
+        ArrayList platforms)
+    {
+        this.systemName  = systemName;
+        this.testMachine = testMachine;
+        this.testScript  = testScript;
+        this.platforms   = platforms;
+    }
+}
+
 def ACTIVE_TESTS = [
 
-    ['demo_hello_world',              null,                'test_demo_hello_world.py',      null],
-    ['demo_iot_app',                  'test_in_isolation', 'test_demo_iot_app.py',          null],
-    ['demo_iot_app_rpi3',             'test_in_isolation', 'test_demo_iot_app_rpi3.py',     ['rpi3']],
-    ['test_uart',                     null,                null,                            null],
-    ['test_chanmux',                  null,                null,                            null],
-    ['test_proxy_nvm',                null,                null,                            null],
-    ['test_certparser',               null,                null,                            null],
-    ['test_crypto_api',               null,                null,                            null],
-    ['test_cryptoserver',             null,                null,                            null],
-    ['test_entropysource',            null,                null,                            null],
-    ['test_storage_interface',        null,                null,                            null],
-    //['test_partition_manager',        null,                null,                            null], // redundant with new FS
-    //['test_seos_filestream',          null,                null,                            null], // broken build:
-    //['test_filesystem_as_lib',        null,                null,                            null], // redundant with new FS
-    ['test_filesystem',               null,                null,                            null],
-    ['test_config_server_fs_backend', null,                null,                            null],
-    ['test_config_server',            null,                null,                            null],
-    ['test_keystore',                 null,                null,                            null],
-    ['test_logserver',                null,                null,                            null],
-    ['test_network_api',              'test_network',      null,                            null],
-    ['test_tls_api',                  'test_tls',          null,                            null],
-    ['test_tlsserver',                'test_tls',          null,                            null],
+    new TestCtx('demo_hello_world',              null,                'test_demo_hello_world.py',      null),
+    new TestCtx('demo_iot_app',                  'test_in_isolation', 'test_demo_iot_app.py',          null),
+    new TestCtx('demo_iot_app_rpi3',             'test_in_isolation', 'test_demo_iot_app_rpi3.py',     ['rpi3']),
+    new TestCtx('test_uart',                     null,                null,                            null),
+    new TestCtx('test_chanmux',                  null,                null,                            null),
+    new TestCtx('test_proxy_nvm',                null,                null,                            null),
+    new TestCtx('test_certparser',               null,                'test_certparser.py',            null),
+    new TestCtx('test_crypto_api',               null,                null,                            null),
+    new TestCtx('test_cryptoserver',             null,                null,                            null),
+    new TestCtx('test_entropysource',            null,                null,                            null),
+    new TestCtx('test_storage_interface',        null,                null,                            null),
+    // new TestCtx('test_partition_manager',        null,                null,                            null), // redundant with new FS
+    // new TestCtx('test_seos_filestream',          null,                null,                            null), // broken build:
+    // new TestCtx('test_filesystem_as_lib',        null,                null,                            null), // redundant with new FS
+    new TestCtx('test_filesystem',               null,                null,                            null),
+    new TestCtx('test_config_server_fs_backend', null,                null,                            null),
+    new TestCtx('test_config_server',            null,                null,                            null),
+    new TestCtx('test_keystore',                 null,                null,                            null),
+    new TestCtx('test_logserver',                null,                null,                            null),
+    new TestCtx('test_network_api',              'test_network',      null,                            null),
+    new TestCtx('test_tls_api',                  'test_tls',          null,                            null),
+    new TestCtx('test_tlsserver',                'test_tls',          null,                            null)
 
     // ToDo: create test scripts
     // ['native_hello_world',            null,                null,                        null],
@@ -106,11 +120,7 @@ def get_result_ball_img_url(result)
 
 def execute_build(global_ctx, test_ctx, branch, platform)
 {
-    def test_system = test_ctx[0]
-    def test_machine_label = test_ctx[1]
-    def test_script = test_ctx[2]
-
-    def run_job = '../' + test_system + '/' + branch
+    def run_job = '../' + test_ctx.systemName + '/' + branch
 
     // starting the build with wait=true will make the call block until the
     // build has finished
@@ -122,24 +132,24 @@ def execute_build(global_ctx, test_ctx, branch, platform)
                         parameters: [
                             string(name: 'BRANCH_OR_COMMIT',   value: branch),
                             string(name: 'JENKINSFILE',        value: '.Jenkinsfiles/generic.jenkinsfile'),
-                            string(name: 'TEST_SYSTEM',        value: test_system),
-                            string(name: 'TEST_MACHINE_LABEL', value: test_machine_label ?: ''),
-                            string(name: 'TEST_SCRIPT',        value: test_script ?: ''),
+                            string(name: 'TEST_SYSTEM',        value: test_ctx.systemName),
+                            string(name: 'TEST_MACHINE_LABEL', value: test_ctx.testMachine ?: ''),
+                            string(name: 'TEST_SCRIPT',        value: test_ctx.testScript ?: ''),
                             string(name: 'PLATFORM',           value: platform ?: ''),
                         ]
                    )
 
     // if we arrive here, the job has finished
 
-    def pkg_name = get_job_package_name(platform, test_system)
+    def pkg_name = get_job_package_name(platform, test_ctx.systemName)
     global_ctx.builds[pkg_name] = jobBuild
 
     def result = jobBuild.getResult()
 
-    println test_system + ' took ' + jobBuild.getDuration() +' ms, result: ' + result
+    println test_ctx.systemName + ' took ' + jobBuild.getDuration() +' ms, result: ' + result
 
     global_ctx.summary.appendText(
-        platform + ', ' + test_system + ':' +
+        platform + ', ' + test_ctx.systemName + ':' +
         ' <a href="' + get_build_relative_url(jobBuild) + '">' +
             '#' + jobBuild.getNumber() +
         '</a>' +
@@ -187,11 +197,13 @@ def global_ctx = [
 // use
 
 ACTIVE_TESTS.each { test_ctx ->
-    def test_system = test_ctx[0]
+    def test_system = test_ctx.systemName
 
     PLATFORMS.each { platform ->
         def pkg_name = get_job_package_name(platform, test_system)
-        if(test_ctx[3] == null || test_ctx[3].any{ it == platform} ){
+
+        def filter = test_ctx.platforms
+        if(filter == null || filter.any{ it == platform} ){
             global_ctx.buildStages[pkg_name] = {
                 stage(pkg_name) {
                     execute_build(
