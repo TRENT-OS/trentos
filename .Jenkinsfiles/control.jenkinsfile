@@ -55,12 +55,6 @@ def ACTIVE_TESTS = [
 
 //------------------------------------------------------------------------------
 // Test Platforms
-//
-// ToDo: building for multiple platforms works fine, but testing is currently
-//       no implemented, as we have the zynq7000 QEMU hard coded. Furthermore,
-//       the junit test result processor step in Jenkins need to be adopted to
-//       support multiple platforms.
-
 def PLATFORMS = [
     'zynq7000',
     // 'imx6',
