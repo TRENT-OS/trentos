@@ -24,28 +24,28 @@ properties([
 //
 def ACTIVE_TESTS = [
 
-    ['demo_hello_world',              null,                'test_demo_hello_world.py',  null],
-    ['demo_iot_app',                  'test_in_isolation', 'test_demo_iot_app.py',      null],
-    ['demo_iot_app_rpi3',             'test_in_isolation', 'test_demo_iot_app_rpi3.py', ['rpi3']],
-    ['test_uart',                     null,                null,                        null],
-    ['test_chanmux',                  null,                null,                        null],
-    ['test_proxy_nvm',                null,                null,                        null],
-    ['test_certparser',               null,                null,                        null],
-    ['test_crypto_api',               null,                null,                        null],
-    ['test_cryptoserver',             null,                null,                        null],
-    ['test_entropysource',            null,                null,                        null],
-    //['test_partition_manager',        null,                null,                        null], // redundant with new FS
-    //['test_seos_filestream',          null,                null,                        null], // broken build:
-    //['test_filesystem_as_lib',        null,                null,                        null], // redundant with new FS
-    ['test_filesystem',               null,                null,                        null],
-    ['test_config_server_fs_backend', null,                null,                        null],
-    ['test_config_server',            null,                null,                        null],
-    ['test_keystore',                 null,                null,                        null],
-    ['test_logserver',                null,                null,                        null],
-    ['test_network_api',              'test_network',      null,                        null],
-    ['test_tls_api',                  'test_tls',          null,                        null],
-    ['test_tlsserver',                'test_tls',          null,                        null],
-    ['test_storage_interface',        null,                null,                        null],
+    ['demo_hello_world',              null,                'test_demo_hello_world.py',      null],
+    ['demo_iot_app',                  'test_in_isolation', 'test_demo_iot_app.py',          null],
+    ['demo_iot_app_rpi3',             'test_in_isolation', 'test_demo_iot_app_rpi3.py',     ['rpi3']],
+    ['test_uart',                     null,                null,                            null],
+    ['test_chanmux',                  null,                null,                            null],
+    ['test_proxy_nvm',                null,                null,                            null],
+    ['test_certparser',               null,                null,                            null],
+    ['test_crypto_api',               null,                null,                            null],
+    ['test_cryptoserver',             null,                null,                            null],
+    ['test_entropysource',            null,                null,                            null],
+    ['test_storage_interface',        null,                null,                            null],
+    //['test_partition_manager',        null,                null,                            null], // redundant with new FS
+    //['test_seos_filestream',          null,                null,                            null], // broken build:
+    //['test_filesystem_as_lib',        null,                null,                            null], // redundant with new FS
+    ['test_filesystem',               null,                null,                            null],
+    ['test_config_server_fs_backend', null,                null,                            null],
+    ['test_config_server',            null,                null,                            null],
+    ['test_keystore',                 null,                null,                            null],
+    ['test_logserver',                null,                null,                            null],
+    ['test_network_api',              'test_network',      null,                            null],
+    ['test_tls_api',                  'test_tls',          null,                            null],
+    ['test_tlsserver',                'test_tls',          null,                            null],
 
     // ToDo: create test scripts
     // ['native_hello_world',            null,                null,                        null],
