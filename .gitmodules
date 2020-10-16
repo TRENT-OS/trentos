@@ -100,3 +100,6 @@
 [submodule "src/tests/test_timeserver"]
 	path = src/tests/test_timeserver
 	url = ../../ss/test_timeserver
+[submodule "src/tests/test_certparser"]
+	path = src/tests/test_certparser
+	url = ../../ss/test_certparser.git
