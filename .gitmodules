@@ -88,9 +88,6 @@
 [submodule "src/tests/test_filesystem"]
 	path = src/tests/test_filesystem
 	url = ../../ss/test_filesystem.git
-[submodule "src/tests/test_certparser"]
-	path = src/tests/test_certparser
-	url = ../../ss/test_cert_lib.git
 [submodule "src/demos/demo_raspi_ethernet"]
 	path = src/demos/demo_raspi_ethernet
 	url = ../../ss/demo_raspi_ethernet.git
