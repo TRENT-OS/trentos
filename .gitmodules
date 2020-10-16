@@ -100,3 +100,6 @@
 [submodule "src/native/sel4test/src"]
 	path = src/native/sel4test/src
 	url = ../../ext/sel4test.git
+[submodule "src/tests/test_timeserver"]
+	path = src/tests/test_timeserver
+	url = ../../ss/test_timeserver

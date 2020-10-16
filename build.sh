@@ -32,6 +32,7 @@ WELL_KNOWN_PROJECTS=(
     native_hello_world,src/native/hello_world
 
     # tests
+    test_timeserver,src/tests/test_timeserver
     test_crypto_api,src/tests/test_crypto_api
     test_certparser,src/tests/test_certparser
     test_cryptoserver,src/tests/test_cryptoserver
