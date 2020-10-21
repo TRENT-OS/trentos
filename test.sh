@@ -210,8 +210,8 @@ function run_tests()
 
         PYTEST_PARAMS=(
             -v
-            --capture=no   # show printf() from python scripts in console
-            --print_logs   # show system log in console
+            #--capture=no   # show printf() from python scripts in console
+            #--print_logs   # show system log in console
             --target=${BUILD_PLATFORM}
             --system_image=$(realpath ${BUILD_FOLDER}/images/os_image.bin)
             --proxy=$(realpath ${DIR_BIN_SDK}/proxy_app),${QEMU_CONN}
