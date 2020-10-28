@@ -423,7 +423,8 @@ function build_all_projects()
 # default settings
 BUILD_TYPE=${BUILD_TYPE:-"Debug"}
 
-BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
+#BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
+BUILD_PLATFORM=${BUILD_PLATFORM:-"sabre"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"rpi3"}
 
 
