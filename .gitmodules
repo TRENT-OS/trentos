@@ -31,9 +31,6 @@
 [submodule "src/tests/test_cryptoserver"]
 	path = src/tests/test_cryptoserver
 	url = ../../ss/test_cryptoserver.git
-[submodule "src/tests/test_partition_manager"]
-	path = src/tests/test_partition_manager
-	url = ../../ss/test_partition_manager.git
 [submodule "src/tests/test_config_server"]
 	path = src/tests/test_config_server
 	url = ../../ss/test_config_server.git
