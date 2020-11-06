@@ -34,9 +34,6 @@
 [submodule "src/tests/test_partition_manager"]
 	path = src/tests/test_partition_manager
 	url = ../../ss/test_partition_manager.git
-[submodule "src/tests/test_filesystem_as_lib"]
-	path = src/tests/test_filesystem_as_lib
-	url = ../../ss/test_filesystem_as_lib.git
 [submodule "src/tests/test_config_server"]
 	path = src/tests/test_config_server
 	url = ../../ss/test_config_server.git
