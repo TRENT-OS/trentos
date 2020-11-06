@@ -40,9 +40,6 @@ WELL_KNOWN_PROJECTS=(
     test_uart,src/tests/test_uart
     test_chanmux,src/tests/test_chanmux
     test_proxy_nvm,src/tests/test_proxy_nvm
-    #test_partition_manager,src/tests/test_partition_manager    # obsolete
-    #test_seos_filestream,src/tests/test_seos_filestream        # obsolete
-    #test_filesystem_as_lib,src/tests/test_filesystem_as_lib    # obsolete
     test_filesystem,src/tests/test_filesystem
     test_logserver,src/tests/test_logserver
     test_config_server,src/tests/test_config_server
