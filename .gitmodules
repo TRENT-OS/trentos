@@ -13,9 +13,6 @@
 [submodule "src/tests/test_keystore"]
 	path = src/tests/test_keystore
 	url = ../../ss/test_keystore.git
-[submodule "src/tests/demo_preprovisioned_keystore"]
-	path = src/tests/demo_preprovisioned_keystore
-	url = ../../ss/demo_preprovisioned_keystore.git
 [submodule "src/tests/test_crypto_api"]
 	path = src/tests/test_crypto_api
 	url = ../../ss/test_crypto_api.git
