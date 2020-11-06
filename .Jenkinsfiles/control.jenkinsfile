@@ -50,9 +50,6 @@ def ACTIVE_TESTS = [
 //    new TestCtx('test_cryptoserver',             null,                null,                            null),
 //    new TestCtx('test_entropysource',            null,                null,                            null),
 //    new TestCtx('test_storage_interface',        null,                null,                            null),
-//    // new TestCtx('test_partition_manager',        null,                null,                            null), // redundant with new FS
-//    // new TestCtx('test_seos_filestream',          null,                null,                            null), // broken build:
-//    // new TestCtx('test_filesystem_as_lib',        null,                null,                            null), // redundant with new FS
 //    new TestCtx('test_filesystem',               null,                null,                            null),
 //    new TestCtx('test_config_server_fs_backend', null,                null,                            null),
 //    new TestCtx('test_config_server',            null,                null,                            null),
