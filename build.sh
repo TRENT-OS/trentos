@@ -52,13 +52,6 @@ WELL_KNOWN_PROJECTS=(
     test_tlsserver,src/tests/test_tlsserver
 
     # demos
-    # demo_keystore,src/tests/demo_keystore
-    # demo_preprovisioned_keystore,src/tests/demo_preprovisioned_keystore
-    # demo_fs_as_components,src/tests/demo_fs_as_components
-    # demo_fs_as_libs,src/tests/demo_fs_as_libs
-    # demo_configuration_as_lib,src/tests/demo_configuration_as_lib
-    # demo_configuration_as_component,src/tests/demo_configuration_as_component
-    # demo_partition_manager,tests/demo_partition_manager
     demo_iot_app,src/demos/demo_iot_app
     demo_iot_app_rpi3,src/demos/demo_iot_app_rpi3
     demo_raspi_ethernet,src/demos/demo_raspi_ethernet
