@@ -132,6 +132,7 @@ function run_build_sdk()
     ${SDK_SRC_DIR}/build-sdk.sh ${BUILD_MODE} ${BUILD_DIR}
 }
 
+
 #-------------------------------------------------------------------------------
 function run_build_doc()
 {
