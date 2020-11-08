@@ -97,10 +97,20 @@ def print_step_info(name) { echo "#################### " + name }
 
 
 //------------------------------------------------------------------------------
-// Bitbucket notification.
-def notitfy_bitbucket()
+def do_notify_bitbucket()
 {
-    step([$class: 'StashNotifier'])
+    // the StashNotifier requires to run in a node block, which should not be
+    // necessary technically. See also the open issue issue at
+    // https://github.com/jenkinsci/stashnotifier-plugin/issues/234 which
+
+    if (env.NODE_NAME)
+    {
+        notifyBitbucket();
+    }
+    else
+    {
+        node { notifyBitbucket() }
+    }
 }
 
 
@@ -124,7 +134,7 @@ pipeline {
                 stage('clean_checkout') {
                     steps {
                         print_step_info env.STAGE_NAME
-                        notitfy_bitbucket()
+                        do_notify_bitbucket()
                         buildName BRANCH_OR_COMMIT+' '+TEST_SYSTEM+' '+PLATFORM
                         cleanWs()
 
@@ -311,7 +321,7 @@ pipeline {
                         ].join(' ')
                 archiveArtifacts artifacts: 'package.bz2', fingerprint: true
                 cleanWs()
-                notitfy_bitbucket()
+                do_notify_bitbucket()
             }
         }
     }
