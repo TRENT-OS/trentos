@@ -121,15 +121,15 @@ function run_astyle()
 #-------------------------------------------------------------------------------
 function run_build_sdk()
 {
-    local BUILD_MODE=$1
+    local BUILD_ACTION=$1
     local BUILD_DIR=$2
 
     echo ""
     echo "##"
-    echo "## building SDK Package (${BUILD_MODE}) in ${BUILD_DIR}"
+    echo "## building SDK Package (${BUILD_ACTION}) in ${BUILD_DIR}"
     echo "##"
 
-    ${SDK_SRC_DIR}/build-sdk.sh ${BUILD_MODE} ${BUILD_DIR}
+    ${SDK_SRC_DIR}/build-sdk.sh ${BUILD_ACTION} ${BUILD_DIR}
 }
 
 
@@ -300,7 +300,7 @@ function run_sdk_and_system_build()
     # package, because no SDK tools or docs are needed to build a system. In
     # case the SDK shall really be used directly, simply comment out the
     # "run_build_sdk" step and pass ${SDK_SRC_DIR}
-    run_build_sdk only-sources ${SDK_OUT_DIR}
+    run_build_sdk collect-sources ${SDK_OUT_DIR}
 
     local PARAMS=(
         ${SDK_OUT_DIR}/pkg  # ${SDK_SRC_DIR} to use the SDK sources directly
@@ -315,7 +315,7 @@ function run_sdk_and_system_build()
 #-------------------------------------------------------------------------------
 function build_all_projects()
 {
-    local BUILD_MODE_SDK=$1
+    local BUILD_ACTION_SDK=$1
     shift
 
     ALL_PLATFORMS=(
@@ -361,7 +361,7 @@ function build_all_projects()
       #  # pc99 # does not compile
     )
 
-    run_build_sdk ${BUILD_MODE_SDK} ${SDK_OUT_DIR}
+    run_build_sdk ${BUILD_ACTION_SDK} ${SDK_OUT_DIR}
 
     # for now, just loop over the list above and abort the whole build on the
     # first error. Ideally we would not abort here, but try to do all builds
@@ -426,13 +426,13 @@ if [[ "${1:-}" == "doc" ]]; then
 
 elif [[ "${1:-}" == "sdk" ]]; then
     shift
-    SDK_BUILD_MODE=${1:-all}
-    run_build_sdk ${SDK_BUILD_MODE} ${SDK_OUT_DIR}
+    BUILD_ACTION_SDK=${1:-all}
+    run_build_sdk ${BUILD_ACTION_SDK} ${SDK_OUT_DIR}
 
 elif [[ "${1:-}" == "all-projects" ]]; then
     shift
     # build SDK package with binaries and use this to build all projects
-    build_all_projects only-sources $@
+    build_all_projects collect-sources $@
 
 elif [[ "${1:-}" == "all" ]]; then
     shift

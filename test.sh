@@ -67,7 +67,7 @@ function build_os_sdk()
     # they have been executed when the packages was created and released. Since
     # we still use seos_sandbox, we have to build the SDK package here and
     # also give it some testing
-    ${DIR_SRC_SANDBOX}/build-sdk.sh build-bin ${DIR_BASE_SDK}
+    ${DIR_SRC_SANDBOX}/build-sdk.sh tools ${DIR_BASE_SDK}
     ${DIR_SRC_SANDBOX}/build-sdk.sh unit-tests ${DIR_BASE_SDK}
 
     print_info "OS SDK build complete"
