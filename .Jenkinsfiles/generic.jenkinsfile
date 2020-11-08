@@ -105,23 +105,6 @@ def notitfy_bitbucket()
 
 
 //------------------------------------------------------------------------------
-// Slack notification.
-// Channels and users to notify on Slack with the build result.
-// posts to slack channel #jenkins and to user @USV2L0ACX as private message,
-// slack user IDs can be found in the slack profile.
-
-def notify_success = ""
-def notify_failure = "#jenkins"
-
-def notitfy_slack(col, chan)
-{
-    slackSend \
-        color: col, \
-        channel: chan, \
-        message: "${currentBuild.currentResult} : `${env.JOB_NAME}` #${env.BUILD_NUMBER} ${TEST_SYSTEM}"
-}
-
-//------------------------------------------------------------------------------
 pipeline {
     agent none
     options {
@@ -331,8 +314,5 @@ pipeline {
                 notitfy_bitbucket()
             }
         }
-        success  { notitfy_slack('good', notify_success) }
-        failure  { notitfy_slack('bad', notify_failure) }
-        unstable { notitfy_slack('bad', notify_failure) }
     }
 }
