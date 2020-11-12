@@ -55,6 +55,7 @@ WELL_KNOWN_PROJECTS=(
     demo_iot_app,src/demos/demo_iot_app
     demo_iot_app_rpi3,src/demos/demo_iot_app_rpi3
     demo_raspi_ethernet,src/demos/demo_raspi_ethernet
+    demo_tls_api,src/demos/demo_tls_api
 )
 
 
