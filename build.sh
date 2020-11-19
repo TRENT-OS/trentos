@@ -43,7 +43,6 @@ WELL_KNOWN_PROJECTS=(
     test_filesystem,src/tests/test_filesystem
     test_logserver,src/tests/test_logserver
     test_config_server,src/tests/test_config_server
-    test_config_server_fs_backend,src/tests/test_config_server_fs_backend
     test_keystore,src/tests/test_keystore
     test_network_api,src/tests/test_network_api
     test_storage_interface,src/tests/test_storage_interface

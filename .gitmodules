@@ -31,9 +31,6 @@
 [submodule "src/tests/test_config_server"]
 	path = src/tests/test_config_server
 	url = ../../ss/test_config_server.git
-[submodule "src/tests/test_config_server_fs_backend"]
-	path = src/tests/test_config_server_fs_backend
-	url = ../../ss/test_config_server_fs_backend.git
 [submodule "src/tests/test_logserver"]
 	path = src/tests/test_logserver
 	url = ../../ss/test_logserver.git
