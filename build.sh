@@ -460,13 +460,16 @@ elif [ "$#" -ne "0" ]; then
     run_astyle
 
 else
-    echo -e "build.sh <target> [cmake options]\
-    \n\npossible targets are:\
-    \n\t doc (documentation)\
-    \n\t all\
-    \n\t all-projects (everything but the documentation)\
-    \n\t clean\
-    \n\t <TEST_DIR> (folder with a test project)
-    \n\t <TEST_NAME> (well known name of a test project)"
+    echo ""
+    echo "Usage: build.sh <target> ..."
+    echo ""
+    echo " Options for <target> are:"
+    echo "   sdk [action, defaults to 'all']   (SDK package build)"
+    echo "   all                               (SDK package and all known projects)"
+    echo "   all-projects                      (just the projects)"
+    echo "   clean                             (delete all build output folders)"
+    echo "   <project name>                    (well known project name)"
+    echo "   <folder>                          (folder with a project)"
+    echo ""
     exit 1
 fi
