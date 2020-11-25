@@ -134,108 +134,6 @@ function run_build_sdk()
 
 
 #-------------------------------------------------------------------------------
-function run_build_doc()
-{
-    # we support out-of-source builds, thus the documentation build output
-    # will be placed into a subdirectory of the current working directory.
-    local BUILD_DIR=build-DOC
-
-    # remove folder if it exists already. This should not happen in CI when we
-    # have a clean workspace, but it's convenient for local builds
-    if [ -d ${BUILD_DIR} ]; then
-        rm -rf ${BUILD_DIR}
-    fi
-    mkdir ${BUILD_DIR}
-
-    # build in subshell
-    (
-        cd ${BUILD_DIR}
-        # build projects documentation
-        OS_PROJECTS_DOC_OUTPUT=OS-Projects_doc-html
-        if [[ -e ${OS_PROJECTS_DOC_OUTPUT} ]]; then
-            echo "removing attic projects documentation collection folder"
-            rm -rf ${OS_PROJECTS_DOC_OUTPUT}
-        fi
-        mkdir ${OS_PROJECTS_DOC_OUTPUT}
-        cd ${OS_PROJECTS_DOC_OUTPUT}
-
-        # Actually, details should move to each test, so we should just iterate
-        # over all the folders and invoke a documentation build there
-        OS_PROJECTS_DOC_DIRS=(
-            # format: <test project from WELL_KNOWN_PROJECTS>[:<doc root>]
-            # test_crypto_api:components/TEST_CRYPTO/src
-            # test_keystore
-            # test_seos_filestream # can build doc from use project root
-            # demo_keystore:components/DemoApp/src
-            # demo_preprovisioned_keystore:components/DemoApp/src
-        )
-
-        cat <<EOF >>index.html
-<!doctype html>
-<html>
-  <head></head>
-  <body>
-    <ul>
-      <li>Tests
-        <ul>
-          <li><a href="test_crypto_api/index.html">Crypto</a></li>
-          <li><a href="test_keystore/index.html">Keystore</a></li>
-          <li><a href="test_seos_filestream/index.html">SEOS Filestream</a></li>
-        </ul>
-      </li>
-      <li>Demos
-        <ul>
-          <li><a href="hello_world_demo_app/index.html">Hallo World</a>
-          <li><a href="demo_keystore/index.html">Keystore</a></li>
-          <li><a href="demo_preprovisioned_keystore/index.html">Preprovisioned Keystore</a></li>
-          <li><a href="http_demo_app/index.html">HTTP Demo</a></li>
-        </ul>
-      </li>
-    </ul>
-  </body>
-</html>
-EOF
-
-        for PROJECT in ${OS_PROJECTS_DOC_DIRS[@]}; do
-            local PRJ_NAME=${PROJECT/:*/}
-            local PRJ_DOC_DIR=""
-            if [[ "${PROJECT}" != "${PRJ_NAME}" ]]; then
-                PRJ_DOC_DIR=${PROJECT/*:/}
-            fi
-
-            if ! map_project MAPPED_PROJECT_DIR ${PRJ_NAME}; then
-                echo "ERROR: unknown project ${PRJ_NAME}"
-                exit 1
-            fi
-
-            if [[ "${MAPPED_PROJECT_DIR}" == "-" ]]; then
-                echo "ERROR: no project directory for ${PRJ_NAME}"
-                exit 1
-            fi
-
-            echo ""
-            echo "###"
-            echo "### creating project documentation for ${PRJ_NAME}"
-            local DOC_ROOT=${MAPPED_PROJECT_DIR}
-            if [[ ! -z "${PRJ_DOC_DIR}" ]]; then
-                DOC_ROOT+=/${PRJ_DOC_DIR}
-            fi
-            echo "### doc root:  ${DOC_ROOT}"
-
-            mkdir -p ${PRJ_NAME}
-            (
-                export DOXYGEN_INPUT_DIR=${BUILD_SCRIPT_DIR}/${DOC_ROOT}
-                export DOXYGEN_OUTPUT_DIR=${PRJ_NAME}
-                doxygen ${BUILD_SCRIPT_DIR}/Doxyfile
-                cp -ar ${PRJ_NAME}/html/* ${PRJ_NAME}
-                rm -rf ${PRJ_NAME}/html
-            )
-        done
-    )
-}
-
-
-#-------------------------------------------------------------------------------
 function run_system_build()
 {
     if [ "$#" -lt 4 ]; then
@@ -420,11 +318,7 @@ BUILD_PLATFORM=${BUILD_PLATFORM:-"sabre"}
 
 
 
-if [[ "${1:-}" == "doc" ]]; then
-    shift
-    run_build_doc $@
-
-elif [[ "${1:-}" == "sdk" ]]; then
+if [[ "${1:-}" == "sdk" ]]; then
     shift
     BUILD_ACTION_SDK=${1:-all}
     run_build_sdk ${BUILD_ACTION_SDK} ${SDK_OUT_DIR}
@@ -437,8 +331,7 @@ elif [[ "${1:-}" == "all-projects" ]]; then
 elif [[ "${1:-}" == "all" ]]; then
     shift
     run_build_doc $@
-    # build SDK package with binaries and docs, then use this to build all
-    # projects
+    # build SDK package with binaries, then use this to build all projects
     build_all_projects all $@
 
 elif [[ "${1:-}" == "clean" ]]; then
