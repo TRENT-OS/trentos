@@ -69,33 +69,6 @@ ALL_PROJECTS_EXCLUDE_rpi3=(
 
 
 #-------------------------------------------------------------------------------
-function map_project()
-{
-    local VAR_PRJ_DIR=${1}
-    local TEST_SYSTEM=${2:-}
-
-    for PROJECT in ${WELL_KNOWN_PROJECTS[@]}; do
-        local PRJ_NAME=${PROJECT%,*}
-        local PRJ_DIR=${PROJECT#*,}
-
-        if [[ "${TEST_SYSTEM}" == "${PRJ_NAME}" ]]; then
-
-            if [[ "${PRJ_DIR}" == "-" ]]; then
-                echo "ERROR: no project directory for ${PRJ_NAME}"
-                exit 1
-            fi
-
-            eval "${VAR_PRJ_DIR}=${BUILD_SCRIPT_DIR}/${PRJ_DIR}"
-            return 0
-        fi
-
-    done
-
-    return 1
-}
-
-
-#-------------------------------------------------------------------------------
 function run_astyle()
 {
     echo "##"
@@ -306,6 +279,22 @@ function build_all_projects()
 
 
 #-------------------------------------------------------------------------------
+function print_usage_help()
+{
+    echo ""
+    echo "Usage: build.sh <target> ..."
+    echo ""
+    echo " Options for <target> are:"
+    echo "   sdk [action, defaults to 'all']   (SDK package build)"
+    echo "   all                               (SDK package and all known projects)"
+    echo "   all-projects                      (just the projects)"
+    echo "   clean                             (delete all build output folders)"
+    echo "   <folder>                          (folder with a project)"
+    echo "   <project name>                    (well known project name)"
+    echo ""
+}
+
+#-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 
@@ -316,53 +305,70 @@ BUILD_TYPE=${BUILD_TYPE:-"Debug"}
 BUILD_PLATFORM=${BUILD_PLATFORM:-"sabre"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"rpi3"}
 
+case "${1:-}" in
 
+    "help"|"")
+        print_usage_help
+        exit 1
+        ;;
 
-if [[ "${1:-}" == "sdk" ]]; then
-    shift
-    BUILD_ACTION_SDK=${1:-all}
-    run_build_sdk ${BUILD_ACTION_SDK} ${SDK_OUT_DIR}
+    "sdk")
+        BUILD_ACTION_SDK=${2:-all}
+        shift 2
+        run_build_sdk ${BUILD_ACTION_SDK} ${SDK_OUT_DIR}
+        ;;
 
-elif [[ "${1:-}" == "all-projects" ]]; then
-    shift
-    # build SDK source-only package and use this to build all projects
-    build_all_projects collect-sources $@
+    "all-projects")
+        shift
+        # build SDK source-only package and use this to build all projects
+        build_all_projects collect-sources $@
+        ;;
 
-elif [[ "${1:-}" == "all" ]]; then
-    shift
-    run_build_doc $@
-    # build SDK package with binaries, then use this to build all projects
-    build_all_projects all $@
+    "all")
+        shift
+        # build SDK package with binaries and use this to build all projects
+        build_all_projects all $@
+        ;;
 
-elif [[ "${1:-}" == "clean" ]]; then
-    shift
-    rm -rf build-*
-    rm -rf ${SDK_OUT_DIR}
+    "clean")
+        rm -rf ${SDK_OUT_DIR}
+        rm -rf build-*
+        ;;
 
-elif map_project MAPPED_PROJECT_DIR ${1:-}; then
-    echo "building ${1:-} from ${MAPPED_PROJECT_DIR} ..."
-    shift
-    run_sdk_and_system_build ${MAPPED_PROJECT_DIR} ${BUILD_PLATFORM} ${BUILD_TYPE} $@
-    run_astyle
-
-elif [ "$#" -ne "0" ]; then
-    BUILD_PROJECT_DIR=${1:-}
-    shift
-    echo "building ${BUILD_PROJECT_DIR} using params: '$@' ..."
-    run_sdk_and_system_build ${BUILD_PROJECT_DIR} ${BUILD_PLATFORM} ${BUILD_TYPE} $@
-    run_astyle
-
-else
-    echo ""
-    echo "Usage: build.sh <target> ..."
-    echo ""
-    echo " Options for <target> are:"
-    echo "   sdk [action, defaults to 'all']   (SDK package build)"
-    echo "   all                               (SDK package and all known projects)"
-    echo "   all-projects                      (just the projects)"
-    echo "   clean                             (delete all build output folders)"
-    echo "   <project name>                    (well known project name)"
-    echo "   <folder>                          (folder with a project)"
-    echo ""
-    exit 1
-fi
+    *)
+        # we always have a parameter here, otherwise we print the help above
+        PARAM="${1}"
+        shift
+        PROJECT_DIR=""
+        if [ -d "${PARAM}" ]; then
+            shift
+            PARAM="${PROJECT_DIR}"
+            echo "Project Folder: ${PROJECT_DIR}"
+            echo "Parameters:     $@"
+        else
+            for PROJECT in ${WELL_KNOWN_PROJECTS[@]}; do
+                PRJ_NAME=${PROJECT%,*}
+                PRJ_DIR=${PROJECT#*,}
+                if [[ "${PARAM}" == "${PRJ_NAME}" ]]; then
+                    if [[ "${PRJ_DIR}" == "-" ]]; then
+                        echo "ERROR: no project directory for ${PRJ_NAME}"
+                        print_usage_help
+                        exit 1
+                    fi
+                    PROJECT_DIR="${BUILD_SCRIPT_DIR}/${PRJ_DIR}"
+                    echo "Project Name: ${PRJ_NAME}"
+                    echo "Folder:       ${PROJECT_DIR}"
+                    echo "Parameters:   $@"
+                    break;
+                fi
+            done
+        fi
+        if [ -z ${PROJECT_DIR} ]; then
+            echo "ERROR: no folder or well known project: ${PARAM}"
+            print_usage_help
+            exit 1
+        fi
+        run_sdk_and_system_build ${PROJECT_DIR} ${BUILD_PLATFORM} ${BUILD_TYPE} $@
+        run_astyle
+        ;;
+esac
