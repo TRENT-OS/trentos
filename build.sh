@@ -339,7 +339,7 @@ elif [[ "${1:-}" == "clean" ]]; then
     rm -rf build-*
     rm -rf ${SDK_OUT_DIR}
 
-elif map_project MAPPED_PROJECT_DIR $@; then
+elif map_project MAPPED_PROJECT_DIR ${1:-}; then
     echo "building ${1:-} from ${MAPPED_PROJECT_DIR} ..."
     shift
     run_sdk_and_system_build ${MAPPED_PROJECT_DIR} ${BUILD_PLATFORM} ${BUILD_TYPE} $@
