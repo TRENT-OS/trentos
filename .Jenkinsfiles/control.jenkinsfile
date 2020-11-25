@@ -17,7 +17,6 @@ properties([
 // Test system list
 class TestCtx {
     String      systemName;  // Name of the system to build.
-    String      testMachine; // Test machine label. Defaults to 'test'.
     String      testScript;  // Test script to be executed. Defaults to
                              // <systemName>.py.
     ArrayList   platforms;   // List of supported platforms. `null` if full
@@ -25,12 +24,10 @@ class TestCtx {
 
     public TestCtx(
         String systemName,
-        String testMachine,
         String testScript,
         ArrayList platforms)
     {
         this.systemName  = systemName;
-        this.testMachine = testMachine;
         this.testScript  = testScript;
         this.platforms   = platforms;
     }
@@ -38,30 +35,30 @@ class TestCtx {
 
 def ACTIVE_TESTS = [
 
-    new TestCtx('demo_hello_world',              null,                'test_demo_hello_world.py',      null),
-//    new TestCtx('demo_iot_app',                  'test_in_isolation', 'test_demo_iot_app.py',          null),
-//    new TestCtx('demo_iot_app_rpi3',             'test_in_isolation', 'test_demo_iot_app_rpi3.py',     ['rpi3']),
-//    new TestCtx('test_timeserver',               null,                null,                            null),
-//    new TestCtx('test_uart',                     null,                null,                            null),
-//    new TestCtx('test_chanmux',                  null,                null,                            null),
-//    new TestCtx('test_proxy_nvm',                null,                null,                            null),
-//    new TestCtx('test_certparser',               null,                'test_certparser.py',            null),
-//    new TestCtx('test_crypto_api',               null,                null,                            null),
-//    new TestCtx('test_cryptoserver',             null,                null,                            null),
-//    new TestCtx('test_entropysource',            null,                null,                            null),
-//    new TestCtx('test_storage_interface',        null,                null,                            null),
-//    new TestCtx('test_filesystem',               null,                null,                            null),
-//    new TestCtx('test_config_server',            null,                null,                            null),
-//    new TestCtx('test_keystore',                 null,                null,                            null),
-//    new TestCtx('test_logserver',                null,                null,                            null),
-//    new TestCtx('test_network_api',              'test_network',      null,                            null),
-//    new TestCtx('test_tls_api',                  'test_tls',          null,                            null),
-//    new TestCtx('test_secure_update',            null,                null,                            null),
-//    new TestCtx('test_tlsserver',                'test_tls',          null,                            null)
+    new TestCtx('demo_hello_world',              'test_demo_hello_world.py',      null),
+//    new TestCtx('demo_iot_app',                  'test_demo_iot_app.py',          null),
+//    new TestCtx('demo_iot_app_rpi3',             'test_demo_iot_app_rpi3.py',     ['rpi3']),
+//    new TestCtx('test_timeserver',               null,                            null),
+//    new TestCtx('test_uart',                     null,                            null),
+//    new TestCtx('test_chanmux',                  null,                            null),
+//    new TestCtx('test_proxy_nvm',                null,                            null),
+//    new TestCtx('test_certparser',               'test_certparser.py',            null),
+//    new TestCtx('test_crypto_api',               null,                            null),
+//    new TestCtx('test_cryptoserver',             null,                            null),
+//    new TestCtx('test_entropysource',            null,                            null),
+//    new TestCtx('test_storage_interface',        null,                            null),
+//    new TestCtx('test_filesystem',               null,                            null),
+//    new TestCtx('test_config_server',            null,                            null),
+//    new TestCtx('test_keystore',                 null,                            null),
+//    new TestCtx('test_logserver',                null,                            null),
+//    new TestCtx('test_network_api',              null,                            null),
+//    new TestCtx('test_tls_api',                  null,                            null),
+//    new TestCtx('test_secure_update',            null,                            null),
+//    new TestCtx('test_tlsserver',                null,                            null)
 
     // ToDo: create test scripts
-    // ['native_hello_world',            null,                null,                        null],
-    // ['native_sel4test',               null,                null,                        null],
+    // ['native_hello_world',            null,                        null],
+    // ['native_sel4test',               null,                        null],
 
 ]
 
@@ -131,7 +128,6 @@ def execute_build(global_ctx, test_ctx, branch, platform)
                             string(name: 'BRANCH_OR_COMMIT',   value: branch),
                             string(name: 'JENKINSFILE',        value: '.Jenkinsfiles/generic.jenkinsfile'),
                             string(name: 'TEST_SYSTEM',        value: test_ctx.systemName),
-                            string(name: 'TEST_MACHINE_LABEL', value: test_ctx.testMachine ?: ''),
                             string(name: 'TEST_SCRIPT',        value: test_ctx.testScript ?: ''),
                             string(name: 'PLATFORM',           value: platform ?: ''),
                         ]

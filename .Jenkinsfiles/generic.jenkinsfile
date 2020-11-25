@@ -12,12 +12,10 @@
 //    PLATFORM
 //    JENKINSFILE
 //    TEST_SYSTEM
-//    TEST_MACHINE_LABEL
 //    TEST_SCRIPT
 
 params.each { println it.key + " = " + it.value }
 
-def test_machine_label = TEST_MACHINE_LABEL ?: 'test'
 def test_script = TEST_SCRIPT ?: (TEST_SYSTEM+'.py')
 def SYSTEM_IMAGE  = 'build-' + PLATFORM + '-Debug-' + TEST_SYSTEM
 def compile_commands_file = SYSTEM_IMAGE + '/compile_commands.json'
@@ -38,7 +36,6 @@ manager.createSummary("text.gif").appendText(
          'PLATFORM',
          'JENKINSFILE',
          'TEST_SYSTEM',
-         'TEST_MACHINE_LABEL',
          'TEST_SCRIPT',
         ].collect{
             '<tr>'+
@@ -263,7 +260,7 @@ pipeline {
         stage('test') {
             agent {
                 docker {
-                    label test_machine_label
+                    label "test"
                     reuseNode true
                     alwaysPull true
                     registryUrl DOCKER_TEST_ENV.registry
@@ -272,7 +269,7 @@ pipeline {
                 }
             }
             steps {
-                print_step_info env.STAGE_NAME+' (on '+test_machine_label+')'
+                print_step_info env.STAGE_NAME
                 sh 'rm -rf *' // using cleanWs() seems to kill the workspace
                 unstash 'test_package'
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
