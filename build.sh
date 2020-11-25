@@ -431,7 +431,7 @@ elif [[ "${1:-}" == "sdk" ]]; then
 
 elif [[ "${1:-}" == "all-projects" ]]; then
     shift
-    # build SDK package with binaries and use this to build all projects
+    # build SDK source-only package and use this to build all projects
     build_all_projects collect-sources $@
 
 elif [[ "${1:-}" == "all" ]]; then
