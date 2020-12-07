@@ -76,3 +76,6 @@
 [submodule "src/demos/demo_tls_api"]
 	path = src/demos/demo_tls_api
 	url = ../../ss/demo_tls_api.git
+[submodule "src/tests/test_certserver"]
+	path = src/tests/test_certserver
+	url = ../../ss/test_certserver.git
