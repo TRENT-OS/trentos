@@ -67,6 +67,7 @@ def ACTIVE_TESTS = [
 def PLATFORMS = [
     'zynq7000',
     'sabre',
+    'nitrogen6sx',
     // 'migv',
     // 'spike',
     // 'rpi3',
