@@ -76,3 +76,6 @@
 [submodule "src/demos/demo_tls_api"]
 	path = src/demos/demo_tls_api
 	url = ../../ss/demo_tls_api.git
+[submodule "src/demos/demo_iot_app_imx6"]
+	path = src/demos/demo_iot_app_imx6
+	url = ../../ss/demo_iot_app_imx6.git
