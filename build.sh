@@ -34,6 +34,7 @@ WELL_KNOWN_PROJECTS=(
     # tests
     test_timeserver,src/tests/test_timeserver
     test_crypto_api,src/tests/test_crypto_api
+    test_certserver,src/tests/test_certserver
     test_certparser,src/tests/test_certparser
     test_cryptoserver,src/tests/test_cryptoserver
     test_entropysource,src/tests/test_entropysource
