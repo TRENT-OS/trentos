@@ -79,3 +79,6 @@
 [submodule "src/tests/test_certserver"]
 	path = src/tests/test_certserver
 	url = ../../ss/test_certserver.git
+[submodule "src/demos/demo_i2c"]
+	path = src/demos/demo_i2c
+	url = ../../ss/demo_i2c.git
