@@ -209,25 +209,30 @@ function run_tests()
 
         print_info "running test for system: ${PROJECT}"
 
-        PYTEST_PARAMS=(
-            -v
-            #--capture=no   # show printf() from python scripts in console
+        PYTHON_PARAMS=(
+            -B # do not create *.pyc files
+            -m pytest # execute pytest
+            #--------------------------------------------------
+            # all parameters below are fed into pytest
+            #--------------------------------------------------
+            -v  # increase pytest verbosity
+            -p no:cacheprovider  # don't create .cache directories
+            #--capture=no   # show printf() from pytest scripts in console
             #--print_logs   # show system log in console
             --target=${BUILD_PLATFORM}
             --system_image=$(realpath ${BUILD_FOLDER}/images/os_image.bin)
             --proxy=$(realpath ${DIR_BIN_SDK}/proxy_app),${QEMU_CONN}
             --log_dir=$(realpath ${TEST_LOGS_DIR})
             --junitxml=$(realpath ${TEST_LOGS_DIR})/test_results.xml
+            ${TEST_PARAMS[@]}
+            ${DIR_SRC_TA}/tests/${TEST_SCRIPT}
         )
 
         (
             cd ${TEST_SYSTEM_LOG_DIR}
             export PYTHONPATH="${DIR_SRC_TA}/common:${DIR_SRC_TA}/tests"
-
             set -x
-            # run pytest but prevent it from creating any pycache folder
-            python3 -B -m pytest -p no:cacheprovider ${PYTEST_PARAMS[@]} \
-                        ${TEST_PARAMS[@]} ${DIR_SRC_TA}/tests/${TEST_SCRIPT}
+            python3 ${PYTHON_PARAMS[@]}
         )
 
     done
