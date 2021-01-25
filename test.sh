@@ -210,20 +210,28 @@ function run_tests()
         print_info "running test for system: ${PROJECT}"
 
         PYTHON_PARAMS=(
-            -B # do not create *.pyc files
-            -m pytest # execute pytest
+            -B  # do not create *.pyc files
+            -m pytest  # execute pytest
             #--------------------------------------------------
             # all parameters below are fed into pytest
             #--------------------------------------------------
-            -v  # increase pytest verbosity
             -p no:cacheprovider  # don't create .cache directories
-            #--capture=no   # show printf() from pytest scripts in console
-            #--print_logs   # show system log in console
+            -v  # increase pytest verbosity (-vv is even more verbose)
+            #--tb=short  # control the traceback (long, short, line, native, no)
+            #-o log_cli=True  # write logs to console
+            #--capture=no  # show printf() from pytest scripts in console
+            #--collect-only  # show test, but don't run them
+            #--exitfirst  # exit on first test error
+            --junitxml=$(realpath ${TEST_LOGS_DIR})/test_results.xml
+            #--------------------------------------------------
+            # test framework parameters
+            #--------------------------------------------------
+            #--print_logs  # show log output from device in console
             --target=${BUILD_PLATFORM}
             --system_image=$(realpath ${BUILD_FOLDER}/images/os_image.bin)
             --proxy=$(realpath ${DIR_BIN_SDK}/proxy_app),${QEMU_CONN}
             --log_dir=$(realpath ${TEST_LOGS_DIR})
-            --junitxml=$(realpath ${TEST_LOGS_DIR})/test_results.xml
+            #--------------------------------------------------
             ${TEST_PARAMS[@]}
             ${DIR_SRC_TA}/tests/${TEST_SCRIPT}
         )
