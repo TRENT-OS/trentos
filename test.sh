@@ -132,7 +132,7 @@ function run_tests()
     local TEST_PARAMS=()
     for param in $@; do
         # everything that starts with a dash is considered a parameter,
-        # oherwise it's considered a script name.
+        # otherwise it's considered a script name.
         if [[ ${param} =~ -.*  ]]; then
             TEST_PARAMS+=(${param})
         else
