@@ -109,7 +109,7 @@ function run_tests()
     local BUILD_PLATFORM=$1
     shift
 
-    # the workspace holds the SDK+tools, temporary files and partition images,
+    # the workspace holds the SDK+tools, temporary files and partition images
     if [ ! -d ${WORKSPACE_TEST_FOLDER} ]; then
         echo "ERROR: missing test workspace"
         exit 1
@@ -141,7 +141,7 @@ function run_tests()
     done
 
     # folder where the logs are created. Partition images can be placed here if
-    # they should be archived wit the log
+    # they should be archived with the log
     if [ -z "${TEST_LOGS_DIR:-}" ]; then
         local TEST_LOGS_DIR=test-logs-$(date +%Y%m%d-%H%M%S)
         echo "TEST_LOGS_DIR not set, using ${TEST_LOGS_DIR}"

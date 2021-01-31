@@ -172,7 +172,7 @@ function run_sdk_and_system_build()
     # build a the system with the SDK package. We don't need to build the full
     # package, because no SDK tools or docs are needed to build a system. In
     # case the SDK shall really be used directly, simply comment out the
-    # "run_build_sdk" step and pass ${SDK_SRC_DIR}
+    # "run_build_sdk" step and pass ${SDK_SRC_DIR} to "run_system_build"
     run_build_sdk collect-sources ${SDK_OUT_DIR}
 
     local PARAMS=(
@@ -266,7 +266,7 @@ function build_all_projects()
             fi
 
             local PARAMS=(
-                ${SDK_OUT_DIR}/pkg   # ${SDK_SRC_DIR} to sue SDK sources directly
+                ${SDK_OUT_DIR}/pkg   # ${SDK_SRC_DIR} to use SDK sources directly
                 ${BUILD_SCRIPT_DIR}/${PRJ_DIR}
                 ${BUILD_PLATFORM}
                 Debug
