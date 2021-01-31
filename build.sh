@@ -343,8 +343,7 @@ case "${1:-}" in
         shift
         PROJECT_DIR=""
         if [ -d "${PARAM}" ]; then
-            shift
-            PARAM="${PROJECT_DIR}"
+            PROJECT_DIR="${PARAM}"
             echo "Project Folder: ${PROJECT_DIR}"
             echo "Parameters:     $@"
         else
