@@ -9,7 +9,7 @@
 #-------------------------------------------------------------------------------
 
 BUILD_SCRIPT_DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd)"
-SDK_SRC_DIR="${BUILD_SCRIPT_DIR}/seos_sandbox"
+DIR_SRC_SANDBOX="${BUILD_SCRIPT_DIR}/seos_sandbox"
 SDK_OUT_DIR="OS-SDK"
 
 # This list is used for the targets "all-projects" and "all". The order within
@@ -88,7 +88,7 @@ function run_astyle()
         # own version of the script
         find . -name 'astyle_check.sh' -printf 'running %p\n' -execdir {} \;
 
-        ${SDK_SRC_DIR}/astyle_check_sdk.sh
+        ${DIR_SRC_SANDBOX}/astyle_check_sdk.sh
     )
 }
 
@@ -104,7 +104,7 @@ function run_build_sdk()
     echo "## building SDK Package (${BUILD_ACTION}) in ${BUILD_DIR}"
     echo "##"
 
-    ${SDK_SRC_DIR}/build-sdk.sh ${BUILD_ACTION} ${BUILD_DIR}
+    ${DIR_SRC_SANDBOX}/build-sdk.sh ${BUILD_ACTION} ${BUILD_DIR}
 }
 
 
@@ -172,11 +172,11 @@ function run_sdk_and_system_build()
     # build a the system with the SDK package. We don't need to build the full
     # package, because no SDK tools or docs are needed to build a system. In
     # case the SDK shall really be used directly, simply comment out the
-    # "run_build_sdk" step and pass ${SDK_SRC_DIR} to "run_system_build"
+    # "run_build_sdk" step and pass ${DIR_SRC_SANDBOX} to "run_system_build"
     run_build_sdk collect-sources ${SDK_OUT_DIR}
 
     local PARAMS=(
-        ${SDK_OUT_DIR}/pkg  # ${SDK_SRC_DIR} to use the SDK sources directly
+        ${SDK_OUT_DIR}/pkg  # ${DIR_SRC_SANDBOX} to use the SDK sources directly
         ${PROJECT_DIR}
         ${BUILD_PLATFORM}
         ${BUILD_TYPE}
@@ -266,7 +266,7 @@ function build_all_projects()
             fi
 
             local PARAMS=(
-                ${SDK_OUT_DIR}/pkg   # ${SDK_SRC_DIR} to use SDK sources directly
+                ${SDK_OUT_DIR}/pkg   # ${DIR_SRC_SANDBOX} to use SDK sources directly
                 ${BUILD_SCRIPT_DIR}/${PRJ_DIR}
                 ${BUILD_PLATFORM}
                 Debug
