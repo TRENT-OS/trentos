@@ -82,3 +82,6 @@
 [submodule "src/demos/demo_i2c"]
 	path = src/demos/demo_i2c
 	url = ../../ss/demo_i2c.git
+[submodule "src/demos/demo_iot_app_imx6"]
+	path = src/demos/demo_iot_app_imx6
+	url = ../../ss/demo_iot_app_imx6.git
