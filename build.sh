@@ -155,6 +155,10 @@ function run_system_build()
 
 
 #-------------------------------------------------------------------------------
+# Parameters:
+#   BUILD_PLATFORM: target platform
+#   BUILD_TYPE: Debug/Release
+#   PATH_OR_PROJECT: path to project or name from WELL_KNOWN_PROJECTS
 function run_sdk_and_system_build()
 {
     if [ "$#" -lt 3 ]; then
@@ -162,10 +166,41 @@ function run_sdk_and_system_build()
         return 1
     fi
 
-    local PROJECT_DIR=${1}
-    local BUILD_PLATFORM=${2}
-    local BUILD_TYPE=${3}
-    shift 3
+    local BUILD_PLATFORM=${1}
+    local BUILD_TYPE=${2}
+    local PATH_OR_PROJECT="${3}"
+    shift 3 # all other params are passed to the project build
+
+    local PROJECT_DIR=""
+    if [ -d "${PATH_OR_PROJECT}" ]; then
+        PROJECT_DIR="${PATH_OR_PROJECT}"
+    else
+        for PROJECT in ${WELL_KNOWN_PROJECTS[@]}; do
+            local PRJ_NAME=${PROJECT%,*}
+            local PRJ_DIR=${PROJECT#*,}
+            if [[ "${PATH_OR_PROJECT}" == "${PRJ_NAME}" ]]; then
+                if [[ "${PRJ_DIR}" == "-" ]]; then
+                    echo "ERROR: no project directory for ${PRJ_NAME}"
+                    print_usage_help
+                    exit 1
+                fi
+                PROJECT_DIR="${BUILD_SCRIPT_DIR}/${PRJ_DIR}"
+                break;
+            fi
+        done
+
+        if [ -z "${PROJECT_DIR}" ]; then
+            echo "ERROR: unknown project: ${PATH_OR_PROJECT}"
+            print_usage_help
+            exit 1
+        fi
+
+        echo "Project Name:   ${PATH_OR_PROJECT}"
+    fi
+    echo "Project Folder: ${PROJECT_DIR}"
+    if [ "$#" -gt 0 ]; then
+        echo "Parameters:     $@"
+    fi
 
     # first build a source-only SDK package from the SDK sources and then use
     # this to build the system. This does not cost much time and ensures we can
@@ -182,6 +217,7 @@ function run_sdk_and_system_build()
         ${BUILD_TYPE}
     )
     run_system_build ${PARAMS[@]} $@
+    run_astyle
 }
 
 
@@ -339,38 +375,8 @@ case "${1:-}" in
         ;;
 
     *)
-        # we always have a parameter here, otherwise we print the help above
-        PARAM="${1}"
-        shift
-        PROJECT_DIR=""
-        if [ -d "${PARAM}" ]; then
-            PROJECT_DIR="${PARAM}"
-            echo "Project Folder: ${PROJECT_DIR}"
-            echo "Parameters:     $@"
-        else
-            for PROJECT in ${WELL_KNOWN_PROJECTS[@]}; do
-                PRJ_NAME=${PROJECT%,*}
-                PRJ_DIR=${PROJECT#*,}
-                if [[ "${PARAM}" == "${PRJ_NAME}" ]]; then
-                    if [[ "${PRJ_DIR}" == "-" ]]; then
-                        echo "ERROR: no project directory for ${PRJ_NAME}"
-                        print_usage_help
-                        exit 1
-                    fi
-                    PROJECT_DIR="${BUILD_SCRIPT_DIR}/${PRJ_DIR}"
-                    echo "Project Name: ${PRJ_NAME}"
-                    echo "Folder:       ${PROJECT_DIR}"
-                    echo "Parameters:   $@"
-                    break;
-                fi
-            done
-        fi
-        if [ -z ${PROJECT_DIR} ]; then
-            echo "ERROR: no folder or well known project: ${PARAM}"
-            print_usage_help
-            exit 1
-        fi
-        run_sdk_and_system_build ${PROJECT_DIR} ${BUILD_PLATFORM} ${BUILD_TYPE} $@
-        run_astyle
+        # if we are here, $@ has at least one parameter, which is either a
+        # project folder or a name from WELL_KNOWN_PROJECTS
+        run_sdk_and_system_build ${BUILD_PLATFORM} ${BUILD_TYPE} $@
         ;;
 esac
