@@ -246,6 +246,7 @@ function build_all_projects()
       #  # imx6 # -> sabre
       #  #     sabre
       #  #     wandq
+      #  #     nitrogen6sx
       #  # #imx7/imx7sabre, but does not compile)
       #  # imx8mq-evk
       #  # imx8mm-evk
@@ -258,7 +259,7 @@ function build_all_projects()
       #  # tk1
       #  # tx1
       #  # tx2
-        zynq7000
+      zynq7000
       #  zynqmp
       #      # ultra96 #zynqmp, but does not compile
       #
@@ -342,6 +343,7 @@ BUILD_TYPE=${BUILD_TYPE:-"Debug"}
 
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
 BUILD_PLATFORM=${BUILD_PLATFORM:-"sabre"}
+#BUILD_PLATFORM=${BUILD_PLATFORM:-"nitrogen6sx"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"rpi3"}
 
 case "${1:-}" in
