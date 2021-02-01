@@ -189,7 +189,8 @@ function run_sdk_and_system_build()
 function build_all_projects()
 {
     local BUILD_ACTION_SDK=$1
-    shift
+    local BUILD_TYPE=$2
+    shift 2
 
     ALL_PLATFORMS=(
       #  # --- ARM ---
@@ -269,7 +270,7 @@ function build_all_projects()
                 ${SDK_OUT_DIR}/pkg   # ${DIR_SRC_SANDBOX} to use SDK sources directly
                 ${BUILD_SCRIPT_DIR}/${PRJ_DIR}
                 ${BUILD_PLATFORM}
-                Debug
+                ${BUILD_TYPE}
             )
             run_system_build ${PARAMS[@]} $@
 
@@ -323,13 +324,13 @@ case "${1:-}" in
     "all-projects")
         shift
         # build SDK source-only package and use this to build all projects
-        build_all_projects collect-sources $@
+        build_all_projects collect-sources ${BUILD_TYPE} $@
         ;;
 
     "all")
         shift
         # build SDK package with binaries and use this to build all projects
-        build_all_projects all $@
+        build_all_projects all ${BUILD_TYPE} $@
         ;;
 
     "clean")
