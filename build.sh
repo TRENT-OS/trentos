@@ -57,6 +57,7 @@ WELL_KNOWN_PROJECTS=(
     demo_raspi_ethernet,src/demos/demo_raspi_ethernet
     demo_tls_api,src/demos/demo_tls_api
     demo_i2c,src/demos/demo_i2c
+    demo_spi_flash,src/demos/demo_spi_flash
 )
 
 
@@ -235,7 +236,7 @@ function build_all_projects()
       #  # am335x-boneblue
       #  # apq8064
       #  # bcm2837
-      #      rpi3
+      #  # rpi3
       #  # exynos4
       #  # exynos5 # -> exynos5250
       #  #     exynos5250
@@ -258,7 +259,7 @@ function build_all_projects()
       #  # tk1
       #  # tx1
       #  # tx2
-        zynq7000
+      zynq7000
       #  zynqmp
       #      # ultra96 #zynqmp, but does not compile
       #
@@ -338,6 +339,8 @@ function print_usage_help()
 #-------------------------------------------------------------------------------
 
 # default settings
+BUILD_PLATFORM=${BUILD_PLATFORM:-"rpi3"}
+#BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
 BUILD_TYPE=${BUILD_TYPE:-"Debug"}
 
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}

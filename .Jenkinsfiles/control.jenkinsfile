@@ -47,7 +47,7 @@ def ACTIVE_TESTS = [
 //    new TestCtx('test_cryptoserver',             null,                            null),
 //    new TestCtx('test_entropysource',            null,                            null),
 //    new TestCtx('test_storage_interface',        null,                            null),
-//    new TestCtx('test_filesystem',               null,                            null),
+    new TestCtx('test_filesystem',               null,                            null),
 //    new TestCtx('test_config_server',            null,                            null),
 //    new TestCtx('test_keystore',                 null,                            null),
 //    new TestCtx('test_logserver',                null,                            null),
@@ -65,11 +65,11 @@ def ACTIVE_TESTS = [
 //------------------------------------------------------------------------------
 // Test Platforms
 def PLATFORMS = [
-    'zynq7000',
-    'sabre',
+    // 'zynq7000',
+    // 'sabre',
     // 'migv',
     // 'spike',
-    // 'rpi3',
+    'rpi3',
 ]
 
 
