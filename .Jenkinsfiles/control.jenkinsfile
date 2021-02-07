@@ -69,7 +69,7 @@ def PLATFORMS = [
     'sabre',
     // 'migv',
     // 'spike',
-    // 'rpi3',
+    'rpi3',
 ]
 
 
