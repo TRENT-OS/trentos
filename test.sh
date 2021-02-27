@@ -44,7 +44,7 @@ function print_info()
 
 
 #-------------------------------------------------------------------------------
-function prepare_workspace()
+function do_prepare()
 {
     # remove folder if it exists already. This should not happen in CI when we
     # have a clean workspace, but it's convenient for local builds
@@ -52,16 +52,6 @@ function prepare_workspace()
         rm -rf ${WORKSPACE_TEST_FOLDER}
     fi
     mkdir ${WORKSPACE_TEST_FOLDER}
-}
-
-
-#-------------------------------------------------------------------------------
-function build_os_sdk()
-{
-    if [ ! -d ${WORKSPACE_TEST_FOLDER} ]; then
-        echo "ERROR: missing test workspace"
-        exit 1
-    fi
 
     # if we have a SDK package, these steps are no longer required, because
     # they have been executed when the packages was created and released. Since
@@ -261,8 +251,7 @@ BUILD_PLATFORM=${BUILD_PLATFORM:-"sabre"}
 
 if [[ "${1:-}" == "prepare" ]]; then
     shift
-    prepare_workspace
-    build_os_sdk
+    do_prepare
 
 
 elif [[ "${1:-}" == "doc" ]]; then
