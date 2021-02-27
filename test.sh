@@ -55,10 +55,12 @@ function do_prepare()
 
     # if we have a SDK package, these steps are no longer required, because
     # they have been executed when the packages was created and released. Since
-    # we still use seos_sandbox, we have to build the SDK package here and
-    # also give it some testing
-    ${DIR_SRC_SANDBOX}/build-sdk.sh tools ${DIR_BASE_SDK}
-    ${DIR_SRC_SANDBOX}/build-sdk.sh unit-tests ${DIR_BASE_SDK}
+    # we use seos_sandbox, we have to build the SDK package here and also give
+    # it some testing
+    for step in collect-sources run-unit-tests build-tools; do
+        print_info "running SDK build step: ${step}"
+        ${DIR_SRC_SANDBOX}/build-sdk.sh ${step} ${DIR_BASE_SDK}
+    done
 
     print_info "OS SDK build complete"
 }
@@ -252,7 +254,6 @@ BUILD_PLATFORM=${BUILD_PLATFORM:-"sabre"}
 if [[ "${1:-}" == "prepare" ]]; then
     shift
     do_prepare
-
 
 elif [[ "${1:-}" == "doc" ]]; then
     shift
