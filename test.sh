@@ -224,6 +224,12 @@ function run_tests()
             --proxy=$(realpath ${DIR_BIN_SDK}/proxy_app),${QEMU_CONN}
             --log_dir=$(realpath ${TEST_LOGS_DIR})
             #--------------------------------------------------
+            # Default and platform specific configuration file to be used by
+            # pytest-testconfig. Passing a config on the command line will
+            # merge with them, and in case of overlap will overwrite the default
+            --tc-file=${DIR_SRC_TA}/tests/platform_config/default.ini
+            --tc-file=${DIR_SRC_TA}/tests/platform_config/${BUILD_PLATFORM}.ini
+            #--------------------------------------------------
             ${TEST_PARAMS[@]}
             ${DIR_SRC_TA}/tests/${TEST_SCRIPT}
         )
