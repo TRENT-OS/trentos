@@ -232,7 +232,7 @@ pipeline {
                             includes: [ 'scm-src/**',
                                         'workspace_test/**',
                                         [ 'elfloader/elfloader',
-                                          'images/os_image.bin',
+                                          'images/os_image.elf',
                                            compile_commands_file,
                                           'kernel/kernel_all.c',
                                           'kernel/kernel_all.i',

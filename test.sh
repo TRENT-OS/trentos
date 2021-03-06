@@ -221,7 +221,7 @@ function run_tests()
             #--------------------------------------------------
             #--print_logs  # show log output from device in console
             --target=${BUILD_PLATFORM}
-            --system_image=$(realpath ${BUILD_FOLDER}/images/os_image.bin)
+            --system_image=$(realpath ${BUILD_FOLDER}/images/os_image.elf)
             --proxy=$(realpath ${DIR_BIN_SDK}/proxy_app),${QEMU_CONN}
             --log_dir=$(realpath ${TEST_LOGS_DIR})
             #--------------------------------------------------
@@ -276,7 +276,7 @@ elif [[ "${1:-}" == "qemu" ]]; then
     shift
     QEMU_SYSTEM="build-${BUILD_PLATFORM}-Debug-${1:-demo_hello_world}"
     export BUILD_PLATFORM
-    ${DIR_SRC_SANDBOX}/scripts/run_qemu.sh ${QEMU_SYSTEM}/images/os_image.bin
+    ${DIR_SRC_SANDBOX}/scripts/run_qemu.sh ${QEMU_SYSTEM}/images/os_image.elf
 
 
 else
