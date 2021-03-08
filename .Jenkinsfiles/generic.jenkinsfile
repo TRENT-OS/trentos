@@ -176,7 +176,7 @@ pipeline {
                         }
                     }
                 }
-                stage('Static analyzer') {
+                stage('static_analyzer') {
                     agent {
                         docker {
                             reuseNode true
