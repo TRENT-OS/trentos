@@ -80,14 +80,8 @@ function run_astyle()
     (
         cd ${BUILD_SCRIPT_DIR}
 
-        # ensure there are no existing astyle files anywhere
-        find . -name '*.astyle' -exec rm -v {} \;
-
-        # there should be an astyle script in the root folder, but we also
-        # search recursively in all subfolders, as modules can come with their
-        # own version of the script
-        find . -name 'astyle_check.sh' -printf 'running %p\n' -execdir {} \;
-
+        # Use astyle_check_sdk.sh from seos_sandbox to check astyle issues also
+        # in seos_tests and its subfolders / submodules.
         ${DIR_SRC_SANDBOX}/astyle_check_sdk.sh
     )
 }
