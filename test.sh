@@ -225,6 +225,7 @@ function run_tests()
             --proxy=$(realpath ${DIR_BIN_SDK}/proxy_app),${QEMU_CONN}
             --log_dir=$(realpath ${TEST_LOGS_DIR})
             # --sd_card=536870912  # 512 MiB
+            --resource_dir=$(realpath ${DIR_PKG_SDK}/resources)
             #--------------------------------------------------
             # Default and platform specific configuration file to be used by
             # pytest-testconfig. Passing a config on the command line will
