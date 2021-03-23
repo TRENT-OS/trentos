@@ -333,6 +333,9 @@ function print_usage_help()
 
 # default settings
 BUILD_TYPE=${BUILD_TYPE:-"Debug"}
+#BUILD_TYPE=${BUILD_TYPE:-"Release"}
+#BUILD_TYPE=${BUILD_TYPE:-"RelWithDebInfo"}
+#BUILD_TYPE=${BUILD_TYPE:-"MinSizeRel"}
 
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
 BUILD_PLATFORM=${BUILD_PLATFORM:-"sabre"}
