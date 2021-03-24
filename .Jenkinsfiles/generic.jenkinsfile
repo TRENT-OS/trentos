@@ -188,8 +188,9 @@ pipeline {
                     }
                     steps {
                         print_step_info env.STAGE_NAME
-                        catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-                            sh 'scm-src/check_static_analyzer.sh ' + compile_commands_file
+
+                         catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                            sh 'scm-src/ta/tests/cppcheck/check_static_analyzer.sh ' + compile_commands_file + ' OS-SDK/pkg'
                         }
                     }
                 }
