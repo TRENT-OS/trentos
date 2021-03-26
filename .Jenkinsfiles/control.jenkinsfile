@@ -38,6 +38,7 @@ def ACTIVE_TESTS = [
     new TestCtx('demo_hello_world',              'test_demo_hello_world.py',      null),
 //    new TestCtx('demo_iot_app',                  'test_demo_iot_app.py',          null),
 //    new TestCtx('demo_iot_app_rpi3',             'test_demo_iot_app.py',          ['rpi3']),
+//    new TestCtx('demo_iot_app_imx6',             'test_demo_iot_app.py',          ['sabre']),
 //    new TestCtx('test_timeserver',               null,                            null),
 //    new TestCtx('test_uart',                     null,                            null),
 //    new TestCtx('test_chanmux',                  null,                            null),
