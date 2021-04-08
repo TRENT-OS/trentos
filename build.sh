@@ -27,7 +27,7 @@ WELL_KNOWN_PROJECTS=(
 
     demo_hello_world,src/demos/demo_hello_world
 
-    # native systems, require compiling with -DSDK_USE_CAMKES=0 -DENABLE_LINT=0
+    # native systems, require compiling with -DSDK_USE_CAMKES=0
     native_sel4test,src/native/sel4test
     native_hello_world,src/native/hello_world
 

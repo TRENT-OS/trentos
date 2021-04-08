@@ -51,16 +51,12 @@ with the build artifacts. This leaves the whole source folder unchanged.
 
 ### Build options
 
-#### Disable static code analysis
+#### Enable static code analysis
 
-The docker container is missing "clang-tidy". So you will get the error message
-"Error running 'clang-tidy': No such file or directory" and the build fails. To
-fix this, within the docker container, go to the folder "build-<target>" and
-run "ccmake ../src". Find the option "ENABLE_LINT" and set it to "OFF". Press
-"g" to re-generate the configuration and exit. Then run the build again.
-This can also be done directly with the command:
-	
-    ./build.sh all -DENABLE_LINT=OFF
+To build with enabled static code analysis (cppcheck, clang-tidy) the CMake flag
+"ENABLE_LINT" has to be set.
+
+    ./build.sh all -D ENABLE_LINT=ON
 
 #### Build all supported tests
 
