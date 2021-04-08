@@ -135,7 +135,6 @@ function run_system_build()
         echo "seL4 native project, disable CAMKES and LINTING"
         PARAMS+=(
             -DSDK_USE_CAMKES=0
-            -DENABLE_LINT=0
         )
     fi
 
