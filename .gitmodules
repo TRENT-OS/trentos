@@ -85,3 +85,6 @@
 [submodule "src/demos/demo_iot_app_imx6"]
 	path = src/demos/demo_iot_app_imx6
 	url = ../../ss/demo_iot_app_imx6.git
+[submodule "src/demos/demo_network_filter"]
+	path = src/demos/demo_network_filter
+	url = ../../ss/demo_network_filter.git
