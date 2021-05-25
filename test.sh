@@ -254,8 +254,8 @@ function run_tests()
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 
-#BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
-BUILD_PLATFORM=${BUILD_PLATFORM:-"sabre"}
+BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
+#BUILD_PLATFORM=${BUILD_PLATFORM:-"sabre"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"qemu-sabre"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"rpi3"}
 

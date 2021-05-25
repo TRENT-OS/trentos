@@ -65,6 +65,7 @@ WELL_KNOWN_PROJECTS=(
 ALL_PROJECTS_EXCLUDE_zynq7000=(
     demo_iot_app_rpi3
     demo_raspi_ethernet
+    demo_iot_app_imx6
 )
 
 ALL_PROJECTS_EXCLUDE_rpi3=(
@@ -338,8 +339,8 @@ BUILD_TYPE=${BUILD_TYPE:-"Debug"}
 #BUILD_TYPE=${BUILD_TYPE:-"RelWithDebInfo"}
 #BUILD_TYPE=${BUILD_TYPE:-"MinSizeRel"}
 
-#BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
-BUILD_PLATFORM=${BUILD_PLATFORM:-"sabre"}
+BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
+#BUILD_PLATFORM=${BUILD_PLATFORM:-"sabre"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"rpi3"}
 
 case "${1:-}" in
