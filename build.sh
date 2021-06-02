@@ -351,8 +351,11 @@ case "${1:-}" in
         ;;
 
     "sdk")
-        BUILD_ACTION_SDK=${2:-all}
-        shift 2
+        shift
+        BUILD_ACTION_SDK=${1:-all}
+        if [ "$#" -gt 1 ]; then
+            shift
+        fi
         run_build_sdk ${BUILD_ACTION_SDK} ${SDK_OUT_DIR}
         ;;
 
