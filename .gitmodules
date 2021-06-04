@@ -88,3 +88,6 @@
 [submodule "src/demos/demo_network_filter"]
 	path = src/demos/demo_network_filter
 	url = ../../ss/demo_network_filter.git
+[submodule "src/demos/demo_spi_led"]
+	path = src/demos/demo_spi_led
+	url = ../../ss/demo_spi_led.git
