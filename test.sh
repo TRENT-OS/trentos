@@ -148,6 +148,7 @@ function run_tests()
         [test_demo_iot_app]=demo_iot_app
         [test_demo_tls_api]=demo_tls_api
         [test_native_sel4test]=sel4test
+        [test_native_hello_world]=hello_world
     )
 
     for TEST_SCRIPT in ${TEST_SCRIPTS}; do
