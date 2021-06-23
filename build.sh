@@ -246,6 +246,8 @@ function build_all_projects()
       #  # apq8064
       #  # bcm2837
       #      rpi3
+      #  # bcm2711
+      #      rpi4
       #  # exynos4
       #  # exynos5 # -> exynos5250
       #  #     exynos5250
@@ -358,6 +360,7 @@ BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"rpi3"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"spike32"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"spike64"}
+#BUILD_PLATFORM=${BUILD_PLATFORM:-"rpi4"}
 
 case "${1:-}" in
 

@@ -71,6 +71,7 @@ def PLATFORMS = [
     // 'migv',
     // 'spike',
     // 'rpi3',
+    // 'rpi4',
 ]
 
 
