@@ -155,7 +155,12 @@ function run_system_build()
         return 1
     fi
 
-    ${SDK_DIR}/build-system.sh ${PARAMS[@]} $@
+    # Show the actual command line that is executed to start the system build
+    # using the SDK package.
+    (
+        set -x
+        ${SDK_DIR}/build-system.sh ${PARAMS[@]} $@
+    )
 }
 
 
