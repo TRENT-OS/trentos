@@ -59,6 +59,7 @@ WELL_KNOWN_PROJECTS=(
     demo_raspi_ethernet,src/demos/demo_raspi_ethernet
     demo_tls_api,src/demos/demo_tls_api
     demo_i2c,src/demos/demo_i2c
+    demo_tls_server,src/demos/demo_tls_server
 )
 
 
