@@ -1,2 +1,9 @@
-
+# Ignore VS Code workspace folders
 .vscode/
+
+# Ignore build folders in seos_tests
+/build*/
+
+# Ignore log files in seos_tests
+/proxy_app.out
+/qemu_stderr.txt
