@@ -73,7 +73,7 @@ def DOCKER_BUILD_ENV = [
 
 def DOCKER_TEST_ENV  = [
     registry: DOCKER_REGISTRY,
-    image:    DOCKER_BASE + '/trentos_test:20210303',
+    image:    DOCKER_BASE + '/trentos_test:20211025',
     args:     ['-v /home/jenkins/.ssh/:/home/jenkins/.ssh:ro',
                '-v /etc/localtime:/etc/localtime:ro',
                '--network=bridge',
