@@ -271,7 +271,7 @@ pipeline {
                     // The highest test execution time in the last 10 integration runs
                     // was 310 seconds for test_uart, so 420 seconds looks like a
                     // good value to start from.
-                    timeout(time: 420, unit: 'SECONDS')
+                    timeout(time: 620, unit: 'SECONDS')
                     {
                         withEnv([
                             "BUILD_PLATFORM=${PLATFORM}",
