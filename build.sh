@@ -35,6 +35,7 @@ WELL_KNOWN_PROJECTS=(
 
     # native systems, require compiling with -DSDK_USE_CAMKES=0
     native_sel4test,src/native/sel4test
+    native_sel4bench,src/native/sel4bench
     native_hello_world,src/native/hello_world
 
     # tests
@@ -141,7 +142,7 @@ function run_system_build()
     )
 
     # special handling for the seL4 native projects
-    if [[ "${PROJECT_DIR}" =~ ^.*/src/native/(sel4test|hello_world)$ ]]; then
+    if [[ "${PROJECT_DIR}" =~ ^.*/src/native/(sel4test|sel4bench|hello_world)$ ]]; then
         echo "seL4 native project, disable CAMKES and LINTING"
         PARAMS+=(
             -DSDK_USE_CAMKES=0
@@ -444,6 +445,7 @@ function run_tests()
         [test_demo_iot_app]=demo_iot_app
         [test_demo_tls_api]=demo_tls_api
         [test_native_sel4test]=sel4test
+        [test_native_sel4bench]=sel4bench
         [test_native_hello_world]=hello_world
     )
 

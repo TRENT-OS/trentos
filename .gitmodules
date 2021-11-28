@@ -91,3 +91,6 @@
 [submodule "src/demos/demo_tls_server"]
 	path = src/demos/demo_tls_server
 	url = ../../ss/demo_tls_server.git
+[submodule "src/native/sel4bench/src"]
+	path = src/native/sel4bench/src
+	url = ../../ext/sel4bench.git
