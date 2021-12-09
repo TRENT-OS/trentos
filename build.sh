@@ -4,7 +4,7 @@
 #
 # Build script
 #
-# Copyright (C) 2019, HENSOLDT Cyber GmbH
+# Copyright (C) 2019-2022, HENSOLDT Cyber GmbH
 #
 #-------------------------------------------------------------------------------
 
@@ -12,6 +12,11 @@ BUILD_SCRIPT_DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd)"
 DIR_SRC_SANDBOX="${BUILD_SCRIPT_DIR}/seos_sandbox"
 SDK_OUT_DIR="OS-SDK"
 SDK_PKG_OUT_DIR="${SDK_OUT_DIR}/pkg"
+
+# Test settings
+DIR_SRC_TA="${BUILD_SCRIPT_DIR}/ta"
+WORKSPACE_TEST_FOLDER="workspace_test"
+
 
 # This list is used for the targets "all-projects" and "all". The order within
 # the list starts with the most simple system to build, then moves on to more
@@ -332,6 +337,206 @@ function build_all_projects()
 
 
 #-------------------------------------------------------------------------------
+function do_test_prepare()
+{
+    # remove folder if it exists already. This should not happen in CI when we
+    # have a clean workspace, but it's convenient for local builds
+    if [ -d ${WORKSPACE_TEST_FOLDER} ]; then
+        rm -rf ${WORKSPACE_TEST_FOLDER}
+    fi
+    mkdir ${WORKSPACE_TEST_FOLDER}
+
+    # if we have a SDK package, these steps are no longer required, because
+    # they have been executed when the packages was created and released. Since
+    # we use seos_sandbox, we have to build the SDK package here and also give
+    # it some testing
+    for step in collect-sources run-unit-tests build-tools; do
+        echo "##"
+        echo "## running SDK build step: ${step}"
+        echo "##"
+        ${DIR_SRC_SANDBOX}/build-sdk.sh ${step} "${WORKSPACE_TEST_FOLDER}/${SDK_OUT_DIR}"
+    done
+
+    echo "##"
+    echo "### OS SDK build complete"
+    echo "##"
+}
+
+
+#-------------------------------------------------------------------------------
+function build_test_plan_docs()
+{
+    if [ ! -d ${WORKSPACE_TEST_FOLDER} ]; then
+        echo "ERROR: missing test workspace"
+        exit 1
+    fi
+
+    (
+        cd ${WORKSPACE_TEST_FOLDER}
+        echo "##"
+        echo "## Building test plan documentation"
+        echo "##"
+        mkdir -p doc
+        cd doc
+        export PYTHONPATH="${DIR_SRC_TA}/common:${DIR_SRC_TA}/tests"
+        # Sometimes there can be odd errors, use this to analyze them in
+        # detail
+        #   for f in ${DIR_SRC_TA}/tests/*.py; do
+        #       echo ${f}
+        #       pydoc3 -w ${f}
+        #   done
+        python3 -B -m pydoc -w ${DIR_SRC_TA}/tests/*.py
+    )
+}
+
+
+#-------------------------------------------------------------------------------
+# Params: BUILD_PLATFORM [QEMU_CONN] [pytest params ...]
+function run_tests()
+{
+    local BUILD_PLATFORM=$1
+    shift
+
+    # the workspace holds the SDK+tools, temporary files and partition images
+    if [ ! -d ${WORKSPACE_TEST_FOLDER} ]; then
+        echo "ERROR: missing test workspace"
+        exit 1
+    fi
+
+    # proxy connection defaults to TCP. We always pass the proxy params, even
+    # if the actual system under test does not use the proxy.
+    local QEMU_CONN="${1}"
+    if [[ ${QEMU_CONN} != "PTY" && ${QEMU_CONN} != "TCP" ]]; then
+        QEMU_CONN="TCP"
+        echo "QEMU connection: ${QEMU_CONN} (using default)"
+    else
+        echo "QEMU connection: ${QEMU_CONN}"
+        shift # consume the parameter
+    fi
+
+    # process command line parameters. Note that QEMU_CONN above we may have
+    # consumed one parameter already.
+    local TEST_SCRIPTS=()
+    local TEST_PARAMS=()
+    for param in $@; do
+        # everything that starts with a dash is considered a parameter,
+        # otherwise it's considered a script name.
+        if [[ ${param} =~ -.*  ]]; then
+            TEST_PARAMS+=(${param})
+        else
+            TEST_SCRIPTS+=(${param})
+        fi
+    done
+
+    # folder where the logs are created. Partition images can be placed here if
+    # they should be archived with the log
+    if [ -z "${TEST_LOGS_DIR:-}" ]; then
+        local TEST_LOGS_DIR=test-logs-$(date +%Y%m%d-%H%M%S)
+        echo "TEST_LOGS_DIR not set, using ${TEST_LOGS_DIR}"
+    else
+        echo "TEST_LOGS_DIR is ${TEST_LOGS_DIR}"
+    fi
+
+    # usually the test script name matches the system name, but there are some
+    # special cases
+    declare -A TEST_SCRIPT_MAPPING=(
+        [test_demo_hello_world]=demo_hello_world
+        [test_demo_iot_app]=demo_iot_app
+        [test_demo_tls_api]=demo_tls_api
+        [test_native_sel4test]=sel4test
+        [test_native_hello_world]=hello_world
+    )
+
+    local DIR_PKG_SDK=${WORKSPACE_TEST_FOLDER}/${SDK_PKG_OUT_DIR}
+    local DIR_BIN_SDK=${DIR_PKG_SDK}/bin
+
+    for TEST_SCRIPT in ${TEST_SCRIPTS}; do
+        f=$(basename ${TEST_SCRIPT})
+        f=${f%.*}
+        PROJECT=${TEST_SCRIPT_MAPPING[${f}]:-}
+        if [ -z "${PROJECT}" ]; then
+            PROJECT=${f}
+        fi
+
+        # create the folder to run the test in and collect all output and test
+        # setup files in
+        local TEST_SYSTEM_LOG_DIR=${TEST_LOGS_DIR}/${f}
+        mkdir -p ${TEST_SYSTEM_LOG_DIR}
+
+        # derive test or demo project folder from our naming convention
+        local PROJECT_SRC_DIR=${PROJECT::4}s/${PROJECT}
+
+        # if the project provides a test preparation script, execute this prior
+        # to the test run
+        local ABS_TEST_SYSTEM_SETUP=${BUILD_SCRIPT_DIR}/src/${PROJECT_SRC_DIR}/prepare_test.sh
+        if [ -f "${ABS_TEST_SYSTEM_SETUP}" ]; then
+            (
+                ABS_DIR_PGK_SDK=$(realpath ${DIR_PKG_SDK})
+                cd ${TEST_SYSTEM_LOG_DIR}
+                ${ABS_TEST_SYSTEM_SETUP} ${ABS_DIR_PGK_SDK}
+            )
+        fi
+
+        local BUILD_FOLDER="build-${BUILD_PLATFORM}-Debug-${PROJECT}"
+        echo "##"
+        echo "## running test for system: ${PROJECT}"
+        echo "##"
+
+        PYTHON_PARAMS=(
+            -B  # do not create *.pyc files
+            -m pytest  # execute pytest
+            #--------------------------------------------------
+            # all parameters below are fed into pytest
+            #--------------------------------------------------
+            -p no:cacheprovider  # don't create .cache directories
+            -v  # increase pytest verbosity (-vv is even more verbose)
+            #-o log_cli=True  # write logs to console
+            #--capture=no  # show printf() from pytest scripts in console
+            #--tb=short  # control the traceback (long, short, line, native, no)
+            #--collect-only  # show test, but don't run them
+            #--exitfirst  # exit on first test error
+            --junitxml=$(realpath ${TEST_LOGS_DIR})/test_results.xml
+            #--------------------------------------------------
+            # test framework parameters
+            #--------------------------------------------------
+            #--print_logs  # show log output from device in console
+            --target=${BUILD_PLATFORM}
+            --system_image=$(realpath ${BUILD_FOLDER}/images/os_image.elf)
+            --proxy=$(realpath ${DIR_BIN_SDK}/proxy_app),${QEMU_CONN}
+            --log_dir=$(realpath ${TEST_LOGS_DIR})
+            # --sd_card=536870912  # 512 MiB
+            --resource_dir=$(realpath ${DIR_PKG_SDK}/resources)
+            #--------------------------------------------------
+            # Default and platform specific configuration file to be used by
+            # pytest-testconfig. Passing a config on the command line will
+            # merge with them, and in case of overlap will overwrite the default
+            --tc-file=${DIR_SRC_TA}/tests/platform_config/default.ini
+            --tc-file=${DIR_SRC_TA}/tests/platform_config/${BUILD_PLATFORM}.ini
+            #--------------------------------------------------
+            ${TEST_PARAMS[@]}
+            ${DIR_SRC_TA}/tests/${TEST_SCRIPT}
+        )
+
+        (
+            cd ${TEST_SYSTEM_LOG_DIR}
+            export PYTHONPATH="${DIR_SRC_TA}/common:${DIR_SRC_TA}/tests"
+            set -x
+            python3 ${PYTHON_PARAMS[@]}
+        )
+
+    done
+
+    echo "test run complete"
+}
+
+
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+
+
+
+#-------------------------------------------------------------------------------
 function print_usage_help()
 {
     echo ""
@@ -342,6 +547,9 @@ function print_usage_help()
     echo "   all                               (SDK package and all known projects)"
     echo "   all-projects                      (just the projects)"
     echo "   clean                             (delete all build output folders)"
+    echo "   test-prepare                      (prepare test workspace)"
+    echo "   test-doc                          (create test docs)"
+    echo "   test-run [params]                 (run test)"
     echo "   <folder>                          (folder with a project)"
     echo "   <project name>                    (well known project name)"
     echo ""
@@ -359,10 +567,13 @@ BUILD_TYPE=${BUILD_TYPE:-"Debug"}
 
 BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"sabre"}
+#BUILD_PLATFORM=${BUILD_PLATFORM:-"qemu-sabre"}
+#BUILD_PLATFORM=${BUILD_PLATFORM:-"nitrogen6sx"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"rpi3"}
+#BUILD_PLATFORM=${BUILD_PLATFORM:-"rpi4"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"spike32"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"spike64"}
-#BUILD_PLATFORM=${BUILD_PLATFORM:-"rpi4"}
+
 
 case "${1:-}" in
 
@@ -395,6 +606,21 @@ case "${1:-}" in
     "clean")
         rm -rf ${SDK_OUT_DIR}
         rm -rf build-*
+        ;;
+
+    "test-prepare")
+        shift
+        do_test_prepare
+        ;;
+
+    "test-doc")
+        shift
+        build_test_plan_docs
+        ;;
+
+    "test-run")
+        shift
+        run_tests ${BUILD_PLATFORM} $@
         ;;
 
     *)

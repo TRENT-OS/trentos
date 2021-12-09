@@ -2,7 +2,7 @@
 //
 // Generic Jenkins Pipeline Script
 //
-// Copyright (C) 2019, HENSOLDT Cyber GmbH
+// Copyright (C) 2019-2022, HENSOLDT Cyber GmbH
 //
 //-------------------------------------------------------------------------------
 
@@ -206,7 +206,7 @@ pipeline {
                     }
                     steps {
                         print_step_info env.STAGE_NAME
-                        sh 'scm-src/test.sh prepare'
+                        sh 'scm-src/build.sh test-prepare'
                     }
                 }
                 stage('test_doc') {
@@ -221,7 +221,7 @@ pipeline {
                     }
                     steps {
                         print_step_info env.STAGE_NAME
-                        sh 'scm-src/test.sh doc'
+                        sh 'scm-src/build.sh test-doc'
                     }
                 }
 
@@ -277,7 +277,7 @@ pipeline {
                             "BUILD_PLATFORM=${PLATFORM}",
                             "TEST_LOGS_DIR=test-logs"
                         ]) {
-                            sh 'scm-src/test.sh run ' + test_script
+                            sh 'scm-src/build.sh test-run ' + test_script
                         }
                     }
                 }
