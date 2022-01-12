@@ -3,7 +3,7 @@ def DOCKER_BASE = 'docker:5000'
 def DOCKER_REGISTRY = 'https://' + DOCKER_BASE
 def DOCKER_ANALYSIS_ENV  = [
     registry: DOCKER_REGISTRY,
-    image: DOCKER_BASE + '/trentos_analysis:20220103',
+    image: DOCKER_BASE + '/trentos_analysis:20220112',
     args: [
         // NOTE: The following docker arguments are required for running in CI.
         // This is a subset of the arguments used for starting the container
