@@ -587,9 +587,40 @@ function run_tests()
 
 
 #-------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------
+# Params: [params ...]
+function run_build_and_test()
+{
+    local PATH_OR_PROJECT="${1}"
 
+    local TEST_SCRIPT=""
+
+    for PROJECT_DESCR in ${WELL_KNOWN_PROJECTS[@]}; do
+        local PARAM=""
+        local PARAMS=()
+        while [ "${PROJECT_DESCR}" != "${PARAM}" ] ;do
+            # extract the substring from start of string up to delimiter.
+            local PARAM=${PROJECT_DESCR%%,*}
+            # delete this first "element" AND next separator, from $IN.
+            PROJECT_DESCR="${PROJECT_DESCR#$PARAM,}"
+            # Print (or doing anything with) the first "element".
+            PARAMS+=($PARAM)
+        done
+        PROJECT_NAME=${PARAMS[0]}
+        if [[ "${PATH_OR_PROJECT}" == "${PROJECT_NAME}" ]]; then
+            local TEST_SCRIPT=${PARAMS[2]:-}
+            if [[ -z "${TEST_SCRIPT}" ]]; then
+                TEST_SCRIPT="${PROJECT_NAME}.py"
+            fi
+        fi
+    done
+
+    if [[ -z "${TEST_SCRIPT}" ]]; then
+        TEST_SCRIPT="$(basename ${PATH_OR_PROJECT}).py"
+    fi
+
+    ${DIR_SRC_SANDBOX}/scripts/open_trentos_build_env.sh $0 "$@"
+    ${DIR_SRC_SANDBOX}/scripts/open_trentos_test_env.sh $0 test-run ${TEST_SCRIPT}
+}
 
 
 #-------------------------------------------------------------------------------
@@ -606,6 +637,7 @@ function print_usage_help()
     echo "   test-prepare                      (prepare test workspace)"
     echo "   test-doc                          (create test docs)"
     echo "   test-run [params]                 (run test)"
+    echo "   build-and-test <project> [params] (build with params and run test)"
     echo "   <folder>                          (folder with a project)"
     echo "   <project name>                    (well known project name)"
     echo ""
@@ -682,6 +714,11 @@ case "${1:-}" in
     "test-run")
         shift
         run_tests ${BUILD_PLATFORM} $@
+        ;;
+
+    "build-and-test")
+        shift
+        run_build_and_test $@
         ;;
 
     *)
