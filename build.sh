@@ -98,21 +98,6 @@ function run_astyle()
 
 
 #-------------------------------------------------------------------------------
-function run_build_sdk()
-{
-    local BUILD_ACTION=$1
-    local BUILD_DIR=$2
-
-    echo ""
-    echo "##"
-    echo "## building SDK Package (${BUILD_ACTION}) in ${BUILD_DIR}"
-    echo "##"
-
-    ${DIR_SRC_SANDBOX}/build-sdk.sh ${BUILD_ACTION} ${BUILD_DIR}
-}
-
-
-#-------------------------------------------------------------------------------
 function run_system_build()
 {
     if [ "$#" -lt 5 ]; then
@@ -237,9 +222,10 @@ function run_sdk_and_system_build()
     # this to build the system. This does not cost much time and ensures we can
     # build a the system with the SDK package. We don't need to build the full
     # package, because no SDK tools or docs are needed to build a system. In
-    # case the SDK shall really be used directly, simply comment out the
-    # "run_build_sdk" step and pass ${DIR_SRC_SANDBOX} to "run_system_build"
-    run_build_sdk collect-sources ${SDK_OUT_DIR}
+    # case the SDK shall really be used directly, don't call build-sdk.sh and
+    # pass ${DIR_SRC_SANDBOX} instead of ${SDK_PKG_OUT_DIR} to run_system_build.
+    echo "collecting SDK sources in ${SDK_OUT_DIR}"
+    ${DIR_SRC_SANDBOX}/build-sdk.sh collect-sources ${SDK_OUT_DIR}
 
     local PARAMS=(
         ${SDK_PKG_OUT_DIR}  # ${DIR_SRC_SANDBOX} to use the SDK sources directly
@@ -305,7 +291,8 @@ function build_all_projects()
       #  # pc99 # does not compile
     )
 
-    run_build_sdk ${BUILD_ACTION_SDK} ${SDK_OUT_DIR}
+    echo "building SDK Package (${BUILD_ACTION_SDK}) in ${SDK_OUT_DIR}"
+    ${DIR_SRC_SANDBOX}/build-sdk.sh ${BUILD_ACTION_SDK} ${SDK_OUT_DIR}
 
     # for now, just loop over the list above and abort the whole build on the
     # first error. Ideally we would not abort here, but try to do all builds
@@ -698,7 +685,8 @@ case "${1:-}" in
         if [ "$#" -gt 1 ]; then
             shift
         fi
-        run_build_sdk ${BUILD_ACTION_SDK} ${SDK_OUT_DIR}
+        echo "building SDK Package (${BUILD_ACTION_SDK}) in ${SDK_OUT_DIR}"
+        ${DIR_SRC_SANDBOX}/build-sdk.sh ${BUILD_ACTION_SDK} ${SDK_OUT_DIR}
         ;;
 
     "all-projects")
