@@ -11,7 +11,6 @@
 BUILD_SCRIPT_DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd)"
 DIR_SRC_SANDBOX="${BUILD_SCRIPT_DIR}/seos_sandbox"
 SDK_OUT_DIR="OS-SDK"
-SDK_PKG_OUT_DIR="${SDK_OUT_DIR}/pkg"
 
 # Test settings
 DIR_SRC_TA="${BUILD_SCRIPT_DIR}/ta"
@@ -191,12 +190,12 @@ function run_sdk_and_system_build()
     # build a the system with the SDK package. We don't need to build the full
     # package, because no SDK tools or docs are needed to build a system. In
     # case the SDK shall really be used directly, don't call build-sdk.sh and
-    # pass ${DIR_SRC_SANDBOX} instead of ${SDK_PKG_OUT_DIR} to run_system_build.
+    # pass ${DIR_SRC_SANDBOX} instead of ${SDK_OUT_DIR}/pkg to run_system_build.
     echo "collecting SDK sources in ${SDK_OUT_DIR}"
     ${DIR_SRC_SANDBOX}/build-sdk.sh collect-sources ${SDK_OUT_DIR}
 
     local PARAMS=(
-        ${SDK_PKG_OUT_DIR}  # ${DIR_SRC_SANDBOX} to use the SDK sources directly
+        ${SDK_OUT_DIR}/pkg # ${DIR_SRC_SANDBOX} to use the SDK sources directly
         ${PROJECT_NAME}
         ${PROJECT_DIR}
         ${BUILD_PLATFORM}
@@ -315,7 +314,7 @@ function build_all_projects()
             fi
 
             local PARAMS=(
-                ${SDK_PKG_OUT_DIR}  # ${DIR_SRC_SANDBOX} to use SDK sources directly
+                ${SDK_OUT_DIR}/pkg # or use ${DIR_SRC_SANDBOX}
                 ${PROJECT_NAME}
                 ${BUILD_SCRIPT_DIR}/${PROJECT_DIR}
                 ${BUILD_PLATFORM}
@@ -409,7 +408,7 @@ function run_tests()
     # There must be an SDK package in the workspace. We don't check details
     # about the the content here, because it depends on a specific test what is
     # needed, thus tests must take care of such details.
-    local DIR_PKG_SDK=${WORKSPACE_TEST_FOLDER}/${SDK_PKG_OUT_DIR}
+    local DIR_PKG_SDK=${WORKSPACE_TEST_FOLDER}/${SDK_OUT_DIR}/pkg
     if [ ! -d ${DIR_PKG_SDK} ]; then
         echo "ERROR: missing SDK package"
         exit 1
