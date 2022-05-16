@@ -404,6 +404,15 @@ function run_tests()
         exit 1
     fi
 
+    # There must be an SDK package in the workspace. We don't check details
+    # about the the content here, because it depends on a specific test what is
+    # needed, thus tests must take care of such details.
+    local DIR_PKG_SDK=${WORKSPACE_TEST_FOLDER}/${SDK_PKG_OUT_DIR}
+    if [ ! -d ${DIR_PKG_SDK} ]; then
+        echo "ERROR: missing SDK package"
+        exit 1
+    fi
+
     # proxy connection defaults to TCP. We always pass the proxy params, even
     # if the actual system under test does not use the proxy.
     local QEMU_CONN="${1}"
@@ -448,9 +457,6 @@ function run_tests()
         [test_native_sel4bench]=sel4bench
         [test_native_hello_world]=hello_world
     )
-
-    local DIR_PKG_SDK=${WORKSPACE_TEST_FOLDER}/${SDK_PKG_OUT_DIR}
-    local DIR_BIN_SDK=${DIR_PKG_SDK}/bin
 
     for TEST_SCRIPT in ${TEST_SCRIPTS}; do
         f=$(basename ${TEST_SCRIPT})
@@ -504,9 +510,14 @@ function run_tests()
             #--print_logs  # show log output from device in console
             --target=${BUILD_PLATFORM}
             --system_image=$(realpath ${BUILD_FOLDER}/images/os_image.elf)
-            --proxy=$(realpath ${DIR_BIN_SDK}/proxy_app),${QEMU_CONN}
+            --proxy=$(realpath ${DIR_PKG_SDK}/bin/proxy_app),${QEMU_CONN}
             --log_dir=$(realpath ${TEST_LOGS_DIR})
             # --sd_card=536870912  # 512 MiB
+            # ToDo: The resources are taken from the SDK package and not from
+            #       the current sandbox that might be used for development. This
+            #       leads to the inconvenient effect that resources changes are
+            #       not accessible for the tests unless do_test_prepare() is run
+            #       again.
             --resource_dir=$(realpath ${DIR_PKG_SDK}/resources)
             #--------------------------------------------------
             # Default and platform specific configuration file to be used by
