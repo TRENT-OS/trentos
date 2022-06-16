@@ -122,12 +122,12 @@ function run_system_build()
     fi
 
     local SDK_DIR=${1}
-    local PROJECT_DIR=${2}
-    local BUILD_PLATFORM=${3}
-    local BUILD_TYPE=${4}
-    shift 4
+    local PROJECT_NAME=${2}
+    local PROJECT_DIR=${3}
+    local BUILD_PLATFORM=${4}
+    local BUILD_TYPE=${5}
+    shift 5
 
-    local PROJECT_NAME=$(basename ${PROJECT_DIR})
     # build output will be generated in this folder
     local BUILD_DIR=build-${BUILD_PLATFORM}-${BUILD_TYPE}-${PROJECT_NAME}
 
@@ -189,16 +189,18 @@ function run_sdk_and_system_build()
     local PATH_OR_PROJECT="${3}"
     shift 3 # all other params are passed to the project build
 
+    local PROJECT_NAME=""
     local PROJECT_DIR=""
     if [ -d "${PATH_OR_PROJECT}" ]; then
+        PROJECT_NAME=$(basename ${PROJECT_DIR})
         PROJECT_DIR="${PATH_OR_PROJECT}"
     else
         for PROJECT in ${WELL_KNOWN_PROJECTS[@]}; do
-            local PRJ_NAME=${PROJECT%,*}
+            local PROJECT_NAME=${PROJECT%,*}
             local PRJ_DIR=${PROJECT#*,}
-            if [[ "${PATH_OR_PROJECT}" == "${PRJ_NAME}" ]]; then
+            if [[ "${PATH_OR_PROJECT}" == "${PROJECT_NAME}" ]]; then
                 if [[ "${PRJ_DIR}" == "-" ]]; then
-                    echo "ERROR: no project directory for ${PRJ_NAME}"
+                    echo "ERROR: no project directory for ${PROJECT_NAME}"
                     print_usage_help
                     exit 1
                 fi
@@ -213,7 +215,7 @@ function run_sdk_and_system_build()
             exit 1
         fi
 
-        echo "Project Name:   ${PATH_OR_PROJECT}"
+        echo "Project Name:   ${PROJECT_NAME}"
     fi
     echo "Project Folder: ${PROJECT_DIR}"
     if [ "$#" -gt 0 ]; then
@@ -230,6 +232,7 @@ function run_sdk_and_system_build()
 
     local PARAMS=(
         ${SDK_PKG_OUT_DIR}  # ${DIR_SRC_SANDBOX} to use the SDK sources directly
+        ${PROJECT_NAME}
         ${PROJECT_DIR}
         ${BUILD_PLATFORM}
         ${BUILD_TYPE}
@@ -324,6 +327,7 @@ function build_all_projects()
 
             local PARAMS=(
                 ${SDK_PKG_OUT_DIR}  # ${DIR_SRC_SANDBOX} to use SDK sources directly
+                ${PRJ_NAME}
                 ${BUILD_SCRIPT_DIR}/${PRJ_DIR}
                 ${BUILD_PLATFORM}
                 ${BUILD_TYPE}
