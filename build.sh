@@ -25,48 +25,47 @@ WORKSPACE_TEST_FOLDER="workspace_test"
 # because we likely run into the same problems again. And the building the
 # demos does not make any sense if we can't even build the tests.
 WELL_KNOWN_PROJECTS=(
-    # the entry format is <test name>,<folder>. We don't make the fixed
-    # assumption that the folder name matches the test name or that there is a
-    # generic subfolder where all tests are. This assumption holds today, but
-    # there is a plan to drop using "src/tests" if the whole test system is a
-    # GIT submodule and we don't have any local sources.
+    # The entry format is: <project_name>,<folder>[,<test_script>]
+    # If <folder> ends with a "/" then <project_name> is appended, as the
+    # project is assumed to be in a subfolder with the same name as the project
+    # name.
 
-    demo_hello_world,src/demos/demo_hello_world
+    demo_hello_world,src/demos/,test_demo_hello_world.py
 
     # native systems, require compiling with -DSDK_USE_CAMKES=0
-    native_sel4test,src/native/sel4test
-    native_sel4bench,src/native/sel4bench
-    native_hello_world,src/native/hello_world
+    native_sel4test,src/native/sel4test,test_native_sel4test.py
+    native_sel4bench,src/native/sel4bench,test_native_sel4bench.py
+    native_hello_world,src/native/hello_world,test_native_hello_world.py
 
     # tests
-    test_timeserver,src/tests/test_timeserver
-    test_crypto_api,src/tests/test_crypto_api
-    test_certserver,src/tests/test_certserver
-    test_certparser,src/tests/test_certparser
-    test_cryptoserver,src/tests/test_cryptoserver
-    test_entropysource,src/tests/test_entropysource
-    test_uart,src/tests/test_uart
-    test_chanmux,src/tests/test_chanmux
-    test_proxy_nvm,src/tests/test_proxy_nvm
-    test_filesystem,src/tests/test_filesystem
-    test_logserver,src/tests/test_logserver
-    test_config_server,src/tests/test_config_server
-    test_keystore,src/tests/test_keystore
-    test_network_api,src/tests/test_network_api
-    test_storage_interface,src/tests/test_storage_interface
-    test_secure_update,src/tests/test_secure_update
-    test_tls_api,src/tests/test_tls_api
-    test_tlsserver,src/tests/test_tlsserver
+    test_timeserver,src/tests/
+    test_crypto_api,src/tests/
+    test_certserver,src/tests/
+    test_certparser,src/tests/
+    test_cryptoserver,src/tests/
+    test_entropysource,src/tests/
+    test_uart,src/tests/
+    test_chanmux,src/tests/
+    test_proxy_nvm,src/tests/
+    test_filesystem,src/tests/
+    test_logserver,src/tests/
+    test_config_server,src/tests/
+    test_keystore,src/tests/
+    test_network_api,src/tests/
+    test_storage_interface,src/tests/
+    test_secure_update,src/tests/
+    test_tls_api,src/tests/
+    test_tlsserver,src/tests/
 
     # demos
-    demo_iot_app,src/demos/demo_iot_app
-    demo_iot_app_rpi3,src/demos/demo_iot_app_rpi3
-    demo_iot_app_imx6,src/demos/demo_iot_app_imx6
-    demo_network_filter,src/demos/demo_network_filter
-    demo_raspi_ethernet,src/demos/demo_raspi_ethernet
-    demo_tls_api,src/demos/demo_tls_api
-    demo_i2c,src/demos/demo_i2c
-    demo_tls_server,src/demos/demo_tls_server
+    demo_iot_app,src/demos/,test_demo_iot_app.py
+    demo_iot_app_rpi3,src/demos/
+    demo_iot_app_imx6,src/demos/
+    demo_network_filter,src/demos/
+    demo_raspi_ethernet,src/demos/
+    demo_tls_api,src/demos/,test_demo_tls_api.py
+    demo_i2c,src/demos/
+    demo_tls_server,src/demos/
 )
 
 
@@ -195,28 +194,40 @@ function run_sdk_and_system_build()
         PROJECT_NAME=$(basename ${PROJECT_DIR})
         PROJECT_DIR="${PATH_OR_PROJECT}"
     else
-        for PROJECT in ${WELL_KNOWN_PROJECTS[@]}; do
-            local PROJECT_NAME=${PROJECT%,*}
-            local PRJ_DIR=${PROJECT#*,}
+        for PROJECT_DESCR in ${WELL_KNOWN_PROJECTS[@]}; do
+            local PARAM=""
+            local PARAMS=()
+            while [ "${PROJECT_DESCR}" != "${PARAM}" ] ;do
+                # extract the substring from start of string up to delimiter.
+                local PARAM=${PROJECT_DESCR%%,*}
+                # delete this first "element" AND next separator, from $IN.
+                PROJECT_DESCR="${PROJECT_DESCR#$PARAM,}"
+                # Print (or doing anything with) the first "element".
+                PARAMS+=($PARAM)
+            done
+            PROJECT_NAME=${PARAMS[0]}
             if [[ "${PATH_OR_PROJECT}" == "${PROJECT_NAME}" ]]; then
-                if [[ "${PRJ_DIR}" == "-" ]]; then
+                PROJECT_DIR=${PARAMS[1]:-}
+                if [[ -z "${PROJECT_DIR}" || "${PROJECT_DIR}" == "-" ]]; then
                     echo "ERROR: no project directory for ${PROJECT_NAME}"
                     print_usage_help
                     exit 1
                 fi
-                PROJECT_DIR="${BUILD_SCRIPT_DIR}/${PRJ_DIR}"
                 break;
             fi
         done
-
         if [ -z "${PROJECT_DIR}" ]; then
             echo "ERROR: unknown project: ${PATH_OR_PROJECT}"
             print_usage_help
             exit 1
         fi
-
-        echo "Project Name:   ${PROJECT_NAME}"
+        # if PROJECT_DIR ends with "/" then append PROJECT_NAME
+        if [[ "${PROJECT_DIR}" =~ ^.*/$ ]]; then
+            PROJECT_DIR="${PROJECT_DIR}${PROJECT_NAME}"
+        fi
+        PROJECT_DIR="${BUILD_SCRIPT_DIR}/${PROJECT_DIR}"
     fi
+    echo "Project Name:   ${PROJECT_NAME}"
     echo "Project Folder: ${PROJECT_DIR}"
     if [ "$#" -gt 0 ]; then
         echo "Parameters:     $@"
@@ -300,22 +311,35 @@ function build_all_projects()
     # first error. Ideally we would not abort here, but try to do all builds
     # and then report which failed. Or better, the caller should invoke this
     # build script several times in parallel for each system.
-    for PROJECT in ${WELL_KNOWN_PROJECTS[@]}; do
-        local PRJ_NAME=${PROJECT%,*}
-        local PRJ_DIR=${PROJECT#*,}
+    for PROJECT_DESCR in ${WELL_KNOWN_PROJECTS[@]}; do
+        local PARAM=""
+        local PARAMS=()
+        while [ "${PROJECT_DESCR}" != "${PARAM}" ] ;do
+            # extract the substring from start of string up to delimiter.
+            local PARAM=${PROJECT_DESCR%%,*}
+            # delete this first "element" AND next separator, from $IN.
+            PROJECT_DESCR="${PROJECT_DESCR#$PARAM,}"
+            # Print (or doing anything with) the first "element".
+            PARAMS+=($PARAM)
+        done
+        local PROJECT_NAME=${PARAMS[0]}
+        local PROJECT_DIR=${PARAMS[1]:-}
 
-        # if there is no project then do nothing
-        if [[ "${PRJ_DIR}" == "-" ]]; then
+        # if there is no project directory then do nothing
+        if [[ -z "${PROJECT_DIR}" || "${PROJECT_DIR}" == "-" ]]; then
             continue
         fi
-
+        # if PROJECT_DIR ends with "/" then append PRJ_NAME
+        if [[ "${PROJECT_DIR}" =~ ^.*/$ ]]; then
+            PROJECT_DIR="${PROJECT_DIR}${PROJECT_NAME}"
+        fi
         for BUILD_PLATFORM in ${ALL_PLATFORMS[@]}; do
 
             eval EXCLUDE_LIST=\${ALL_PROJECTS_EXCLUDE_${BUILD_PLATFORM}[@]}
             local skip=0
             for EXCL_PRJ in ${EXCLUDE_LIST[@]}; do
-                if [[ ${EXCL_PRJ} == ${PRJ_NAME} ]]; then
-                    echo -e "\nSkipping excluded project: ${PRJ_NAME}"
+                if [[ ${EXCL_PRJ} == ${PROJECT_NAME} ]]; then
+                    echo -e "\nSkipping excluded project: ${PROJECT_NAME}"
                     skip=1
                     break
                 fi
@@ -327,8 +351,8 @@ function build_all_projects()
 
             local PARAMS=(
                 ${SDK_PKG_OUT_DIR}  # ${DIR_SRC_SANDBOX} to use SDK sources directly
-                ${PRJ_NAME}
-                ${BUILD_SCRIPT_DIR}/${PRJ_DIR}
+                ${PROJECT_NAME}
+                ${BUILD_SCRIPT_DIR}/${PROJECT_DIR}
                 ${BUILD_PLATFORM}
                 ${BUILD_TYPE}
             )
@@ -451,32 +475,42 @@ function run_tests()
         echo "TEST_LOGS_DIR is ${TEST_LOGS_DIR}"
     fi
 
-    # usually the test script name matches the system name, but there are some
-    # special cases
-    declare -A TEST_SCRIPT_MAPPING=(
-        [test_demo_hello_world]=demo_hello_world
-        [test_demo_iot_app]=demo_iot_app
-        [test_demo_tls_api]=demo_tls_api
-        [test_native_sel4test]=sel4test
-        [test_native_sel4bench]=sel4bench
-        [test_native_hello_world]=hello_world
-    )
-
     for TEST_SCRIPT in ${TEST_SCRIPTS}; do
-        f=$(basename ${TEST_SCRIPT})
-        f=${f%.*}
-        PROJECT=${TEST_SCRIPT_MAPPING[${f}]:-}
-        if [ -z "${PROJECT}" ]; then
-            PROJECT=${f}
-        fi
+        local TEST_SCRIPT_BASENAME=$(basename ${TEST_SCRIPT})
+        local PROJECT_NAME=${TEST_SCRIPT_BASENAME%.*}
+        # derive test or demo project folder from our naming convention
+        local PROJECT_SRC_DIR=${PROJECT_NAME::4}s/${PROJECT_NAME}
+
+        for PROJECT_DESCR in ${WELL_KNOWN_PROJECTS[@]}; do
+            local PARAM=""
+            local PARAMS=()
+            while [ "${PROJECT_DESCR}" != "${PARAM}" ] ;do
+                # extract the substring from start of string up to delimiter.
+                local PARAM=${PROJECT_DESCR%%,*}
+                # delete this first "element" AND next separator, from $IN.
+                PROJECT_DESCR="${PROJECT_DESCR#$PARAM,}"
+                # Print (or doing anything with) the first "element".
+                PARAMS+=($PARAM)
+            done
+            local PRJ_TEST_SCRIPT=${PARAMS[2]:-}
+            if [[ ${TEST_SCRIPT_BASENAME} == "${PRJ_TEST_SCRIPT}" ]]; then
+                PROJECT_NAME=${PARAMS[0]}
+                local PROJECT_DIR=${PARAMS[1]:-}
+                # if PROJECT_DIR ends with "/" then append PRJ_NAME
+                if [[ "${PROJECT_DIR}" =~ ^.*/$ ]]; then
+                    PROJECT_DIR="${PROJECT_DIR}${PROJECT_NAME}"
+                fi
+                PROJECT_SRC_DIR="${PROJECT_DIR}"
+                break;
+            fi
+        done
+
+        local BUILD_FOLDER="build-${BUILD_PLATFORM}-Debug-${PROJECT_NAME}"
 
         # create the folder to run the test in and collect all output and test
         # setup files in
-        local TEST_SYSTEM_LOG_DIR=${TEST_LOGS_DIR}/${f}
+        local TEST_SYSTEM_LOG_DIR=${TEST_LOGS_DIR}/${TEST_SCRIPT_BASENAME}
         mkdir -p ${TEST_SYSTEM_LOG_DIR}
-
-        # derive test or demo project folder from our naming convention
-        local PROJECT_SRC_DIR=${PROJECT::4}s/${PROJECT}
 
         # if the project provides a test preparation script, execute this prior
         # to the test run
@@ -489,9 +523,8 @@ function run_tests()
             )
         fi
 
-        local BUILD_FOLDER="build-${BUILD_PLATFORM}-Debug-${PROJECT}"
         echo "##"
-        echo "## running test for system: ${PROJECT}"
+        echo "## running test for system: ${PROJECT_NAME}"
         echo "##"
 
         PYTHON_PARAMS=(
