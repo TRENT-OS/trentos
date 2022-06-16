@@ -150,7 +150,7 @@ function run_system_build()
     fi
 
     # special handling for the sel4test project executed on QEMU
-    if [[ "${PROJECT_DIR}" =~ ^.*/src/native/sel4test ]] && [[ "${SIMULATION:-false}" = true ]]; then
+    if [[ "${PROJECT_DIR}" =~ ^.*/src/native/sel4test$ ]] && [[ "${SIMULATION:-false}" = true ]]; then
         echo "sel4test project running in QEMU, disable cache and timer tests"
         PARAMS+=(
             -DSel4testHaveCache=0
@@ -431,7 +431,7 @@ function run_tests()
     for param in $@; do
         # everything that starts with a dash is considered a parameter,
         # otherwise it's considered a script name.
-        if [[ ${param} =~ -.*  ]]; then
+        if [[ ${param} =~ ^-.*$  ]]; then
             TEST_PARAMS+=(${param})
         else
             TEST_SCRIPTS+=(${param})
