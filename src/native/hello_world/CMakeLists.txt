@@ -55,7 +55,7 @@ target_link_libraries(${PROJECT_NAME}
 
 
 #-------------------------------------------------------------------------------
-# define "hello world" applocation as the root server, ie. the task the seL4
+# define "hello world" application as the root server, ie. the task the seL4
 # kernel will start
 
 DeclareRootserver(hello_world_app)
