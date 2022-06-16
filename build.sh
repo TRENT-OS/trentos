@@ -506,10 +506,18 @@ function run_tests()
         done
 
         local BUILD_FOLDER="build-${BUILD_PLATFORM}-Debug-${PROJECT_NAME}"
+        local TEST_SYSTEM_LOG_DIR=${TEST_LOGS_DIR}/${TEST_SCRIPT_BASENAME}
+
+        echo "##=============================================================================="
+        echo "## running test"
+        echo "##   Project Name:           ${PROJECT_NAME}"
+        echo "##   Project Source Folder:  ${PROJECT_DIR}"
+        echo "##   Project Build Folder:   ${BUILD_FOLDER}"
+        echo "##   Logs:                   ${TEST_SYSTEM_LOG_DIR}"
+        echo "##------------------------------------------------------------------------------"
 
         # create the folder to run the test in and collect all output and test
         # setup files in
-        local TEST_SYSTEM_LOG_DIR=${TEST_LOGS_DIR}/${TEST_SCRIPT_BASENAME}
         mkdir -p ${TEST_SYSTEM_LOG_DIR}
 
         # if the project provides a test preparation script, execute this prior
@@ -519,13 +527,11 @@ function run_tests()
             (
                 ABS_DIR_PGK_SDK=$(realpath ${DIR_PKG_SDK})
                 cd ${TEST_SYSTEM_LOG_DIR}
+                echo "Running test preparation script..."
                 ${ABS_TEST_SYSTEM_SETUP} ${ABS_DIR_PGK_SDK}
             )
         fi
 
-        echo "##"
-        echo "## running test for system: ${PROJECT_NAME}"
-        echo "##"
 
         PYTHON_PARAMS=(
             -B  # do not create *.pyc files
