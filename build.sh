@@ -477,25 +477,25 @@ function run_tests()
 
     for TEST_SCRIPT in ${TEST_SCRIPTS}; do
         local TEST_SCRIPT_BASENAME=$(basename ${TEST_SCRIPT})
-        local PROJECT_NAME=${TEST_SCRIPT_BASENAME%.*}
+        local PROJECT_NAME="${TEST_SCRIPT_BASENAME%.*}"
         # derive test or demo project folder from our naming convention
-        local PROJECT_SRC_DIR=${PROJECT_NAME::4}s/${PROJECT_NAME}
+        local PROJECT_SRC_DIR="${PROJECT_NAME::4}s/${PROJECT_NAME}"
 
         for PROJECT_DESCR in ${WELL_KNOWN_PROJECTS[@]}; do
             local PARAM=""
             local PARAMS=()
             while [ "${PROJECT_DESCR}" != "${PARAM}" ] ;do
                 # extract the substring from start of string up to delimiter.
-                local PARAM=${PROJECT_DESCR%%,*}
+                local PARAM="${PROJECT_DESCR%%,*}"
                 # delete this first "element" AND next separator, from $IN.
                 PROJECT_DESCR="${PROJECT_DESCR#$PARAM,}"
                 # Print (or doing anything with) the first "element".
                 PARAMS+=($PARAM)
             done
-            local PRJ_TEST_SCRIPT=${PARAMS[2]:-}
-            if [[ ${TEST_SCRIPT_BASENAME} == "${PRJ_TEST_SCRIPT}" ]]; then
-                PROJECT_NAME=${PARAMS[0]}
-                local PROJECT_DIR=${PARAMS[1]:-}
+            local PRJ_TEST_SCRIPT="${PARAMS[2]:-}"
+            if [[ "${TEST_SCRIPT_BASENAME}" == "${PRJ_TEST_SCRIPT}" ]]; then
+                PROJECT_NAME="${PARAMS[0]}"
+                local PROJECT_DIR="${PARAMS[1]:-}"
                 # if PROJECT_DIR ends with "/" then append PRJ_NAME
                 if [[ "${PROJECT_DIR}" =~ ^.*/$ ]]; then
                     PROJECT_DIR="${PROJECT_DIR}${PROJECT_NAME}"
@@ -506,7 +506,7 @@ function run_tests()
         done
 
         local BUILD_FOLDER="build-${BUILD_PLATFORM}-Debug-${PROJECT_NAME}"
-        local TEST_SYSTEM_LOG_DIR=${TEST_LOGS_DIR}/${TEST_SCRIPT_BASENAME}
+        local TEST_SYSTEM_LOG_DIR="${TEST_LOGS_DIR}/${TEST_SCRIPT_BASENAME}"
 
         echo "##=============================================================================="
         echo "## running test"
@@ -518,15 +518,15 @@ function run_tests()
 
         # create the folder to run the test in and collect all output and test
         # setup files in
-        mkdir -p ${TEST_SYSTEM_LOG_DIR}
+        mkdir -p "${TEST_SYSTEM_LOG_DIR}"
 
         # if the project provides a test preparation script, execute this prior
         # to the test run
-        local ABS_TEST_SYSTEM_SETUP=${BUILD_SCRIPT_DIR}/src/${PROJECT_SRC_DIR}/prepare_test.sh
+        local ABS_TEST_SYSTEM_SETUP="${BUILD_SCRIPT_DIR}/src/${PROJECT_SRC_DIR}/prepare_test.sh"
         if [ -f "${ABS_TEST_SYSTEM_SETUP}" ]; then
             (
-                ABS_DIR_PGK_SDK=$(realpath ${DIR_PKG_SDK})
-                cd ${TEST_SYSTEM_LOG_DIR}
+                ABS_DIR_PGK_SDK="$(realpath ${DIR_PKG_SDK})"
+                cd "${TEST_SYSTEM_LOG_DIR}"
                 echo "Running test preparation script..."
                 ${ABS_TEST_SYSTEM_SETUP} ${ABS_DIR_PGK_SDK}
             )
