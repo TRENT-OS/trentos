@@ -481,6 +481,7 @@ function run_tests()
         # derive test or demo project folder from our naming convention
         local PROJECT_SRC_DIR="${PROJECT_NAME::4}s/${PROJECT_NAME}"
 
+        # find well known project by test script name
         for PROJECT_DESCR in ${WELL_KNOWN_PROJECTS[@]}; do
             local PARAM=""
             local PARAMS=()
@@ -492,9 +493,13 @@ function run_tests()
                 # Print (or doing anything with) the first "element".
                 PARAMS+=($PARAM)
             done
+            local PRJ_NAME="${PARAMS[0]}"
             local PRJ_TEST_SCRIPT="${PARAMS[2]:-}"
-            if [[ "${TEST_SCRIPT_BASENAME}" == "${PRJ_TEST_SCRIPT}" ]]; then
-                PROJECT_NAME="${PARAMS[0]}"
+            if [[ -z "${PRJ_TEST_SCRIPT}" ]]; then
+                PRJ_TEST_SCRIPT="${PRJ_NAME}.py"
+            fi
+            if [[ "${PRJ_TEST_SCRIPT}" == "${TEST_SCRIPT}" ]]; then
+                PROJECT_NAME=${PRJ_NAME}
                 local PROJECT_DIR="${PARAMS[1]:-}"
                 # if PROJECT_DIR ends with "/" then append PRJ_NAME
                 if [[ "${PROJECT_DIR}" =~ ^.*/$ ]]; then
