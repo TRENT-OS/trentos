@@ -511,7 +511,7 @@ function run_tests()
         echo "##=============================================================================="
         echo "## running test"
         echo "##   Project Name:           ${PROJECT_NAME}"
-        echo "##   Project Source Folder:  ${PROJECT_DIR}"
+        echo "##   Project Source Folder:  ${PROJECT_SRC_DIR:-n/a}"
         echo "##   Project Build Folder:   ${BUILD_FOLDER}"
         echo "##   Logs:                   ${TEST_SYSTEM_LOG_DIR}"
         echo "##------------------------------------------------------------------------------"
@@ -522,14 +522,16 @@ function run_tests()
 
         # if the project provides a test preparation script, execute this prior
         # to the test run
-        local ABS_TEST_SYSTEM_SETUP="${BUILD_SCRIPT_DIR}/src/${PROJECT_SRC_DIR}/prepare_test.sh"
-        if [ -f "${ABS_TEST_SYSTEM_SETUP}" ]; then
-            (
-                ABS_DIR_PGK_SDK="$(realpath ${DIR_PKG_SDK})"
-                cd "${TEST_SYSTEM_LOG_DIR}"
-                echo "Running test preparation script..."
-                ${ABS_TEST_SYSTEM_SETUP} ${ABS_DIR_PGK_SDK}
-            )
+        if [[ -z "${PROJECT_SRC_DIR}" ]]; then
+            local ABS_TEST_SYSTEM_SETUP="${BUILD_SCRIPT_DIR}/src/${PROJECT_SRC_DIR}/prepare_test.sh"
+            if [ -f "${ABS_TEST_SYSTEM_SETUP}" ]; then
+                (
+                    ABS_DIR_PGK_SDK="$(realpath ${DIR_PKG_SDK})"
+                    cd "${TEST_SYSTEM_LOG_DIR}"
+                    echo "Running test preparation script..."
+                    ${ABS_TEST_SYSTEM_SETUP} ${ABS_DIR_PGK_SDK}
+                )
+            fi
         fi
 
 
