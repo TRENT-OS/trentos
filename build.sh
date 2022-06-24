@@ -548,16 +548,16 @@ function run_tests()
             #--------------------------------------------------
             -p no:cacheprovider  # don't create .cache directories
             -v  # increase pytest verbosity (-vv is even more verbose)
-            #-o log_cli=True  # write logs to console
-            #--capture=no  # show printf() from pytest scripts in console
-            #--tb=short  # control the traceback (long, short, line, native, no)
+            -o log_cli=True  # write logs to console
+            --capture=no  # show printf() from pytest scripts in console
+            --tb=short  # control the traceback (long, short, line, native, no)
             #--collect-only  # show test, but don't run them
             #--exitfirst  # exit on first test error
             --junitxml=$(realpath ${TEST_LOGS_DIR})/test_results.xml
             #--------------------------------------------------
             # test framework parameters
             #--------------------------------------------------
-            #--print_logs  # show log output from device in console
+            --print_logs  # show log output from device in console
             --target=${BUILD_PLATFORM}
             --system_image=$(realpath ${BUILD_FOLDER}/images/os_image.elf)
             --proxy=$(realpath ${DIR_PKG_SDK}/bin/proxy_app),${QEMU_CONN}
