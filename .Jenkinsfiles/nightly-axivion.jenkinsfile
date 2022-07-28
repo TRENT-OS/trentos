@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-def DOCKER_BASE = 'docker:5000'
+def DOCKER_BASE = 'hc-docker:5000'
 def DOCKER_REGISTRY = 'https://' + DOCKER_BASE
 def DOCKER_ANALYSIS_ENV  = [
     registry: DOCKER_REGISTRY,
