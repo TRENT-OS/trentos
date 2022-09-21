@@ -1,33 +1,19 @@
-
+#
+# seL4 native hello world application
+#
+# Copyright (C) 2019-2022, HENSOLDT Cyber GmbH
+#
 
 cmake_minimum_required(VERSION 3.7.2)
 
-set(KernelRootCNodeSizeBits 13 CACHE INTERNAL "")
-
-
 #-------------------------------------------------------------------------------
-# seL4 build system
-
-find_package(seL4 REQUIRED)
-find_package(elfloader-tool REQUIRED)
-find_package(musllibc REQUIRED)
-find_package(util_libs REQUIRED)
-find_package(seL4_libs REQUIRED)
-
-sel4_import_kernel()
-elfloader_import_project()
-
-
-# calling musllibc_setup_build_environment_with_sel4runtime() below requires a
-# project to be defined
-project(sel4-native-system C CXX ASM)
-
-# This sets up environment build flags and imports musllibc and runtime lib.
-musllibc_setup_build_environment_with_sel4runtime()
-
-sel4_import_libsel4()
-util_libs_import_libraries()
-sel4_libs_import_libraries()
+# use the SDK
+find_package("os-sdk" REQUIRED)
+# SDK configuration and setup
+os_sdk_set_defaults()
+set(KernelRootCNodeSizeBits 13 CACHE INTERNAL "")
+os_sdk_setup()
+os_sdk_import_sel4()
 
 
 #-------------------------------------------------------------------------------
@@ -55,14 +41,6 @@ target_link_libraries(${PROJECT_NAME}
 
 
 #-------------------------------------------------------------------------------
-# define "hello world" application as the root server, ie. the task the seL4
-# kernel will start
-
-DeclareRootserver(hello_world_app)
-
-
-#-------------------------------------------------------------------------------
-# generate simulation scripts
-
-GenerateSimulateScript()
-
+# define the "hello_world_app" as the root server, ie. the task the seL4 kernel
+# will start
+os_sdk_create_system("hello_world_app")
