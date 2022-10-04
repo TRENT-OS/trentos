@@ -166,7 +166,7 @@ function run_system_build()
     # using the SDK package.
     (
         set -x
-        ${SDK_DIR}/build-system.sh ${PARAMS[@]} $@
+        ${SDK_DIR}/build-system.sh "${PARAMS[@]}" $@
     )
 }
 
