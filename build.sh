@@ -81,23 +81,6 @@ ALL_PROJECTS_EXCLUDE_rpi3=(
 
 
 #-------------------------------------------------------------------------------
-function run_astyle()
-{
-    echo "##"
-    echo "## running astyle check ..."
-    echo "##"
-
-    (
-        cd ${BUILD_SCRIPT_DIR}
-
-        # Use astyle_check_sdk.sh from seos_sandbox to check astyle issues also
-        # in seos_tests and its subfolders / submodules.
-        ${DIR_SRC_SANDBOX}/astyle_check_sdk.sh
-    )
-}
-
-
-#-------------------------------------------------------------------------------
 function run_system_build()
 {
     if [ "$#" -lt 5 ]; then
@@ -235,7 +218,12 @@ function run_sdk_and_system_build()
         ${BUILD_TYPE}
     )
     run_system_build ${PARAMS[@]} $@
-    run_astyle
+
+    echo "running astyle check ..."
+    (
+        cd ${BUILD_SCRIPT_DIR}
+        ${DIR_SRC_SANDBOX}/astyle_check_sdk.sh
+    )
 }
 
 
@@ -348,7 +336,11 @@ function build_all_projects()
         done
     done
 
-    run_astyle
+    echo "running astyle check ..."
+    (
+        cd ${BUILD_SCRIPT_DIR}
+        ${DIR_SRC_SANDBOX}/astyle_check_sdk.sh
+    )
 }
 
 
