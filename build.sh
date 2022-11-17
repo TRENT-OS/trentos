@@ -674,6 +674,8 @@ BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"qemu-arm-virt-a53"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"qemu-arm-virt-a57"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"qemu-arm-virt-a72"}
+#BUILD_PLATFORM=${BUILD_PLATFORM:-"qemu-riscv-virt32"}
+#BUILD_PLATFORM=${BUILD_PLATFORM:-"qemu-riscv-virt64"}
 
 
 case "${1:-}" in
