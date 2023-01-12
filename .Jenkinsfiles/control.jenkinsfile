@@ -66,9 +66,9 @@ def ACTIVE_TESTS = [
 //------------------------------------------------------------------------------
 // Test Platforms
 def PLATFORMS = [
-    'zynq7000',
-    'sabre',
-    // 'migv',
+    // 'zynq7000',
+    // 'sabre',
+    'migv',
     // 'spike',
     // 'rpi3',
     // 'rpi4',

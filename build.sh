@@ -254,6 +254,7 @@ function build_all_projects()
       #      # ultra96 #zynqmp, but does not compile
       #
       #  # --- RISC-V ---
+      #  migv
       #  # ariane
       #  hifive
       #  # spike
@@ -622,7 +623,7 @@ BUILD_TYPE=${BUILD_TYPE:-"Debug"}
 #BUILD_TYPE=${BUILD_TYPE:-"RelWithDebInfo"}
 #BUILD_TYPE=${BUILD_TYPE:-"MinSizeRel"}
 
-BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
+#BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"sabre"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"qemu-sabre"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"nitrogen6sx"}
@@ -635,6 +636,8 @@ BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"fvp"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"hifive"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"polarfire"}
+#BUILD_PLATFORM=${BUILD_PLATFORM:-"ariane"}
+BUILD_PLATFORM=${BUILD_PLATFORM:-"migv"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"spike32"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"spike64"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"qemu-arm-virt"}
