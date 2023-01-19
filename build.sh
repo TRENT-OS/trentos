@@ -108,14 +108,6 @@ function run_system_build()
         -D CMAKE_BUILD_TYPE=${BUILD_TYPE}
     )
 
-    # special handling for the seL4 native projects
-    if [[ "${PROJECT_DIR}" =~ ^.*/src/native/(sel4test|sel4bench|hello_world)$ ]]; then
-        echo "seL4 native project, disable CAMKES and LINTING"
-        PARAMS+=(
-            -DSDK_USE_CAMKES=0
-        )
-    fi
-
     # special handling for the sel4test project executed on QEMU
     if [[ "${PROJECT_DIR}" =~ ^.*/src/native/sel4test$ ]] && [[ "${SIMULATION:-false}" = true ]]; then
         echo "sel4test project running in QEMU, disable cache and timer tests"

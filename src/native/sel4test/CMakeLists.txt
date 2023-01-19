@@ -14,6 +14,7 @@ find_package("os-sdk" REQUIRED)
 # configuration
 #-------------------------------------------------------------------------------
 
+set(SDK_USE_CAMKES OFF CACHE BOOL "don't use CAmkES" FORCE)
 os_sdk_set_defaults()
 
 # Set the root task CNode size to be large enough for DTB, timer caps, etc
