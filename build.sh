@@ -108,15 +108,6 @@ function run_system_build()
         -D CMAKE_BUILD_TYPE=${BUILD_TYPE}
     )
 
-    # special handling for the sel4test project executed on QEMU
-    if [[ "${PROJECT_DIR}" =~ ^.*/src/native/sel4test$ ]] && [[ "${SIMULATION:-false}" = true ]]; then
-        echo "sel4test project running in QEMU, disable cache and timer tests"
-        PARAMS+=(
-            -DSel4testHaveCache=0
-            -DSel4testHaveTimer=0
-        )
-    fi
-
     if [ ! -d ${SDK_DIR} ]; then
         echo "missing SDK in ${SDK_DIR}"
         return 1

@@ -22,6 +22,17 @@ set(KernelRootCNodeSizeBits 13 CACHE STRING "")
 os_sdk_set_defaults()
 
 
+if(SIMULATION)
+    set(Sel4testSimulation ON CACHE BOOL "" FORCE)
+endif()
+
+if(Sel4testSimulation)
+    set(Sel4testHaveCache OFF CACHE BOOL "" FORCE)
+else()
+    set(Sel4testHaveCache ON CACHE BOOL "" FORCE)
+endif()
+
+
 # Set our custom domain schedule
 set(KernelDomainSchedule "${CMAKE_CURRENT_LIST_DIR}/src/domain_schedule.c" CACHE INTERNAL "")
 
@@ -39,6 +50,8 @@ set(KernelDomainSchedule "${CMAKE_CURRENT_LIST_DIR}/src/domain_schedule.c" CACHE
 # set(KernelNumDomains 16 CACHE STRING "" FORCE)
 # set(KernelMaxNumNodes 4 CACHE STRING "" FORCE)
 #
+
+
 if(KernelPlatformQEMUArmVirt)
     if(KernelArmExportPCNTUser AND KernelArmExportPTMRUser)
         set(Sel4testHaveTimer ON CACHE BOOL "" FORCE)
@@ -48,7 +61,7 @@ if(KernelPlatformQEMUArmVirt)
 elseif(
     KernelPlatformZynqmp
     OR KernelPlatformPolarfire
-    OR (SIMULATION AND (KernelArchRiscV OR KernelArchARM))
+    OR (Sel4testSimulation AND (KernelArchRiscV OR KernelArchARM))
 )
     # Frequency settings of the ZynqMP make the ltimer tests problematic
     # Polarfire does not have a complete ltimer implementation
@@ -63,6 +76,10 @@ endif()
 # this conflicts with the SDK settings and concepts, so the build fails. Some
 # cherry-picking is required.
 #-------------------------------------------------------------------------------
+
+message(STATUS "Sel4testSimulation: <${Sel4testSimulation}>")
+message(STATUS "Sel4testHaveTimer: <${Sel4testHaveTimer}>")
+message(STATUS "Sel4testHaveCache: <${Sel4testHaveCache}>")
 
 # Use the SDK and all seL4 helpers. This automatically includes the seL4 CMmake
 # helpers via tools/seL4/cmake-tool/common.cmake, which includes the simulation
