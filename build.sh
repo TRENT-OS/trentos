@@ -131,7 +131,7 @@ function run_system_build()
     local BUILD_DIR=build-${BUILD_PLATFORM}-${BUILD_TYPE}-${PROJECT_NAME}
 
     local PARAMS=(
-        # build-system.sh expect at least these parameters
+        # build-system.sh expects at least these parameters
         ${PROJECT_DIR}
         ${BUILD_PLATFORM}
         ${BUILD_DIR}
