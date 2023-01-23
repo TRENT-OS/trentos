@@ -8,9 +8,17 @@
 
 #include <stdio.h>
 #include <assert.h>
+#include <sel4/config.h>
 #include <sel4/sel4.h>
 #include <sel4runtime.h>
 #include <sel4debug/debug.h>
+
+#include <platsupport/gen_config.h>
+#include <sel4platsupport/platsupport.h>
+
+#include <simple/simple.h>
+#include <simple-default/simple-default.h>
+
 
 static void print_slot_reg_info(char const *descr, seL4_SlotRegion *reg)
 {
@@ -170,10 +178,21 @@ static void test_benchmark(void)
 //------------------------------------------------------------------------------
 int main(void)
 {
-    printf("hello word main\n");
-
     seL4_BootInfo *info = sel4runtime_bootinfo();
+//#if defined(CONFIG_LIB_SEL4_PLAT_SUPPORT_USE_SEL4_DEBUG_PUTCHAR) && defined(CONFIG_DEBUG_BUILD)
+//    platsupport_serial_setup_simple(NULL, NULL, NULL);
+//#else
+//#error implement me
+//    // simple_t simple;
+//    // simple_default_init_bootinfo(&simple, info);
+//    // vspace_t *space;
+//    // vka_t vka;
+//    // platsupport_serial_setup_simple(&vspace, &simple, &vka);
+//#endif
+
+    printf("hello word main\n");
     // debug_print_bootinfo(info);
+    // simple_print(&simple);
     show_custom_boot_info(info);
 
     test_benchmark();
