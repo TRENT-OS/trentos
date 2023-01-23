@@ -11,8 +11,8 @@ cmake_minimum_required(VERSION 3.7.2)
 find_package("os-sdk" REQUIRED)
 # SDK configuration and setup
 set(SDK_USE_CAMKES OFF CACHE BOOL "don't use CAmkES" FORCE)
+set(KernelRootCNodeSizeBits 13 CACHE STRING "")
 os_sdk_set_defaults()
-set(KernelRootCNodeSizeBits 13 CACHE INTERNAL "")
 os_sdk_setup()
 os_sdk_import_sel4()
 

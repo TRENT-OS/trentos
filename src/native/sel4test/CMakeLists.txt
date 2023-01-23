@@ -15,12 +15,12 @@ find_package("os-sdk" REQUIRED)
 #-------------------------------------------------------------------------------
 
 set(SDK_USE_CAMKES OFF CACHE BOOL "don't use CAmkES" FORCE)
-os_sdk_set_defaults()
-
 # Set the root task CNode size to be large enough for DTB, timer caps, etc
 # Note that this works for the platforms that we have at the moment, and may
 # need to be increased in the future
-set(KernelRootCNodeSizeBits 13 CACHE INTERNAL "")
+set(KernelRootCNodeSizeBits 13 CACHE STRING "")
+os_sdk_set_defaults()
+
 
 # Set our custom domain schedule
 set(KernelDomainSchedule "${CMAKE_CURRENT_LIST_DIR}/src/domain_schedule.c" CACHE INTERNAL "")
