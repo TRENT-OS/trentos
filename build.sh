@@ -115,7 +115,7 @@ function run_build_sdk()
 #-------------------------------------------------------------------------------
 function run_system_build()
 {
-    if [ "$#" -lt 4 ]; then
+    if [ "$#" -lt 5 ]; then
         echo "ERROR: invalid parameters for ${FUNCNAME[0]}()"
         return 1
     fi
