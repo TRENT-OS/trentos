@@ -16,6 +16,11 @@ if(SIMULATION)
     set(Sel4testSimulation ON CACHE BOOL "" FORCE)
 endif()
 
+if(Sel4testSimulation)
+    set(Sel4testHaveCache OFF CACHE BOOL "" FORCE)
+else()
+    set(Sel4testHaveCache ON CACHE BOOL "" FORCE)
+endif()
 
 #-------------------------------------------------------------------------------
 # SDK and kernel configuration
@@ -42,6 +47,10 @@ set(KernelDomainSchedule "${CMAKE_CURRENT_LIST_DIR}/src/domain_schedule.c" CACHE
 # set SDK defaults, these are not supposed to overwrite anything that was
 # already configured above
 os_sdk_set_defaults()
+
+message(STATUS "Sel4testSimulation: <${Sel4testSimulation}>")
+message(STATUS "Sel4testHaveTimer: <${Sel4testHaveTimer}>")
+message(STATUS "Sel4testHaveCache: <${Sel4testHaveCache}>")
 
 # Use the SDK and all seL4 helpers. This automatically includes the seL4 CMmake
 # helpers via tools/seL4/cmake-tool/common.cmake, which includes the simulation
