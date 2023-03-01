@@ -100,3 +100,15 @@
 [submodule "src/demos/demo_vm_virtio_net"]
 	path = src/demos/demo_vm_virtio_net
 	url = ../../ss/demo_vm_virtio_net.git
+[submodule "src/demos/demo_vm_multi"]
+	path = src/demos/demo_vm_multi
+	url = ../../ss/demo_vm_multi.git
+[submodule "src/demos/demo_vm_cross_connector"]
+	path = src/demos/demo_vm_cross_connector
+	url = ../../ss/demo_vm_cross_connector.git
+[submodule "src/demos/demo_vm_drone_sim"]
+	path = src/demos/demo_vm_drone_sim
+	url = ../../ss/demo_vm_drone_sim.git
+[submodule "src/demos/demo_mavlink_testapp"]
+	path = src/demos/demo_mavlink_testapp
+	url = ../../ss/demo-mavlink-testapp.git
