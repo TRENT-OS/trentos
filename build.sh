@@ -385,7 +385,7 @@ function build_test_plan_docs()
 
 
 #-------------------------------------------------------------------------------
-# Params: BUILD_PLATFORM [QEMU_CONN] [pytest params ...]
+# Params: BUILD_PLATFORM [pytest params ...]
 function run_tests()
 {
     local BUILD_PLATFORM=$1
@@ -406,19 +406,7 @@ function run_tests()
         exit 1
     fi
 
-    # proxy connection defaults to TCP. We always pass the proxy params, even
-    # if the actual system under test does not use the proxy.
-    local QEMU_CONN="${1}"
-    if [[ ${QEMU_CONN} != "PTY" && ${QEMU_CONN} != "TCP" ]]; then
-        QEMU_CONN="TCP"
-        echo "QEMU connection: ${QEMU_CONN} (using default)"
-    else
-        echo "QEMU connection: ${QEMU_CONN}"
-        shift # consume the parameter
-    fi
-
-    # process command line parameters. Note that QEMU_CONN above we may have
-    # consumed one parameter already.
+    # process command line parameters.
     local TEST_SCRIPTS=()
     local TEST_PARAMS=()
     for param in $@; do
@@ -525,7 +513,7 @@ function run_tests()
             --print_logs  # show log output from device in console
             --target=${BUILD_PLATFORM}
             --system_image=$(realpath ${BUILD_FOLDER}/images/os_image.elf)
-            --proxy=$(realpath ${DIR_PKG_SDK}/bin/proxy_app),${QEMU_CONN}
+            --proxy=$(realpath ${DIR_PKG_SDK}/bin/proxy_app)
             --log_dir=$(realpath ${TEST_LOGS_DIR})
             # --sd_card=536870912  # 512 MiB
             # ToDo: The resources are taken from the SDK package and not from
