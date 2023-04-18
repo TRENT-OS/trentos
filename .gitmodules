@@ -99,7 +99,7 @@
 	url = ../../ss/demo_vm_minimal.git
 [submodule "src/demos/demo_vm_serialserver"]
 	path = src/demos/demo_vm_serialserver
-	url = ../../ss/ss/demo_vm_serialserver.git
+	url = ../../ss/demo_vm_serialserver.git
 [submodule "src/demos/demo_vm_virtio_net"]
 	path = src/demos/demo_vm_virtio_net
 	url = ../../ss/demo_vm_virtio_net.git
