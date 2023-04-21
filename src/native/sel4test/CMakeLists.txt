@@ -73,6 +73,12 @@ if(KernelPlatformQEMUArmVirt)
         set(Sel4testHaveTimer OFF CACHE BOOL "" FORCE)
     endif()
 
+elseif(KernelPlatformQEMURiscVVirt)
+    # QEMU does not simulate a cache, so these tests are likely to fail
+    set(Sel4testHaveCache OFF CACHE BOOL "" FORCE)
+    # There is no timer peripheral
+    set(Sel4testHaveTimer OFF CACHE BOOL "" FORCE)
+
 elseif(KernelPlatformZynqmp)
     if(Sel4testSimulation)
         set(Sel4testHaveCache OFF CACHE BOOL "" FORCE)
