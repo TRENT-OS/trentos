@@ -108,6 +108,12 @@ function run_system_build()
         #------------------------------------------------
         # every parameter below is passed to CMake
         -D CMAKE_BUILD_TYPE=${BUILD_TYPE}
+        #-D QEMU_MEMORY=3072
+        #-D QEMU_BINARY="/host/qemu/qemu-bin_tt_20220926_static/qemu-static-6.2.0/qemu-system-aarch64-no-nic.sh"
+        #-D QEMU_BINARY="/host/qemu/qemu-bin_tt_20221009_static-patched/qemu-7.1.0/qemu-system-aarch64-no-nic.sh"
+        #-D QEMU_BINARY="/host/qemu-system-riscv64"
+        #-D QEMU_BINARY="/host/qemu-system-aarch64"
+        #-D QEMU_BINARY="/host/qemu/qemu-system-aarch64-no-nic.sh"
     )
 
     if [ ! -d ${SDK_DIR} ]; then
@@ -534,8 +540,23 @@ function run_tests()
 
         (
             cd ${TEST_SYSTEM_LOG_DIR}
-            export PYTHONPATH="${DIR_SRC_TA}/common:${DIR_SRC_TA}/tests"
             set -x
+            #sudo chmod 666 /dev/net/tun
+
+            #sudo apt-get update
+            #sudo apt-get install -y libcapstone-dev
+
+            #sudo apt-get update
+            #sudo apt-get install -y uml-utilities
+            #sudo tunctl -t tap1 -g user
+            #sudo tunctl -t tap2 -g user
+
+            #if [ ! -d /host/ramdisk ]; then
+            #    sudo mkdir /mnt/ramdisk
+            #    sudo mount -t ramfs ramfs /mnt/ramdisk
+            #fi
+
+            export PYTHONPATH="${DIR_SRC_TA}/common:${DIR_SRC_TA}/tests"
             python3 ${PYTHON_PARAMS[@]}
         )
 
@@ -612,7 +633,7 @@ BUILD_TYPE=${BUILD_TYPE:-"Debug"}
 #BUILD_TYPE=${BUILD_TYPE:-"RelWithDebInfo"}
 #BUILD_TYPE=${BUILD_TYPE:-"MinSizeRel"}
 
-BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
+#BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"sabre"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"nitrogen6sx"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"zynqmp"}
@@ -632,7 +653,7 @@ BUILD_PLATFORM=${BUILD_PLATFORM:-"zynq7000"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"qemu-arm-virt-a57"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"qemu-arm-virt-a72"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"qemu-riscv-virt32"}
-#BUILD_PLATFORM=${BUILD_PLATFORM:-"qemu-riscv-virt64"}
+BUILD_PLATFORM=${BUILD_PLATFORM:-"qemu-riscv-virt64"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"ia32"}
 #BUILD_PLATFORM=${BUILD_PLATFORM:-"x86_64"}
 
