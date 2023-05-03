@@ -198,6 +198,9 @@ int main(void)
     test_benchmark();
 
     printf("Hello, world!\n");
+
+    *((int*)0) = 0x42;
+
     seL4_DebugHalt();
 
     return 0;
