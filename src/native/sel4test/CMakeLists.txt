@@ -103,6 +103,10 @@ elseif(KernelPlatformSabre)
     endif()
 
 elseif(KernelPlatformPolarfire)
+    if(Sel4testSimulation)
+        # QEMU does not simulate a cache, so these tests are likely to fail
+        set(Sel4testHaveCache OFF CACHE BOOL "" FORCE)
+    endif()
     # Polarfire does not have a complete ltimer implementation
     set(Sel4testHaveTimer OFF CACHE BOOL "" FORCE)
 
