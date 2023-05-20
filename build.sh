@@ -215,6 +215,11 @@ function run_sdk_and_system_build()
 #-------------------------------------------------------------------------------
 function build_all_projects()
 {
+    if [ "$#" -ne 2 ]; then
+        echo "ERROR: invalid parameters for ${FUNCNAME[0]}()"
+        return 1
+    fi
+
     local BUILD_ACTION_SDK=$1
     local BUILD_TYPE=$2
     shift 2
@@ -387,6 +392,11 @@ function build_test_plan_docs()
 # Params: BUILD_PLATFORM [pytest params ...]
 function run_tests()
 {
+    if [ "$#" -lt 1 ]; then
+        echo "ERROR: invalid parameters for ${FUNCNAME[0]}()"
+        return 1
+    fi
+
     local BUILD_PLATFORM=$1
     shift
 
@@ -549,6 +559,11 @@ function run_tests()
 # Params: [params ...]
 function run_build_and_test()
 {
+    if [ "$#" -lt 1 ]; then
+        echo "ERROR: invalid parameters for ${FUNCNAME[0]}()"
+        return 1
+    fi
+
     local PATH_OR_PROJECT="${1}"
 
     local TEST_SCRIPT=""
