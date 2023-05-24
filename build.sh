@@ -68,6 +68,7 @@ WELL_KNOWN_PROJECTS=(
     demo_vm_minimal,src/demos/,test_demo_vm_minimal.py
     demo_vm_serialserver,src/demos/,test_demo_vm_serialserver.py
     demo_vm_virtio_net,src/demos/,test_demo_vm_virtio_net.py
+	demo_vm_drone_sim,src/demos/,test_demo_vm_drone_sim.py
 )
 
 
@@ -593,7 +594,7 @@ function run_build_and_test()
     fi
 
     ${DIR_SRC_SANDBOX}/scripts/open_trentos_build_env.sh $0 "$@"
-    ${DIR_SRC_SANDBOX}/scripts/open_trentos_test_env.sh $0 test-run ${TEST_SCRIPT}
+    ${DIR_SRC_SANDBOX}/scripts/open_trentos_test_env.sh $0 test-run ${TEST_SCRIPT} 
 }
 
 
