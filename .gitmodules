@@ -100,3 +100,6 @@
 [submodule "src/demos/demo_vm_virtio_net"]
 	path = src/demos/demo_vm_virtio_net
 	url = ../../ss/demo_vm_virtio_net.git
+[submodule "src/demos/demo_vm_drone_sim"]
+	path = src/demos/demo_vm_drone_sim
+	url = ../../ss/demo_vm_drone_sim.git
