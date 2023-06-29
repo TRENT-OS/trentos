@@ -45,6 +45,7 @@ WELL_KNOWN_PROJECTS=(
     test_cryptoserver,src/tests/
     test_entropysource,src/tests/
     test_uart,src/tests/
+    test_uart_echo,src/tests/
     test_chanmux,src/tests/
     test_proxy_nvm,src/tests/
     test_filesystem,src/tests/
@@ -626,7 +627,7 @@ DEFAULT_BUILD_TYPE="Debug"
 #DEFAULT_BUILD_TYPE="RelWithDebInfo"
 #DEFAULT_BUILD_TYPE="MinSizeRel"
 
-DEFAULT_BUILD_PLATFORM="zynq7000"
+#DEFAULT_BUILD_PLATFORM="zynq7000"
 #DEFAULT_BUILD_PLATFORM="sabre"
 #DEFAULT_BUILD_PLATFORM="nitrogen6sx"
 #DEFAULT_BUILD_PLATFORM="zynqmp"
@@ -642,7 +643,7 @@ DEFAULT_BUILD_PLATFORM="zynq7000"
 #DEFAULT_BUILD_PLATFORM="spike64"
 #DEFAULT_BUILD_PLATFORM="qemu-arm-virt"
 #DEFAULT_BUILD_PLATFORM="qemu-arm-virt-a15"
-#DEFAULT_BUILD_PLATFORM="qemu-arm-virt-a53"
+DEFAULT_BUILD_PLATFORM="qemu-arm-virt-a53"
 #DEFAULT_BUILD_PLATFORM="qemu-arm-virt-a57"
 #DEFAULT_BUILD_PLATFORM="qemu-arm-virt-a72"
 #DEFAULT_BUILD_PLATFORM="qemu-riscv-virt32"
