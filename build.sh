@@ -68,6 +68,7 @@ WELL_KNOWN_PROJECTS=(
     demo_vm_minimal,src/demos/,test_demo_vm_minimal.py
     demo_vm_serialserver,src/demos/,test_demo_vm_serialserver.py
     demo_vm_virtio_net,src/demos/,test_demo_vm_virtio_net.py
+	demo_rng_prg260,src/demos/,test_demo_rng_prg260.py
 )
 
 
