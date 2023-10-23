@@ -68,6 +68,9 @@ WELL_KNOWN_PROJECTS=(
     demo_vm_minimal,src/demos/,test_demo_vm_minimal.py
     demo_vm_serialserver,src/demos/,test_demo_vm_serialserver.py
     demo_vm_virtio_net,src/demos/,test_demo_vm_virtio_net.py
+    tcp_throughput_c2s_server,src/demos/demo_network_benchmark/
+    tcp_throughput_s2c_server,src/demos/demo_network_benchmark/
+    udp_throughput_c2s_server,src/demos/demo_network_benchmark/
 )
 
 
