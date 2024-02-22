@@ -1,7 +1,9 @@
 #
 # sel4bench wrapper
 #
-# Copyright (C) 2021, HENSOLDT Cyber GmbH
+# Copyright (C) 2021-2024, HENSOLDT Cyber GmbH
+#
+# SPDX-License-Identifier: BSD-2-Clause
 #
 
 cmake_minimum_required(VERSION 3.7.2)
