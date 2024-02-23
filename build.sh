@@ -492,8 +492,8 @@ function run_tests()
 
         if [ "${BUILD_PLATFORM}" == "jetson-xavier-nx-dev-kit" ] || [ "${BUILD_PLATFORM}" == "aetina-an110-xnx" ]; then
             SYSTEM_IMAGE=$(realpath ${BUILD_FOLDER}/images/os_image.binary)
-        else
-            SYSTEM_IMAGE=$(realpath ${BUILD_FOLDER}/images/os_image.elf)
+        #else
+        #    SYSTEM_IMAGE=$(realpath ${BUILD_FOLDER}/images/os_image.elf)
         fi
 
         PYTHON_PARAMS=(
@@ -620,12 +620,12 @@ DEFAULT_BUILD_TYPE="Debug"
 #DEFAULT_BUILD_TYPE="RelWithDebInfo"
 #DEFAULT_BUILD_TYPE="MinSizeRel"
 
-DEFAULT_BUILD_PLATFORM="zynq7000"
+# DEFAULT_BUILD_PLATFORM="zynq7000"
 #DEFAULT_BUILD_PLATFORM="sabre"
 #DEFAULT_BUILD_PLATFORM="nitrogen6sx"
 #DEFAULT_BUILD_PLATFORM="zynqmp"
 #DEFAULT_BUILD_PLATFORM="rpi3"
-#DEFAULT_BUILD_PLATFORM="rpi4"
+DEFAULT_BUILD_PLATFORM="rpi4"
 #DEFAULT_BUILD_PLATFORM="hikey"
 #DEFAULT_BUILD_PLATFORM="odroidc2"
 #DEFAULT_BUILD_PLATFORM="odroidc4"
