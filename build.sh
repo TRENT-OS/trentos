@@ -65,6 +65,7 @@ WELL_KNOWN_PROJECTS=(
     demo_tls_api,src/demos/,test_demo_tls_api.py
     demo_i2c,src/demos/
     demo_tls_server,src/demos/
+    demo_mailbox_rpi,src/demos/
     demo_vm_minimal,src/demos/,test_demo_vm_minimal.py
     demo_vm_serialserver,src/demos/,test_demo_vm_serialserver.py
     demo_vm_virtio_net,src/demos/,test_demo_vm_virtio_net.py
