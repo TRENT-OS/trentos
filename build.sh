@@ -502,6 +502,11 @@ function run_tests()
             fi
         fi
 
+        if [ "${BUILD_PLATFORM}" == "jetson-xavier-nx-dev-kit" ] || [ "${BUILD_PLATFORM}" == "aetina-an110-xnx" ]; then
+            SYSTEM_IMAGE=$(realpath ${BUILD_FOLDER}/images/os_image.binary)
+        else
+            SYSTEM_IMAGE=$(realpath ${BUILD_FOLDER}/images/os_image.elf)
+        fi
 
         PYTHON_PARAMS=(
             -B  # do not create *.pyc files
@@ -522,7 +527,7 @@ function run_tests()
             #--------------------------------------------------
             --print_logs  # show log output from device in console
             --target=${BUILD_PLATFORM}
-            --system_image=$(realpath ${BUILD_FOLDER}/images/os_image.elf)
+            --system_image=$(realpath ${SYSTEM_IMAGE})
             --proxy=$(realpath ${DIR_PKG_SDK}/bin/proxy_app)
             --log_dir=$(realpath ${TEST_LOGS_DIR})
             # --sd_card=536870912  # 512 MiB
@@ -650,6 +655,10 @@ DEFAULT_BUILD_PLATFORM="zynq7000"
 #DEFAULT_BUILD_PLATFORM="qemu-riscv-virt64"
 #DEFAULT_BUILD_PLATFORM="ia32"
 #DEFAULT_BUILD_PLATFORM="x86_64"
+#DEFAULT_BUILD_PLATFORM="jetson-nano-2gb-dev-kit"
+#DEFAULT_BUILD_PLATFORM="jetson-tx2-nx-a206"
+#DEFAULT_BUILD_PLATFORM="jetson-xavier-nx-dev-kit"
+#DEFAULT_BUILD_PLATFORM="aetina-an110-xnx"
 
 
 
