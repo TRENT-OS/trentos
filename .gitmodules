@@ -55,9 +55,6 @@
 [submodule "src/tests/test_filesystem"]
 	path = src/tests/test_filesystem
 	url = ../../ss/test_filesystem.git
-[submodule "src/demos/demo_raspi_ethernet"]
-	path = src/demos/demo_raspi_ethernet
-	url = ../../ss/demo_raspi_ethernet.git
 [submodule "src/tests/test_uart"]
 	path = src/tests/test_uart
 	url = ../../ss/test_uart.git
@@ -76,18 +73,9 @@
 [submodule "src/tests/test_certserver"]
 	path = src/tests/test_certserver
 	url = ../../ss/test_certserver.git
-[submodule "src/demos/demo_i2c"]
-	path = src/demos/demo_i2c
-	url = ../../ss/demo_i2c.git
-[submodule "src/demos/demo_iot_app_imx6"]
-	path = src/demos/demo_iot_app_imx6
-	url = ../../ss/demo_iot_app_imx6.git
 [submodule "src/demos/demo_network_filter"]
 	path = src/demos/demo_network_filter
 	url = ../../ss/demo_network_filter.git
-[submodule "src/demos/demo_tls_server"]
-	path = src/demos/demo_tls_server
-	url = ../../ss/demo_tls_server.git
 [submodule "src/native/sel4bench/src"]
 	path = src/native/sel4bench/src
 	url = ../../ext/sel4bench.git
