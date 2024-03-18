@@ -204,12 +204,6 @@ function run_sdk_and_system_build()
         ${BUILD_TYPE}
     )
     run_system_build ${PARAMS[@]} $@
-
-    echo "running astyle check ..."
-    (
-        cd ${BUILD_SCRIPT_DIR}
-        ${DIR_SRC_SANDBOX}/astyle_check_sdk.sh
-    )
 }
 
 
@@ -326,12 +320,6 @@ function build_all_projects()
 
         done
     done
-
-    echo "running astyle check ..."
-    (
-        cd ${BUILD_SCRIPT_DIR}
-        ${DIR_SRC_SANDBOX}/astyle_check_sdk.sh
-    )
 }
 
 
@@ -670,16 +658,6 @@ case "${1:-}" in
     "help"|"")
         print_usage_help
         exit 1
-        ;;
-
-    "sdk")
-        shift
-        BUILD_ACTION_SDK=${1:-all}
-        if [ "$#" -gt 1 ]; then
-            shift
-        fi
-        echo "building SDK Package (${BUILD_ACTION_SDK}) in ${SDK_OUT_DIR}"
-        ${DIR_SRC_SANDBOX}/build-sdk.sh ${BUILD_ACTION_SDK} ${SDK_OUT_DIR}
         ;;
 
     "all-projects")
