@@ -1,93 +1,93 @@
-[submodule "seos_sandbox"]
-	path = seos_sandbox
-	url = ../../seos/sandbox.git
+[submodule "sdk"]
+	path = sdk
+	url = ../sdk.git
 [submodule "ta/tests"]
 	path = ta/tests
-	url = ../../ta/seos_tests.git
+	url = ../tests.git
 [submodule "ta/common"]
 	path = ta/common
-	url = ../../ta/common.git
+	url = ../common.git
 [submodule "src/tests/test_proxy_nvm"]
 	path = src/tests/test_proxy_nvm
-	url = ../../ss/test_proxy_nvm.git
+	url = ../test_proxy_nvm.git
 [submodule "src/tests/test_keystore"]
 	path = src/tests/test_keystore
-	url = ../../ss/test_keystore.git
+	url = ../test_keystore.git
 [submodule "src/tests/test_crypto_api"]
 	path = src/tests/test_crypto_api
-	url = ../../ss/test_crypto_api.git
+	url = ../test_crypto_api.git
 [submodule "src/tests/test_network_api"]
 	path = src/tests/test_network_api
-	url = ../../ss/test_network_api.git
+	url = ../test_network_api.git
 [submodule "src/tests/test_tls_api"]
 	path = src/tests/test_tls_api
-	url = ../../ss/test_tls_api.git
+	url = ../test_tls_api.git
 [submodule "src/tests/test_chanmux"]
 	path = src/tests/test_chanmux
-	url = ../../ss/test_chanmux.git
+	url = ../test_chanmux.git
 [submodule "src/tests/test_cryptoserver"]
 	path = src/tests/test_cryptoserver
-	url = ../../ss/test_cryptoserver.git
+	url = ../test_cryptoserver.git
 [submodule "src/tests/test_config_server"]
 	path = src/tests/test_config_server
-	url = ../../ss/test_config_server.git
+	url = ../test_config_server.git
 [submodule "src/tests/test_logserver"]
 	path = src/tests/test_logserver
-	url = ../../ss/test_logserver.git
+	url = ../test_logserver.git
 [submodule "src/demos/demo_iot_app"]
 	path = src/demos/demo_iot_app
-	url = ../../ss/demo_iot_app.git
+	url = ../demo_iot_app.git
 [submodule "src/demos/demo_hello_world"]
 	path = src/demos/demo_hello_world
-	url = ../../ss/demo_hello_world.git
+	url = ../demo_hello_world.git
 [submodule "src/tests/test_tlsserver"]
 	path = src/tests/test_tlsserver
-	url = ../../ss/test_tlsserver.git
+	url = ../test_tlsserver.git
 [submodule "src/tests/test_entropysource"]
 	path = src/tests/test_entropysource
-	url = ../../ss/test_entropysource.git
+	url = ../test_entropysource.git
 [submodule "src/tests/test_storage_interface"]
 	path = src/tests/test_storage_interface
-	url = ../../ss/test_storage_interface.git
-[submodule "src/demos/demo_iot_app_rpi3"]
-	path = src/demos/demo_iot_app_rpi3
-	url = ../../ss/demo_iot_app_rpi3.git
+	url = ../test_storage_interface.git
+[submodule "src/demos/demo_iot_app_hw"]
+	path = src/demos/demo_iot_app_hw
+	url = ../demo_iot_app_hw.git
 [submodule "src/tests/test_filesystem"]
 	path = src/tests/test_filesystem
-	url = ../../ss/test_filesystem.git
+	url = ../test_filesystem.git
 [submodule "src/tests/test_uart"]
 	path = src/tests/test_uart
-	url = ../../ss/test_uart.git
+	url = ../test_uart.git
 [submodule "src/native/sel4test/src"]
 	path = src/native/sel4test/src
-	url = ../../ext/sel4test.git
+	url = ../sel4test.git
 [submodule "src/tests/test_timeserver"]
 	path = src/tests/test_timeserver
-	url = ../../ss/test_timeserver
+	url = ../test_timeserver
 [submodule "src/tests/test_certparser"]
 	path = src/tests/test_certparser
-	url = ../../ss/test_certparser.git
+	url = ../test_certparser.git
 [submodule "src/demos/demo_tls_api"]
 	path = src/demos/demo_tls_api
-	url = ../../ss/demo_tls_api.git
+	url = ../demo_tls_api.git
 [submodule "src/tests/test_certserver"]
 	path = src/tests/test_certserver
-	url = ../../ss/test_certserver.git
+	url = ../test_certserver.git
 [submodule "src/demos/demo_network_filter"]
 	path = src/demos/demo_network_filter
-	url = ../../ss/demo_network_filter.git
+	url = ../demo_network_filter.git
 [submodule "src/native/sel4bench/src"]
 	path = src/native/sel4bench/src
-	url = ../../ext/sel4bench.git
+	url = ../sel4bench.git
 [submodule "src/demos/demo_vm_minimal"]
 	path = src/demos/demo_vm_minimal
-	url = ../../ss/demo_vm_minimal.git
+	url = ../demo_vm_minimal.git
 [submodule "src/demos/demo_vm_serialserver"]
 	path = src/demos/demo_vm_serialserver
-	url = ../../ss/demo_vm_serialserver.git
+	url = ../demo_vm_serialserver.git
 [submodule "src/demos/demo_vm_virtio_net"]
 	path = src/demos/demo_vm_virtio_net
-	url = ../../ss/demo_vm_virtio_net.git
+	url = ../demo_vm_virtio_net.git
 [submodule "src/demos/demo_mailbox_rpi"]
 	path = src/demos/demo_mailbox_rpi
-	url = ../../ss/demo_mailbox_rpi.git
+	url = ../demo_mailbox_rpi.git
