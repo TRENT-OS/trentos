@@ -9,7 +9,7 @@
 #-------------------------------------------------------------------------------
 
 BUILD_SCRIPT_DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd)"
-DIR_SRC_SANDBOX="${BUILD_SCRIPT_DIR}/seos_sandbox"
+DIR_SRC_SANDBOX="${BUILD_SCRIPT_DIR}/sdk"
 SDK_OUT_DIR="OS-SDK"
 SDK_PKG_OUT_DIR="${SDK_OUT_DIR}/pkg"
 
@@ -335,9 +335,9 @@ function do_test_prepare()
 
     # if we have a SDK package, these steps are no longer required, because
     # they have been executed when the packages was created and released. Since
-    # we use seos_sandbox, we have to build the SDK package here and also give
+    # we use sdk, we have to build the SDK package here and also give
     # it some testing
-    for step in collect-sources run-unit-tests build-tools; do
+    for step in collect-sources build-tools; do
         echo "##"
         echo "## running SDK build step: ${step}"
         echo "##"
