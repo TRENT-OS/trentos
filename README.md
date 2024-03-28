@@ -1,15 +1,131 @@
-# seos\_tests
+# TRENTOS
 
-Test applications project.
-The aim of this project is to have a codebase that can build various
-sel4-\>camkes-\>seos applications performing tests with all the needed
-runtime.
+Welcome to the TRENTOS project. 
+
+TRENTOS (Trusted Entity Operating System) is an embedded OS build upon the seL4 microkernel and CAmkES
+
+## Requirements
+
+* Linux (We recommend Ubuntu 20.04 or newer)
+* Docker
 
 ## Getting Started
 
-The project builds a seL4 binary image
+Get started with TRENTOS in 5 simple steps:
+```sh
+# 1. Create a new folder for TRENTOS
+mkdir trentos && cd trentos
 
-### Dependencies
+# 2. Clone the TRENTOS repository
+git clone --recursive git@github.com:TRENT-OS/trentos.git src
+
+# 3. Pull the TRENTOS Test & Build Docker container from Docker Hub
+TODO: Add command to pull images
+
+# 4. Prepare the test environment (only needs to be done once)
+src/build.sh test-prepare
+
+# 5. Build & execute demo_hello_world
+src/build.sh build-and-test demo_hello_world
+```
+
+TODO: Link getting started documentation page
+
+## Documentation
+
+TODO: ADD TRENTOS DOCS LINK
+
+Please refer to our [TRENTOS Docs]().
+
+## Supported Platforms
+
+Currently TRENTOS 
+
+* zynq7000
+* sabre
+* nitrogen6sx
+* zynqmp
+* rpi3
+* rpi4
+* hikey
+* odroidc2
+* odroidc4
+* fvp
+* hifive
+* polarfire
+* spike32
+* spike64
+* qemu-arm-virt
+* qemu-arm-virt-a15
+* qemu-arm-virt-a53
+* qemu-arm-virt-a57
+* qemu-arm-virt-a72
+* qemu-riscv-virt32
+* qemu-riscv-virt64
+* ia32
+* x86_64
+* jetson-nano-2gb-dev-kit
+* jetson-tx2-nx-a206
+* jetson-xavier-nx-dev-kit
+* aetina-an110-xnx
+
+TODO: Curate list and give small comment to current status of platform
+TODO: (Maybe) Change names or add comment which is better telling
+TODO: Maybe seperate this into its own more detailed page
+
+
+## TRENTOS Demos
+
+Current demonstrators included in the standard TRENTOS source tree:
+
+* demo_iot_app
+* demo_iot_app_hw
+* demo_network_filter
+* demo_raspi_ethernet
+* demo_tls_api
+* demo_i2c
+* demo_tls_server
+* demo_mailbox_rpi
+* demo_vm_minimal
+* demo_vm_serialserver
+* demo_vm_virtio_net
+
+```sh
+src/build.sh build-and-test <name of demo>
+```
+
+Even more demos are available as [submodules](https://github.com/orgs/TRENT-OS/repositories?q=demo).
+
+## Contributing
+
+Contributions are always welcome. 
+To get started please read our [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+If you have any questions or encounter any bugs, please do not hesitate to open an **issue**.
+
+
+## Licensing
+
+TRENTOS is available under the OSS GPLv2-or-later license.
+Upon request commercial licensing options are available.
+Please contact: [info.cyber@hensoldt.net](mailto:info.cyber@hensoldt.net?subject=TRENTOS:%20Commercial%20Licensing)
+ for more information.
+
+Some few components are only available und different licensing terms. 
+Due to the microkernel concept this should not be an issue as long as these are used as a TRENTOS component.
+
+TODO: Link documentation explaining the seL4 component concept.
+
+## Testing
+
+Please refer to ...
+
+TODO: Link wiki page explaining the test framework
+
+
+## Dependencies
+
+TRENTOS builds upon varies open source libraries:
 
 * sel4
 * muslc
@@ -21,46 +137,4 @@ The project builds a seL4 binary image
 * sel4allocman
 * camkes
 * capdl
-
-### Build preparation
-
-Get the seL4 docker build environment from
-https://github.com/SEL4PROJ/seL4-CAmkES-L4v-dockerfiles and start it. Use
-target "user_sel4" for non-CAmkES buids and "user_camkes" for CAmkES builds.
-
-### Build steps
-
-Doing a out-of-source-folder build is highly recommended, ie. the build folder
-should not be in the directory where the sources are checked out. Instead,
-check out the sources into a subfolder and start the build from the parent
-folder. Then it will create another subfolder parallel to the source folder
-with the build artifacts. This leaves the whole source folder unchanged.
-
-    # check out sources into a sub-folder "src"
-    git clone --recursive -b master ssh://bitbucket.hensoldt-cyber.systems:7999/hc/seos_tests.git src
-
-    # start build with code in sub-folder "src", will create a new folder
-    # "build-<target>" with the binaries
-    src/build.sh TEST_NAME
-
-    # start simulation. Terminate QEMU with "Crtl+A X". Note that the build
-    # platform is still hard-coded in this script, change if another target
-    # platform is used.
-    src/run_qemu.sh TEST_NAME
-
-
-### Build options
-
-#### Enable static code analysis
-
-To build with enabled static code analysis (cppcheck, clang-tidy) the CMake flag
-"ENABLE_LINT" has to be set.
-
-    ./build.sh all -D ENABLE_LINT=ON
-
-#### Build all supported tests
-
-To build all supported build, which is Debug and Release at the moment for
-the Zynq7000 platform, the parameter "all" can be used
-
-    ./build.sh all
+* And more...
