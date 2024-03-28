@@ -62,8 +62,7 @@ WELL_KNOWN_PROJECTS=(
 
     # demos
     demo_iot_app,src/demos/,test_demo_iot_app.py
-    demo_iot_app_rpi3,src/demos/
-    demo_iot_app_imx6,src/demos/
+    demo_iot_app_hw,src/demos/
     demo_network_filter,src/demos/
     demo_raspi_ethernet,src/demos/
     demo_tls_api,src/demos/,test_demo_tls_api.py
