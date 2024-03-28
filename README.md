@@ -14,10 +14,10 @@ TRENTOS (Trusted Entity Operating System) is an embedded OS build upon the seL4 
 Get started with TRENTOS in 5 simple steps:
 ```sh
 # 1. Create a new folder for TRENTOS
-mkdir trentos && cd trentos
+mkdir trentos_workspace && cd trentos_workspace
 
 # 2. Clone the TRENTOS repository
-git clone --recursive git@github.com:TRENT-OS/trentos.git src
+git clone --recursive git@github.com:TRENT-OS/trentos.git
 
 # 3. Pull the TRENTOS Test & Build Docker container from Docker Hub
 TODO: Add command to pull images
@@ -91,7 +91,7 @@ Current demonstrators included in the standard TRENTOS source tree:
 * demo_vm_virtio_net
 
 ```sh
-src/build.sh build-and-test <name of demo>
+trentos/build.sh build-and-test <name of demo>
 ```
 
 Even more demos are available as [submodules](https://github.com/orgs/TRENT-OS/repositories?q=demo).
