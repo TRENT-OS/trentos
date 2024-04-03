@@ -1,0 +1,100 @@
+name: CI Tests Zynq7000 Qemu
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-zynq7000-qemu
+  #cancel-in-progress: true # Do we want this? this would cause current tests to be stopped if a new ci request is launched.
+  # Waiting till the current run is done is probably the better solution
+
+env:
+  PLAT: "zynq7000"
+
+jobs:
+  #check_label:
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - name: Check if label is applied
+  #      id: label-check
+  #      run: |
+  #        if [[ $(jq -r '.action' "$GITHUB_EVENT_PATH") == "labeled" && $(jq -r '.label.name' "$GITHUB_EVENT_PATH") == "Run-CI" ]]; then
+  #          echo "Label 'Run-CI' applied. Running workflow steps."
+  #        else
+  #          echo "Label 'Run-CI' not applied. Exiting workflow without running steps."
+  #          exit 78  # Exit with a neutral status to mark the check as pending
+  #        fi
+  #    - name: Checkout repository
+  #      uses: actions/checkout@v2
+
+  # THIS IS A DUMMY DO NOT USE IN PRODUCTION!!!
+  check_label:
+    runs-on: ubuntu-latest
+    outputs:
+        PLAT: ${{ env.PLAT }}
+    steps:
+      - name: Dummy
+        id: label-check
+        run: echo "dummy"
+
+
+  demos:
+    name: ${{ matrix.variant }}
+    needs: check_label
+    runs-on: self-hosted
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [ "${{ needs.check_label.outputs.PLAT }}" ] 
+        variant: [demo_hello_world]
+    steps:
+      - name: Build ${{ matrix.variant }}
+        run: |
+          cd /home/felsch01/software/praxis3/drone_project/seos_tests
+          src/seos_sandbox/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh ${{ matrix.variant }}
+      - name: Run ${{ matrix.variant }}
+        run: |
+          cd /home/felsch01/software/praxis3/drone_project/seos_tests
+          src/seos_sandbox/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh test-run test_${{ matrix.variant }}.py
+
+  tests:
+    name: ${{ matrix.variant }}
+    needs: check_label
+    runs-on: self-hosted
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [ "${{ needs.check_label.outputs.PLAT }}" ]
+        variant: [test_certparser, test_certserver, test_config_server, test_crypto_api, test_cryptoserver, test_entropysource, test_filesystem, test_keystore, test_logserver, test_proxy_nvm, test_storage_interface, test_timeserver, test_tls_api, test_tlsserver, test_uart]
+    steps:
+      - name: Build ${{ matrix.variant }}
+        run: |
+          cd /home/felsch01/software/praxis3/drone_project/seos_tests
+          src/seos_sandbox/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh ${{ matrix.variant }}
+      - name: Run ${{ matrix.variant }}
+        run: |
+          cd /home/felsch01/software/praxis3/drone_project/seos_tests
+          src/seos_sandbox/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh test-run ${{ matrix.variant }}.py
+  
+  test_network_api:
+   runs-on: self-hosted
+   needs: check_label
+   strategy:
+     fail-fast: false
+     matrix: 
+       target: [ "${{ needs.check_label.outputs.plat }}" ]
+       variant: [tcp_server, tcp_client_single_socket, tcp_client_multiple_sockets, tcp_client_multiple_clients, udp_server]
+   steps:
+     - name: Build ${{ matrix.variant }}
+       run: |
+         cd /home/felsch01/software/praxis3/drone_project/seos_tests
+         src/seos_sandbox/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh test_network_api -DTEST_CONFIGURATION=${{ matrix.variant }}
+     - name: Run ${{ matrix.variant }}
+       run: |
+         cd /home/felsch01/software/praxis3/drone_project/seos_tests
+         src/seos_sandbox/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh test-run test_network_api.py --tc=platform.test_configuration:${{ matrix.variant }}
+
+   

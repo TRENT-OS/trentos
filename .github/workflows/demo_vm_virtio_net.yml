@@ -1,0 +1,30 @@
+name: demo_vm_virtio_net_hw
+
+permissions:
+  contents: read
+
+on:
+  workflow_call:
+    inputs:
+      BUILD_PLAT:
+        required: true
+        type: string
+      TEST_PLAT:
+        required: true
+        type: string
+
+jobs:
+  demo_vm_virtio_net_hw:
+    runs-on: self-hosted
+    env:
+      TEST_NAME: "demo_vm_virtio_net"
+    steps:
+      - name: Build ${{ env.TEST_NAME }}
+        run: |
+          cd /home/felsch01/software/praxis3/drone_project/seos_tests
+          src/seos_sandbox/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ inputs.BUILD_PLAT }}" src/build.sh ${{ env.TEST_NAME }}
+
+      - name: Test ${{ env.TEST_NAME }}
+        run: |
+          cd /home/felsch01/software/praxis3/drone_project/seos_tests
+          src/seos_sandbox/scripts/open_trentos_test_env.sh -d --network=ci_hw_docker_net -d "-e BUILD_PLATFORM=${{ inputs.TEST_PLAT }}" src/build.sh test-run test_${{ env.TEST_NAME }}.py --system_image=build-${{ inputs.BUILD_PLAT }}-Debug-${{ env.TEST_NAME }}/images/os_image.elf

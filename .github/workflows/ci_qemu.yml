@@ -1,0 +1,40 @@
+name: CI Qemu Tests
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, labeled]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  #check_label:
+  #  runs-on: self-hosted
+  #  steps:
+  #    - name: Check if label is applied
+  #      run: |
+  #        if [[ $(jq -r '.action' "$GITHUB_EVENT_PATH") == "labeled" && $(jq -r '.label.name' "$GITHUB_EVENT_PATH") == "Run-CI" ]]; then
+  #          echo "Label 'Run-CI' applied. Running workflow steps."
+  #        else
+  #          echo "Label 'Run-CI' not applied. Exiting workflow without running steps."
+  #          exit 78  # Exit with a neutral status to mark the check as pending
+  #        fi
+
+  #Include all platforms
+  # TODO: Realize this as matrix
+  zynq7000_qemu:
+    #needs: check_label #THIS MUST BE ENABLED IN PRODUCTION USE
+    uses: FelixSchladt/sandbox/.github/workflows/ci_qemu_zynq7000.yml@main
+
+  sabre_qemu:
+    #needs: check_label #THIS MUST BE ENABLED IN PRODUCTION USE
+    uses: FelixSchladt/sandbox/.github/workflows/ci_qemu_sabre.yml@main
+  
+  zynqmp_qemu:
+    #needs: check_label #THIS MUST BE ENABLED IN PRODUCTION USE
+    uses: FelixSchladt/sandbox/.github/workflows/ci_qemu_zynqmp.yml@main
+
+  qemu-arm-virt_qemu:
+    #needs: check_label #THIS MUST BE ENABLED IN PRODUCTION USE
+    uses: FelixSchladt/sandbox/.github/workflows/ci_qemu_qemu-arm-virt.yml@main
