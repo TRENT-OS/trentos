@@ -40,61 +40,264 @@ jobs:
         id: label-check
         run: echo "dummy"
 
-
-  demos:
-    name: ${{ matrix.variant }}
+  demos_and_tests:
+    #
+    # A Matrix job is not used as this would require an individual checkout of trentos for each test, which each takes at least 4 minutes.
+    # To speed the test process up and not waste resources, a checkout is only performed one per platform.
+    #
+    name: ${{ needs.check_label.outputs.TEST_PLAT }} Tests & Demos
     needs: check_label
     runs-on: self-hosted
-    strategy:
-      fail-fast: false
-      matrix:
-        target: [ "${{ needs.check_label.outputs.PLAT }}" ] 
-        variant: [demo_hello_world]
+    continue-on-error: true
     steps:
-      - name: Build ${{ matrix.variant }}
-        run: |
-          cd /home/felsch01/software/praxis3/drone_project/seos_tests
-          src/seos_sandbox/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh ${{ matrix.variant }}
-      - name: Run ${{ matrix.variant }}
-        run: |
-          cd /home/felsch01/software/praxis3/drone_project/seos_tests
-          src/seos_sandbox/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh test-run test_${{ matrix.variant }}.py
+      # preparation
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+          path: 'trentos'
+        continue-on-error: false
+      - name: Test prepare
+        run: trentos/build.sh test-prepare
+        continue-on-error: false
 
-  tests:
-    name: ${{ matrix.variant }}
-    needs: check_label
-    runs-on: self-hosted
-    strategy:
-      fail-fast: false
-      matrix:
-        target: [ "${{ needs.check_label.outputs.PLAT }}" ]
-        variant: [test_certparser, test_certserver, test_config_server, test_crypto_api, test_cryptoserver, test_entropysource, test_filesystem, test_keystore, test_logserver, test_proxy_nvm, test_storage_interface, test_timeserver, test_tls_api, test_tlsserver, test_uart]
-    steps:
-      - name: Build ${{ matrix.variant }}
+      # demo_hello_world
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        continue-on-error: true
+        env:
+          TEST_CONFIGURATION: "demo_hello_world"
         run: |
-          cd /home/felsch01/software/praxis3/drone_project/seos_tests
-          src/seos_sandbox/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh ${{ matrix.variant }}
-      - name: Run ${{ matrix.variant }}
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "demo_hello_world"
         run: |
-          cd /home/felsch01/software/praxis3/drone_project/seos_tests
-          src/seos_sandbox/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh test-run ${{ matrix.variant }}.py
-  
-  test_network_api:
-   runs-on: self-hosted
-   needs: check_label
-   strategy:
-     fail-fast: false
-     matrix: 
-       target: [ "${{ needs.check_label.outputs.plat }}" ]
-       variant: [tcp_server, tcp_client_single_socket, tcp_client_multiple_sockets, tcp_client_multiple_clients, udp_server]
-   steps:
-     - name: Build ${{ matrix.variant }}
-       run: |
-         cd /home/felsch01/software/praxis3/drone_project/seos_tests
-         src/seos_sandbox/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh test_network_api -DTEST_CONFIGURATION=${{ matrix.variant }}
-     - name: Run ${{ matrix.variant }}
-       run: |
-         cd /home/felsch01/software/praxis3/drone_project/seos_tests
-         src/seos_sandbox/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh test-run test_network_api.py --tc=platform.test_configuration:${{ matrix.variant }}
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run test_${{ env.TEST_CONFIGURATION }}.py
 
-   
+      # test_certparser
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_certparser"
+        run: |
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_certparser"
+        run: |
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+
+      # test_certserver
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_certserver"
+        run: |
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_certserver"
+        run: |
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+
+      # test_config_server
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_config_server"
+        run: |
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_config_server"
+        run: |
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+
+      # test_crypto_api
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_crypto_api"
+        run: |
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_crypto_api"
+        run: |
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+
+      # test_cryptoserver
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_cryptoserver"
+        run: |
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_cryptoserver"
+        run: |
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+
+      # test_entropysource
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_entropysource"
+        run: |
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_entropysource"
+        run: |
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+
+      # test_filesystem
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_filesystem"
+        run: |
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_filesystem"
+        run: |
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+
+      # test_keystore
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_keystore"
+        run: |
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_keystore"
+        run: |
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+
+      # test_logserver
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_logserver"
+        run: |
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_logserver"
+        run: |
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+
+      # test_proxy_nvm
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_proxy_nvm"
+        run: |
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_proxy_nvm"
+        run: |
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+
+      # test_storage_interface
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_storage_interface"
+        run: |
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_storage_interface"
+        run: |
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+
+      # test_timeserver
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_timeserver"
+        run: |
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_timeserver"
+        run: |
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+
+      # test_tls_api
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_tls_api"
+        run: |
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_tls_api"
+        run: |
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+
+      # test_tlsserver
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_tlsserver"
+        run: |
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_tlsserver"
+        run: |
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+
+      # test_uart
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_uart"
+        run: |
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "test_uart"
+        run: |
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+      
+      # test_network_api - tcp_server
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "tcp_server"
+        run: |
+         trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test_network_api -Denv.TEST_CONFIGURATION=${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "tcp_server"
+        run: |
+         trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run test_network_api.py --tc=platform.env.TEST_CONFIGURATION:${{ env.TEST_CONFIGURATION }}
+ 
+      # test_network_api - tcp_client_single_socket
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "tcp_client_single_socket"
+        run: |
+         trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test_network_api -Denv.TEST_CONFIGURATION=${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "tcp_client_single_socket"
+        run: |
+         trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run test_network_api.py --tc=platform.env.TEST_CONFIGURATION:${{ env.TEST_CONFIGURATION }}
+
+      # test_network_api - tcp_client_multiple_sockets
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "tcp_client_multiple_sockets"
+        run: |
+         trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test_network_api -Denv.TEST_CONFIGURATION=${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "tcp_client_multiple_sockets"
+        run: |
+         trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run test_network_api.py --tc=platform.env.TEST_CONFIGURATION:${{ env.TEST_CONFIGURATION }}
+
+      # test_network_api - udp_server
+      - name: Build ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "udp_server"
+        run: |
+         trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test_network_api -Denv.TEST_CONFIGURATION=${{ env.TEST_CONFIGURATION }}
+      - name: Run ${{ env.TEST_CONFIGURATION }}
+        env:
+          TEST_CONFIGURATION: "udp_server"
+        run: |
+         trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run test_network_api.py --tc=platform.env.TEST_CONFIGURATION:${{ env.TEST_CONFIGURATION }}
