@@ -60,13 +60,13 @@ jobs:
 
       # demo_hello_world
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "demo_hello_world"
         run: |
           trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "demo_hello_world"
         run: |
@@ -74,13 +74,13 @@ jobs:
 
       # test_certparser
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_certparser"
         run: |
           trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_certparser"
         run: |
@@ -88,13 +88,13 @@ jobs:
 
       # test_certserver
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_certserver"
         run: |
           trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_certserver"
         run: |
@@ -102,13 +102,13 @@ jobs:
 
       # test_config_server
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_config_server"
         run: |
           trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_config_server"
         run: |
@@ -116,13 +116,13 @@ jobs:
 
       # test_crypto_api
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_crypto_api"
         run: |
           trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_crypto_api"
         run: |
@@ -130,13 +130,13 @@ jobs:
 
       # test_cryptoserver
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_cryptoserver"
         run: |
           trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_cryptoserver"
         run: |
@@ -144,13 +144,13 @@ jobs:
 
       # test_entropysource
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_entropysource"
         run: |
           trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_entropysource"
         run: |
@@ -158,13 +158,13 @@ jobs:
 
       # test_filesystem
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_filesystem"
         run: |
           trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_filesystem"
         run: |
@@ -172,13 +172,13 @@ jobs:
 
       # test_keystore
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_keystore"
         run: |
           trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_keystore"
         run: |
@@ -186,13 +186,13 @@ jobs:
 
       # test_logserver
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_logserver"
         run: |
           trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_logserver"
         run: |
@@ -200,13 +200,13 @@ jobs:
 
       # test_proxy_nvm
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_proxy_nvm"
         run: |
           trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_proxy_nvm"
         run: |
@@ -214,13 +214,13 @@ jobs:
 
       # test_storage_interface
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_storage_interface"
         run: |
           trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_storage_interface"
         run: |
@@ -228,13 +228,13 @@ jobs:
 
       # test_timeserver
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_timeserver"
         run: |
           trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_timeserver"
         run: |
@@ -242,13 +242,13 @@ jobs:
 
       # test_tls_api
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_tls_api"
         run: |
           trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_tls_api"
         run: |
@@ -256,13 +256,13 @@ jobs:
 
       # test_tlsserver
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_tlsserver"
         run: |
           trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_tlsserver"
         run: |
@@ -270,13 +270,13 @@ jobs:
 
       # test_uart
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_uart"
         run: |
           trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "test_uart"
         run: |
@@ -284,13 +284,13 @@ jobs:
       
       # test_network_api - tcp_server
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "tcp_server"
         run: |
          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test_network_api -Denv.TEST_CONFIGURATION=${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "tcp_server"
         run: |
@@ -298,13 +298,13 @@ jobs:
  
       # test_network_api - tcp_client_single_socket
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "tcp_client_single_socket"
         run: |
          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test_network_api -Denv.TEST_CONFIGURATION=${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "tcp_client_single_socket"
         run: |
@@ -312,13 +312,13 @@ jobs:
 
       # test_network_api - tcp_client_multiple_sockets
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "tcp_client_multiple_sockets"
         run: |
          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test_network_api -Denv.TEST_CONFIGURATION=${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "tcp_client_multiple_sockets"
         run: |
@@ -326,13 +326,13 @@ jobs:
 
       # test_network_api - udp_server
       - name: Build ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "udp_server"
         run: |
          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test_network_api -Denv.TEST_CONFIGURATION=${{ env.TEST_CONFIGURATION }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
-        continue-on-error: true
+        if: always()
         env:
           TEST_CONFIGURATION: "udp_server"
         run: |
