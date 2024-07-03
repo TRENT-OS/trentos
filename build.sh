@@ -493,10 +493,20 @@ function run_tests()
             fi
         fi
 
-        if [ "${BUILD_PLATFORM}" == "jetson-xavier-nx-dev-kit" ] || [ "${BUILD_PLATFORM}" == "aetina-an110-xnx" ]; then
-            SYSTEM_IMAGE=$(realpath ${BUILD_FOLDER}/images/os_image.binary)
-        else
-            SYSTEM_IMAGE=$(realpath ${BUILD_FOLDER}/images/os_image.elf)
+
+        # Check if system image is supplied as param
+        for f in $TEST_PARAMS; do
+            if [[ $f == --system_image=* ]]; then
+                SYSTEM_IMAGE="${f#*=}"
+            fi
+        done
+
+        if [ -z "${SYSTEM_IMAGE}" ]; then
+            if [ "${BUILD_PLATFORM}" == "jetson-xavier-nx-dev-kit" ] || [ "${BUILD_PLATFORM}" == "aetina-an110-xnx" ]; then
+                SYSTEM_IMAGE=$(realpath ${BUILD_FOLDER}/images/os_image.binary)
+            else
+                SYSTEM_IMAGE=$(realpath ${BUILD_FOLDER}/images/os_image.elf)
+            fi
         fi
 
         PYTHON_PARAMS=(
