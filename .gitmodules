@@ -58,6 +58,9 @@
 [submodule "src/tests/test_uart"]
 	path = src/tests/test_uart
 	url = ../test_uart.git
+[submodule "src/tests/test_uart_echo"]
+	path = src/tests/test_uart_echo
+	url = ../test_uart_echo.git
 [submodule "src/native/sel4test/src"]
 	path = src/native/sel4test/src
 	url = ../sel4test.git
