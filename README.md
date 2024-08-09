@@ -7,7 +7,7 @@ TRENTOS (Trusted Entity Operating System) is an embedded OS build upon the seL4 
 ## Requirements
 
 * Linux (We recommend Ubuntu 20.04 or newer)
-* Docker
+* Docker or Podman
 
 ## Getting Started
 
@@ -20,7 +20,8 @@ mkdir trentos && cd trentos
 git clone --recursive git@github.com:TRENT-OS/trentos.git src
 
 # 3. Pull the TRENTOS Test & Build Docker container from Docker Hub
-TODO: Add command to pull images
+docker pull hensoldtcyber/trentos_build:latest
+docker pull hensoldtcyber/trentos_test:latest
 
 # 4. Prepare the test environment (only needs to be done once)
 src/build.sh test-prepare
@@ -101,8 +102,15 @@ Even more demos are available as [submodules](https://github.com/orgs/TRENT-OS/r
 Contributions are always welcome. 
 To get started please read our [CONTRIBUTING.md](./CONTRIBUTING.md).
 
+TODO: Add contributing
+
 If you have any questions or encounter any bugs, please do not hesitate to open an **issue**.
 
+
+## Docker Images
+
+Our Docker images are hosted on [DockerHub](https://hub.docker.com/orgs/hensoldtcyber/repositories).
+Dockerfiles are hosted in [Docker Images](https://github.com/TRENT-OS/docker_images).
 
 ## Licensing
 
