@@ -27,8 +27,7 @@ jobs:
   #          echo "Label 'Run-CI' not applied. Exiting workflow without running steps."
   #          exit 78  # Exit with a neutral status to mark the check as pending
   #        fi
-  #    - name: Checkout repository
-  #      uses: actions/checkout@v2
+
 
   # THIS IS A DUMMY DO NOT USE IN PRODUCTION!!!
   check_label:
@@ -43,7 +42,7 @@ jobs:
   demos_and_tests:
     #
     # A Matrix job is not used as this would require an individual checkout of trentos for each test, which each takes at least 4 minutes.
-    # To speed the test process up and not waste resources, a checkout is only performed one per platform.
+    # To speed the test process up and not waste resources, a checkout is only performed once per platform. As each test is in its own container anyway, this is not a problem.
     #
     name: ${{ needs.check_label.outputs.TEST_PLAT }} Tests & Demos
     needs: check_label
@@ -54,7 +53,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: 'recursive'
-          path: 'trentos'
       - name: Test prepare
         run: trentos/build.sh test-prepare
 

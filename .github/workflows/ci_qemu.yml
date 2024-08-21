@@ -25,16 +25,16 @@ jobs:
   # TODO: Realize this as matrix
   zynq7000_qemu:
     #needs: check_label #THIS MUST BE ENABLED IN PRODUCTION USE
-    uses: FelixSchladt/sandbox/.github/workflows/ci_qemu_zynq7000.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/ci_qemu_zynq7000.yml@main
 
   sabre_qemu:
     #needs: check_label #THIS MUST BE ENABLED IN PRODUCTION USE
-    uses: FelixSchladt/sandbox/.github/workflows/ci_qemu_sabre.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/ci_qemu_sabre.yml@main
   
   zynqmp_qemu:
     #needs: check_label #THIS MUST BE ENABLED IN PRODUCTION USE
-    uses: FelixSchladt/sandbox/.github/workflows/ci_qemu_zynqmp.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/ci_qemu_zynqmp.yml@main
 
   qemu-arm-virt_qemu:
     #needs: check_label #THIS MUST BE ENABLED IN PRODUCTION USE
-    uses: FelixSchladt/sandbox/.github/workflows/ci_qemu_qemu-arm-virt.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/ci_qemu_qemu-arm-virt.yml@main

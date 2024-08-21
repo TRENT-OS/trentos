@@ -25,12 +25,12 @@ jobs:
   # TODO: Realize this as matrix
   rpi3_hw:
     #needs: check_label #THIS MUST BE ENABLED IN PRODUCTION USE
-    uses: FelixSchladt/sandbox/.github/workflows/ci_hw_rpi3.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/ci_hw_rpi3.yml@main
 
   rpi4_hw:
     #needs: check_label #THIS MUST BE ENABLED IN PRODUCTION USE
-    uses: FelixSchladt/sandbox/.github/workflows/ci_hw_rpi4.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/ci_hw_rpi4.yml@main
 
   odroidc2_hw:
     #needs: check_label #THIS MUST BE ENABLED IN PRODUCTION USE
-    uses: FelixSchladt/sandbox/.github/workflows/ci_hw_odroidc2.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/ci_hw_odroidc2.yml@main
