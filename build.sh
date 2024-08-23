@@ -496,6 +496,7 @@ function run_tests()
 
 
         # Check if system image is supplied as param
+        set +u
         for f in $TEST_PARAMS; do
             if [[ $f == --system_image=* ]]; then
                 SYSTEM_IMAGE="${f#*=}"
@@ -509,6 +510,7 @@ function run_tests()
                 SYSTEM_IMAGE=$(realpath ${BUILD_FOLDER}/images/os_image.elf)
             fi
         fi
+        set -u
 
         PYTHON_PARAMS=(
             -B  # do not create *.pyc files
@@ -635,11 +637,11 @@ DEFAULT_BUILD_TYPE="Debug"
 #DEFAULT_BUILD_TYPE="MinSizeRel"
 
 #DEFAULT_BUILD_PLATFORM="zynq7000"
-#DEFAULT_BUILD_PLATFORM="sabre"
+DEFAULT_BUILD_PLATFORM="sabre"
 #DEFAULT_BUILD_PLATFORM="nitrogen6sx"
 #DEFAULT_BUILD_PLATFORM="zynqmp"
 #DEFAULT_BUILD_PLATFORM="rpi3"
-DEFAULT_BUILD_PLATFORM="rpi4"
+#DEFAULT_BUILD_PLATFORM="rpi4"
 #DEFAULT_BUILD_PLATFORM="hikey"
 #DEFAULT_BUILD_PLATFORM="odroidc2"
 #DEFAULT_BUILD_PLATFORM="odroidc4"

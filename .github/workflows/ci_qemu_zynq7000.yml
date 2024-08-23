@@ -13,7 +13,8 @@ concurrency:
 
 env:
   PLAT: "zynq7000"
-  BUILD_CMD: 'trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=zynq7000" trentos/build.sh'
+  BUILD_CMD: trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=zynq7000" trentos/build.sh
+  TEST_CMD: trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=zynq7000" trentos/build.sh
 
 jobs:
   #check_label:
@@ -57,10 +58,7 @@ jobs:
           submodules: 'recursive'
           path: 'trentos'
       - name: Test prepare
-        # podman is compatible with docker.... so I was told
-        # we need --userns=keep-id to keep the user id as fixuid does not work with podman
-        # custom command for now, podman compatibility for build.sh might be added later
-        run: docker run -t --rm --hostname hensoldtcyber-trentos-build-latest --userns=keep-id -u $UID:$UID -v /etc/localtime:/etc/localtime:ro -v /home/actions-service-user/actions-runner/_work/trentos/trentos:/host -w /host --name hensoldtcyber-trentos-build-latest --group-add=stack hensoldtcyber/trentos_build:latest trentos/build.sh test-prepare
+        run: docker run -t --rm --hostname hensoldtcyber-trentos-build-latest -u $UID:$UID -v /etc/localtime:/etc/localtime:ro -v /home/actions-service-user/actions-runner/_work/trentos/trentos:/host -w /host --name hensoldtcyber-trentos-build-latest --group-add=stack hensoldtcyber/trentos_build:latest trentos/build.sh test-prepare
         working-directory: ${{ github.workspace }}
 
       # demo_hello_world
@@ -70,13 +68,16 @@ jobs:
           TEST_CONFIGURATION: "demo_hello_world"
         run: ${{ env.BUILD_CMD }} ${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "demo_hello_world"
         run: |
-          ${{ env.BUILD_CMD }} test-run test_${{ env.TEST_CONFIGURATION }}.py
+          ${{ env.TEST_CMD }} test-run test_${{ env.TEST_CONFIGURATION }}.py
+        working-directory: ${{ github.workspace }}
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
         working-directory: ${{ github.workspace }}
 
       # test_certparser
@@ -85,15 +86,18 @@ jobs:
         env:
           TEST_CONFIGURATION: "test_certparser"
         run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+          ${{ env.BUILD_CMD }} ${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "test_certparser"
         run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+          ${{ env.TEST_CMD }} test-run ${{ env.TEST_CONFIGURATION }}.py
+        working-directory: ${{ github.workspace }}
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
         working-directory: ${{ github.workspace }}
 
       # test_certserver
@@ -102,32 +106,38 @@ jobs:
         env:
           TEST_CONFIGURATION: "test_certserver"
         run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+          ${{ env.BUILD_CMD }} ${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-        
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "test_certserver"
         run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+          ${{ env.TEST_CMD }} test-run ${{ env.TEST_CONFIGURATION }}.py
         working-directory: ${{ github.workspace }}
-
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
+        working-directory: ${{ github.workspace }}
+      
       # test_config_server
       - name: Build ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "test_config_server"
         run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+          ${{ env.BUILD_CMD }} ${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "test_config_server"
         run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+          ${{ env.TEST_CMD }} test-run ${{ env.TEST_CONFIGURATION }}.py
+        working-directory: ${{ github.workspace }}
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
         working-directory: ${{ github.workspace }}
 
       # test_crypto_api
@@ -136,15 +146,18 @@ jobs:
         env:
           TEST_CONFIGURATION: "test_crypto_api"
         run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+          ${{ env.BUILD_CMD }} ${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "test_crypto_api"
         run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+          ${{ env.TEST_CMD }} test-run ${{ env.TEST_CONFIGURATION }}.py
+        working-directory: ${{ github.workspace }}
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
         working-directory: ${{ github.workspace }}
 
       # test_cryptoserver
@@ -153,15 +166,18 @@ jobs:
         env:
           TEST_CONFIGURATION: "test_cryptoserver"
         run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+          ${{ env.BUILD_CMD }} ${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "test_cryptoserver"
         run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+          ${{ env.TEST_CMD }} test-run ${{ env.TEST_CONFIGURATION }}.py
+        working-directory: ${{ github.workspace }}
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
         working-directory: ${{ github.workspace }}
 
       # test_entropysource
@@ -170,16 +186,19 @@ jobs:
         env:
           TEST_CONFIGURATION: "test_entropysource"
         run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+          ${{ env.BUILD_CMD }} ${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "test_entropysource"
         run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+          ${{ env.TEST_CMD }} test-run ${{ env.TEST_CONFIGURATION }}.py
         working-directory: ${{ github.workspace }}
-
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
+        working-directory: ${{ github.workspace }}
 
       # test_filesystem
       - name: Build ${{ env.TEST_CONFIGURATION }}
@@ -187,17 +206,19 @@ jobs:
         env:
           TEST_CONFIGURATION: "test_filesystem"
         run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+          ${{ env.BUILD_CMD }} ${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "test_filesystem"
         run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+          ${{ env.TEST_CMD }} test-run ${{ env.TEST_CONFIGURATION }}.py
         working-directory: ${{ github.workspace }}
-
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
+        working-directory: ${{ github.workspace }}
 
       # test_keystore
       - name: Build ${{ env.TEST_CONFIGURATION }}
@@ -205,17 +226,19 @@ jobs:
         env:
           TEST_CONFIGURATION: "test_keystore"
         run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+          ${{ env.BUILD_CMD }} ${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "test_keystore"
         run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+          ${{ env.TEST_CMD }} test-run ${{ env.TEST_CONFIGURATION }}.py
         working-directory: ${{ github.workspace }}
-
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
+        working-directory: ${{ github.workspace }}
 
       # test_logserver
       - name: Build ${{ env.TEST_CONFIGURATION }}
@@ -223,17 +246,19 @@ jobs:
         env:
           TEST_CONFIGURATION: "test_logserver"
         run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+          ${{ env.BUILD_CMD }} ${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "test_logserver"
         run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+          ${{ env.TEST_CMD }} test-run ${{ env.TEST_CONFIGURATION }}.py
         working-directory: ${{ github.workspace }}
-      
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
+        working-directory: ${{ github.workspace }}
 
       # test_proxy_nvm
       - name: Build ${{ env.TEST_CONFIGURATION }}
@@ -241,15 +266,18 @@ jobs:
         env:
           TEST_CONFIGURATION: "test_proxy_nvm"
         run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+          ${{ env.BUILD_CMD }} ${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "test_proxy_nvm"
         run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+          ${{ env.TEST_CMD }} test-run ${{ env.TEST_CONFIGURATION }}.py
+        working-directory: ${{ github.workspace }}
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
         working-directory: ${{ github.workspace }}
 
       # test_storage_interface
@@ -258,15 +286,18 @@ jobs:
         env:
           TEST_CONFIGURATION: "test_storage_interface"
         run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+          ${{ env.BUILD_CMD }} ${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "test_storage_interface"
         run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+          ${{ env.TEST_CMD }} test-run ${{ env.TEST_CONFIGURATION }}.py
+        working-directory: ${{ github.workspace }}
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
         working-directory: ${{ github.workspace }}
 
       # test_timeserver
@@ -275,53 +306,65 @@ jobs:
         env:
           TEST_CONFIGURATION: "test_timeserver"
         run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+          ${{ env.BUILD_CMD }} ${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "test_timeserver"
         run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+          ${{ env.TEST_CMD }} test-run ${{ env.TEST_CONFIGURATION }}.py
         working-directory: ${{ github.workspace }}
-
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
+        working-directory: ${{ github.workspace }}
 
       # test_tls_api
-      - name: Build ${{ env.TEST_CONFIGURATION }}
-        if: always()
-        env:
-          TEST_CONFIGURATION: "test_tls_api"
-        run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
-        working-directory: ${{ github.workspace }}
-
-      - name: Run ${{ env.TEST_CONFIGURATION }}
-        if: always()
-        env:
-          TEST_CONFIGURATION: "test_tls_api"
-        run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
-        working-directory: ${{ github.workspace }}
-
-
+      #
+      #  ISSUE: Build: import not found: if_ChanMux.camkes 
+      #
+      #- name: Build ${{ env.TEST_CONFIGURATION }}
+      #  if: always()
+      #  env:
+      #    TEST_CONFIGURATION: "test_tls_api"
+      #  run: |
+      #    ${{ env.BUILD_CMD }} ${{ env.TEST_CONFIGURATION }}
+      #  working-directory: ${{ github.workspace }}
+      #- name: Run ${{ env.TEST_CONFIGURATION }}
+      #  if: always()
+      #  env:
+      #    TEST_CONFIGURATION: "test_tls_api"
+      #  run: |
+      #    ${{ env.TEST_CMD }} test-run ${{ env.TEST_CONFIGURATION }}.py
+      #  working-directory: ${{ github.workspace }}
+      #- name: Cleanup ${{ env.TEST_CONFIGURATION }}
+      #  if: always()
+      #  run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
+      #  working-directory: ${{ github.workspace }}
+      
       # test_tlsserver
-      - name: Build ${{ env.TEST_CONFIGURATION }}
-        if: always()
-        env:
-          TEST_CONFIGURATION: "test_tlsserver"
-        run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
-        working-directory: ${{ github.workspace }}
-
-      - name: Run ${{ env.TEST_CONFIGURATION }}
-        if: always()
-        env:
-          TEST_CONFIGURATION: "test_tlsserver"
-        run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
-        working-directory: ${{ github.workspace }}
-
+      #
+      #   ISSUE: Build: No such file:  #include "if_OS_Tls.camkes.h"
+      #
+      # - name: Build ${{ env.TEST_CONFIGURATION }}
+      #   if: always()
+      #   env:
+      #     TEST_CONFIGURATION: "test_tlsserver"
+      #   run: |
+      #     ${{ env.BUILD_CMD }} ${{ env.TEST_CONFIGURATION }}
+      #   working-directory: ${{ github.workspace }}
+      # - name: Run ${{ env.TEST_CONFIGURATION }}
+      #   if: always()
+      #   env:
+      #     TEST_CONFIGURATION: "test_tlsserver"
+      #   run: |
+      #     ${{ env.TEST_CMD }} test-run ${{ env.TEST_CONFIGURATION }}.py
+      #   working-directory: ${{ github.workspace }}
+      # - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+      #   if: always()
+      #   run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
+      #   working-directory: ${{ github.workspace }}
 
       # test_uart
       - name: Build ${{ env.TEST_CONFIGURATION }}
@@ -329,17 +372,19 @@ jobs:
         env:
           TEST_CONFIGURATION: "test_uart"
         run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh ${{ env.TEST_CONFIGURATION }}
+          ${{ env.BUILD_CMD }} ${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "test_uart"
         run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_CONFIGURATION }}.py
+          ${{ env.TEST_CMD }} test-run ${{ env.TEST_CONFIGURATION }}.py
         working-directory: ${{ github.workspace }}
-
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
+        working-directory: ${{ github.workspace }}
       
       # test_network_api - tcp_server
       - name: Build ${{ env.TEST_CONFIGURATION }}
@@ -347,17 +392,19 @@ jobs:
         env:
           TEST_CONFIGURATION: "tcp_server"
         run: |
-         trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test_network_api -Denv.TEST_CONFIGURATION=${{ env.TEST_CONFIGURATION }}
+         ${{ env.BUILD_CMD }} test_network_api -DTEST_CONFIGURATION=${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "tcp_server"
         run: |
-         trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run test_network_api.py --tc=platform.env.TEST_CONFIGURATION:${{ env.TEST_CONFIGURATION }}
+         ${{ env.TEST_CMD }} test-run test_network_api.py --tc=platform.test_configuration:${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
+        working-directory: ${{ github.workspace }}
  
       # test_network_api - tcp_client_single_socket
       - name: Build ${{ env.TEST_CONFIGURATION }}
@@ -365,17 +412,19 @@ jobs:
         env:
           TEST_CONFIGURATION: "tcp_client_single_socket"
         run: |
-         trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test_network_api -Denv.TEST_CONFIGURATION=${{ env.TEST_CONFIGURATION }}
+         ${{ env.BUILD_CMD }} test_network_api -DTEST_CONFIGURATION=${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "tcp_client_single_socket"
         run: |
-         trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run test_network_api.py --tc=platform.env.TEST_CONFIGURATION:${{ env.TEST_CONFIGURATION }}
+         ${{ env.TEST_CMD }} test-run test_network_api.py --tc=platform.test_configuration:${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
+        working-directory: ${{ github.workspace }}
 
       # test_network_api - tcp_client_multiple_sockets
       - name: Build ${{ env.TEST_CONFIGURATION }}
@@ -383,17 +432,19 @@ jobs:
         env:
           TEST_CONFIGURATION: "tcp_client_multiple_sockets"
         run: |
-         trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test_network_api -Denv.TEST_CONFIGURATION=${{ env.TEST_CONFIGURATION }}
+         ${{ env.BUILD_CMD }} test_network_api -DTEST_CONFIGURATION=${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "tcp_client_multiple_sockets"
         run: |
-         trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run test_network_api.py --tc=platform.env.TEST_CONFIGURATION:${{ env.TEST_CONFIGURATION }}
+         ${{ env.TEST_CMD }} test-run test_network_api.py --tc=platform.test_configuration:${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
+        working-directory: ${{ github.workspace }}
 
       # test_network_api - udp_server
       - name: Build ${{ env.TEST_CONFIGURATION }}
@@ -401,13 +452,16 @@ jobs:
         env:
           TEST_CONFIGURATION: "udp_server"
         run: |
-         trentos/sdk/scripts/open_trentos_build_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test_network_api -Denv.TEST_CONFIGURATION=${{ env.TEST_CONFIGURATION }}
+         ${{ env.BUILD_CMD }} test_network_api -DTEST_CONFIGURATION=${{ env.TEST_CONFIGURATION }}
         working-directory: ${{ github.workspace }}
-
       - name: Run ${{ env.TEST_CONFIGURATION }}
         if: always()
         env:
           TEST_CONFIGURATION: "udp_server"
         run: |
-         trentos/sdk/scripts/open_trentos_test_env.sh -d "--userns=keep-id -e CCACHE_DISABLE=1 -e STACK_ROOT=/host/trentos/.stack -e BUILD_PLATFORM=${{ needs.check_label.outputs.TEST_PLAT }}" trentos/build.sh test-run test_network_api.py --tc=platform.env.TEST_CONFIGURATION:${{ env.TEST_CONFIGURATION }}
+         ${{ env.TEST_CMD }} test-run test_network_api.py --tc=platform.test_configuration:${{ env.TEST_CONFIGURATION }}
+        working-directory: ${{ github.workspace }}
+      - name: Cleanup ${{ env.TEST_CONFIGURATION }}
+        if: always()
+        run: rm -rf build-${{ env.PLAT }}-${{ env.TEST_CONFIGURATION }} && rm -rf test-logs-*
         working-directory: ${{ github.workspace }}
