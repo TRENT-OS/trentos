@@ -54,11 +54,11 @@ jobs:
       - name: Build ${{ matrix.variant }}
         run: |
           
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh ${{ matrix.variant }}
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" trentos/build.sh ${{ matrix.variant }}
       - name: Run ${{ matrix.variant }}
         run: |
           
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh test-run test_${{ matrix.variant }}.py
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" trentos/build.sh test-run test_${{ matrix.variant }}.py
 
   tests:
     name: ${{ matrix.variant }}
@@ -73,11 +73,11 @@ jobs:
       - name: Build ${{ matrix.variant }}
         run: |
           
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh ${{ matrix.variant }}
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" trentos/build.sh ${{ matrix.variant }}
       - name: Run ${{ matrix.variant }}
         run: |
           
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh test-run ${{ matrix.variant }}.py
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" trentos/build.sh test-run ${{ matrix.variant }}.py
   
   test_network_api:
     runs-on: self-hosted
@@ -91,10 +91,10 @@ jobs:
       - name: Build ${{ matrix.variant }}
         run: |
           
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh test_network_api -DTEST_CONFIGURATION=${{ matrix.variant }}
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" trentos/build.sh test_network_api -DTEST_CONFIGURATION=${{ matrix.variant }}
       - name: Run ${{ matrix.variant }}
         run: |
           
-          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" src/build.sh test-run test_network_api.py --tc=platform.test_configuration:${{ matrix.variant }}
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ matrix.target }}" trentos/build.sh test-run test_network_api.py --tc=platform.test_configuration:${{ matrix.variant }}
 
     

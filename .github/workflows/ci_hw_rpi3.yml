@@ -15,9 +15,9 @@ concurrency:
 env:
   BUILD_PLAT: "rpi3"
   TEST_PLAT: "rpi3-ci"
-  PLAT_IP: "192.168.88.101"
-  GATEWAY_IP: "192.168.88.2"
-  RUNNER_IP: "192.168.88.2" # TODO: Implement this not static
+  PLAT_IP: "10.178.169.40"
+  GATEWAY_IP: "10.178.169.33"
+  RUNNER_IP: "10.70.192.3" # TODO: Implement this not static
 
 jobs:
   #check_label:
@@ -53,7 +53,7 @@ jobs:
   # tested: reliable
   demo_hello_world:
     needs: check_label #THIS MUST BE ENABLED IN PRODUCTION USE
-    uses: TRENT-OS/trentos/.github/workflows/demo_hello_world_hw.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/demo_hello_world_hw.yml@actions-hw-ci
     with:
       BUILD_PLAT: ${{ needs.check_label.outputs.BUILD_PLAT }}
       TEST_PLAT: ${{ needs.check_label.outputs.TEST_PLAT }}
@@ -62,7 +62,7 @@ jobs:
   test_certparser:
     needs: [demo_hello_world, check_label]
     if: ${{ always() && needs.check_label.result == 'success' }}
-    uses: TRENT-OS/trentos/.github/workflows/test_certparser_hw.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/test_certparser_hw.yml@actions-hw-ci
     with:
       BUILD_PLAT: ${{ needs.check_label.outputs.BUILD_PLAT }}
       TEST_PLAT: ${{ needs.check_label.outputs.TEST_PLAT }}
@@ -73,7 +73,7 @@ jobs:
   #test_certserver:
   #  needs: test_certparser
   #  if: ${{ always() && needs.check_label.result == 'success' }}
-  #  uses: TRENT-OS/trentos/.github/workflows/test_certserver_hw.yml@main
+  #  uses: TRENT-OS/trentos/.github/workflows/test_certserver_hw.yml@actions-hw-ci
   #  with:
   #    BUILD_PLAT: ${{ needs.check_label.outputs.BUILD_PLAT }}
   #    TEST_PLAT: ${{ needs.check_label.outputs.TEST_PLAT }}
@@ -83,7 +83,7 @@ jobs:
   #test_config_server:
   #  needs: test_certserver
   #  if: ${{ always() && needs.check_label.result == 'success' }}
-  #  uses: TRENT-OS/trentos/.github/workflows/test_config_server_hw.yml@main
+  #  uses: TRENT-OS/trentos/.github/workflows/test_config_server_hw.yml@actions-hw-ci
   #  with:
   #    BUILD_PLAT: ${{ needs.check_label.outputs.BUILD_PLAT }}
   #    TEST_PLAT: ${{ needs.check_label.outputs.TEST_PLAT }}
@@ -93,7 +93,7 @@ jobs:
   test_crypto_api:
     needs: [test_certparser, check_label]
     if: ${{ always() && needs.check_label.result == 'success' }}
-    uses: TRENT-OS/trentos/.github/workflows/test_crypto_api_hw.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/test_crypto_api_hw.yml@actions-hw-ci
     with:
       BUILD_PLAT: ${{ needs.check_label.outputs.BUILD_PLAT }}
       TEST_PLAT: ${{ needs.check_label.outputs.TEST_PLAT }}
@@ -102,7 +102,7 @@ jobs:
   test_cryptoserver:
     needs: [test_crypto_api, check_label]
     if: ${{ always() && needs.check_label.result == 'success' }}
-    uses: TRENT-OS/trentos/.github/workflows/test_cryptoserver_hw.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/test_cryptoserver_hw.yml@actions-hw-ci
     with:
       BUILD_PLAT: ${{ needs.check_label.outputs.BUILD_PLAT }}
       TEST_PLAT: ${{ needs.check_label.outputs.TEST_PLAT }}
@@ -111,7 +111,7 @@ jobs:
   test_entropysource:
     needs: [test_cryptoserver, check_label]
     if: ${{ always() && needs.check_label.result == 'success' }}
-    uses: TRENT-OS/trentos/.github/workflows/test_entropysource_hw.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/test_entropysource_hw.yml@actions-hw-ci
     with:
       BUILD_PLAT: ${{ needs.check_label.outputs.BUILD_PLAT }}
       TEST_PLAT: ${{ needs.check_label.outputs.TEST_PLAT }}
@@ -120,7 +120,7 @@ jobs:
   test_filesystem:
     needs: [test_entropysource, check_label]
     if: ${{ always() && needs.check_label.result == 'success' }}
-    uses: TRENT-OS/trentos/.github/workflows/test_filesystem_hw.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/test_filesystem_hw.yml@actions-hw-ci
     with:
       BUILD_PLAT: ${{ needs.check_label.outputs.BUILD_PLAT }}
       TEST_PLAT: ${{ needs.check_label.outputs.TEST_PLAT }}
@@ -129,7 +129,7 @@ jobs:
   test_keystore:
     needs: [test_filesystem, check_label]
     if: ${{ always() && needs.check_label.result == 'success' }}
-    uses: TRENT-OS/trentos/.github/workflows/test_keystore_hw.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/test_keystore_hw.yml@actions-hw-ci
     with:
       BUILD_PLAT: ${{ needs.check_label.outputs.BUILD_PLAT }}
       TEST_PLAT: ${{ needs.check_label.outputs.TEST_PLAT }}
@@ -140,7 +140,7 @@ jobs:
   #test_logserver:
   #  needs: test_keystore
   #  if: ${{ always() && needs.check_label.result == 'success' }}
-  #  uses: TRENT-OS/trentos/.github/workflows/test_logserver_hw.yml@main
+  #  uses: TRENT-OS/trentos/.github/workflows/test_logserver_hw.yml@actions-hw-ci
   #  with:
   #    BUILD_PLAT: ${{ needs.check_label.outputs.BUILD_PLAT }}
   #    TEST_PLAT: ${{ needs.check_label.outputs.TEST_PLAT }}
@@ -150,7 +150,7 @@ jobs:
   test_network_api:
     needs: [test_keystore, check_label]
     if: ${{ always() && needs.check_label.result == 'success' }}
-    uses: TRENT-OS/trentos/.github/workflows/test_network_api_hw.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/test_network_api_hw.yml@actions-hw-ci
     with:
       BUILD_PLAT: ${{ needs.check_label.outputs.BUILD_PLAT }}
       TEST_PLAT: ${{ needs.check_label.outputs.TEST_PLAT }}
@@ -163,7 +163,7 @@ jobs:
   #test_storage_interface:
   #  needs: test_logserver
   #  if: ${{ always() && needs.check_label.result == 'success' }}
-  #  uses: TRENT-OS/trentos/.github/workflows/test_storage_interface_hw.yml@main
+  #  uses: TRENT-OS/trentos/.github/workflows/test_storage_interface_hw.yml@actions-hw-ci
   #  with:
   #    BUILD_PLAT: ${{ needs.check_label.outputs.BUILD_PLAT }}
   #    TEST_PLAT: ${{ needs.check_label.outputs.TEST_PLAT }}
@@ -172,7 +172,7 @@ jobs:
   test_timeserver:
     needs: [test_network_api, check_label] # run test consecutively as only on test at a time can be performed on hardware
     if: ${{ always() && needs.check_label.result == 'success' }}
-    uses: TRENT-OS/trentos/.github/workflows/test_timeserver_hw.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/test_timeserver_hw.yml@actions-hw-ci
     with:
       BUILD_PLAT: ${{ needs.check_label.outputs.BUILD_PLAT }}
       TEST_PLAT: ${{ needs.check_label.outputs.TEST_PLAT }}
@@ -181,7 +181,7 @@ jobs:
   #test_tls_api:
   #  needs: test_timeserver
   #  if: ${{ always() && needs.check_label.result == 'success' }}
-  #  uses: TRENT-OS/trentos/.github/workflows/test_tls_api_hw.yml@main
+  #  uses: TRENT-OS/trentos/.github/workflows/test_tls_api_hw.yml@actions-hw-ci
   #  with:
   #    BUILD_PLAT: ${{ needs.check_label.outputs.BUILD_PLAT }}
   #    TEST_PLAT: ${{ needs.check_label.outputs.TEST_PLAT }}
@@ -190,7 +190,7 @@ jobs:
   #test_tlsserver:
   #  needs: test_tls_api
   #  if: ${{ always() && needs.check_label.result == 'success' }}
-  #  uses: TRENT-OS/trentos/.github/workflows/test_tlsserver_hw.yml@main
+  #  uses: TRENT-OS/trentos/.github/workflows/test_tlsserver_hw.yml@actions-hw-ci
   #  with:
   #    BUILD_PLAT: ${{ needs.check_label.outputs.BUILD_PLAT }}
   #    TEST_PLAT: ${{ needs.check_label.outputs.TEST_PLAT }}

@@ -31,11 +31,11 @@ jobs:
     steps:
       - name: Build ${{ env.TEST_NAME }}
         run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ inputs.BUILD_PLAT }}" src/build.sh ${{ env.TEST_NAME }} -DTEST_CONFIGURATION=${{ env.TEST_CONFIG }} -DDEV_ADDR=${{ inputs.PLAT_IP }} -DGATEWAY_ADDR=${{ inputs.GATEWAY_IP }}
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ inputs.BUILD_PLAT }}" trentos/build.sh ${{ env.TEST_NAME }} -DTEST_CONFIGURATION=${{ env.TEST_CONFIG }} -DDEV_ADDR=${{ inputs.PLAT_IP }} -DGATEWAY_ADDR=${{ inputs.GATEWAY_IP }}
 
       - name: Test ${{ env.TEST_NAME }}
         run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d --network=ci_hw_docker_net -d "-e BUILD_PLATFORM=${{ inputs.TEST_PLAT }}" src/build.sh test-run ${{ env.TEST_NAME }}.py --system_image=build-${{ inputs.BUILD_PLAT }}-Debug-${{ env.TEST_NAME }}/images/os_image.elf --tc=platform.uart_connected:false --tc=network.client_ip:${{ inputs.RUNNER_IP }} --tc=network.server_ip:${{ inputs.PLAT_IP }} --tc=network.container_gateway_ip:${{ inputs.GATEWAY_IP }} --tc=platform.test_configuration:${{ env.TEST_CONFIG }}
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ inputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_NAME }}.py --system_image=build-${{ inputs.BUILD_PLAT }}-Debug-${{ env.TEST_NAME }}/images/os_image.elf --tc=platform.uart_connected:false --tc=network.client_ip:${{ inputs.RUNNER_IP }} --tc=network.server_ip:${{ inputs.PLAT_IP }} --tc=network.container_gateway_ip:${{ inputs.GATEWAY_IP }} --tc=platform.test_configuration:${{ env.TEST_CONFIG }}
 
   test_network_api_tcp_client_single_socket:
     runs-on: self-hosted
@@ -45,8 +45,8 @@ jobs:
     steps:
       - name: Build ${{ env.TEST_NAME }}
         run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ inputs.BUILD_PLAT }}" src/build.sh ${{ env.TEST_NAME }} -DTEST_CONFIGURATION=${{ env.TEST_CONFIG }} -DDEV_ADDR=${{ inputs.PLAT_IP }} -DGATEWAY_ADDR=${{ inputs.GATEWAY_IP }} -DREACHABLE_HOST=${{ inputs.RUNNER_IP }}
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ inputs.BUILD_PLAT }}" trentos/build.sh ${{ env.TEST_NAME }} -DTEST_CONFIGURATION=${{ env.TEST_CONFIG }} -DDEV_ADDR=${{ inputs.PLAT_IP }} -DGATEWAY_ADDR=${{ inputs.GATEWAY_IP }} -DREACHABLE_HOST=${{ inputs.RUNNER_IP }}
 
       - name: Test ${{ env.TEST_NAME }}
         run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d --network=ci_hw_docker_net -d "-e BUILD_PLATFORM=${{ inputs.TEST_PLAT }}" src/build.sh test-run ${{ env.TEST_NAME }}.py --system_image=build-${{ inputs.BUILD_PLAT }}-Debug-${{ env.TEST_NAME }}/images/os_image.elf --tc=platform.uart_connected:false --tc=network.client_ip:${{ inputs.RUNNER_IP }} --tc=network.server_ip:${{ inputs.PLAT_IP }} --tc=network.container_gateway_ip:${{ inputs.GATEWAY_IP }} --tc=platform.test_configuration:${{ env.TEST_CONFIG }}
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ inputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_NAME }}.py --system_image=build-${{ inputs.BUILD_PLAT }}-Debug-${{ env.TEST_NAME }}/images/os_image.elf --tc=platform.uart_connected:false --tc=network.client_ip:${{ inputs.RUNNER_IP }} --tc=network.server_ip:${{ inputs.PLAT_IP }} --tc=network.container_gateway_ip:${{ inputs.GATEWAY_IP }} --tc=platform.test_configuration:${{ env.TEST_CONFIG }}

@@ -21,8 +21,8 @@ jobs:
     steps:
       - name: Build ${{ env.TEST_NAME }}
         run: |
-          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ inputs.BUILD_PLAT }}" src/build.sh ${{ env.TEST_NAME }}
+          trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ inputs.BUILD_PLAT }}" trentos/build.sh ${{ env.TEST_NAME }}
 
       - name: Test ${{ env.TEST_NAME }}
         run: |
-          trentos/sdk/scripts/open_trentos_test_env.sh -d --network=ci_hw_docker_net -d "-e BUILD_PLATFORM=${{ inputs.TEST_PLAT }}" src/build.sh test-run ${{ env.TEST_NAME }}.py --system_image=build-${{ inputs.BUILD_PLAT }}-Debug-${{ env.TEST_NAME }}/images/os_image.elf
+          trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ inputs.TEST_PLAT }}" trentos/build.sh test-run ${{ env.TEST_NAME }}.py --system_image=build-${{ inputs.BUILD_PLAT }}-Debug-${{ env.TEST_NAME }}/images/os_image.elf
