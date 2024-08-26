@@ -58,7 +58,7 @@ jobs:
           submodules: 'recursive'
           path: 'trentos'
       - name: Test prepare
-        run: docker run -t --rm --hostname hensoldtcyber-trentos-build-latest -u $UID:$UID -v /etc/localtime:/etc/localtime:ro -v /home/actions-service-user/actions-runner/_work/trentos/trentos:/host -w /host --name hensoldtcyber-trentos-build-latest --group-add=stack hensoldtcyber/trentos_build:latest trentos/build.sh test-prepare
+        run: ${{ env.BUILD_CMD }} test-prepare
         working-directory: ${{ github.workspace }}
 
       # demo_hello_world
