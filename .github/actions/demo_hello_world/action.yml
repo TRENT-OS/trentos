@@ -1,0 +1,36 @@
+name: demo_hello_world
+
+permissions:
+  contents: read
+
+inputs:
+  TEST_NAME:
+    required: false
+    default: "demo_hello_world"
+  BUILD_PLAT:
+    required: true
+    type: string
+  TEST_PLAT:
+    required: true
+    type: string
+
+runs:
+  using: "composite"
+  steps:
+    - name: Build ${{ inputs.TEST_NAME }}
+      run: |
+        trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ inputs.BUILD_PLAT }}" trentos/build.sh ${{ inputs.TEST_NAME }}
+      working-directory: ${{ github.workspace }}
+      shell: bash
+
+    - name: Test ${{ inputs.TEST_NAME }}
+      run: |
+        trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ inputs.TEST_PLAT }}" trentos/build.sh test-run test_${{ inputs.TEST_NAME }}.py --system_image=/host/build-${{ inputs.BUILD_PLAT }}-Debug-${{ inputs.TEST_NAME }}/images/os_image.elf
+      working-directory: ${{ github.workspace }}
+      shell: bash
+
+    - name: Cleanup ${{ inputs.TEST_NAME }}
+      if: always()
+      run: rm -rf build-${{ inputs.BUILD_PLAT }}-Debug-${{ inputs.TEST_NAME }} && rm -rf test-logs-*
+      working-directory: ${{ github.workspace }}
+      shell: bash

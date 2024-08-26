@@ -1,0 +1,48 @@
+name: test_network_api
+
+permissions:
+  contents: read
+
+inputs:
+  TEST_NAME:
+    required: false
+    default: "test_network_api"
+  TEST_CONFIG:
+    required: true
+    type: string
+  BUILD_PLAT:
+    required: true
+    type: string
+  TEST_PLAT:
+    required: true
+    type: string
+  PLAT_IP: # Assigned ip of the board running the test
+    required: true
+    type: string
+  GATEWAY_IP: # This needs to be the ip of the host executing the test
+    required: true
+    type: string
+  RUNNER_IP:
+    required: true
+    type: string
+
+runs:
+  using: "composite"
+  steps:
+    - name: Build ${{ inputs.TEST_NAME }}-${{ inputs.TEST_CONFIG }}
+      run: |
+        trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ inputs.BUILD_PLAT }}" trentos/build.sh ${{ inputs.TEST_NAME }} -DTEST_CONFIGURATION=${{ inputs.TEST_CONFIG }} -DDEV_ADDR=${{ inputs.PLAT_IP }} -DGATEWAY_ADDR=${{ inputs.GATEWAY_IP }} -DREACHABLE_HOST=${{ inputs.RUNNER_IP }}
+      working-directory: ${{ github.workspace }}
+      shell: bash
+
+    - name: Test ${{ inputs.TEST_NAME }}-${{ inputs.TEST_CONFIG }}
+      run: |
+        trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ inputs.TEST_PLAT }}" trentos/build.sh test-run ${{ inputs.TEST_NAME }}.py --system_image=/host/build-${{ inputs.BUILD_PLAT }}-Debug-${{ inputs.TEST_NAME }}/images/os_image.elf --tc=platform.uart_connected:false --tc=network.client_ip:${{ inputs.RUNNER_IP }} --tc=network.server_ip:${{ inputs.PLAT_IP }} --tc=network.container_gateway_ip:${{ inputs.GATEWAY_IP }} --tc=platform.test_configuration:${{ inputs.TEST_CONFIG }}
+      working-directory: ${{ github.workspace }}
+      shell: bash
+
+    - name: Cleanup ${{ inputs.TEST_NAME }}-${{ inputs.TEST_CONFIG }}
+      if: always()
+      run: rm -rf build-${{ inputs.BUILD_PLAT }}-Debug-${{ inputs.TEST_NAME }} && rm -rf test-logs-*
+      working-directory: ${{ github.workspace }}
+      shell: bash

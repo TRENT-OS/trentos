@@ -1,0 +1,210 @@
+name: Qemu zynqmp
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+env:
+  BUILD_PLAT: "zynqmp"
+  TEST_PLAT: "zynqmp"
+  PLAT_IP: "10.0.0.11"
+  GATEWAY_IP: "10.0.0.1"
+  RUNNER_IP: "10.0.0.10"
+
+jobs:
+  #single step as env setup takes a while
+  demos_and_tests:
+    runs-on: self-hosted
+    steps:
+      # preparation
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ORG_CLONE_PRV_SUBM }}
+          submodules: 'recursive'
+          path: 'trentos'
+      - name: Test prepare
+        run: trentos/sdk/scripts/open_trentos_build_env.sh -d "-e BUILD_PLATFORM=${{ env.BUILD_PLAT }}" trentos/build.sh test-prepare
+        working-directory: ${{ github.workspace }}
+      - name: Retrieve_Ip
+        id: retrieve_ip
+        run: echo "ip_address=$(hostname -I | awk '{print $1}')" >> $GITHUB_OUTPUT
+
+      - name: demo_hello_world
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/demo_hello_world@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+
+      # tested: fails -> issue finding linux initrd after boot
+      #- name: demo_vm_minimal
+      #  if: always()
+      #  uses: TRENT-OS/trentos/.github/actions/test_certparser@actions-hw-ci
+      #  with:
+      #    BUILD_PLAT: ${{ env.BUILD_PLAT }}
+      #    TEST_PLAT: ${{ env.TEST_PLAT }}
+
+      - name: demo_vm_virtio_net 
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/demo_vm_virtio_net@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+
+      - name: demo_vm_serialserver
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/demo_vm_serialserver@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+
+      - name: test_certparser
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_certparser@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+      
+      - name: test_certserver
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_certserver@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+
+      - name: test_config_server
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_config_server@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+
+      - name: test_crypto_api
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_crypto_api@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+
+      - name: test_cryptoserver
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_cryptoserver@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+
+      - name: test_entropysource
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_entropysource@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+
+      - name: test_filesystem
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_filesystem@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+
+      - name: test_keystore
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_keystore@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+
+      - name: test_logserver
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_logserver@actions-hw-ci
+        with:
+         BUILD_PLAT: ${{ env.BUILD_PLAT }}
+         TEST_PLAT: ${{ env.TEST_PLAT }}
+  
+      - name: test_network_api_tcp_server
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_network_api@actions-hw-ci
+        with:
+          TEST_CONFIG: "tcp_server"
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+          PLAT_IP: ${{ env.PLAT_IP }}
+          GATEWAY_IP: ${{ env.GATEWAY_IP }}
+          RUNNER_IP: ${{ steps.retrieve_ip.outputs.ip_address }}
+
+      - name: test_network_api_tcp_client_single_socket
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_network_api@actions-hw-ci
+        with:
+          TEST_CONFIG: "tcp_client_single_socket"
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+          PLAT_IP: ${{ env.PLAT_IP }}
+          GATEWAY_IP: ${{ env.GATEWAY_IP }}
+          RUNNER_IP: ${{ steps.retrieve_ip.outputs.ip_address }}
+
+      - name: test_network_api_tcp_server
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_network_api@actions-hw-ci
+        with:
+          TEST_CONFIG: "tcp_client_multiple_sockets"
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+          PLAT_IP: ${{ env.PLAT_IP }}
+          GATEWAY_IP: ${{ env.GATEWAY_IP }}
+          RUNNER_IP: ${{ steps.retrieve_ip.outputs.ip_address }}
+
+      - name: test_network_api_tcp_client_single_socket
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_network_api@actions-hw-ci
+        with:
+          TEST_CONFIG: "udp_server"
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+          PLAT_IP: ${{ env.PLAT_IP }}
+          GATEWAY_IP: ${{ env.GATEWAY_IP }}
+          RUNNER_IP: ${{ steps.retrieve_ip.outputs.ip_address }}
+  
+      - name: test_storage_interface
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_storage_interface@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+
+      - name: test_timeserver
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_timeserver@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+
+      # tested: DOES NOT COMPILE
+      #  ISSUE: Build: import not found: if_ChanMux.camkes 
+      #- name: test_tls_api
+      #  if: always()
+      #  uses: TRENT-OS/trentos/.github/actions/test_tls_api@actions-hw-ci
+      #  with:
+      #    BUILD_PLAT: ${{ env.BUILD_PLAT }}
+      #    TEST_PLAT: ${{ env.TEST_PLAT }}
+
+      # tested: DOES NOT COMPILE
+      #  ISSUE: Build: import not found: if_ChanMux.camkes 
+      #- name: test_tlsserver
+      #  if: always()
+      #  uses: TRENT-OS/trentos/.github/actions/test_tlsserver@actions-hw-ci
+      #  with:
+      #    BUILD_PLAT: ${{ env.BUILD_PLAT }}
+      #    TEST_PLAT: ${{ env.TEST_PLAT }}
+
+      - name: test_uart
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_uart@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
+
+
