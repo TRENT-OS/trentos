@@ -33,6 +33,8 @@ jobs:
       - name: Retrieve_Ip
         id: retrieve_ip
         run: echo "ip_address=$(hostname -I | awk '{print $1}')" >> $GITHUB_OUTPUT
+      - name: Claim Hardware
+        run: /usr/local/libexec/setup_second_stage/claim_hardware.sh ${{ env.BUILD_PLAT }}
 
       # tested: reliable
       - name: demo_hello_world
@@ -178,10 +180,18 @@ jobs:
       #    BUILD_PLAT: ${{ env.BUILD_PLAT }}
       #    TEST_PLAT: ${{ env.TEST_PLAT }}
 
-      # tested: failed broken pipe (seems like an error with the websocket connection)
+      # tested: 
       - name: test_uart
         if: always()
         uses: TRENT-OS/trentos/.github/actions/test_uart@actions-hw-ci
         with:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}
+
+      # tested: fails: uart driver is broken and crashes when trying to send more than one byte
+      #- name: test_uart_echo
+      #  if: always()
+      #  uses: TRENT-OS/trentos/.github/actions/test_uart_echo@actions-hw-ci
+      #  with:
+      #    BUILD_PLAT: ${{ env.BUILD_PLAT }}
+      #    TEST_PLAT: ${{ env.TEST_PLAT }}
