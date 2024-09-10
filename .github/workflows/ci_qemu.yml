@@ -24,16 +24,16 @@ jobs:
   #Include all platforms
   zynq7000_qemu:
     needs: check_label 
-    uses: TRENT-OS/trentos/.github/workflows/qemu_zynq7000.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/qemu_zynq7000.yml@integration
 
   sabre_qemu:
     needs: check_label
-    uses: TRENT-OS/trentos/.github/workflows/qemu_sabre.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/qemu_sabre.yml@integration
   
   zynqmp_qemu:
     needs: check_label
-    uses: TRENT-OS/trentos/.github/workflows/qemu_zynqmp.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/qemu_zynqmp.yml@integration
 
   qemu-arm-virt_qemu:
     needs: check_label
-    uses: TRENT-OS/trentos/.github/workflows/qemu_qemu-arm-virt.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/qemu_qemu-arm-virt.yml@integration

@@ -180,8 +180,3 @@ jobs:
       #  with:
       #    BUILD_PLAT: ${{ env.BUILD_PLAT }}
       #    TEST_PLAT: ${{ env.TEST_PLAT }}
-
-
-      #
-      # TEST UART -> I am not sure how this should be implemented and if this is something we will do
-      #

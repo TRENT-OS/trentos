@@ -112,7 +112,7 @@ jobs:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}
 
-      # tested: failsnvidia
+      # tested: fails
       # seems like some strings are not found
       # some match statements seem to fail these look a bit strange
       #- name: test_logserver
@@ -189,9 +189,9 @@ jobs:
           TEST_PLAT: ${{ env.TEST_PLAT }}
 
       # tested: fails: uart driver is broken and crashes when trying to send more than one byte
-      #- name: test_uart_echo
-      #  if: always()
-      #  uses: TRENT-OS/trentos/.github/actions/test_uart_echo@actions-hw-ci
-      #  with:
-      #    BUILD_PLAT: ${{ env.BUILD_PLAT }}
-      #    TEST_PLAT: ${{ env.TEST_PLAT }}
+      - name: test_uart_echo
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_uart_echo@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}

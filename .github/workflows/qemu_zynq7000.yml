@@ -124,7 +124,7 @@ jobs:
           GATEWAY_IP: ${{ env.GATEWAY_IP }}
           RUNNER_IP: ${{ steps.retrieve_ip.outputs.ip_address }}
 
-      - name: test_network_api_tcp_server
+      - name: test_network_api_tcp_client_multiple_sockets
         if: always()
         uses: TRENT-OS/trentos/.github/actions/test_network_api@actions-hw-ci
         with:
@@ -135,7 +135,7 @@ jobs:
           GATEWAY_IP: ${{ env.GATEWAY_IP }}
           RUNNER_IP: ${{ steps.retrieve_ip.outputs.ip_address }}
 
-      - name: test_network_api_tcp_client_single_socket
+      - name: test_network_api_udp_server
         if: always()
         uses: TRENT-OS/trentos/.github/actions/test_network_api@actions-hw-ci
         with:
@@ -170,7 +170,7 @@ jobs:
       #    TEST_PLAT: ${{ env.TEST_PLAT }}
 
       # tested: DOES NOT COMPILE
-      #  ISSUE: Build: import not found: if_ChanMux.camkes 
+      #  ISSUE: Build: import not found: if_OS_Tls.camkes.h
       #- name: test_tlsserver
       #  if: always()
       #  uses: TRENT-OS/trentos/.github/actions/test_tlsserver@actions-hw-ci
@@ -184,5 +184,12 @@ jobs:
         with:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}
-
+          
+      # tested: reliable
+      - name: test_uart_echo
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_uart_echo@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
 

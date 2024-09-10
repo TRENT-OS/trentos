@@ -23,20 +23,20 @@ jobs:
   #Include all platforms
   hw_rpi3:
     needs: check_label
-    uses: TRENT-OS/trentos/.github/workflows/hw_rpi3.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/hw_rpi3.yml@integration
 
   hw_rpi4:
     needs: check_label
-    uses: TRENT-OS/trentos/.github/workflows/hw_rpi4.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/hw_rpi4.yml@integration
 
   hw_odroidc2:
     needs: check_label
-    uses: TRENT-OS/trentos/.github/workflows/hw_odroidc2.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/hw_odroidc2.yml@integration
 
   hw_sabre:
     needs: check_label
-    uses: TRENT-OS/trentos/.github/workflows/hw_sabre.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/hw_sabre.yml@integration
 
   hw_nitrogen6sx:
     needs: check_label
-    uses: TRENT-OS/trentos/.github/workflows/hw_nitrogen6sx.yml@main
+    uses: TRENT-OS/trentos/.github/workflows/hw_nitrogen6sx.yml@integration

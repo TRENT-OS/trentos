@@ -113,7 +113,7 @@ jobs:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}
 
-      # tested: failsnvidia
+      # tested: fails
       # seems like some strings are not found
       # some match statements seem to fail these look a bit strange
       #- name: test_logserver

@@ -149,7 +149,7 @@ jobs:
           RUNNER_IP: ${{ steps.retrieve_ip.outputs.ip_address }}
         
       # tested: fails
-      # normal log rambling as well as some non supported stuff such as chanmux tests, needs more     digging
+      # normal log rambling as well as some non supported stuff such as chanmux tests, needs more digging
       #test_storage_interface:
       #  needs: test_logserver
       #  if: always()
@@ -166,23 +166,16 @@ jobs:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}
 
-      # tested: DOES NOT COMPILE DUE TO NOT MERGED PICOTCP-NG (this is an setup issue of my seos-tests)
-      #- name: test_tls_api
-      #  if: always()
-      #  uses: TRENT-OS/trentos/.github/actions/test_tls_api@actions-hw-ci
-      #  with:
-      #    BUILD_PLAT: ${{ env.BUILD_PLAT }}
-      #    TEST_PLAT: ${{ env.TEST_PLAT }}
+      - name: test_tls_api
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_tls_api@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
 
-      # tested: DOES NOT COMPILE DUE TO NOT MERGED PICOTCP-NG (this is an setup issue of my seos-tests)
-      #- name: test_tlsserver
-      #  if: always()
-      #  uses: TRENT-OS/trentos/.github/actions/test_tlsserver@actions-hw-ci
-      #  with:
-      #    BUILD_PLAT: ${{ env.BUILD_PLAT }}
-      #    TEST_PLAT: ${{ env.TEST_PLAT }}
-
-
-      #
-      # TEST UART -> I am not sure how this should be implemented and if this is something we will do
-      #
+      - name: test_tlsserver
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_tlsserver@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}

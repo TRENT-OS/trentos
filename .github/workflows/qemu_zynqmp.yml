@@ -183,7 +183,7 @@ jobs:
           TEST_PLAT: ${{ env.TEST_PLAT }}
 
       # tested: DOES NOT COMPILE
-      #  ISSUE: Build: import not found: if_ChanMux.camkes 
+      #  ISSUE: Build: import not found: plat_nic.camkes
       #- name: test_tls_api
       #  if: always()
       #  uses: TRENT-OS/trentos/.github/actions/test_tls_api@actions-hw-ci
@@ -192,7 +192,7 @@ jobs:
       #    TEST_PLAT: ${{ env.TEST_PLAT }}
 
       # tested: DOES NOT COMPILE
-      #  ISSUE: Build: import not found: if_ChanMux.camkes 
+      #  ISSUE: Build: import not found: if_OS_Tls.camkes.h
       #- name: test_tlsserver
       #  if: always()
       #  uses: TRENT-OS/trentos/.github/actions/test_tlsserver@actions-hw-ci
@@ -206,5 +206,12 @@ jobs:
         with:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}
-
+          
+      # tested: reliable
+      - name: test_uart_echo
+        if: always()
+        uses: TRENT-OS/trentos/.github/actions/test_uart_echo@actions-hw-ci
+        with:
+          BUILD_PLAT: ${{ env.BUILD_PLAT }}
+          TEST_PLAT: ${{ env.TEST_PLAT }}
 
