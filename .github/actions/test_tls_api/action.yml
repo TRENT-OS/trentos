@@ -26,7 +26,7 @@ runs:
 
     - name: Test ${{ inputs.TEST_NAME }}
       run: |
-        trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ inputs.TEST_PLAT }}" trentos/build.sh test-run test_${{ inputs.TEST_NAME }}.py --system_image=/host/build-${{ inputs.BUILD_PLAT }}-Debug-${{ inputs.TEST_NAME }}/images/os_image.elf
+        trentos/sdk/scripts/open_trentos_test_env.sh -d "-e BUILD_PLATFORM=${{ inputs.TEST_PLAT }}" trentos/build.sh test-run ${{ inputs.TEST_NAME }}.py --system_image=/host/build-${{ inputs.BUILD_PLAT }}-Debug-${{ inputs.TEST_NAME }}/images/os_image.elf
       working-directory: ${{ github.workspace }}
       shell: bash
 

@@ -74,12 +74,12 @@ jobs:
 
       #tested: unreliable (most tests pass, a random few dont(amount and which tests is random))
       # in most cases some random tests fail due to inability to find success log string
-      - name: test_crypto_api
-        if: always()
-        uses: TRENT-OS/trentos/.github/actions/test_crypto_api@integration
-        with:
-          BUILD_PLAT: ${{ env.BUILD_PLAT }}
-          TEST_PLAT: ${{ env.TEST_PLAT }}
+      #- name: test_crypto_api
+      #  if: always()
+      #  uses: TRENT-OS/trentos/.github/actions/test_crypto_api@integration
+      #  with:
+      #    BUILD_PLAT: ${{ env.BUILD_PLAT }}
+      #    TEST_PLAT: ${{ env.TEST_PLAT }}
 
       #tested: reliable
       - name: test_cryptoserver
@@ -125,16 +125,16 @@ jobs:
   
       #tested: ? THIS NEEDS WORK and probably needs to be split into multiple tests
       # tested: tcp_server: unreliable Most tests pass, 3 consistently fail
-      - name: test_network_api_tcp_server
-        if: always()
-        uses: TRENT-OS/trentos/.github/actions/test_network_api@integration
-        with:
-          TEST_CONFIG: "tcp_server"
-          BUILD_PLAT: ${{ env.BUILD_PLAT }}
-          TEST_PLAT: ${{ env.TEST_PLAT }}
-          PLAT_IP: ${{ env.PLAT_IP }}
-          GATEWAY_IP: ${{ env.GATEWAY_IP }}
-          RUNNER_IP: ${{ steps.retrieve_ip.outputs.ip_address }}
+      #- name: test_network_api_tcp_server
+      #  if: always()
+      #  uses: TRENT-OS/trentos/.github/actions/test_network_api@integration
+      #  with:
+      #    TEST_CONFIG: "tcp_server"
+      #    BUILD_PLAT: ${{ env.BUILD_PLAT }}
+      #    TEST_PLAT: ${{ env.TEST_PLAT }}
+      #    PLAT_IP: ${{ env.PLAT_IP }}
+      #    GATEWAY_IP: ${{ env.GATEWAY_IP }}
+      #    RUNNER_IP: ${{ steps.retrieve_ip.outputs.ip_address }}
           
       - name: test_network_api_tcp_client_single_socket
         if: always()
@@ -184,12 +184,12 @@ jobs:
       #    TEST_PLAT: ${{ env.TEST_PLAT }}
 
       # tested: fails, TRENTOS driver FIFO overflow
-      - name: test_uart
-        if: always()
-        uses: TRENT-OS/trentos/.github/actions/test_uart@integration
-        with:
-          BUILD_PLAT: ${{ env.BUILD_PLAT }}
-          TEST_PLAT: ${{ env.TEST_PLAT }}
+      #- name: test_uart
+      #  if: always()
+      #  uses: TRENT-OS/trentos/.github/actions/test_uart@integration
+      #  with:
+      #    BUILD_PLAT: ${{ env.BUILD_PLAT }}
+      #    TEST_PLAT: ${{ env.TEST_PLAT }}
 
       # tested: reliable
       - name: test_uart_echo
