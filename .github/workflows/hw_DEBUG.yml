@@ -40,7 +40,7 @@ jobs:
       # tested: reliable
       - name: demo_hello_world
         if: always()
-        uses: TRENT-OS/trentos/.github/actions/demo_hello_world@actions-hw-ci
+        uses: TRENT-OS/trentos/.github/actions/demo_hello_world@integration
         with:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}

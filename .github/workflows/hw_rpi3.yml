@@ -41,7 +41,7 @@ jobs:
       # tested: reliable
       - name: demo_hello_world
         if: always()
-        uses: TRENT-OS/trentos/.github/actions/demo_hello_world@actions-hw-ci
+        uses: TRENT-OS/trentos/.github/actions/demo_hello_world@integration
         with:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}
@@ -49,7 +49,7 @@ jobs:
       # tested: reliable
       - name: test_certparser
         if: always()
-        uses: TRENT-OS/trentos/.github/actions/test_certparser@actions-hw-ci
+        uses: TRENT-OS/trentos/.github/actions/test_certparser@integration
         with:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}
@@ -59,7 +59,7 @@ jobs:
       # the different messages interrupt each other and the string matchin doesnt work because of   this.
       # - name: test_certserver
       #   if: always()
-      #   uses: TRENT-OS/trentos/.github/actions/test_certserver@actions-hw-ci
+      #   uses: TRENT-OS/trentos/.github/actions/test_certserver@integration
       #   with:
       #     BUILD_PLAT: ${{ env.BUILD_PLAT }}
       #     TEST_PLAT: ${{ env.TEST_PLAT }}
@@ -68,7 +68,7 @@ jobs:
       # test takes forever to fail
       #- name: test_config_server
       #  if: always()
-      #  uses: TRENT-OS/trentos/.github/actions/test_config_server@actions-hw-ci
+      #  uses: TRENT-OS/trentos/.github/actions/test_config_server@integration
       #  with:
       #    BUILD_PLAT: ${{ env.BUILD_PLAT }}
       #    TEST_PLAT: ${{ env.TEST_PLAT }}
@@ -77,7 +77,7 @@ jobs:
       # in most cases some random tests fail due to inability to find success log string
       - name: test_crypto_api
         if: always()
-        uses: TRENT-OS/trentos/.github/actions/test_crypto_api@actions-hw-ci
+        uses: TRENT-OS/trentos/.github/actions/test_crypto_api@integration
         with:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}
@@ -85,7 +85,7 @@ jobs:
       #tested: reliable
       - name: test_cryptoserver
         if: always()
-        uses: TRENT-OS/trentos/.github/actions/test_cryptoserver@actions-hw-ci
+        uses: TRENT-OS/trentos/.github/actions/test_cryptoserver@integration
         with:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}
@@ -93,7 +93,7 @@ jobs:
       # tested: reliable
       - name: test_entropysource
         if: always()
-        uses: TRENT-OS/trentos/.github/actions/test_entropysource@actions-hw-ci
+        uses: TRENT-OS/trentos/.github/actions/test_entropysource@integration
         with:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}
@@ -101,7 +101,7 @@ jobs:
       # tested: reliable
       - name: test_filesystem
         if: always()
-        uses: TRENT-OS/trentos/.github/actions/test_filesystem@actions-hw-ci
+        uses: TRENT-OS/trentos/.github/actions/test_filesystem@integration
         with:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}
@@ -109,7 +109,7 @@ jobs:
       # tested: reliable
       - name: test_keystore
         if: always()
-        uses: TRENT-OS/trentos/.github/actions/test_keystore@actions-hw-ci
+        uses: TRENT-OS/trentos/.github/actions/test_keystore@integration
         with:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}
@@ -119,7 +119,7 @@ jobs:
       # some match statements seem to fail these look a bit strange
       #- name: test_logserver
       #  if: always()
-      #  uses: TRENT-OS/trentos/.github/actions/test_logserver@actions-hw-ci
+      #  uses: TRENT-OS/trentos/.github/actions/test_logserver@integration
       #  with:
       #    BUILD_PLAT: ${{ env.BUILD_PLAT }}
       #    TEST_PLAT: ${{ env.TEST_PLAT }}
@@ -128,7 +128,7 @@ jobs:
       # tested: tcp_server: unreliable Most tests pass, 3 consistently fail
       - name: test_network_api_tcp_server
         if: always()
-        uses: TRENT-OS/trentos/.github/actions/test_network_api@actions-hw-ci
+        uses: TRENT-OS/trentos/.github/actions/test_network_api@integration
         with:
           TEST_CONFIG: "tcp_server"
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
@@ -139,7 +139,7 @@ jobs:
 
       - name: test_network_api_tcp_client_single_socket
         if: always()
-        uses: TRENT-OS/trentos/.github/actions/test_network_api@actions-hw-ci
+        uses: TRENT-OS/trentos/.github/actions/test_network_api@integration
         with:
           TEST_CONFIG: "tcp_client_single_socket"
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
@@ -153,7 +153,7 @@ jobs:
       #test_storage_interface:
       #  needs: test_logserver
       #  if: always()
-      #  uses: TRENT-OS/trentos/.github/actions/test_storage_interface@actions-hw-ci
+      #  uses: TRENT-OS/trentos/.github/actions/test_storage_interface@integration
       #  with:
       #    BUILD_PLAT: ${{ env.BUILD_PLAT }}
       #    TEST_PLAT: ${{ env.TEST_PLAT }}
@@ -161,21 +161,21 @@ jobs:
       # tested: reliable
       - name: test_timeserver
         if: always()
-        uses: TRENT-OS/trentos/.github/actions/test_timeserver@actions-hw-ci
+        uses: TRENT-OS/trentos/.github/actions/test_timeserver@integration
         with:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}
 
       - name: test_tls_api
         if: always()
-        uses: TRENT-OS/trentos/.github/actions/test_tls_api@actions-hw-ci
+        uses: TRENT-OS/trentos/.github/actions/test_tls_api@integration
         with:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}
 
       - name: test_tlsserver
         if: always()
-        uses: TRENT-OS/trentos/.github/actions/test_tlsserver@actions-hw-ci
+        uses: TRENT-OS/trentos/.github/actions/test_tlsserver@integration
         with:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}
