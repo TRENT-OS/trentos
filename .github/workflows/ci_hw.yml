@@ -9,16 +9,11 @@ permissions:
 
 jobs:
   check_label:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+    if: ${{ github.event.action == 'labeled' && github.event.label.name == 'Run-CI' }}
     steps:
       - name: Check if label is applied
-        run: |
-          if [[ $(jq -r '.action' "$GITHUB_EVENT_PATH") == "labeled" && $(jq -r '.label.name' "$GITHUB_EVENT_PATH") == "Run-CI" ]]; then
-            echo "Label 'Run-CI' applied. Running workflow steps."
-          else
-            echo "Label 'Run-CI' not applied. Exiting workflow without running steps."
-            exit 78  # Exit with a neutral status to mark the check as pending
-          fi
+        run: echo "Label 'Run-CI' applied. Running workflow steps."
 
   #Include all platforms
   hw_rpi3:
