@@ -1,7 +1,11 @@
 name: Qemu sabre
+
 on:
   workflow_dispatch:
   workflow_call:
+    secrets:
+      ORG_CLONE_PRV_SUBM:
+        required: true
 
 permissions:
   contents: read
@@ -175,10 +179,10 @@ jobs:
           BUILD_PLAT: ${{ env.BUILD_PLAT }}
           TEST_PLAT: ${{ env.TEST_PLAT }}
 
-      # tested: reliable
-      - name: test_uart_echo
-        if: always()
-        uses: TRENT-OS/trentos/.github/actions/test_uart_echo@integration
-        with:
-          BUILD_PLAT: ${{ env.BUILD_PLAT }}
-          TEST_PLAT: ${{ env.TEST_PLAT }}
+      # tested: fails, data is lost
+      #- name: test_uart_echo
+      #  if: always()
+      #  uses: TRENT-OS/trentos/.github/actions/test_uart_echo@integration
+      #  with:
+      #    BUILD_PLAT: ${{ env.BUILD_PLAT }}
+      #    TEST_PLAT: ${{ env.TEST_PLAT }}

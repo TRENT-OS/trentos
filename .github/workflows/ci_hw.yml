@@ -19,19 +19,29 @@ jobs:
   hw_rpi3:
     needs: check_label
     uses: TRENT-OS/trentos/.github/workflows/hw_rpi3.yml@integration
+    secrets:
+      ORG_CLONE_PRV_SUBM: ${{ secrets.ORG_CLONE_PRV_SUBM }}
 
   hw_rpi4:
     needs: check_label
     uses: TRENT-OS/trentos/.github/workflows/hw_rpi4.yml@integration
+    secrets:
+      ORG_CLONE_PRV_SUBM: ${{ secrets.ORG_CLONE_PRV_SUBM }}
 
   hw_odroidc2:
     needs: check_label
     uses: TRENT-OS/trentos/.github/workflows/hw_odroidc2.yml@integration
+    secrets:
+      ORG_CLONE_PRV_SUBM: ${{ secrets.ORG_CLONE_PRV_SUBM }}
 
   hw_sabre:
     needs: check_label
     uses: TRENT-OS/trentos/.github/workflows/hw_sabre.yml@integration
+    secrets:
+      ORG_CLONE_PRV_SUBM: ${{ secrets.ORG_CLONE_PRV_SUBM }}
 
   hw_nitrogen6sx:
     needs: check_label
     uses: TRENT-OS/trentos/.github/workflows/hw_nitrogen6sx.yml@integration
+    secrets:
+      ORG_CLONE_PRV_SUBM: ${{ secrets.ORG_CLONE_PRV_SUBM }}

@@ -20,15 +20,23 @@ jobs:
   zynq7000_qemu:
     needs: check_label 
     uses: TRENT-OS/trentos/.github/workflows/qemu_zynq7000.yml@integration
+    secrets:
+      ORG_CLONE_PRV_SUBM: ${{ secrets.ORG_CLONE_PRV_SUBM }}
 
   sabre_qemu:
     needs: check_label
     uses: TRENT-OS/trentos/.github/workflows/qemu_sabre.yml@integration
+    secrets:
+      ORG_CLONE_PRV_SUBM: ${{ secrets.ORG_CLONE_PRV_SUBM }}
   
   zynqmp_qemu:
     needs: check_label
     uses: TRENT-OS/trentos/.github/workflows/qemu_zynqmp.yml@integration
+    secrets:
+      ORG_CLONE_PRV_SUBM: ${{ secrets.ORG_CLONE_PRV_SUBM }}
 
   qemu-arm-virt_qemu:
     needs: check_label
     uses: TRENT-OS/trentos/.github/workflows/qemu_qemu-arm-virt.yml@integration
+    secrets:
+      ORG_CLONE_PRV_SUBM: ${{ secrets.ORG_CLONE_PRV_SUBM }}

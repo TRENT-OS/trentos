@@ -3,6 +3,9 @@ name: Hardware nitrogen6sx
 on:
   workflow_dispatch:
   workflow_call:
+    secrets:
+      ORG_CLONE_PRV_SUBM:
+        required: true
 
 permissions:
   contents: read
