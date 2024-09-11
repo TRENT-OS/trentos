@@ -12,6 +12,8 @@
 #
 #-------------------------------------------------------------------------------
 
+echo "test change, just testing the ci pipeline"
+
 BUILD_SCRIPT_DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd)"
 DIR_SRC_SANDBOX="${BUILD_SCRIPT_DIR}/sdk"
 SDK_OUT_DIR="OS-SDK"
