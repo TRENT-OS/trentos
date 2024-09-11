@@ -21,6 +21,7 @@ SDK_PKG_OUT_DIR="${SDK_OUT_DIR}/pkg"
 DIR_SRC_TA="${BUILD_SCRIPT_DIR}/ta"
 WORKSPACE_TEST_FOLDER="workspace_test"
 
+echo "Changing the buildsystem might be dangerous - this is a test change to test the CI Pipeline"
 
 # This list is used for the targets "all-projects" and "all". The order within
 # the list starts with the most simple system to build, then moves on to more
