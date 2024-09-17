@@ -100,11 +100,8 @@ Even more demos are available as [submodules](https://github.com/orgs/TRENT-OS/r
 ## Contributing
 
 Contributions are always welcome. 
+
 To get started please read our [CONTRIBUTING.md](./CONTRIBUTING.md).
-
-TODO: Add contributing
-
-If you have any questions or encounter any bugs, please do not hesitate to open an **issue**.
 
 
 ## Docker Images
@@ -116,11 +113,10 @@ Dockerfiles are hosted in [Docker Images](https://github.com/TRENT-OS/docker_ima
 
 TRENTOS is available under the OSS GPLv2-or-later license.
 Upon request commercial licensing options are available.
-Please contact: [info.cyber@hensoldt.net](mailto:info.cyber@hensoldt.net?subject=TRENTOS:%20Commercial%20Licensing)
- for more information.
+Please contact: [info.cyber@hensoldt.net](mailto:info.cyber@hensoldt.net?subject=TRENTOS:%20Commercial%20Licensing) for more information.
 
-Some few components are only available und different licensing terms. 
-Due to the microkernel concept this should not be an issue as long as these are used as a TRENTOS component.
+A select few components are only available under different licensing terms.
+Due to the microkernel concept this may not be an issue as long as these are used as a distinct TRENTOS component.
 
 TODO: Link documentation explaining the seL4 component concept.
 
@@ -133,7 +129,7 @@ TODO: Link wiki page explaining the test framework
 
 ## Dependencies
 
-TRENTOS builds upon varies open source libraries:
+TRENTOS builds upon varies open source libraries and projects:
 
 * sel4
 * muslc
