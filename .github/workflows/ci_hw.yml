@@ -9,34 +9,39 @@ permissions:
 
 jobs:
   check_label:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+    if: ${{ github.event.action == 'labeled' && github.event.label.name == 'Run-CI' }}
     steps:
       - name: Check if label is applied
-        run: |
-          if [[ $(jq -r '.action' "$GITHUB_EVENT_PATH") == "labeled" && $(jq -r '.label.name' "$GITHUB_EVENT_PATH") == "Run-CI" ]]; then
-            echo "Label 'Run-CI' applied. Running workflow steps."
-          else
-            echo "Label 'Run-CI' not applied. Exiting workflow without running steps."
-            exit 78  # Exit with a neutral status to mark the check as pending
-          fi
+        run: echo "Label 'Run-CI' applied. Running workflow steps."
 
   #Include all platforms
   hw_rpi3:
     needs: check_label
     uses: TRENT-OS/trentos/.github/workflows/hw_rpi3.yml@integration
+    secrets:
+      ORG_CLONE_PRV_SUBM: ${{ secrets.ORG_CLONE_PRV_SUBM }}
 
   hw_rpi4:
     needs: check_label
     uses: TRENT-OS/trentos/.github/workflows/hw_rpi4.yml@integration
+    secrets:
+      ORG_CLONE_PRV_SUBM: ${{ secrets.ORG_CLONE_PRV_SUBM }}
 
   hw_odroidc2:
     needs: check_label
     uses: TRENT-OS/trentos/.github/workflows/hw_odroidc2.yml@integration
+    secrets:
+      ORG_CLONE_PRV_SUBM: ${{ secrets.ORG_CLONE_PRV_SUBM }}
 
   hw_sabre:
     needs: check_label
     uses: TRENT-OS/trentos/.github/workflows/hw_sabre.yml@integration
+    secrets:
+      ORG_CLONE_PRV_SUBM: ${{ secrets.ORG_CLONE_PRV_SUBM }}
 
   hw_nitrogen6sx:
     needs: check_label
     uses: TRENT-OS/trentos/.github/workflows/hw_nitrogen6sx.yml@integration
+    secrets:
+      ORG_CLONE_PRV_SUBM: ${{ secrets.ORG_CLONE_PRV_SUBM }}
