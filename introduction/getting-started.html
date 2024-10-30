@@ -9,7 +9,7 @@
       
       
       
-      <link rel="icon" href="">
+      <link rel="icon" href="../_static/favicon.ico">
     
     
       
@@ -427,8 +427,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#install-the-sdk-package" class="md-nav__link">
-    <span class="md-ellipsis">Install the SDK Package</span>
+  <a href="#setup-your-trentos-workspace" class="md-nav__link">
+    <span class="md-ellipsis">Setup your TRENTOS Workspace</span>
   </a>
   
 </li>
@@ -1844,8 +1844,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#install-the-sdk-package" class="md-nav__link">
-    <span class="md-ellipsis">Install the SDK Package</span>
+  <a href="#setup-your-trentos-workspace" class="md-nav__link">
+    <span class="md-ellipsis">Setup your TRENTOS Workspace</span>
   </a>
   
 </li>
@@ -2109,11 +2109,12 @@
 
 
 <h1 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">¶</a></h1>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="c1">########################################################</span>
-<span class="c1">#               DEPRECATION WARNING                    #</span>
-<span class="c1"># This section of the TRENTOS documentation is out of  # </span>
-<span class="c1"># sync and may contain no longer relevant information. #</span>
-<span class="c1">########################################################</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="c1">##########################################################</span>
+<span class="c1">#                     Information                        #</span>
+<span class="c1"># Due to a change in the delivery format of TRENTOS some # </span>
+<span class="c1"># some shown paths have changed.                         #</span>
+<span class="c1"># Unfortunaltely not all documentation is yet updated.   #</span>
+<span class="c1">##########################################################</span>
 </code></pre></div>
 </div>
 <p>Until this section is updated please refer to <a class="reference external" href="https://github.com/TRENT-OS/trentos/blob/integration/README.md">TRENTOS README</a></p>
@@ -2232,22 +2233,21 @@ page)</p></li>
 </ul>
 </li>
 </ul>
-<h3 id="install-the-sdk-package">Install the SDK Package<a class="headerlink" href="#install-the-sdk-package" title="Link to this heading">¶</a></h3>
+<h3 id="setup-your-trentos-workspace">Setup your TRENTOS Workspace<a class="headerlink" href="#setup-your-trentos-workspace" title="Link to this heading">¶</a></h3>
 <p>Within the scope of this document, we assume that a Linux system is used
-since all the listed commands have been tested on Ubuntu 18.04 and 20.04
-LTS, as well as on Linux Mint 20. The TRENTOS SDK is provided in the
-form of a <strong>tar</strong> archive compressed with <strong>bzip2</strong> and thus needs to be
-extracted before use. Since the SDK is self-contained and works with
-relative paths it can be extracted in an arbitrary directory.</p>
-<p>For the purpose of this document, we will assume that the content of the
-archive is extracted in the directory <strong>TRENTOS_SDK_1.3</strong> as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>TRENTOS_SDK_1.3tar<span class="w"> </span>-xjv<span class="w"> </span>-f<span class="w"> </span>TRENTOS_SDK_1.3.tar.bz2<span class="w"> </span>-C<span class="w"> </span>TRENTOS_SDK_1.3
+since all the listed commands have been tested on Ubuntu 20.04
+LTS or newer. TRENTOS is hosted on <a class="reference external" href="https://github.com/TRENT-OS/trentos">GitHub</a> and the required docker containers are available via DockerHub:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># Create a new folder for TRENTOS</span>
+mkdir<span class="w"> </span>trentos<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>trentos
+
+<span class="c1"># Recursively clone the TRENTOS project</span>
+git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>git@github.com:TRENT-OS/trentos.git<span class="w"> </span>src
 </code></pre></div>
 </div>
 <p>Most of the commands used in later parts of the document assume a
-terminal is open in the <strong>TRENTOS_SDK_1.3</strong> directory and where this is
+terminal is open in the <strong>trentos</strong> directory and where this is
 not the case it will be explicitly stated. Also, we will refer to the
-<strong>TRENTOS_SDK_1.3</strong> directory as the <strong>SDK root directory</strong>.</p>
+<strong>trentos</strong> directory as the <strong>SDK root directory</strong>.</p>
 <p>Finally, it is important to note that by default, all the build
 artifacts are stored in the SDK root directory which can be changed by
 the user by modifying arguments in the build script invocation. This is
@@ -2256,20 +2256,21 @@ TRENTOS Handbook. In the following section, we will go over the contents of the
 unpacked archive.</p>
 <h3 id="sdk-root-directory-structure">SDK Root Directory Structure<a class="headerlink" href="#sdk-root-directory-structure" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><strong>GettingStarted.pdf</strong> → Link to
-<strong>sdk/doc/pdf/TRENTOS_GettingStarted_SDK_V1.3.pdf</strong></p></li>
-<li><p><strong>docker</strong> → Containers with toolchain to build and test TRENTOS systems</p>
+<li><p><strong>docs</strong></p>
 <ul>
-<li><p><strong>trentos_1.3.sha256sums</strong></p></li>
-<li><p><strong>trentos_build_20210503.bz2</strong></p></li>
-<li><p><strong>trentos_test_20211025.bz2</strong></p></li>
+<li><p><strong>source</strong> → Source for this documentation in Markdown</p></li>
+</ul>
+</li>
+<li><p><strong>ta</strong></p>
+<ul>
+<li><p><strong>common</strong> → test framework &amp; board automation infrastructure</p></li>
+<li><p><strong>tests</strong> → trentos pytest tests</p></li>
 </ul>
 </li>
 <li><p><strong>sdk</strong></p>
 <ul>
 <li><p><strong>build-system.sh</strong> → Master build script for building TRENTOS systems</p></li>
 <li><p><strong>CMakeLists.txt</strong> → Master CMake script for building TRENTOS systems</p></li>
-<li><p><strong>README.license</strong> → License information</p></li>
 <li><p><strong>bin</strong> → TRENTOS tools binaries for Linux</p>
 <ul>
 <li><p><strong>cpt</strong> → Configuration Provisioning Tool</p></li>
@@ -2310,20 +2311,6 @@ and allows accessing the SD card peripheral</p></li>
 <li><p><strong>demo_iot_app_rpi3</strong> → IoT Demo (RPi3B+)</p></li>
 <li><p><strong>demo_network_filter</strong> → Network Filter Demo (QEMU, Nitrogen6_SoloX)</p></li>
 <li><p><strong>demo_tls_api</strong> → Demo retrieving an HTTPS web page</p></li>
-</ul>
-</li>
-<li><p><strong>doc</strong></p>
-<ul>
-<li><p><strong>html</strong> →TRENTOS API Doxygen documentation</p></li>
-<li><p><strong>pdf</strong> → TRENTOS documentation</p>
-<ul>
-<li><p><strong>TRENTOS_GettingStarted_SDK_V1.3.pdf</strong></p></li>
-<li><p><strong>TRENTOS_Handbook_SDK_V1.3.pdf</strong></p></li>
-<li><p><strong>TRENTOS_ReleaseNotes_SDK_V1.3.pdf</strong></p></li>
-<li><p><strong>TRENTOS_MigrationNotes_SDK_V1.2_to_V1.3.pdf</strong></p></li>
-<li><p><strong>3rd_party</strong> → Supplemental documents</p></li>
-</ul>
-</li>
 </ul>
 </li>
 <li><p><strong>libs</strong> → TRENTOS libraries and core system sources</p>
@@ -2382,29 +2369,16 @@ machine. An installation guide for the engine can be found at
 <a class="reference external" href="https://docs.docker.com/engine/install/">https://docs.docker.com/engine/install</a>.
 This tutorial assumes you have a working docker service installed on your
 machine and that your current user is a member of the <strong>docker</strong> and <strong>sudo</strong>
-group. The SDK provides two archives with docker containers:</p>
-<ul class="simple">
-<li><p><strong>trentos_build_20210503.bz2</strong>: the build container</p></li>
-<li><p><strong>trentos_test_20211025.bz2</strong>: the test container</p></li>
-</ul>
-<p>The rationale for splitting the containers is, that the test container is much
-more lightweight than the build container.</p>
+group.</p>
 <h2 id="install-the-docker-images">Install the Docker Images<a class="headerlink" href="#install-the-docker-images" title="Link to this heading">¶</a></h2>
-<p>To install these docker images on your machine, open a terminal in the folder
-where the archives are located and run the commands below. Due to the size of
-the docker images, this will take several minutes.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># enter the SDK root directory</span>
-<span class="nb">cd</span><span class="w"> </span>&lt;sdk_root_directory&gt;
-
-<span class="c1"># load trentos_build docker image</span>
-docker<span class="w"> </span>load<span class="w"> </span>--input<span class="w"> </span>docker/trentos_build_20210503.bz2
-
-<span class="c1"># load trentos_test docker image</span>
-docker<span class="w"> </span>load<span class="w"> </span>--input<span class="w"> </span>docker/trentos_test_20211025.bz2
+<p>To install these docker images on your machine, open a terminal and run the commands below.
+Due to the size of the docker images, this can take several minutes.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>hensoldtcyber/trentos_build:latest
+docker<span class="w"> </span>pull<span class="w"> </span>hensoldtcyber/trentos_test:latest
 </code></pre></div>
 </div>
 <p>Verify that the docker images are installed properly by running.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>images
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>images
 </code></pre></div>
 </div>
 <p>This should result in the following output, especially the values in the column
@@ -2434,13 +2408,13 @@ not the parent folder.</p>
 <p>To open the <strong>trentos_build</strong> docker container in the interactive mode, run this
 command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># start bash in a new trentos_build container</span>
-sdk/scripts/open_trentos_build_env.sh
+src/sdk/scripts/open_trentos_build_env.sh
 </code></pre></div>
 </div>
 <p>To leave the container enter <strong>exit</strong>.</p>
 <p>Similarly, for the <strong>trentos_test</strong> docker container the command is:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># start bash in a new trentos_test container</span>
-sdk/scripts/open_trentos_test_env.sh
+src/sdk/scripts/open_trentos_test_env.sh
 </code></pre></div>
 </div>
 <p>To leave the container enter <strong>exit</strong>.</p>
@@ -2453,12 +2427,12 @@ not the parent folder.</p>
 <p>To run a command or a script in the <strong>trentos_build</strong> docker container, run this
 command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># execute a specific script in a new trentos_build container</span>
-sdk/scripts/open_trentos_build_env.sh<span class="w"> </span>&lt;path_to_build_script&gt;
+src/sdk/scripts/open_trentos_build_env.sh<span class="w"> </span>&lt;path_to_build_script&gt;
 </code></pre></div>
 </div>
 <p>Similarly, for the <strong>trentos_test</strong> docker container the command is:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># execute a specific script in a new trentos_test container</span>
-sdk/scripts/open_trentos_test_env.sh<span class="w"> </span>&lt;path_to_test_script&gt;
+src/sdk/scripts/open_trentos_test_env.sh<span class="w"> </span>&lt;path_to_test_script&gt;
 </code></pre></div>
 </div>
 <p>Each of these commands <strong>starts a new container instance</strong>, executes the command
@@ -2478,7 +2452,7 @@ hidden behind a NAT and the following port ranges are forwarded:</p>
 <p>Verify that network and internet access from within the container is possible by
 pinging a server in interactive mode:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># start bash in a new trentos_test container</span>
-sdk/scripts/open_trentos_test_env.sh
+src/sdk/scripts/open_trentos_test_env.sh
 
 <span class="c1"># execute ping</span>
 ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span>hensoldt-cyber.com
@@ -2518,7 +2492,7 @@ working directory into the docker container under <strong>/host</strong>, execu
 and then remove the container again. Then the script is executed in the
 container and the container is removed once the script finishes. For the Hello
 World demo, this call looks like the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>trentos/sdk/scripts/open_trentos_build_env.sh<span class="w"> </span>trentos/build.sh<span class="w"> </span>demo_hello_world
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>src/sdk/scripts/open_trentos_build_env.sh<span class="w"> </span>src/build.sh<span class="w"> </span>demo_hello_world
 </code></pre></div>
 </div>
 <p>If the build is successful, the console produces the following output:</p>
@@ -2543,7 +2517,7 @@ following:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># change to the build output folder</span>
 <span class="nb">cd</span><span class="w"> </span>build-zynq7000-Debug-demo_hello_world
 <span class="c1"># execute the Hello World demo in the trentos_test container</span>
-../sdk/scripts/open_trentos_test_env.sh<span class="w"> </span>./simulate
+../src/sdk/scripts/open_trentos_test_env.sh<span class="w"> </span>./simulate
 </code></pre></div>
 </div>
 <p>Note that in this case the <strong>simulate</strong> run script must be invoked from
@@ -2576,9 +2550,9 @@ in this case is the <strong>rpi3</strong> platform.</p>
 the <strong>trentos_build</strong> docker container. The container will mount the
 current working directory under <strong>/host</strong>, execute the script and then
 remove itself.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>sdk/scripts/open_trentos_build_env.sh<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>sdk/build-system.sh<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>sdk/demos/demo_hello_world<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>src/sdk/scripts/open_trentos_build_env.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>src/sdk/build-system.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>src/sdk/demos/demo_hello_world<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>rpi3<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>build-rpi3-Debug-demo_hello_world<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug
@@ -2625,7 +2599,7 @@ can be found in the
 section in the TRENTOS Handbook).</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># copy bootfiles to SD card</span>
-cp<span class="w"> </span>sdk/resources/rpi3_sd_card/*<span class="w"> </span>&lt;sd_card_mount_point&gt;/
+cp<span class="w"> </span>src/sdk/resources/rpi3_sd_card/*<span class="w"> </span>&lt;sd_card_mount_point&gt;/
 </code></pre></div>
 </div>
 <ul class="simple">
@@ -2680,9 +2654,9 @@ only differs in the underlying hardware platform type, which in this case is the
 <p>The following command will invoke the build script from inside the
 <strong>trentos_build</strong> docker container. The container will mount the current working
 directory under <strong>/host</strong>, execute the script and then remove itself.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>sdk/scripts/open_trentos_build_env.sh<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>sdk/build-system.sh<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>sdk/demos/demo_hello_world<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>src/sdk/scripts/open_trentos_build_env.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>src/sdk/build-system.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>src/sdk/demos/demo_hello_world<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>nitrogen6sx<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>build-nitrogen6sx-Debug-demo_hello_world<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug
@@ -2720,7 +2694,7 @@ found in the <a class="reference internal" href="../platform-support/nitrogen6-
 section in the TRENTOS Handbook.)</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># copy bootfiles to SD card</span>
-cp<span class="w"> </span>sdk/resources/nitrogen6sx_sd_card/*<span class="w"> </span>&lt;sd_card_mount_point&gt;/
+cp<span class="w"> </span>src/sdk/resources/nitrogen6sx_sd_card/*<span class="w"> </span>&lt;sd_card_mount_point&gt;/
 </code></pre></div>
 </div>
 <ul class="simple">
@@ -2728,7 +2702,7 @@ cp<span class="w"> </span>sdk/resources/nitrogen6sx_sd_card/*<span class="w"> </
 to the SD card as well.</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># copy TRENTOS system image to SD card</span>
-cp<span class="w"> </span>build-nitrogen6sx-Debug-demo_hello_world/images/os_image.elf<span class="w"> </span>&lt;sd_card_mount_point&gt;/
+cp<span class="w"> </span>src/build-nitrogen6sx-Debug-demo_hello_world/images/os_image.elf<span class="w"> </span>&lt;sd_card_mount_point&gt;/
 
 <span class="c1"># ensure files are written to the SD card</span>
 sync
@@ -2852,9 +2826,9 @@ only differs in the underlying hardware platform type, which in this case is the
 <p>The following command will invoke the build script from inside the
 <strong>trentos_build</strong> docker container. The container will mount the current working
 directory under <strong>/host</strong>, execute the script and then remove itself.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>sdk/scripts/open_trentos_build_env.sh<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>sdk/build-system.sh<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>sdk/demos/demo_hello_world<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>src/sdk/scripts/open_trentos_build_env.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>src/sdk/build-system.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>src/sdk/demos/demo_hello_world<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>sabre<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>build-sabre-Debug-demo_hello_world<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug
@@ -2893,7 +2867,7 @@ the <a class="reference internal" href="../platform-support/bd-sl-i.mx6/platfor
 in the TRENTOS Handbook.)</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># copy bootfiles to SD card</span>
-cp<span class="w"> </span>sdk/resources/sabre_sd_card/*<span class="w"> </span>&lt;sd_card_mount_point&gt;/
+cp<span class="w"> </span>src/sdk/resources/sabre_sd_card/*<span class="w"> </span>&lt;sd_card_mount_point&gt;/
 </code></pre></div>
 </div>
 <ul class="simple">
@@ -3019,8 +2993,6 @@ individual components and how to set up the other demo systems.</p>
 </ul>
 <p>Once you have acquired the necessary understanding of the TRENTOS system, start
 developing your own applications and components.</p>
-<p>A detailed TRENTOS API Doxygen documentation is available at
-<strong>sdk/doc/html/index.html</strong>.</p>
 
 
 
