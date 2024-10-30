@@ -1,0 +1,2258 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>RPi3B+ Platform - Documentation</title>
+      
+    
+    
+      
+        
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../../_static/sphinx_immaterial_theme.4b4a8c74e2ff2ab5b.min.css?v=afa97f93" />
+        <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#subpages" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              RPi3B+ Platform
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../introduction/getting-started.html" class="md-tabs__link">
+      <span class="md-ellipsis">Introduction</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../api/cert-parser_api.html" class="md-tabs__link">
+      <span class="md-ellipsis">API</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../components/cert-server.html" class="md-tabs__link">
+      <span class="md-ellipsis">Components</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../component-interfaces/nic-interface.html" class="md-tabs__link">
+      <span class="md-ellipsis">Component Interfaces</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../using-sd-card-with-trentos.html" class="md-tabs__link md-tabs__link--active">
+      <span class="md-ellipsis">Platform Support</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../demos/demo-iot_qemu.html" class="md-tabs__link">
+      <span class="md-ellipsis">Demos</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../tools/proxy-application.html" class="md-tabs__link">
+      <span class="md-ellipsis">Tools</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../development/buildsystem.html" class="md-tabs__link">
+      <span class="md-ellipsis">Development</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../glossary/acronyms.html" class="md-tabs__link">
+      <span class="md-ellipsis">Glossary</span>
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          <span class="md-ellipsis">Introduction</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Introduction</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/getting-started.html" class="md-nav__link">
+        <span class="md-ellipsis">Getting Started</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/sel4.html" class="md-nav__link">
+        <span class="md-ellipsis">se<wbr>L4 Microkernel</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/camkes.html" class="md-nav__link">
+        <span class="md-ellipsis">CAmk<wbr>ES Framework</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          <span class="md-ellipsis">API</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/cert-parser_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Parser API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/config-service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Config<wbr>Service API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/configuration_service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Service</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/crypto_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/file-system_api.html" class="md-nav__link">
+        <span class="md-ellipsis">File<wbr>System API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/key-store_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Key<wbr>Store API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/logger_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Logger API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/socket_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/tls_api.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          <span class="md-ellipsis">Components</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Components" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Components</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/cert-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/crypto-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/entropy-source.html" class="md-nav__link">
+        <span class="md-ellipsis">Entropy<wbr>Source</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/network-stack_pico-tcp.html" class="md-nav__link">
+        <span class="md-ellipsis">Network<wbr>Stack_<wbr>Pico<wbr>Tcp</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/nic_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/nic_dummy.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Dummy</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/nic_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>i<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/nic_rpi.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>RPi</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/ram-disk.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/rpi_spi_flash.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi_<wbr>SPI_<wbr>Flash</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/sd-host-controller.html" class="md-nav__link">
+        <span class="md-ellipsis">Sd<wbr>Host<wbr>Controller</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/storage_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/storage-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/time-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Time<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/tls-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Tls<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/uart.html" class="md-nav__link">
+        <span class="md-ellipsis">UART</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          <span class="md-ellipsis">Component Interfaces</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Component Interfaces" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Component Interfaces</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../component-interfaces/nic-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../component-interfaces/socket-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          <span class="md-ellipsis">Platform Support</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Platform Support" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Platform Support</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../using-sd-card-with-trentos.html" class="md-nav__link">
+        <span class="md-ellipsis">Using an SD Card with a TRENTOS System</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+    
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__current-nested md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2" type="checkbox" id="__nav_5_2" checked>
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index md-nav__link--active">
+          <a href="#"><span class="md-ellipsis">RPi3B+ Platform</span></a>
+          
+            <label for="__nav_5_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="RPi3B+ Platform" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">RPi3B+ Platform</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5_2_1" type="checkbox" id="__nav_5_2_1" checked>
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="#subpages"><span class="md-ellipsis">Subpages</span></a>
+          
+            <label for="__nav_5_2_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Subpages" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Subpages</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="debugging_jtag.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi3B+ Debugging with JTAG</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="drivers.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi3B+ Drivers</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+      
+    <li class="md-nav__item md-nav__item--active md-nav__current-toc">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">RPi3B+ Platform</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">RPi3B+ Platform</span>
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#subpages" class="md-nav__link">
+    <span class="md-ellipsis">Subpages</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Subpages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="debugging_jtag.html" class="md-nav__link">
+    <span class="md-ellipsis">RPi3B+ Debugging with JTAG</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="drivers.html" class="md-nav__link">
+    <span class="md-ellipsis">RPi3B+ Drivers</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boot-mode" class="md-nav__link">
+    <span class="md-ellipsis">Boot Mode</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boot-flow" class="md-nav__link">
+    <span class="md-ellipsis">Boot Flow</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">Prerequisites</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rpi3b-firmware" class="md-nav__link">
+    <span class="md-ellipsis">RPi3B+ Firmware</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#u-boot" class="md-nav__link">
+    <span class="md-ellipsis">U-<wbr>Boot</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="U-Boot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparations-for-building-u-boot-from-source" class="md-nav__link">
+    <span class="md-ellipsis">Preparations for Building U-<wbr>Boot from Source</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-u-boot" class="md-nav__link">
+    <span class="md-ellipsis">Building U-<wbr>Boot</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#u-boot-configuration" class="md-nav__link">
+    <span class="md-ellipsis">U-<wbr>Boot Configuration</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trentos" class="md-nav__link">
+    <span class="md-ellipsis">TRENTOS</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">Configuration</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boot-up" class="md-nav__link">
+    <span class="md-ellipsis">Boot Up</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nitrogen6-solo-x/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nitrogen6_<wbr>Solo<wbr>X Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bd-sl-i.mx6/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">BD-<wbr>SL-<wbr>i.<wbr>MX6 Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nvidia-tegra/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nvidia Tegra</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          <span class="md-ellipsis">Demos</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Demos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Demos</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-iot_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-iot_rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-iot_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for i.<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-tls.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API Demo</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-network-filter_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-network-filter_nitrogen6-solox.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for Nitrogen6_<wbr>Solo<wbr>X</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          <span class="md-ellipsis">Tools</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Tools</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/proxy-application.html" class="md-nav__link">
+        <span class="md-ellipsis">Proxy Application</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/configuration-provisioning-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Provisioning Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/ram-disk-generator-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk Generator Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/flasher-tool-rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Flasher Tool for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          <span class="md-ellipsis">Development</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Development" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Development</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/buildsystem.html" class="md-nav__link">
+        <span class="md-ellipsis">Buildsystem</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/function-call-tracing.html" class="md-nav__link">
+        <span class="md-ellipsis">Function Call Tracing</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/hardware-tools.html" class="md-nav__link">
+        <span class="md-ellipsis">Hardware Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/runtime-debugging/runtime-debugging.html" class="md-nav__link">
+        <span class="md-ellipsis">Runtime Debugging</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/runtime-debugging/debugging-qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/runtime-debugging/debugging-hw-platforms_open-ocd.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Open<wbr>OCD</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/runtime-debugging/debugging-hw-platforms_segger.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Segger Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/object-oriented-c.html" class="md-nav__link">
+        <span class="md-ellipsis">Object Oriented C</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/known_issues.html" class="md-nav__link">
+        <span class="md-ellipsis">Known Issues</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          <span class="md-ellipsis">Glossary</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Glossary" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Glossary</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/acronyms.html" class="md-nav__link">
+        <span class="md-ellipsis">Acronyms</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/terms.html" class="md-nav__link">
+        <span class="md-ellipsis">Terms</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#subpages" class="md-nav__link">
+    <span class="md-ellipsis">Subpages</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boot-mode" class="md-nav__link">
+    <span class="md-ellipsis">Boot Mode</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boot-flow" class="md-nav__link">
+    <span class="md-ellipsis">Boot Flow</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">Prerequisites</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rpi3b-firmware" class="md-nav__link">
+    <span class="md-ellipsis">RPi3B+ Firmware</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#u-boot" class="md-nav__link">
+    <span class="md-ellipsis">U-<wbr>Boot</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="U-Boot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparations-for-building-u-boot-from-source" class="md-nav__link">
+    <span class="md-ellipsis">Preparations for Building U-<wbr>Boot from Source</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-u-boot" class="md-nav__link">
+    <span class="md-ellipsis">Building U-<wbr>Boot</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#u-boot-configuration" class="md-nav__link">
+    <span class="md-ellipsis">U-<wbr>Boot Configuration</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trentos" class="md-nav__link">
+    <span class="md-ellipsis">TRENTOS</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">Configuration</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boot-up" class="md-nav__link">
+    <span class="md-ellipsis">Boot Up</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+<h1 id="rpi3b-platform">RPi3B+ Platform<a class="headerlink" href="#rpi3b-platform" title="Link to this heading">¶</a></h1>
+<p>The following sections will provide all information required to
+successfully boot TRENTOS on the Raspberry Pi 3 Model B+ (RPi3B+) using
+the 32-bit mode.</p>
+<p>All given information should also be applicable to the Raspberry Pi 3
+Model B, but this has not been tested.</p>
+<h2 id="subpages">Subpages<a class="headerlink" href="#subpages" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="debugging_jtag.html">RPi3B+ Debugging with JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drivers.html">RPi3B+ Drivers</a></li>
+</ul>
+</div>
+<h2 id="boot-mode">Boot Mode<a class="headerlink" href="#boot-mode" title="Link to this heading">¶</a></h2>
+<p>In general, the RPi3B+ offers different boot modes (see
+<a class="reference external" href="https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/">https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/</a>).</p>
+<p>For booting TRENTOS, the SD card-based boot mode is selected.</p>
+<h2 id="boot-flow">Boot Flow<a class="headerlink" href="#boot-flow" title="Link to this heading">¶</a></h2>
+<p>The SD card-based boot flow of the RPi3B+ consists of several individual
+steps. When powering on the board, the VideoCore GPU is activated and
+the Stage 1 (S1) bootloader stored in ROM gets started. The GPU executes
+S1 on a small RISC core and S1 then</p>
+<ul class="simple">
+<li><p>mounts &amp; reads the SD card</p></li>
+<li><p>loads the Stage 2 (S2) bootloader (from a FAT16/32 formatted file
+system on the SD card) into the GPU’s L2 cache</p></li>
+<li><p>executes S2 on the GPU</p></li>
+</ul>
+<p>To be able to load the S2 bootloader and continue the boot process, the SD card
+has to be prepared with the respective binary files accordingly.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h2>
+<p>The RPi3B+ expects several binary files to be placed on the SD card in
+order to boot a TRENTOS system successfully. These required files can
+be clustered into the following types:</p>
+<ul class="simple">
+<li><p>RPi3B+ firmware</p></li>
+<li><p>U-Boot bootloader</p></li>
+<li><p>TRENTOS system</p></li>
+<li><p>Configuration</p></li>
+</ul>
+<p>The required files and their meaning are explained in the following:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Blob</p></th>
+<th class="head"><p>Usage</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RPi3B+ firmware</p></td>
+<td><p>bootcode.bin</p></td>
+<td><p>S2 bootloader, which<br>- activates the SDRAM<br>- loads the Stage 3 (S3) bootloader from the SD card</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>start.elf</p></td>
+<td><p>Stage 3 (S3) bootloader, which<br>- reads the firmware configuration file (config.txt), containing configuration for both the VideoCore (Video/HDMI modes, memory, console frame buffers, etc.) and loading of Stage 4 (S4) bootloader (load addresses, device tree, UART/console baud rates, etc.)<br>- splits the RAM between GPU and ARM CPU<br>- enables the ARM CPU<br>- loads the S4 bootloader image into the shared memory allocated to the ARM processor<br>- releases the ARM processor from reset</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>fixup.dat</p></td>
+<td><p>Linker files required for the S3 bootloader.</p></td>
+</tr>
+<tr class="row-odd"><td><p>U-Boot</p></td>
+<td><p>u-boot.bin</p></td>
+<td><p>S4 bootloader, which loads the TRENTOS system image.</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>uboot.env</p></td>
+<td><p>A configuration file, containing the information required by the S4 bootloader.</p></td>
+</tr>
+<tr class="row-odd"><td><p>TRENTOS</p></td>
+<td><p>os_image.elf</p></td>
+<td><p>The TRENTOS system image, containing the TRENTOS OS (seL4 kernel &amp; TRENTOS userland) and applications.</p></td>
+</tr>
+<tr class="row-even"><td><p>Configuration</p></td>
+<td><p>config.txt</p></td>
+<td><p>Contains relevant configuration parameters for setting up the RPi3B+.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The following sections explain more in detail, where and how the
+required files can be obtained.</p>
+<h3 id="rpi3b-firmware">RPi3B+ Firmware<a class="headerlink" href="#rpi3b-firmware" title="Link to this heading">¶</a></h3>
+<p>The three RPi3B+ firmware files can be obtained in binary form from the
+official GitHub resources of the Raspberry Pi Foundation:
+<a class="reference external" href="https://github.com/raspberrypi/firmware/tree/master/boot">https://github.com/raspberrypi/firmware/tree/master/boot</a>.</p>
+<h3 id="u-boot">U-Boot<a class="headerlink" href="#u-boot" title="Link to this heading">¶</a></h3>
+<p><strong>Info:</strong> You may find an already built <strong><code class="docutils literal notranslate"><span class="pre">u-boot.bin</span></code></strong> image in the SDK’s
+<strong><code class="docutils literal notranslate"><span class="pre">resources/rpi3_sd_card</span></code></strong>, so you may want to skip this paragraph.</p>
+<h4 id="preparations-for-building-u-boot-from-source">Preparations for Building U-Boot from Source<a class="headerlink" href="#preparations-for-building-u-boot-from-source" title="Link to this heading">¶</a></h4>
+<p>If you want to build the required U-Boot binary directly from the
+source, first ensure that all the necessary packages are installed:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gcc-arm-linux-gnueabi<span class="w"> </span>u-boot-tools<span class="w"> </span>flex<span class="w"> </span>bison
+</code></pre></div>
+</div>
+<h4 id="building-u-boot">Building U-Boot<a class="headerlink" href="#building-u-boot" title="Link to this heading">¶</a></h4>
+<p>Before building U-Boot, the source code has to be obtained from the
+official git repository:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://gitlab.denx.de/u-boot/u-boot.git
+</code></pre></div>
+</div>
+<p>As an alternative, there also exists a GitHub mirror:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/u-boot/u-boot.git
+</code></pre></div>
+</div>
+<p>For the purpose of this tutorial, it is recommended to check out the
+version <strong><code class="docutils literal notranslate"><span class="pre">2020.07-rc3</span></code></strong> (commit hash
+<strong><code class="docutils literal notranslate"><span class="pre">8c48bb21bd6a1778d1f299de30ff62c07929702b</span></code></strong>) since the rest of the steps
+have been tested with this version. However, building a working U-Boot
+requires the commit <strong><code class="docutils literal notranslate"><span class="pre">995eab8b5b580b67394312b1621c60a71042cd18</span></code></strong> to be
+reverted. The default U-Boot will not succeed to boot a seL4 image due
+to cache configuration issues in the ELFLoader. Therefore, caches have
+to be disabled in U-Boot before loading seL4, which is done by reverting
+the mentioned commit before building U-Boot.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>u-boot
+git<span class="w"> </span>checkout<span class="w"> </span>v2020.07-rc3
+git<span class="w"> </span>revert<span class="w"> </span>995eab8b5b580b67394312b1621c60a71042cd18
+</code></pre></div>
+</div>
+<p>In general, U-Boot on the RPi3B+ can be run in two modes: 32-bit and
+64-bit. As a default environment, the 32-bit version is selected.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>make<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabi-<span class="w"> </span>distclean
+make<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabi-<span class="w"> </span>rpi_3_32b_defconfig
+make<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabi-
+</code></pre></div>
+</div>
+<p>After the build ran successfully, the folder should now contain the
+U-Boot binary named <strong><code class="docutils literal notranslate"><span class="pre">u-boot.bin.</span></code></strong></p>
+<h4 id="u-boot-configuration">U-Boot Configuration<a class="headerlink" href="#u-boot-configuration" title="Link to this heading">¶</a></h4>
+<p>When starting up U-Boot for the first time, a user has to interrupt
+autoboot  (during the terminal output “Hit any key to stop autoboot”)
+by pressing any key. The output looks like the following:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="go">U-Boot 2020.07-rc3-00002-g4b6f96a0a6 (May 26 2020 - 18:38:13 +0200)</span>
+
+<span class="go">DRAM:  948 MiB</span>
+<span class="go">RPI 3 Model B+ (0xa020d3)</span>
+<span class="go">MMC:   mmc@7e202000: 0, sdhci@7e300000: 1</span>
+<span class="go">Loading Environment from FAT... *** Warning - bad CRC, using default environment</span>
+
+<span class="go">In:    serial</span>
+<span class="go">Out:   vidconsole</span>
+<span class="go">Err:   vidconsole</span>
+<span class="go">Net:   No ethernet found.</span>
+<span class="go">starting USB...</span>
+<span class="go">Bus usb@7e980000: USB DWC2</span>
+<span class="go">scanning bus usb@7e980000 for devices... 4 USB Device(s) found</span>
+<span class="go">       scanning usb for storage devices... 0 Storage Device(s) found</span>
+<span class="go">Hit any key to stop autoboot:  0</span>
+<span class="go">U-Boot&gt;</span>
+</code></pre></div>
+</div>
+<p>Afterwards, U-Boot allows for configuration changes with:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>setenv<span class="w"> </span>bootcmd<span class="w"> </span><span class="s1">&#39;fatload mmc 0 0x10000000 os_image.elf;bootelf 0x10000000&#39;</span>
+saveenv
+</code></pre></div>
+</div>
+<p>The resulting configuration is then saved to the <strong><code class="docutils literal notranslate"><span class="pre">uboot.env</span></code></strong> file
+on the SD card. In order to boot the system, it is enough to enter the
+command ‘<strong><code class="docutils literal notranslate"><span class="pre">boot</span></code></strong>’ or reset the board and wait for autoboot.</p>
+<h3 id="trentos">TRENTOS<a class="headerlink" href="#trentos" title="Link to this heading">¶</a></h3>
+<p>The TRENTOS image has to be built according to the official build
+process.</p>
+<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h3>
+<p>The <strong><code class="docutils literal notranslate"><span class="pre">config.txt</span></code></strong> configuration file has to be created independently
+from the prebuilt RPi3B+ firmware files. Further information regarding
+potential configuration parameters is documented here:
+<a class="reference external" href="https://www.raspberrypi.org/documentation/configuration/config-txt/README.md">https://www.raspberrypi.org/documentation/configuration/config-txt/README.md</a></p>
+<p>For booting up the RPi3B+ with TRENTOS, the following parameters must be
+provided in the <strong><code class="docutils literal notranslate"><span class="pre">config.txt</span></code></strong> file:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="go">enable_uart=1</span>
+<span class="go">kernel=u-boot.bin</span>
+<span class="go">core_freq=250</span>
+<span class="go">dtparam=spi=on</span>
+<span class="go">enable_jtag_gpio=1</span>
+</code></pre></div>
+</div>
+<p>It is required to set the <strong><code class="docutils literal notranslate"><span class="pre">core_freq</span></code></strong> parameter to a fixed value of
+250 MHz as the UART will be transmitting garbage otherwise.</p>
+<h2 id="boot-up">Boot Up<a class="headerlink" href="#boot-up" title="Link to this heading">¶</a></h2>
+<p>After having prepared the SD card, the RPi3B+ is ready to use.
+Nevertheless, it might be helpful to receive some command line output
+via serial output, in order to verify that the board is actually booting
+up and the specified TRENTOS system is executing successfully.
+Therefore, a UART-to-USB adapter is required, which connects the RPi3B+
+to a PC.</p>
+<p>The adapter has to be connected to the RPi3B+ based on the pinout
+description found at <a class="reference external" href="https://pinout.xyz/pinout/uart">https://pinout.xyz/pinout/uart</a>
+(the orientation of the connection header with respect to the board is
+visible here <a class="reference external" href="https://www.raspberrypi.org/documentation/usage/gpio/">https://www.raspberrypi.org/documentation/usage/gpio/</a>).
+The following example setup will demonstrate how to connect the RPi3B+
+to the Adafruit FT232H Breakout Board (<a class="reference external" href="https://www.adafruit.com/product/2264">https://www.adafruit.com/product/2264</a>).</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>UART Signal</p></th>
+<th class="head"><p>Cable Color</p></th>
+<th class="head"><p>RPi3B+ Pin</p></th>
+<th class="head"><p>Adafruit FT232H Pin</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>GND</p></td>
+<td><p>black</p></td>
+<td><p>P6</p></td>
+<td><p>GND</p></td>
+</tr>
+<tr class="row-odd"><td><p>TXD</p></td>
+<td><p>white</p></td>
+<td><p>P8</p></td>
+<td><p>D1</p></td>
+</tr>
+<tr class="row-even"><td><p>RXD</p></td>
+<td><p>grey</p></td>
+<td><p>P10</p></td>
+<td><p>D0</p></td>
+</tr>
+</tbody>
+</table>
+<p>Once the cables have been connected to the respective pins, it should
+result in the setup shown below.</p>
+<p><img alt="&quot;RPi3B+ - UART Adapter Setup 1&quot;" src="../../_images/platform_setup-11.jpg" /></p>
+<p><img alt="&quot;RPi3B+ - UART Adapter Setup 2&quot;" src="../../_images/platform_setup-2.png" /></p>
+<p>In a new terminal start a serial monitor that shows the traffic received
+from the UART-to-USB adapter. One way of doing this is to use
+the <strong><code class="docutils literal notranslate"><span class="pre">picocom</span></code></strong> utility with the following command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>picocom<span class="w"> </span>-b<span class="w"> </span><span class="m">115200</span><span class="w"> </span>/dev/&lt;ttyUSBX&gt;
+</code></pre></div>
+</div>
+<p>Hereby, <strong><code class="docutils literal notranslate"><span class="pre">&lt;ttyUSBX&gt;</span></code></strong> acts as a placeholder for the specific device
+representing the USB-to-UART adapter, e.g. <strong><code class="docutils literal notranslate"><span class="pre">ttyUSB0</span></code></strong>. Note that
+using <strong><code class="docutils literal notranslate"><span class="pre">sudo</span></code></strong> may not be required, this depends on your Linux group
+membership giving your account access to <strong><code class="docutils literal notranslate"><span class="pre">/dev/&lt;ttyUSBX&gt;</span></code></strong>.</p>
+<p>The board can now be powered and a result similar to the one below shall
+be printed on the terminal:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="go">U-Boot 2020.07-rc3-00002-g4b6f96a0a6 (May 26 2020 - 18:38:13 +0200)</span>
+
+<span class="go">DRAM:  948 MiB</span>
+<span class="go">RPI 3 Model B+ (0xa020d3)</span>
+<span class="go">MMC:   mmc@7e202000: 0, sdhci@7e300000: 1</span>
+<span class="go">Loading Environment from FAT... OK</span>
+<span class="go">In:    serial</span>
+<span class="go">Out:   vidconsole</span>
+<span class="go">Err:   vidconsole</span>
+<span class="go">Net:   No ethernet found.</span>
+<span class="go">starting USB...</span>
+<span class="go">Bus usb@7e980000: USB DWC2</span>
+<span class="go">scanning bus usb@7e980000 for devices... 4 USB Device(s) found</span>
+<span class="go">       scanning usb for storage devices... 0 Storage Device(s) found</span>
+<span class="go">Hit any key to stop autoboot:  0</span>
+<span class="go">8307348 bytes read in 349 ms (22.7 MiB/s)</span>
+<span class="gp">#</span><span class="c1"># Starting application at 0x00b1e000 ...</span>
+
+<span class="go">ELF-loader started on CPU: ARM Ltd. Cortex-A53 r0p4</span>
+<span class="go">  paddr=[b1e000..12e40c7]</span>
+<span class="go">No DTB passed in from boot loader.</span>
+<span class="go">Looking for DTB in CPIO archive...found at c20568.</span>
+<span class="go">Loaded DTB from c20568.</span>
+<span class="go">   paddr=[37000..3afff]</span>
+<span class="go">ELF-loading image &#39;kernel&#39;</span>
+<span class="go">  paddr=[0..36fff]</span>
+<span class="go">  vaddr=[e0000000..e0036fff]</span>
+<span class="go">  virt_entry=e0000000</span>
+<span class="go">ELF-loading image &#39;capdl-loader&#39;</span>
+<span class="go">  paddr=[3b000..723fff]</span>
+<span class="go">  vaddr=[10000..6f8fff]</span>
+<span class="go">  virt_entry=17e48</span>
+<span class="go">Enabling MMU and paging</span>
+<span class="go">Jumping to kernel-image entry point...</span>
+
+<span class="go">Bootstrapping kernel</span>
+<span class="go">Booting all finished, dropped to user space</span>
+</code></pre></div>
+</div>
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../using-sd-card-with-trentos.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Using an SD Card with a TRENTOS System" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Using an SD Card with a TRENTOS System
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="debugging_jtag.html" class="md-footer__link md-footer__link--next" aria-label="Next: RPi3B+ Debugging with JTAG" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              RPi3B+ Debugging with JTAG
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2023-2024, HENSOLDT Cyber GmbH.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.1.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.tabs", "navigation.sections", "navigation.instant", "header.autohide", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "toc.follow", "toc.sticky"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": null}}</script>
+    
+      
+        <script src="../../_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=8ec58cb5"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

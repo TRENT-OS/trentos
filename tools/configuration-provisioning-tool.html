@@ -1,0 +1,2045 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Configuration Provisioning Tool - Documentation</title>
+      
+    
+    
+      
+        
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.4b4a8c74e2ff2ab5b.min.css?v=afa97f93" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#general" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Configuration Provisioning Tool
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../introduction/getting-started.html" class="md-tabs__link">
+      <span class="md-ellipsis">Introduction</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../api/cert-parser_api.html" class="md-tabs__link">
+      <span class="md-ellipsis">API</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../components/cert-server.html" class="md-tabs__link">
+      <span class="md-ellipsis">Components</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../component-interfaces/nic-interface.html" class="md-tabs__link">
+      <span class="md-ellipsis">Component Interfaces</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../platform-support/using-sd-card-with-trentos.html" class="md-tabs__link">
+      <span class="md-ellipsis">Platform Support</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../demos/demo-iot_qemu.html" class="md-tabs__link">
+      <span class="md-ellipsis">Demos</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="proxy-application.html" class="md-tabs__link md-tabs__link--active">
+      <span class="md-ellipsis">Tools</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../development/buildsystem.html" class="md-tabs__link">
+      <span class="md-ellipsis">Development</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../glossary/acronyms.html" class="md-tabs__link">
+      <span class="md-ellipsis">Glossary</span>
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          <span class="md-ellipsis">Introduction</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Introduction</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/getting-started.html" class="md-nav__link">
+        <span class="md-ellipsis">Getting Started</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/sel4.html" class="md-nav__link">
+        <span class="md-ellipsis">se<wbr>L4 Microkernel</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/camkes.html" class="md-nav__link">
+        <span class="md-ellipsis">CAmk<wbr>ES Framework</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          <span class="md-ellipsis">API</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/cert-parser_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Parser API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/config-service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Config<wbr>Service API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/configuration_service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Service</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/crypto_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/file-system_api.html" class="md-nav__link">
+        <span class="md-ellipsis">File<wbr>System API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/key-store_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Key<wbr>Store API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/logger_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Logger API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/socket_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/tls_api.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          <span class="md-ellipsis">Components</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Components" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Components</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/cert-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/crypto-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/entropy-source.html" class="md-nav__link">
+        <span class="md-ellipsis">Entropy<wbr>Source</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/network-stack_pico-tcp.html" class="md-nav__link">
+        <span class="md-ellipsis">Network<wbr>Stack_<wbr>Pico<wbr>Tcp</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_dummy.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Dummy</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>i<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_rpi.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>RPi</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/ram-disk.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/rpi_spi_flash.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi_<wbr>SPI_<wbr>Flash</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/sd-host-controller.html" class="md-nav__link">
+        <span class="md-ellipsis">Sd<wbr>Host<wbr>Controller</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/storage_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/storage-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/time-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Time<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/tls-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Tls<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/uart.html" class="md-nav__link">
+        <span class="md-ellipsis">UART</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          <span class="md-ellipsis">Component Interfaces</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Component Interfaces" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Component Interfaces</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../component-interfaces/nic-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../component-interfaces/socket-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          <span class="md-ellipsis">Platform Support</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Platform Support" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Platform Support</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/using-sd-card-with-trentos.html" class="md-nav__link">
+        <span class="md-ellipsis">Using an SD Card with a TRENTOS System</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/rpi-3-model-b%2B/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi3B+ Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/nitrogen6-solo-x/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nitrogen6_<wbr>Solo<wbr>X Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/bd-sl-i.mx6/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">BD-<wbr>SL-<wbr>i.<wbr>MX6 Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/nvidia-tegra/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nvidia Tegra</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          <span class="md-ellipsis">Demos</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Demos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Demos</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for i.<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-tls.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API Demo</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-network-filter_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-network-filter_nitrogen6-solox.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for Nitrogen6_<wbr>Solo<wbr>X</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          <span class="md-ellipsis">Tools</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Tools</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="proxy-application.html" class="md-nav__link">
+        <span class="md-ellipsis">Proxy Application</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">Configuration Provisioning Tool</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">Configuration Provisioning Tool</span>
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general" class="md-nav__link">
+    <span class="md-ellipsis">General</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settings" class="md-nav__link">
+    <span class="md-ellipsis">Settings</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-data-layout" class="md-nav__link">
+    <span class="md-ellipsis">Configuration Data Layout</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Data Layout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-integer-parameters" class="md-nav__link">
+    <span class="md-ellipsis">Setting Integer Parameters</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-string-parameters" class="md-nav__link">
+    <span class="md-ellipsis">Setting String Parameters</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-blob-parameters" class="md-nav__link">
+    <span class="md-ellipsis">Setting Blob Parameters</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build" class="md-nav__link">
+    <span class="md-ellipsis">Build</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run" class="md-nav__link">
+    <span class="md-ellipsis">Run</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Run">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    <span class="md-ellipsis">Options</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">Example</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ram-disk-generator-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk Generator Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flasher-tool-rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Flasher Tool for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          <span class="md-ellipsis">Development</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Development" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Development</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/buildsystem.html" class="md-nav__link">
+        <span class="md-ellipsis">Buildsystem</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/function-call-tracing.html" class="md-nav__link">
+        <span class="md-ellipsis">Function Call Tracing</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/hardware-tools.html" class="md-nav__link">
+        <span class="md-ellipsis">Hardware Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/runtime-debugging.html" class="md-nav__link">
+        <span class="md-ellipsis">Runtime Debugging</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-hw-platforms_open-ocd.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Open<wbr>OCD</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-hw-platforms_segger.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Segger Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/object-oriented-c.html" class="md-nav__link">
+        <span class="md-ellipsis">Object Oriented C</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/known_issues.html" class="md-nav__link">
+        <span class="md-ellipsis">Known Issues</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          <span class="md-ellipsis">Glossary</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Glossary" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Glossary</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/acronyms.html" class="md-nav__link">
+        <span class="md-ellipsis">Acronyms</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/terms.html" class="md-nav__link">
+        <span class="md-ellipsis">Terms</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general" class="md-nav__link">
+    <span class="md-ellipsis">General</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settings" class="md-nav__link">
+    <span class="md-ellipsis">Settings</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-data-layout" class="md-nav__link">
+    <span class="md-ellipsis">Configuration Data Layout</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Data Layout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-integer-parameters" class="md-nav__link">
+    <span class="md-ellipsis">Setting Integer Parameters</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-string-parameters" class="md-nav__link">
+    <span class="md-ellipsis">Setting String Parameters</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-blob-parameters" class="md-nav__link">
+    <span class="md-ellipsis">Setting Blob Parameters</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build" class="md-nav__link">
+    <span class="md-ellipsis">Build</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run" class="md-nav__link">
+    <span class="md-ellipsis">Run</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Run">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    <span class="md-ellipsis">Options</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">Example</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+<h1 id="configuration-provisioning-tool">Configuration Provisioning Tool<a class="headerlink" href="#configuration-provisioning-tool" title="Link to this heading">¶</a></h1>
+<h2 id="general">General<a class="headerlink" href="#general" title="Link to this heading">¶</a></h2>
+<p>The Configuration Provisioning Tool (<strong><code class="docutils literal notranslate"><span class="pre">cpt</span></code></strong>) creates provisioned
+binary files that contain configuration data that can be managed by the
+<a class="reference internal" href="../api/config-service_api.html"><span class="std std-doc">ConfigService API</span></a>. The configuration data is first
+parsed from an XML file and in turn written to the files. A TRENTOS system that
+makes use of a ConfigService component, can interpret these files and serve the
+clients connected to the ConfigService component with their requested
+configuration parameters.</p>
+<h2 id="settings">Settings<a class="headerlink" href="#settings" title="Link to this heading">¶</a></h2>
+<p>As the tool can also create provisioned images, there is one setting for
+this option regarding the output file size, that might need to be
+adjusted. In case the total size of the configuration data exceeds the
+default setting of 128 KiB, this can be reconfigured with the
+below-mentioned defines in the <strong><code class="docutils literal notranslate"><span class="pre">config.h</span></code></strong> that can be found in the
+directory containing the sources of the tool.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="c1">// Set the max. size of the output image</span>
+<span class="cp"># define HOSTSTORAGE_SIZE ((size_t)(128 * 1024))</span>
+</code></pre></div>
+</div>
+<h2 id="configuration-data-layout">Configuration Data Layout<a class="headerlink" href="#configuration-data-layout" title="Link to this heading">¶</a></h2>
+<p>The configuration data for a TRENTOS system requires a specific XML
+layout so that the tool can parse the input settings and write them to
+the provisioned image. To demonstrate more clearly how the configuration
+data can be worked into the XML layout required by the tool, the
+following configuration data from the Cloud Connector component of
+the <a class="reference internal" href="../demos/demo-iot_qemu.html"><span class="std std-doc">IoT Demo App for QEMU</span></a> is taken as an example.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">&lt;domain</span><span class="w"> </span><span class="na">name =</span><span class="w"> </span><span class="s">&#39;Domain-CloudConnector&#39;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;param_name&gt;</span>ServerPort<span class="nt">&lt;/param_name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;type&gt;</span>int32<span class="nt">&lt;/type&gt;</span>
+<span class="w">    </span><span class="nt">&lt;access_policy&gt;</span>
+<span class="w">        </span><span class="nt">&lt;read&gt;</span>true<span class="nt">&lt;/read&gt;</span>
+<span class="w">        </span><span class="nt">&lt;write&gt;</span>false<span class="nt">&lt;/write&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/access_policy&gt;</span>
+<span class="w">    </span><span class="nt">&lt;value&gt;</span>8883<span class="nt">&lt;/value&gt;</span>
+
+<span class="w">  </span><span class="nt">&lt;param_name&gt;</span>SharedAccessSignature<span class="nt">&lt;/param_name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;type&gt;</span>blob<span class="nt">&lt;/type&gt;</span>
+<span class="w">    </span><span class="nt">&lt;access_policy&gt;</span>
+<span class="w">        </span><span class="nt">&lt;read&gt;</span>true<span class="nt">&lt;/read&gt;</span>
+<span class="w">        </span><span class="nt">&lt;write&gt;</span>false<span class="nt">&lt;/write&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/access_policy&gt;</span>
+<span class="w">    </span><span class="nt">&lt;value&gt;</span>/cloudConnector_SharedAccessSignature<span class="nt">&lt;/value&gt;</span>
+
+<span class="w">  </span><span class="nt">&lt;param_name&gt;</span>IoT-Hub<span class="nt">&lt;/param_name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;type&gt;</span>blob<span class="nt">&lt;/type&gt;</span>
+<span class="w">    </span><span class="nt">&lt;access_policy&gt;</span>
+<span class="w">        </span><span class="nt">&lt;read&gt;</span>true<span class="nt">&lt;/read&gt;</span>
+<span class="w">        </span><span class="nt">&lt;write&gt;</span>false<span class="nt">&lt;/write&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/access_policy&gt;</span>
+<span class="w">    </span><span class="nt">&lt;value&gt;</span>/cloudConnector_cloudDomain<span class="nt">&lt;/value&gt;</span>
+
+<span class="w">  </span><span class="nt">&lt;param_name&gt;</span>CloudServiceIP<span class="nt">&lt;/param_name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;type&gt;</span>string<span class="nt">&lt;/type&gt;</span>
+<span class="w">    </span><span class="nt">&lt;access_policy&gt;</span>
+<span class="w">        </span><span class="nt">&lt;read&gt;</span>true<span class="nt">&lt;/read&gt;</span>
+<span class="w">        </span><span class="nt">&lt;write&gt;</span>false<span class="nt">&lt;/write&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/access_policy&gt;</span>
+<span class="w">    </span><span class="nt">&lt;value&gt;</span>10.0.0.1<span class="nt">&lt;/value&gt;</span>
+
+<span class="w">  </span><span class="nt">&lt;param_name&gt;</span>IoT-Device<span class="nt">&lt;/param_name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;type&gt;</span>string<span class="nt">&lt;/type&gt;</span>
+<span class="w">    </span><span class="nt">&lt;access_policy&gt;</span>
+<span class="w">        </span><span class="nt">&lt;read&gt;</span>true<span class="nt">&lt;/read&gt;</span>
+<span class="w">        </span><span class="nt">&lt;write&gt;</span>false<span class="nt">&lt;/write&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/access_policy&gt;</span>
+<span class="w">    </span><span class="nt">&lt;value&gt;</span>TempSensor_01<span class="nt">&lt;/value&gt;</span>
+
+<span class="w">  </span><span class="nt">&lt;param_name&gt;</span>ServerCaCert<span class="nt">&lt;/param_name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;type&gt;</span>blob<span class="nt">&lt;/type&gt;</span>
+<span class="w">    </span><span class="nt">&lt;access_policy&gt;</span>
+<span class="w">        </span><span class="nt">&lt;read&gt;</span>true<span class="nt">&lt;/read&gt;</span>
+<span class="w">        </span><span class="nt">&lt;write&gt;</span>false<span class="nt">&lt;/write&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/access_policy&gt;</span>
+<span class="w">    </span><span class="nt">&lt;value&gt;</span>/cloudConnector_ServerCACert.pem<span class="nt">&lt;/value&gt;</span>
+<span class="nt">&lt;/domain&gt;</span>
+</code></pre></div>
+</div>
+<p>As described in the chapter about the <a class="reference internal" href="../api/config-service_api.html"><span class="std std-doc">ConfigService API</span></a>,
+the configuration parameters can be grouped in domains, and in the
+presented configuration excerpt, the Cloud Connector component was set
+to be its own domain with a specific set of parameters. In general, the
+layout to describe the parameters always follows the same pattern but
+the value entry differs based on the type of the parameter. The current
+implementation of the  <a class="reference internal" href="../api/config-service_api.html"><span class="std std-doc">ConfigService API</span></a> supports
+storing parameter values either as integers, strings, or blobs.</p>
+<h3 id="setting-integer-parameters">Setting Integer Parameters<a class="headerlink" href="#setting-integer-parameters" title="Link to this heading">¶</a></h3>
+<p>The values for parameters that are set to be treated as integer values
+can be written directly to the <strong><code class="docutils literal notranslate"><span class="pre">&lt;value&gt;</span></code></strong> element of the respective
+configuration parameter in the configuration XML file.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">&lt;param_name&gt;</span>ServerPort<span class="nt">&lt;/param_name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;type&gt;</span>int32<span class="nt">&lt;/type&gt;</span>
+<span class="w">    </span><span class="nt">&lt;access_policy&gt;</span>
+<span class="w">        </span><span class="nt">&lt;read&gt;</span>true<span class="nt">&lt;/read&gt;</span>
+<span class="w">        </span><span class="nt">&lt;write&gt;</span>false<span class="nt">&lt;/write&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/access_policy&gt;</span>
+<span class="w">    </span><span class="nt">&lt;value&gt;</span>8883<span class="nt">&lt;/value&gt;</span>
+</code></pre></div>
+</div>
+<p><strong>Warning:</strong> Values set for parameters of type “<strong><code class="docutils literal notranslate"><span class="pre">int32</span></code></strong>” or
+“<strong><code class="docutils literal notranslate"><span class="pre">int64</span></code></strong>” in the XML file will be treated as unsigned integers by the
+current implementation of the ConfigService library. Native support for
+signed integers is currently not implemented but it can still be
+utilized by casting the unsigned integer value retrieved from the
+<a class="reference internal" href="../api/config-service_api.html"><span class="std std-doc">ConfigService API</span></a> to a signed integer.</p>
+<p>Integer values can be entered in the following formats:</p>
+<ul class="simple">
+<li><p>Decimal positive values, e.g. “194827” or “+194827”</p></li>
+<li><p>Decimal negative values, e.g. “-194827” (as mentioned above, this
+will require the value to be casted to a signed integer when
+retrieved through the <a class="reference internal" href="../api/config-service_api.html"><span class="std std-doc">ConfigService API</span></a>).</p></li>
+<li><p>Hexadecimal lower case, e.g. “0x2f90b”</p></li>
+<li><p>Hexadecimal upper case, e.g. “0x2F90B”</p></li>
+</ul>
+<p>As can be seen in the examples provided, values entered in hex format
+need to be prefixed with “<strong><code class="docutils literal notranslate"><span class="pre">0x</span></code></strong>”.</p>
+<h3 id="setting-string-parameters">Setting String Parameters<a class="headerlink" href="#setting-string-parameters" title="Link to this heading">¶</a></h3>
+<p>Similar to integer values, string values can also be written directly to
+the <strong><code class="docutils literal notranslate"><span class="pre">&lt;value&gt;</span></code></strong> element of the respective configuration parameter in
+the configuration XML file.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">&lt;param_name&gt;</span>CloudServiceIP<span class="nt">&lt;/param_name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;type&gt;</span>string<span class="nt">&lt;/type&gt;</span>
+<span class="w">    </span><span class="nt">&lt;access_policy&gt;</span>
+<span class="w">        </span><span class="nt">&lt;read&gt;</span>true<span class="nt">&lt;/read&gt;</span>
+<span class="w">        </span><span class="nt">&lt;write&gt;</span>false<span class="nt">&lt;/write&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/access_policy&gt;</span>
+<span class="w">    </span><span class="nt">&lt;value&gt;</span>10.0.0.1<span class="nt">&lt;/value&gt;</span>
+</code></pre></div>
+</div>
+<p><strong>Warning:</strong> The <a class="reference internal" href="../api/config-service_api.html"><span class="std std-doc">ConfigService API</span></a> allows for a
+maximum string size of 32 bytes (including NUL terminator). Every parameter
+entry that goes beyond that size should be stored as a blob parameter.</p>
+<h3 id="setting-blob-parameters">Setting Blob Parameters<a class="headerlink" href="#setting-blob-parameters" title="Link to this heading">¶</a></h3>
+<p>The only difference that needs to be handled correctly when setting blob
+parameters is the way the value of the parameter is set in the XML file.
+Instead of quite inconveniently having to directly paste the value of
+the blob into the XML file, the path to the file containing the blob
+value is set in the <strong><code class="docutils literal notranslate"><span class="pre">&lt;value&gt;</span></code></strong> element. As seen in the example below,
+the <strong><code class="docutils literal notranslate"><span class="pre">&lt;value&gt;</span></code></strong> element contains the path to a file called
+<strong><code class="docutils literal notranslate"><span class="pre">cloudConnector_ServerCACert.pem</span></code></strong> that is stored in the same
+directory as the configuration XML file (file paths have to be passed
+relative to the location of the XML file).</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">&lt;param_name&gt;</span>ServerCaCert<span class="nt">&lt;/param_name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;type&gt;</span>blob<span class="nt">&lt;/type&gt;</span>
+<span class="w">    </span><span class="nt">&lt;access_policy&gt;</span>
+<span class="w">        </span><span class="nt">&lt;read&gt;</span>true<span class="nt">&lt;/read&gt;</span>
+<span class="w">        </span><span class="nt">&lt;write&gt;</span>false<span class="nt">&lt;/write&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/access_policy&gt;</span>
+<span class="w">    </span><span class="nt">&lt;value&gt;</span>/cloudConnector_ServerCACert.pem<span class="nt">&lt;/value&gt;</span>
+</code></pre></div>
+</div>
+<p>To get a better understanding of how this can be applied to a TRENTOS
+system, make sure to take a look at the
+<a class="reference internal" href="../demos/demo-iot_qemu.html"><span class="std std-doc">IoT Demo App for QEMU</span></a> included in the SDK.</p>
+<h2 id="build">Build<a class="headerlink" href="#build" title="Link to this heading">¶</a></h2>
+<p>The tool with its default settings is already contained pre-built in the
+<strong><code class="docutils literal notranslate"><span class="pre">bin</span></code></strong> folder as part of the delivered SDK.</p>
+<p>If the settings of the tools need to be changed or recompilation is
+required for some other reason, the tool can be built standalone by
+running the provided <strong><code class="docutils literal notranslate"><span class="pre">build.sh</span></code></strong> script that can be found in the root
+directory of the tool and passing it the SDK path to build against.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>&lt;sdk_root_directory&gt;
+
+<span class="c1"># run sdk/tools/cpt/build.sh in the container,</span>
+<span class="c1"># parameter is the relative path to the SDK (within the container)</span>
+sdk/scripts/open_trentos_build_env.sh<span class="w"> </span>sdk/tools/cpt/build.sh<span class="w"> </span>sdk
+</code></pre></div>
+</div>
+<p>This will create a separate folder <strong><code class="docutils literal notranslate"><span class="pre">build_cpt</span></code></strong>, which includes the application
+binary.</p>
+<h2 id="run">Run<a class="headerlink" href="#run" title="Link to this heading">¶</a></h2>
+<p>Run the tool and provide it with the path to the XML file containing the
+configuration parameters. The tool will create the binary files
+<strong><code class="docutils literal notranslate"><span class="pre">DOMAIN.BIN</span></code></strong>, <strong><code class="docutils literal notranslate"><span class="pre">PARAMETER.BIN</span></code></strong>, <strong><code class="docutils literal notranslate"><span class="pre">STRING.BIN</span></code></strong>, <strong><code class="docutils literal notranslate"><span class="pre">BLOB.BIN</span></code></strong>
+from the specified input file.</p>
+<p>If the tool should create a provisioned image file instead of creating
+the binary files directly, this will require additionally passing it the
+name for the output image file and specifying what type of file system
+is used in the TRENTOS system that the image is intended for.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>sdk/bin/cpt<span class="w"> </span>-i<span class="w"> </span><span class="o">[</span>&lt;path-to-xml_file&gt;<span class="o">]</span><span class="w"> </span>-o<span class="w"> </span><span class="o">[</span>&lt;output_nvm_file_name&gt;<span class="o">]</span><span class="w"> </span>-t<span class="w"> </span><span class="o">[</span>filesystem_type<span class="o">]</span>
+</code></pre></div>
+</div>
+<h3 id="options">Options<a class="headerlink" href="#options" title="Link to this heading">¶</a></h3>
+<p><strong>-i</strong> <em>input-path</em></p>
+<p>Specify the path to the XML file containing the configuration parameters
+that should be written to the configuration files.</p>
+<p><strong>-o</strong> <em>output-file-name</em></p>
+<p>Specify the output image name. This option is only required if the tool
+should produce a provisioned image instead of the binary files.</p>
+<p><strong>-t</strong> <em>filesystem-type</em></p>
+<p>Select the file system type, <em>filesystem_type</em>  can be either “FAT”,
+“SPIFFS” or “LITTLEFS”. This option is only required if the tool
+should produce a provisioned image instead of the binary files.</p>
+<p><strong>Note:</strong> To use the created image in combination with the
+<a class="reference internal" href="proxy-application.html"><span class="std std-doc">Proxy Application</span></a>, it is important to note that the
+image file name needs to match the convention used by the Proxy. For example, if
+the TRENTOS system is using the first NVM channel of the Proxy, which has the
+channel ID 6 in the proxy, then the image file name needs to be set to
+<strong><code class="docutils literal notranslate"><span class="pre">nvm_06</span></code></strong>, so the Proxy can find this file.</p>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Link to this heading">¶</a></h3>
+<p>The following example creates a provisioned image file that will be named
+<strong><code class="docutils literal notranslate"><span class="pre">nvm_06</span></code></strong> (to comply with the conventions of the
+<a class="reference internal" href="proxy-application.html"><span class="std std-doc">Proxy Application</span></a>) and formatted to a FAT file system:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>./cpt<span class="w"> </span>-i<span class="w"> </span><span class="o">[</span>&lt;path-to-xml_file&gt;<span class="o">]</span><span class="w"> </span>-o<span class="w"> </span>nvm_06<span class="w"> </span>-t<span class="w"> </span>FAT
+</code></pre></div>
+</div>
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="proxy-application.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Proxy Application" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Proxy Application
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="ram-disk-generator-tool.html" class="md-footer__link md-footer__link--next" aria-label="Next: RamDisk Generator Tool" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              RamDisk Generator Tool
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2023-2024, HENSOLDT Cyber GmbH.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.1.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.tabs", "navigation.sections", "navigation.instant", "header.autohide", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "toc.follow", "toc.sticky"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": null}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=8ec58cb5"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

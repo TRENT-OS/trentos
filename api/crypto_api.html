@@ -1,0 +1,2229 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Crypto API - Documentation</title>
+      
+    
+    
+      
+        
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.4b4a8c74e2ff2ab5b.min.css?v=afa97f93" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Crypto API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../introduction/getting-started.html" class="md-tabs__link">
+      <span class="md-ellipsis">Introduction</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="cert-parser_api.html" class="md-tabs__link md-tabs__link--active">
+      <span class="md-ellipsis">API</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../components/cert-server.html" class="md-tabs__link">
+      <span class="md-ellipsis">Components</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../component-interfaces/nic-interface.html" class="md-tabs__link">
+      <span class="md-ellipsis">Component Interfaces</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../platform-support/using-sd-card-with-trentos.html" class="md-tabs__link">
+      <span class="md-ellipsis">Platform Support</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../demos/demo-iot_qemu.html" class="md-tabs__link">
+      <span class="md-ellipsis">Demos</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../tools/proxy-application.html" class="md-tabs__link">
+      <span class="md-ellipsis">Tools</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../development/buildsystem.html" class="md-tabs__link">
+      <span class="md-ellipsis">Development</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../glossary/acronyms.html" class="md-tabs__link">
+      <span class="md-ellipsis">Glossary</span>
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          <span class="md-ellipsis">Introduction</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Introduction</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/getting-started.html" class="md-nav__link">
+        <span class="md-ellipsis">Getting Started</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/sel4.html" class="md-nav__link">
+        <span class="md-ellipsis">se<wbr>L4 Microkernel</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/camkes.html" class="md-nav__link">
+        <span class="md-ellipsis">CAmk<wbr>ES Framework</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          <span class="md-ellipsis">API</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cert-parser_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Parser API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="config-service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Config<wbr>Service API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration_service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Service</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">Crypto API</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">Crypto API</span>
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">Overview</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concepts" class="md-nav__link">
+    <span class="md-ellipsis">Concepts</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crypto-objects" class="md-nav__link">
+    <span class="md-ellipsis">Crypto Objects</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-and-remote-instances" class="md-nav__link">
+    <span class="md-ellipsis">Local and Remote Instances</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locality-of-keys" class="md-nav__link">
+    <span class="md-ellipsis">Locality of Keys</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instantiation-modes" class="md-nav__link">
+    <span class="md-ellipsis">Instantiation Modes</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-entropy-source" class="md-nav__link">
+    <span class="md-ellipsis">External Entropy Source</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">Architecture</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#layout-in-os-crypto-mode-library-mode" class="md-nav__link">
+    <span class="md-ellipsis">Layout in OS_<wbr>Crypto_<wbr>MODE_<wbr>LIBRARY Mode</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layout-in-os-crypto-mode-client-mode" class="md-nav__link">
+    <span class="md-ellipsis">Layout in OS_<wbr>Crypto_<wbr>MODE_<wbr>CLIENT Mode</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layout-in-os-crypto-mode-key-switch-mode" class="md-nav__link">
+    <span class="md-ellipsis">Layout in OS_<wbr>Crypto_<wbr>MODE_<wbr>KEY_<wbr>SWITCH Mode</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">Implementation</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">Usage</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#declaration-of-api-library-in-cmake" class="md-nav__link">
+    <span class="md-ellipsis">Declaration of API Library in CMake</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">Example</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instantiation-of-api-in-cmake" class="md-nav__link">
+    <span class="md-ellipsis">Instantiation of API in CMake</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-api-in-c" class="md-nav__link">
+    <span class="md-ellipsis">Using the API in C</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="file-system_api.html" class="md-nav__link">
+        <span class="md-ellipsis">File<wbr>System API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="key-store_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Key<wbr>Store API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logger_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Logger API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="socket_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tls_api.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          <span class="md-ellipsis">Components</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Components" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Components</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/cert-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/crypto-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/entropy-source.html" class="md-nav__link">
+        <span class="md-ellipsis">Entropy<wbr>Source</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/network-stack_pico-tcp.html" class="md-nav__link">
+        <span class="md-ellipsis">Network<wbr>Stack_<wbr>Pico<wbr>Tcp</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_dummy.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Dummy</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>i<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_rpi.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>RPi</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/ram-disk.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/rpi_spi_flash.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi_<wbr>SPI_<wbr>Flash</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/sd-host-controller.html" class="md-nav__link">
+        <span class="md-ellipsis">Sd<wbr>Host<wbr>Controller</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/storage_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/storage-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/time-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Time<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/tls-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Tls<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/uart.html" class="md-nav__link">
+        <span class="md-ellipsis">UART</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          <span class="md-ellipsis">Component Interfaces</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Component Interfaces" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Component Interfaces</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../component-interfaces/nic-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../component-interfaces/socket-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          <span class="md-ellipsis">Platform Support</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Platform Support" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Platform Support</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/using-sd-card-with-trentos.html" class="md-nav__link">
+        <span class="md-ellipsis">Using an SD Card with a TRENTOS System</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/rpi-3-model-b%2B/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi3B+ Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/nitrogen6-solo-x/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nitrogen6_<wbr>Solo<wbr>X Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/bd-sl-i.mx6/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">BD-<wbr>SL-<wbr>i.<wbr>MX6 Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/nvidia-tegra/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nvidia Tegra</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          <span class="md-ellipsis">Demos</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Demos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Demos</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for i.<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-tls.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API Demo</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-network-filter_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-network-filter_nitrogen6-solox.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for Nitrogen6_<wbr>Solo<wbr>X</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          <span class="md-ellipsis">Tools</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Tools</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/proxy-application.html" class="md-nav__link">
+        <span class="md-ellipsis">Proxy Application</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/configuration-provisioning-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Provisioning Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/ram-disk-generator-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk Generator Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/flasher-tool-rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Flasher Tool for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          <span class="md-ellipsis">Development</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Development" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Development</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/buildsystem.html" class="md-nav__link">
+        <span class="md-ellipsis">Buildsystem</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/function-call-tracing.html" class="md-nav__link">
+        <span class="md-ellipsis">Function Call Tracing</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/hardware-tools.html" class="md-nav__link">
+        <span class="md-ellipsis">Hardware Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/runtime-debugging.html" class="md-nav__link">
+        <span class="md-ellipsis">Runtime Debugging</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-hw-platforms_open-ocd.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Open<wbr>OCD</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-hw-platforms_segger.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Segger Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/object-oriented-c.html" class="md-nav__link">
+        <span class="md-ellipsis">Object Oriented C</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/known_issues.html" class="md-nav__link">
+        <span class="md-ellipsis">Known Issues</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          <span class="md-ellipsis">Glossary</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Glossary" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Glossary</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/acronyms.html" class="md-nav__link">
+        <span class="md-ellipsis">Acronyms</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/terms.html" class="md-nav__link">
+        <span class="md-ellipsis">Terms</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">Overview</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concepts" class="md-nav__link">
+    <span class="md-ellipsis">Concepts</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crypto-objects" class="md-nav__link">
+    <span class="md-ellipsis">Crypto Objects</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-and-remote-instances" class="md-nav__link">
+    <span class="md-ellipsis">Local and Remote Instances</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locality-of-keys" class="md-nav__link">
+    <span class="md-ellipsis">Locality of Keys</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instantiation-modes" class="md-nav__link">
+    <span class="md-ellipsis">Instantiation Modes</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-entropy-source" class="md-nav__link">
+    <span class="md-ellipsis">External Entropy Source</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">Architecture</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#layout-in-os-crypto-mode-library-mode" class="md-nav__link">
+    <span class="md-ellipsis">Layout in OS_<wbr>Crypto_<wbr>MODE_<wbr>LIBRARY Mode</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layout-in-os-crypto-mode-client-mode" class="md-nav__link">
+    <span class="md-ellipsis">Layout in OS_<wbr>Crypto_<wbr>MODE_<wbr>CLIENT Mode</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layout-in-os-crypto-mode-key-switch-mode" class="md-nav__link">
+    <span class="md-ellipsis">Layout in OS_<wbr>Crypto_<wbr>MODE_<wbr>KEY_<wbr>SWITCH Mode</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">Implementation</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">Usage</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#declaration-of-api-library-in-cmake" class="md-nav__link">
+    <span class="md-ellipsis">Declaration of API Library in CMake</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">Example</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instantiation-of-api-in-cmake" class="md-nav__link">
+    <span class="md-ellipsis">Instantiation of API in CMake</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-api-in-c" class="md-nav__link">
+    <span class="md-ellipsis">Using the API in C</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+<h1 id="crypto-api">Crypto API<a class="headerlink" href="#crypto-api" title="Link to this heading">¶</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
+<p>The Crypto API supports a set of cryptographic operations via a generic
+interface.</p>
+<p><strong>Info:</strong> The Crypto API can generate keys, random numbers, and has the means to
+protect against side-channel attacks. To operate a Crypto API instance securely,
+it requires access to a good source of entropy, for which it uses the
+<strong><code class="docutils literal notranslate"><span class="pre">if_OS_Entropy</span></code></strong> interface.</p>
+<h3 id="concepts">Concepts<a class="headerlink" href="#concepts" title="Link to this heading">¶</a></h3>
+<p>Here we introduce a few key concepts for the Crypto API.</p>
+<h4 id="crypto-objects">Crypto Objects<a class="headerlink" href="#crypto-objects" title="Link to this heading">¶</a></h4>
+<p>The Crypto API manages a set of “crypto objects”, most of which are bound to
+specific cryptographic primitives. So in order to use any of the API’s
+functionality, the API itself and the corresponding object with specific
+parameters needs to be instantiated (e.g., by calling the respective
+<strong><code class="docutils literal notranslate"><span class="pre">init()</span></code></strong> – and later <strong><code class="docutils literal notranslate"><span class="pre">free()</span></code></strong> – function).</p>
+<p>The following objects are currently supported:</p>
+<ul class="simple">
+<li><p><strong>CryptoAgreement:</strong> Can be used for key agreement schemes (e.g.,
+DH)</p></li>
+<li><p><strong>CryptoCipher:</strong> Can be used for symmetric cryptographic operations
+(e.g., AES-ECB encryption)</p></li>
+<li><p><strong>CryptoDigest:</strong> Can be used to calculate hashes/digests (e.g.,
+SHA256)</p></li>
+<li><p><strong>CryptoMac:</strong> Can be used to calculate cryptographic message
+authentication codes (e.g., HMAC-SHA256)</p></li>
+<li><p><strong>CryptoKey:</strong> Is a key object, holding key data specific to a
+crypto primitive (and mode of operation). Keys are imported into a
+Crypto API instance and then used with any of the crypto objects
+requiring a key (e.g., CryptoCipher).</p></li>
+</ul>
+<p>Finally, there is also <strong>CryptoRng</strong>, which falls – strictly speaking – not
+under the object paradigm (it has no init/free) and can be used to obtain random
+numbers.</p>
+<p>All of the above-mentioned objects are addressed through the Crypto API
+via abstract handles.</p>
+<h4 id="local-and-remote-instances">Local and Remote Instances<a class="headerlink" href="#local-and-remote-instances" title="Link to this heading">¶</a></h4>
+<p>While the work with crypto objects and their handles always happens in
+the local component, the actual crypto objects may reside in another
+component. The latter case allows the execution of crypto operations in
+an isolated environment, which can be another CAmkES component or even a
+dedicated hardware module.</p>
+<p>Based on the instantiation and configuration of a Crypto API instance,
+execution of crypto can either be enforced to always happen locally or
+always remotely or dependent on attributes of associated keys.</p>
+<h4 id="locality-of-keys">Locality of Keys<a class="headerlink" href="#locality-of-keys" title="Link to this heading">¶</a></h4>
+<p>Keys can be considered as the most critical pieces of data used by the Crypto
+API. The Crypto API consequently allows us to work with keys without necessarily
+having access to the raw key data.</p>
+<p>To indicate to the Crypto API when a key is created (i.e., generated or
+imported) where the key’s data should be stored (i.e., locally or remotely),
+keys have the <strong><code class="docutils literal notranslate"><span class="pre">keepLocal</span></code></strong> attribute:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">keepLocal=true</span></code></strong>: The key can be in the address space of the
+Crypto API user, and thus the operation can be performed locally as
+well.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">keepLocal=false</span></code></strong>: The key should be kept in isolation (e.g., in
+the CryptoServer). Thus, operations using this key as well as the
+generation of this key will be delegated to a remote Crypto API
+instance.</p></li>
+</ul>
+<p>Whether this attribute is evaluated depends on the instantiation mode of the
+Crypto API.</p>
+<h4 id="instantiation-modes">Instantiation Modes<a class="headerlink" href="#instantiation-modes" title="Link to this heading">¶</a></h4>
+<p>The Crypto API can be instantiated in three modes in order to support the
+implementation of the required modes of operation.</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">OS_Crypto_MODE_LIBRARY</span></code></strong>: This mode configures a Crypto API
+instance such that every API call is directly mapped to a call of
+the underlying library.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">OS_Crypto_MODE_CLIENT</span></code></strong>: This mode configures a Crypto API
+instance such that every API call is directly mapped to an RPC call,
+which in turn is received by an RPC server which then executes the
+function with its own library instance – but in a separate
+component.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">OS_Crypto_MODE_KEY_SWITCH</span></code></strong>: This mode maps some API calls to a
+local library instance and some to a remote instance, based on these
+criteria:</p>
+<ul>
+<li><p>If the cryptographic operation does not involve a key (e.g.,
+computation of a digest), the operation is performed locally.</p></li>
+<li><p>If the cryptographic operation does involve a key, the
+<strong><code class="docutils literal notranslate"><span class="pre">keepLocal</span></code></strong> attribute of the key is evaluated.</p></li>
+</ul>
+</li>
+</ul>
+<h4 id="external-entropy-source">External Entropy Source<a class="headerlink" href="#external-entropy-source" title="Link to this heading">¶</a></h4>
+<p>The Crypto API specifically requires “good random numbers” for a
+variety of operations:</p>
+<ul class="simple">
+<li><p>To provide access to random data to a user</p></li>
+<li><p>To generate keys</p></li>
+<li><p>To protect against side-channel attacks</p></li>
+</ul>
+<p>Internally, the Crypto API implementation uses a deterministic random number
+generator (DRBG) based on AES from which it extracts data for all three use
+cases. However, this DRBG is predictable as long as it is not fed with actual
+“random data” from a good source (typically this would be a hardware module
+based on a random process). If the DRBG is predictable, keys and random numbers
+can be predicted and side-channel protection measures will not work.</p>
+<p>Consequently, the operational use of the Crypto API requires a good source of
+entropy.</p>
+<h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Link to this heading">¶</a></h3>
+<p>The implementation of the Crypto API is internally divided into three
+layers:</p>
+<ol class="arabic simple">
+<li><p><strong>API layer:</strong> This layer implements the API functions as exported
+via the central API header directory.</p></li>
+<li><p><strong>RPC layer:</strong> This layer implements the RPC functionality, i.e.,
+the RPC client and RPC server-side. The CAmkES interface connecting
+those two sides is denoted as <strong><code class="docutils literal notranslate"><span class="pre">if_OS_Crypto</span></code></strong>.</p></li>
+<li><p><strong>LIB layer:</strong> This is the actual implementation of cryptographic
+algorithms, which is further split into modules for each of the
+supported cryptographic primitives.</p></li>
+</ol>
+<p>The following image shows this structure and also how the individual
+parts are linked together.</p>
+<p><img alt="&quot;Crypto API - Architecture&quot;" src="../_images/crypto-api_layers.png" /></p>
+<p>From this, we see that the crypto implementation layer can be used
+directly via the API layer, or indirectly through the RPC Client, which
+uses CAmkES-generated RPC calls to communicate with an RPC Server in
+another component (see also below).</p>
+<p>The following sub-sections show how the layers are distributed across
+components when the Crypto API is instantiated in the respective mode.</p>
+<h4 id="layout-in-os-crypto-mode-library-mode">Layout in OS_Crypto_MODE_LIBRARY Mode<a class="headerlink" href="#layout-in-os-crypto-mode-library-mode" title="Link to this heading">¶</a></h4>
+<p>In the <strong><code class="docutils literal notranslate"><span class="pre">OS_Crypto_MODE_LIBRARY</span></code></strong> mode, the Crypto API has a local
+instance of the cryptographic library and uses just that instance to
+execute any Crypto API calls. This is the simplest and most
+straightforward mode.</p>
+<p><img alt="&quot;Crypto API - Library Mode&quot;" src="../_images/crypto-api_library-mode.png" /></p>
+<h4 id="layout-in-os-crypto-mode-client-mode">Layout in OS_Crypto_MODE_CLIENT Mode<a class="headerlink" href="#layout-in-os-crypto-mode-client-mode" title="Link to this heading">¶</a></h4>
+<p>In the <strong><code class="docutils literal notranslate"><span class="pre">OS_Crypto_MODE_CLIENT</span></code></strong> mode, the Crypto API delegates all
+cryptographic operations to a remote RPC endpoint which implements the
+<strong><code class="docutils literal notranslate"><span class="pre">if_OS_Crypto</span></code></strong> interface. Typically, this remote instance would be
+the <a class="reference internal" href="../components/crypto-server.html"><span class="std std-doc">CryptoServer</span></a> component, which offers each
+RPC client access to its own, local Crypto API instance.</p>
+<p>Thus, all operations are executed in an isolated environment. Due to the
+additional overhead of RPC communication between RPC Client and RPC
+Server, this mode of operation is expected to be slower than the
+<strong><code class="docutils literal notranslate"><span class="pre">OS_Crypto_MODE_LIBRARY</span></code></strong> mode.</p>
+<p><img alt="&quot;Crypto API - Client Mode&quot;" src="../_images/crypto-api_client-mode.png" /></p>
+<h4 id="layout-in-os-crypto-mode-key-switch-mode">Layout in OS_Crypto_MODE_KEY_SWITCH Mode<a class="headerlink" href="#layout-in-os-crypto-mode-key-switch-mode" title="Link to this heading">¶</a></h4>
+<p>In <strong><code class="docutils literal notranslate"><span class="pre">OS_Crypto_MODE_KEY_SWITCH</span></code></strong> mode, a client’s Crypto API instance has a
+local cryptographic library instance and a remote one.</p>
+<p>This mode combines the best of the other two modes: Critical operations
+(with keys having the <strong><code class="docutils literal notranslate"><span class="pre">keepLocal=false</span></code></strong> attribute) are performed in
+isolation, all other operations are executed locally for best
+performance.</p>
+<p><img alt="&quot;Crypto API - Key Switch Mode&quot;" src="../_images/crypto-api_key-switch-mode.png" /></p>
+<h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Link to this heading">¶</a></h3>
+<p>The Crypto API is an interface for all applications and services to use
+for cryptographic operations. Internally, the API layer constitutes a
+wrapper layer around the actual implementation of crypto functions and
+inter-process communication for delegating operations to a component
+that can transparently be used through the Crypto API (e.g., the
+CryptoServer) – the respective interface is a CAmkES RPC interface
+denoted as <strong><code class="docutils literal notranslate"><span class="pre">if_OS_Crypto</span></code></strong>.</p>
+<p>In general, an application can implement its own cryptographic
+functions, if it has access to the key material. However, it is advised
+that all applications use the Crypto API to profit from a common
+architecture.</p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
+<p>This is how the API can be instantiated in the system.</p>
+<h3 id="declaration-of-api-library-in-cmake">Declaration of API Library in CMake<a class="headerlink" href="#declaration-of-api-library-in-cmake" title="Link to this heading">¶</a></h3>
+<p>The API library can be compiled by referencing this build target in the CMake
+file:</p>
+<ul class="simple">
+<li><p><strong>os_crypto</strong>: Build a library with code to work as a local library
+or RPC client.</p></li>
+</ul>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Link to this heading">¶</a></h2>
+<p>In the following example, we use the Crypto API in the most simple mode:
+only locally as a “normal” library. To do this, a client needs to be linked with
+the appropriate build target.</p>
+<p>The Crypto API requires access to an EntropySource, which can be provided by
+connecting the <strong><code class="docutils literal notranslate"><span class="pre">if_OS_Entropy</span></code></strong> interface to a component implementing it.
+Please see the respective chapter on how to set up and connect an EntropySource
+in CAmkES.</p>
+<h3 id="instantiation-of-api-in-cmake">Instantiation of API in CMake<a class="headerlink" href="#instantiation-of-api-in-cmake" title="Link to this heading">¶</a></h3>
+<p>To use the Crypto API it needs to be pulled into the build of a component by
+adding one of the above-mentioned build targets.</p>
+<div class="highlight-CMake notranslate"><div class="highlight"><pre><span></span><code><span class="nb">DeclareCAmkESComponent</span><span class="p">(</span>
+<span class="w">    </span><span class="s">Client</span>
+<span class="w">    </span><span class="s">SOURCES</span>
+<span class="w">        </span><span class="s">...</span>
+<span class="w">    </span><span class="s">C_FLAGS</span>
+<span class="w">        </span><span class="s">...</span>
+<span class="w">    </span><span class="s">LIBS</span>
+<span class="w">        </span><span class="s">...</span>
+<span class="w">        </span><span class="s">os_crypto</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<h3 id="using-the-api-in-c">Using the API in C<a class="headerlink" href="#using-the-api-in-c" title="Link to this heading">¶</a></h3>
+<p>The following code (slightly abbreviated for clarity) instantiates the Crypto
+API in local mode as a library. We assume that an EntropySource is connected to
+the system below via the <strong><code class="docutils literal notranslate"><span class="pre">if_OS_Entropy</span></code></strong> interface (local references are
+<strong><code class="docutils literal notranslate"><span class="pre">entropy_rpc</span></code></strong> and <strong><code class="docutils literal notranslate"><span class="pre">entropy_port</span></code></strong> respectively).</p>
+<p>In this example, an instance of the Crypto API is used to generates an
+AES key and encrypt plaintext with AES in ECB mode.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="c1">// For Crypto API</span>
+<span class="cp">#import &quot;OS_Crypto.h&quot;</span>
+<span class="c1">// For RPCs and dataports</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;camkes.h&gt;</span>
+<span class="c1">// Configuration of Crypto API in &quot;LIBRARY&quot; mode;</span>
+<span class="c1">// assign entropy source as defined in CAmkES.</span>
+<span class="k">static</span><span class="w"> </span><span class="n">OS_Crypto_Config_t</span><span class="w"> </span><span class="n">cryptoCfg</span><span class="w"> </span><span class="o">=</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">mode</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">OS_Crypto_MODE_LIBRARY</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">entropy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IF_OS_ENTROPY_ASSIGN</span><span class="p">(</span>
+<span class="w">        </span><span class="n">entropy_rpc</span><span class="p">,</span>
+<span class="w">        </span><span class="n">entropy_port</span><span class="p">)</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">run</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Definition of a key-generation spec for a 128-bit AES key</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">OS_CryptoKey_Spec_t</span><span class="w"> </span><span class="n">aes128Spec</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OS_CryptoKey_SPECTYPE_BITS</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">key</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="p">.</span><span class="n">type</span><span class="w">              </span><span class="o">=</span><span class="w"> </span><span class="n">OS_CryptoKey_TYPE_AES</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">params</span><span class="p">.</span><span class="n">bits</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mi">128</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="c1">// Declare handles for API and objects</span>
+<span class="w">    </span><span class="n">OS_Crypto_Handle_t</span><span class="w"> </span><span class="n">hCrypto</span><span class="p">;</span>
+<span class="w">    </span><span class="n">OS_CryptoKey_Handle_t</span><span class="w"> </span><span class="n">hKey</span><span class="p">;</span>
+<span class="w">    </span><span class="n">OS_CryptoCipher_Handle_t</span><span class="w"> </span><span class="n">hCipher</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Declare inputs and outputs for crypto operation</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">pt</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;0123456789abcdef&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ct</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">ptLen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="n">ctLen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Init Crypto API instance in ROUTE mode</span>
+<span class="w">    </span><span class="n">OS_Crypto_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hCrypto</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cryptoCfg</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// Generate a new AES key based on the spec provided above</span>
+<span class="w">    </span><span class="n">OS_CryptoKey_generate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hKey</span><span class="p">,</span><span class="w"> </span><span class="n">hCrypto</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">aes128Spec</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// Create a cipher object to encrypt data with AES in ECB (does not require an</span>
+<span class="w">    </span><span class="c1">// IV!)</span>
+<span class="w">    </span><span class="n">OS_CryptoCipher_init</span><span class="p">(</span>
+<span class="w">        </span><span class="o">&amp;</span><span class="n">hCipher</span><span class="p">,</span>
+<span class="w">        </span><span class="n">hCrypto</span><span class="p">,</span>
+<span class="w">        </span><span class="n">hKey</span><span class="p">,</span>
+<span class="w">        </span><span class="n">OS_CryptoCipher_ALG_AES_ECB_ENC</span><span class="p">,</span>
+<span class="w">        </span><span class="nb">NULL</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// Encrypt a plaintext of some size</span>
+<span class="w">    </span><span class="n">OS_CryptoCipher_process</span><span class="p">(</span><span class="n">hCipher</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="p">,</span><span class="w"> </span><span class="n">ptLen</span><span class="p">,</span><span class="w"> </span><span class="n">ct</span><span class="p">,</span><span class="w">  </span><span class="o">&amp;</span><span class="n">ctLen</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// Free everything</span>
+<span class="w">    </span><span class="n">OS_CryptoCipher_free</span><span class="p">(</span><span class="n">hCipher</span><span class="p">);</span>
+<span class="w">    </span><span class="n">OS_CryptoKey_free</span><span class="p">(</span><span class="n">hKey</span><span class="p">);</span>
+<span class="w">    </span><span class="n">OS_Crypto_free</span><span class="p">(</span><span class="n">hCrypto</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="configuration_service_api.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Configuration Service" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Configuration Service
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="file-system_api.html" class="md-footer__link md-footer__link--next" aria-label="Next: FileSystem API" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              FileSystem API
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2023-2024, HENSOLDT Cyber GmbH.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.1.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.tabs", "navigation.sections", "navigation.instant", "header.autohide", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "toc.follow", "toc.sticky"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": null}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=8ec58cb5"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

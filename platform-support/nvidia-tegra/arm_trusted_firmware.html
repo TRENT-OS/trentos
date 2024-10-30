@@ -1,0 +1,2533 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>ARM Trusted Firmware - Documentation</title>
+      
+    
+    
+      
+        
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../../_static/sphinx_immaterial_theme.4b4a8c74e2ff2ab5b.min.css?v=afa97f93" />
+        <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ARM Trusted Firmware
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../introduction/getting-started.html" class="md-tabs__link">
+      <span class="md-ellipsis">Introduction</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../api/cert-parser_api.html" class="md-tabs__link">
+      <span class="md-ellipsis">API</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../components/cert-server.html" class="md-tabs__link">
+      <span class="md-ellipsis">Components</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../component-interfaces/nic-interface.html" class="md-tabs__link">
+      <span class="md-ellipsis">Component Interfaces</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../using-sd-card-with-trentos.html" class="md-tabs__link md-tabs__link--active">
+      <span class="md-ellipsis">Platform Support</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../demos/demo-iot_qemu.html" class="md-tabs__link">
+      <span class="md-ellipsis">Demos</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../tools/proxy-application.html" class="md-tabs__link">
+      <span class="md-ellipsis">Tools</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../development/buildsystem.html" class="md-tabs__link">
+      <span class="md-ellipsis">Development</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../glossary/acronyms.html" class="md-tabs__link">
+      <span class="md-ellipsis">Glossary</span>
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          <span class="md-ellipsis">Introduction</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Introduction</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/getting-started.html" class="md-nav__link">
+        <span class="md-ellipsis">Getting Started</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/sel4.html" class="md-nav__link">
+        <span class="md-ellipsis">se<wbr>L4 Microkernel</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/camkes.html" class="md-nav__link">
+        <span class="md-ellipsis">CAmk<wbr>ES Framework</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          <span class="md-ellipsis">API</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/cert-parser_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Parser API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/config-service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Config<wbr>Service API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/configuration_service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Service</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/crypto_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/file-system_api.html" class="md-nav__link">
+        <span class="md-ellipsis">File<wbr>System API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/key-store_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Key<wbr>Store API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/logger_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Logger API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/socket_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/tls_api.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          <span class="md-ellipsis">Components</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Components" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Components</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/cert-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/crypto-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/entropy-source.html" class="md-nav__link">
+        <span class="md-ellipsis">Entropy<wbr>Source</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/network-stack_pico-tcp.html" class="md-nav__link">
+        <span class="md-ellipsis">Network<wbr>Stack_<wbr>Pico<wbr>Tcp</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/nic_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/nic_dummy.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Dummy</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/nic_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>i<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/nic_rpi.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>RPi</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/ram-disk.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/rpi_spi_flash.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi_<wbr>SPI_<wbr>Flash</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/sd-host-controller.html" class="md-nav__link">
+        <span class="md-ellipsis">Sd<wbr>Host<wbr>Controller</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/storage_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/storage-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/time-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Time<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/tls-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Tls<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/uart.html" class="md-nav__link">
+        <span class="md-ellipsis">UART</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          <span class="md-ellipsis">Component Interfaces</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Component Interfaces" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Component Interfaces</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../component-interfaces/nic-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../component-interfaces/socket-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          <span class="md-ellipsis">Platform Support</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Platform Support" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Platform Support</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../using-sd-card-with-trentos.html" class="md-nav__link">
+        <span class="md-ellipsis">Using an SD Card with a TRENTOS System</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rpi-3-model-b%2B/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi3B+ Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nitrogen6-solo-x/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nitrogen6_<wbr>Solo<wbr>X Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bd-sl-i.mx6/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">BD-<wbr>SL-<wbr>i.<wbr>MX6 Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" checked>
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="platform.html"><span class="md-ellipsis">Nvidia Tegra</span></a>
+          
+            <label for="__nav_5_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Nvidia Tegra" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Nvidia Tegra</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5_1" type="checkbox" id="__nav_5_5_1" checked>
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="platform.html#subpages"><span class="md-ellipsis">Subpages</span></a>
+          
+            <label for="__nav_5_5_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Subpages" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Subpages</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nvidia_tegra_x1.html" class="md-nav__link">
+        <span class="md-ellipsis">NVidia Tegra X1</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nvidia_tegra_x2.html" class="md-nav__link">
+        <span class="md-ellipsis">NVidia Tegra X2</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="arm_cores_comparison.html" class="md-nav__link">
+        <span class="md-ellipsis">ARM Cores Comparison</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">ARM Trusted Firmware</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">ARM Trusted Firmware</span>
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">Introduction</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background-trusted-execution-environment-tee" class="md-nav__link">
+    <span class="md-ellipsis">Background:<wbr> Trusted Execution Environment <wbr>(TEE)</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arm-trustzone" class="md-nav__link">
+    <span class="md-ellipsis">ARM Trust<wbr>Zone</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linaro-trusted-firmware-project" class="md-nav__link">
+    <span class="md-ellipsis">Linaro Trusted Firmware Project</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secure-operating-system-os" class="md-nav__link">
+    <span class="md-ellipsis">Secure Operating System <wbr>(OS)</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Secure Operating System (OS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">Architecture</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    <span class="md-ellipsis">Workflow</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">Examples</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#id1" class="md-nav__link">
+    <span class="md-ellipsis">Architecture</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boot-flow" class="md-nav__link">
+    <span class="md-ellipsis">Boot Flow</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#components" class="md-nav__link">
+    <span class="md-ellipsis">Components</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#services" class="md-nav__link">
+    <span class="md-ellipsis">Services</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    <span class="md-ellipsis">Interfaces</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#id2" class="md-nav__link">
+    <span class="md-ellipsis">Workflow</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bl31" class="md-nav__link">
+    <span class="md-ellipsis">BL31</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secure-boot" class="md-nav__link">
+    <span class="md-ellipsis">Secure Boot</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-process" class="md-nav__link">
+    <span class="md-ellipsis">Build Process</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">Documentation</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tegra_secure_boot.html" class="md-nav__link">
+        <span class="md-ellipsis">Tegra Secure Boot</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          <span class="md-ellipsis">Demos</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Demos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Demos</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-iot_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-iot_rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-iot_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for i.<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-tls.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API Demo</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-network-filter_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-network-filter_nitrogen6-solox.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for Nitrogen6_<wbr>Solo<wbr>X</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          <span class="md-ellipsis">Tools</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Tools</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/proxy-application.html" class="md-nav__link">
+        <span class="md-ellipsis">Proxy Application</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/configuration-provisioning-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Provisioning Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/ram-disk-generator-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk Generator Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/flasher-tool-rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Flasher Tool for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          <span class="md-ellipsis">Development</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Development" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Development</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/buildsystem.html" class="md-nav__link">
+        <span class="md-ellipsis">Buildsystem</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/function-call-tracing.html" class="md-nav__link">
+        <span class="md-ellipsis">Function Call Tracing</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/hardware-tools.html" class="md-nav__link">
+        <span class="md-ellipsis">Hardware Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/runtime-debugging/runtime-debugging.html" class="md-nav__link">
+        <span class="md-ellipsis">Runtime Debugging</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/runtime-debugging/debugging-qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/runtime-debugging/debugging-hw-platforms_open-ocd.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Open<wbr>OCD</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/runtime-debugging/debugging-hw-platforms_segger.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Segger Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/object-oriented-c.html" class="md-nav__link">
+        <span class="md-ellipsis">Object Oriented C</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/known_issues.html" class="md-nav__link">
+        <span class="md-ellipsis">Known Issues</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          <span class="md-ellipsis">Glossary</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Glossary" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Glossary</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/acronyms.html" class="md-nav__link">
+        <span class="md-ellipsis">Acronyms</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/terms.html" class="md-nav__link">
+        <span class="md-ellipsis">Terms</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">Introduction</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background-trusted-execution-environment-tee" class="md-nav__link">
+    <span class="md-ellipsis">Background:<wbr> Trusted Execution Environment <wbr>(TEE)</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arm-trustzone" class="md-nav__link">
+    <span class="md-ellipsis">ARM Trust<wbr>Zone</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linaro-trusted-firmware-project" class="md-nav__link">
+    <span class="md-ellipsis">Linaro Trusted Firmware Project</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secure-operating-system-os" class="md-nav__link">
+    <span class="md-ellipsis">Secure Operating System <wbr>(OS)</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Secure Operating System (OS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">Architecture</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    <span class="md-ellipsis">Workflow</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">Examples</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#id1" class="md-nav__link">
+    <span class="md-ellipsis">Architecture</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boot-flow" class="md-nav__link">
+    <span class="md-ellipsis">Boot Flow</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#components" class="md-nav__link">
+    <span class="md-ellipsis">Components</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#services" class="md-nav__link">
+    <span class="md-ellipsis">Services</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    <span class="md-ellipsis">Interfaces</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#id2" class="md-nav__link">
+    <span class="md-ellipsis">Workflow</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bl31" class="md-nav__link">
+    <span class="md-ellipsis">BL31</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secure-boot" class="md-nav__link">
+    <span class="md-ellipsis">Secure Boot</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-process" class="md-nav__link">
+    <span class="md-ellipsis">Build Process</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">Documentation</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+<h1 id="arm-trusted-firmware">ARM Trusted Firmware<a class="headerlink" href="#arm-trusted-firmware" title="Link to this heading">¶</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>see also TrustZone (aka ARM Security Extension) for a overview about ATF</p></li>
+<li><p>a reference implementation of secure world software for Armv7-A and Armv8-A, leveraging ARM TrustZone support</p></li>
+<li><p>includes a Secure Monitor executing at Exception Level 3 (EL3)</p></li>
+<li><p>implements various ARM interface standards</p>
+<ul>
+<li><p>The Power State Coordination Interface (PSCI)</p></li>
+<li><p>Trusted Board Boot Requirements CLIENT (TBBR-CLIENT)</p></li>
+<li><p>SMC Calling Convention</p></li>
+<li><p>System Control and Management Interface (SCMI)</p></li>
+<li><p>Software Delegated Exception Interface (SDEI)</p></li>
+<li><p>PSA FW update specification</p></li>
+</ul>
+</li>
+</ul>
+<h2 id="background-trusted-execution-environment-tee">Background: Trusted Execution Environment (TEE)<a class="headerlink" href="#background-trusted-execution-environment-tee" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>secure area of a main processor</p>
+<ul>
+<li><p>architecture</p></li>
+<li><p>a hardware isolation mechanism</p></li>
+<li><p>a secure operating system running on top of that isolation mechanism</p></li>
+</ul>
+</li>
+<li><p>features</p>
+<ul>
+<li><p>confidentiality</p></li>
+<li><p>integrity</p>
+<ul>
+<li><p>data integrity: prevent unauthorized access from outside TEE</p></li>
+<li><p>code integrity: prevent code inside TEE from being replaced/modified by unauthorized entities</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>hardware</p>
+<ul>
+<li><p>hardware-based memory encryption ???</p></li>
+</ul>
+</li>
+<li><p>standardization</p>
+<ul>
+<li><p>GlobalPlatform: https://globalplatform.org/specs-library/?filter-committee=tee</p></li>
+</ul>
+</li>
+<li><p>vendors</p>
+<ul>
+<li><p>ARM</p>
+<ul>
+<li><p>TrustZone</p>
+<ul>
+<li><p>Samsung Knox</p></li>
+</ul>
+</li>
+<li><p>Realm Management Extension/Confidential Compute Architecture (CCA)</p></li>
+</ul>
+</li>
+<li><p>AMD</p>
+<ul>
+<li><p>Platform Security Processor (PSP) -&gt; licensed ARM TrustZone</p></li>
+<li><p>AMD Secure Encrypted Virtualization, and Secure Nested Paging extension</p></li>
+</ul>
+</li>
+<li><p>Intel</p>
+<ul>
+<li><p>Software Guard Extensions (SGX)</p></li>
+</ul>
+</li>
+<li><p>RISC-V</p>
+<ul>
+<li><p>MultiZone Security Trusted Execution Environment</p></li>
+<li><p>Keystone Customizable TEE Framework</p></li>
+<li><p>Penglai Scalable TEE for RISC-V</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="arm-trustzone">ARM TrustZone<a class="headerlink" href="#arm-trustzone" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>a system-wide hardware isolation mechanism</p>
+<ul>
+<li><p>secure world</p></li>
+<li><p>monitor</p></li>
+<li><p>secure OS</p></li>
+<li><p>trusted applications (trustlet)</p></li>
+</ul>
+</li>
+<li><p>normal world</p>
+<ul>
+<li><p>rich OS + TrustZone drivers</p></li>
+<li><p>applications</p></li>
+</ul>
+</li>
+<li><p>partitioning of all the SoC’s hardware and software resources</p></li>
+</ul>
+<h2 id="linaro-trusted-firmware-project">Linaro Trusted Firmware Project<a class="headerlink" href="#linaro-trusted-firmware-project" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>https://www.trustedfirmware.org/</p></li>
+</ul>
+<h2 id="secure-operating-system-os">Secure Operating System (OS)<a class="headerlink" href="#secure-operating-system-os" title="Link to this heading">¶</a></h2>
+<h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>small OS kernel</p></li>
+<li><p>a (Linux) kernel driver to transfer data between the secure environment and the Rich OS</p></li>
+<li><p>a userspace library to communicate with trusted applications (secure tasks/services) via the kernel driver</p></li>
+</ul>
+<h3 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>transition from the Secure World to the Non-Secure World via a dedicated instruction -&gt; Secure Monitor Call (SMC)</p></li>
+<li><p>the CPU will enter in monitor mode and will have access to all hardware, including the protected peripherals and memory regions</p></li>
+<li><p>now, the TEE firmware/operating system can be executed</p></li>
+</ul>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>OP-TEE</p>
+<ul>
+<li><p>implements the TEE Internal Core API v1.1.x (the API exposed to Trusted Applications)</p></li>
+<li><p>implements the TEE Client API v1.0 (the API describing how to communicate with a TEE)</p></li>
+<li><p>supports Arm Firmware Framework for Arm A-profile (FF-A), which is a new way of communication between normal world and secure world</p>
+<ul>
+<li><p>https://www.linaro.org/blog/op-tee-and-the-need-for-ff-a/</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Android Trusty OS</p>
+<ul>
+<li><p>based on Little Kernel (LK)</p></li>
+<li><p>https://source.android.com/docs/security/features/trusty</p></li>
+<li><p>https://source.android.com/docs/core/architecture/partitions/tos-partitions</p></li>
+</ul>
+</li>
+</ul>
+<h2 id="id1">Architecture<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<p><img alt="Secure OS Architecture" src="../../_images/secure_os_architecture.png" /></p>
+<p>The following table clusters the different boot loader stages:</p>
+<p><img alt="Bootloader Stage" src="../../_images/secure_os_bootloader_stages.png" /></p>
+<h2 id="boot-flow">Boot Flow<a class="headerlink" href="#boot-flow" title="Link to this heading">¶</a></h2>
+<p><img alt="Secure OS Boot Flow" src="../../_images/secure_os_boot_flow.png" /></p>
+<p>The following table describes the tasks of each dedicated boot loader stage:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Boot Loader Stage</p></th>
+<th class="head"><p>Task</p></th>
+<th class="head"><p>Services</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>BL1</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>BL2</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>BL31</p></td>
+<td><p></p></td>
+<td><p>- Interfaces<br>    - SMC Calling Convention (SMCC)<br>    - since ARMv8.4: Platform Security Architecture Firmware Framework for ARM A-profile (PSA FF-A)<br> - Power Management<br>    - Power State Coordination Interface (PSCI)<br>    - System Control and Management Interface (SCMI)<br> - Exception Handling<br>    - Software Delegated Exception Interface (SDEI)<br>        - Reliability, Availability, and Serviceability (RAS)<br>        - …<br>    - …<br> - TOS Dispatcher</p></td>
+</tr>
+<tr class="row-odd"><td><p>BL32</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>BL33</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="components">Components<a class="headerlink" href="#components" title="Link to this heading">¶</a></h2>
+<p>TODO</p>
+<h2 id="services">Services<a class="headerlink" href="#services" title="Link to this heading">¶</a></h2>
+<p>Services are accessed via SMC instruction, from exception levels below EL3. They</p>
+<ul class="simple">
+<li><p>follow SMC Calling Convention</p></li>
+<li><p>use SMC function IDs that fall in the SiP range</p></li>
+</ul>
+<p>The following services are provided by BL31:</p>
+<ul class="simple">
+<li><p>Power Management</p>
+<ul>
+<li><p>Power State Coordination Interface (PSCI) Runtime Service</p>
+<ul>
+<li><p>transported by SMC calls</p></li>
+<li><p>used for</p>
+<ul>
+<li><p>CPU hotplug (on/off)</p></li>
+<li><p>CPU idle (suspend/resume)</p></li>
+<li><p>system shutdown and reset</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>System Control and Management Interface (SCMI) driver</p>
+<ul>
+<li><p>requires a conforming power controller → ARM System Control Processors (SCP)</p></li>
+<li><p>allows to delegate power management to SCP</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Exception Handling</p>
+<ul>
+<li><p>Software Delegated Exception Interface (SDEI)</p>
+<ul>
+<li><p>SDEI Dispatcher</p></li>
+<li><p>delivers extraordinary system events (either normal or critical priority)</p></li>
+<li><p>OS/hypervisor register system event callback</p></li>
+<li><p>platform error handling</p>
+<ul>
+<li><p>Reliability, Availability, and Serviceability (RAS) extensions (https://en.wikipedia.org/wiki/Reliability,_availability_and_serviceability)</p>
+<ul>
+<li><p>a mandatory extension for the Armv8.2 architecture and later</p></li>
+<li><p>an optional extension to the base Armv8 architecture</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>…</p></li>
+</ul>
+</li>
+<li><p>TODO: ARM general → align with others</p>
+<ul>
+<li><p>ARM SiP (Silicon Provider) services: non-standard, platform-specific services offered by the silicon implementer or platform provider</p>
+<ul>
+<li><p>Performance Measurement Framework (PMF)</p>
+<ul>
+<li><p>a caller can retrieve timestamps captured at various paths in TF-A execution</p></li>
+</ul>
+</li>
+<li><p>Execution State Switching service</p>
+<ul>
+<li><p>lower exception level (EL2 or NS EL1) may request to switch execution state (AArch64 &lt;-&gt; AArch32)</p></li>
+<li><p>only available if ATF is built for AArch64</p></li>
+</ul>
+</li>
+<li><p>DebugFS interface</p>
+<ul>
+<li><p>aimed at exposing firmware debug data to higher SW layers such as a non-secure component</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Exception Handling Framework (EHF)</p>
+<ul>
+<li><p>takes care of the following exceptions</p>
+<ul>
+<li><p>Interrupts</p></li>
+<li><p>Synchronous External Aborts</p></li>
+<li><p>Asynchronous External Aborts</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>TODO: Nvidia specific → align with others</p>
+<ul>
+<li><p>NVIDIA Generic interface (NVG)</p></li>
+<li><p>Machine Check Architecture (MCA): https://en.wikipedia.org/wiki/Machine_Check_Architecture</p></li>
+<li><p>Machine Check Exception (MCE): https://en.wikipedia.org/wiki/Machine-check_exception</p>
+<ul>
+<li><p>firmware is in charge of CPUs power state transitions</p></li>
+<li><p>Tegra MCE Abstract Request Interface (ARI) driver manages all NVG requests to MCE firmware running in the background</p></li>
+<li><p>communicate with MCE firmware on CPU state configurations and (power) state transition requests from the CPU idle driver</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="interfaces">Interfaces<a class="headerlink" href="#interfaces" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>SMC Calling Convention (SMCC)</p>
+<ul>
+<li><p>Secure Monitor Call (SMC)</p></li>
+</ul>
+</li>
+<li><p>Platform Security Architecture Firmware Framework for ARM A-profile (PSA FF-A)</p>
+<ul>
+<li><p>standards</p>
+<ul>
+<li><p>FF-A 1.0</p></li>
+<li><p>FF-A 1.1</p></li>
+</ul>
+</li>
+<li><p>standard set of interfaces between Secure Partitions (SP) and Secure Partition Manager (SPM)</p>
+<ul>
+<li><p>Secure Partitions (SP): mutually distrustful software sandboxes running in the secure world, e.g. a Trusted OS besides a platform secure services</p></li>
+<li><p>Secure Partition Manager (SPM)</p>
+<ul>
+<li><p>for systems implementing ARMv8.4-A Secure-EL2 extension</p></li>
+<li><p>enables multiple, isolated Secure Partitions (SPs) to run at Secure-EL1</p></li>
+<li><p>initializes SPs at boot time &amp; enables communication between service requestors and providers</p></li>
+<li><p>implementation</p>
+<ul>
+<li><p>S-EL1 (e.g. part of OP-TEE)</p></li>
+<li><p>S-EL2 (in a secure hypervisor), e.g. Hafnium as reference Secure EL2 SPM</p></li>
+<li><p>EL3</p>
+<ul>
+<li><p>OP-TEE Secure Partition Manager Core (SPMC) integrated with the Secure Partition Manager Dispatcher (SPMD)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>between SPs and normal world</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="id2">Workflow<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
+<h3 id="bl31">BL31<a class="headerlink" href="#bl31" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>BL1 passes control to BL31 at BL31_BASE</p></li>
+<li><p>checking boot type</p>
+<ul>
+<li><p>cold boot -&gt; BL31 stage only executed by primary CPU</p></li>
+<li><p>warm boot -&gt; BL31 executed by all CPUs</p></li>
+</ul>
+</li>
+<li><p>re-initialize all architectural and platform state (despite BL1 already had performed some initialization before)</p></li>
+<li><p>receive bl31_params provided by BL2</p></li>
+<li><p>initialize a UART (PL011 console), which enables access to the printf family of functions in BL31</p></li>
+<li><p>enable issuing of snoop and DVM (Distributed Virtual Memory) requests to the CCI slave interface corresponding to the cluster that includes the primary CPU</p></li>
+<li><p>enable Memory Management Unit (MMU) within each BL stage</p>
+<ul>
+<li><p>platform-specific architecture setup function -&gt; blX_plat_arch_setup()</p></li>
+<li><p>setting up translation tables -&gt; reuse memory translation library (lib/xlat_tables)</p></li>
+<li><p>…</p></li>
+</ul>
+</li>
+<li><p>enable instruction and data cache within each BL stage</p></li>
+<li><p>initialize the GIC</p>
+<ul>
+<li><p>enable secure interrupts in the GIC CPU interface</p></li>
+<li><p>disable the legacy interrupt bypass mechanism</p></li>
+<li><p>configure the priority mask register to allow interrupts of all priorities to be signaled to the CPU interface</p></li>
+<li><p>mark SGIs 8-15 and the other secure interrupts on the platform as secure</p></li>
+<li><p>target all secure SPIs to CPU0</p></li>
+<li><p>enable these secure interrupts in the GIC distributor</p></li>
+<li><p>configure all other interrupts as non-secure</p></li>
+<li><p>enable signaling of secure interrupts in the GIC distributor</p></li>
+</ul>
+</li>
+<li><p>enable system-level implementation of the generic timer counter through the memory mapped interface</p></li>
+<li><p>grant access to the system counter timer module</p></li>
+<li><p>initialize the power controller device (in particular, initialise the locks that prevent concurrent accesses to the power controller device)</p></li>
+<li><p>provide runtime firmware services</p>
+<ul>
+<li><p>a subset of the Power State Coordination Interface (PSCI) API</p></li>
+<li><p>…</p></li>
+</ul>
+</li>
+<li><p>pass control (using the “bl_params” list populated by BL2 in memory)</p>
+<ul>
+<li><p>to a normal world BL image, pre-loaded at a platform-specific address by BL2</p></li>
+<li><p>optionally to the BL32 image, pre-loaded at a platform-specific address by BL2</p></li>
+</ul>
+</li>
+</ul>
+<h2 id="secure-boot">Secure Boot<a class="headerlink" href="#secure-boot" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>ARMv7-A</p>
+<ul>
+<li><p>mostly vendor-specific solutions</p></li>
+<li><p>TF-A + BL2 secure boot loader</p></li>
+</ul>
+</li>
+<li><p>ARMv8-A</p>
+<ul>
+<li><p>TF-A + BL32</p></li>
+</ul>
+</li>
+</ul>
+<h2 id="build-process">Build Process<a class="headerlink" href="#build-process" title="Link to this heading">¶</a></h2>
+<p>TODO: describe process for Nvidia ATF &amp; Trusty TEE exemplarily</p>
+<ul class="simple">
+<li><p>L4T Driver Package (BSP) Sources</p>
+<ul>
+<li><p>ATF (atf_src.tbz2) -&gt; bl31.bin</p></li>
+<li><p>Trusty (trusty_src.tbz2) -&gt; lk.bin</p></li>
+</ul>
+</li>
+<li><p>Generate tos.img / tos_t194.img to be used during flash process</p>
+<ul>
+<li><p>monitor -&gt; bl31.bin</p></li>
+<li><p>os -&gt; lk.bin</p></li>
+</ul>
+</li>
+<li><p>Replace existing tos.img / tos_t194.img in &lt;Linux_for_Tegra&gt;/bootloader/ folder</p></li>
+</ul>
+<p>TODO: steps for customization</p>
+<ul class="simple">
+<li><p>modify BL31 (here: ATF)</p></li>
+<li><p>modify BL32 (here: Trusty TEE)</p></li>
+<li><p>replace BL32 (here: Trusty TEE) by some other baremetal service (choose a different SPD)</p>
+<ul>
+<li><p>existing ATF sample services</p>
+<ul>
+<li><p>sp_min (for AARCH32): A minimal AArch32 Secure Payload (SP_MIN) to demonstrate PSCI library integration with AArch32 EL3 Runtime Software</p>
+<ul>
+<li><p>https://trustedfirmware-a.readthedocs.io/en/latest/design/firmware-design.html#memory-layout-on-arm-development-platforms</p></li>
+</ul>
+</li>
+<li><p>tsp (for AARCH64)</p>
+<ul>
+<li><p>https://trustedfirmware-a.readthedocs.io/en/latest/perf/tsp.html</p></li>
+<li><p>https://trustedfirmware-a.readthedocs.io/en/latest/components/el3-spmc.html#test-secure-payload-tsp</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>a custom service → modifying the existing ATF sample services</p></li>
+</ul>
+</li>
+<li><p>build and deploy a TEE application</p>
+<ul>
+<li><p>use a predefined Nvidia sample application</p></li>
+<li><p>create a custom application</p>
+<ul>
+<li><p>https://forums.developer.nvidia.com/t/building-new-trusted-applications-ta-using-trusty-on-jetson-xavier-nx/189624</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>https://trustedfirmware-a.readthedocs.io/en/latest/index.html</p></li>
+<li><p>https://developer.arm.com/Tools%20and%20Software/Trusted%20Firmware-A</p></li>
+<li><p>https://github.com/ARM-software/arm-trusted-firmware</p></li>
+</ul>
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="arm_cores_comparison.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: ARM Cores Comparison" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              ARM Cores Comparison
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="tegra_secure_boot.html" class="md-footer__link md-footer__link--next" aria-label="Next: Tegra Secure Boot" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Tegra Secure Boot
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2023-2024, HENSOLDT Cyber GmbH.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.1.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.tabs", "navigation.sections", "navigation.instant", "header.autohide", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "toc.follow", "toc.sticky"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": null}}</script>
+    
+      
+        <script src="../../_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=8ec58cb5"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

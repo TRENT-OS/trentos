@@ -1,0 +1,3120 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Getting Started - Documentation</title>
+      
+    
+    
+      
+        
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.4b4a8c74e2ff2ab5b.min.css?v=afa97f93" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#scope" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Getting Started
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="#" class="md-tabs__link md-tabs__link--active">
+      <span class="md-ellipsis">Introduction</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../api/cert-parser_api.html" class="md-tabs__link">
+      <span class="md-ellipsis">API</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../components/cert-server.html" class="md-tabs__link">
+      <span class="md-ellipsis">Components</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../component-interfaces/nic-interface.html" class="md-tabs__link">
+      <span class="md-ellipsis">Component Interfaces</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../platform-support/using-sd-card-with-trentos.html" class="md-tabs__link">
+      <span class="md-ellipsis">Platform Support</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../demos/demo-iot_qemu.html" class="md-tabs__link">
+      <span class="md-ellipsis">Demos</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../tools/proxy-application.html" class="md-tabs__link">
+      <span class="md-ellipsis">Tools</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../development/buildsystem.html" class="md-tabs__link">
+      <span class="md-ellipsis">Development</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../glossary/acronyms.html" class="md-tabs__link">
+      <span class="md-ellipsis">Glossary</span>
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          <span class="md-ellipsis">Introduction</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Introduction</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">Getting Started</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">Getting Started</span>
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#scope" class="md-nav__link">
+    <span class="md-ellipsis">Scope</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#content" class="md-nav__link">
+    <span class="md-ellipsis">Content</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Content">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-the-sdk-package" class="md-nav__link">
+    <span class="md-ellipsis">Install the SDK Package</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdk-root-directory-structure" class="md-nav__link">
+    <span class="md-ellipsis">SDK Root Directory Structure</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">Setup</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-the-docker-images" class="md-nav__link">
+    <span class="md-ellipsis">Install the Docker Images</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Install the Docker Images">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-the-docker-images" class="md-nav__link">
+    <span class="md-ellipsis">Use the Docker Images</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use the Docker Images">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-container-in-interactive-mode" class="md-nav__link">
+    <span class="md-ellipsis">Use Container in Interactive Mode</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-container-in-non-interactive-mode" class="md-nav__link">
+    <span class="md-ellipsis">Use Container in Non-<wbr>Interactive Mode</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-the-network-of-the-test-container" class="md-nav__link">
+    <span class="md-ellipsis">Use the Network of the Test Container</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container-commands" class="md-nav__link">
+    <span class="md-ellipsis">Container Commands</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trentos-in-qemu" class="md-nav__link">
+    <span class="md-ellipsis">TRENTOS in QEMU</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TRENTOS in QEMU">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-a-trentos-system" class="md-nav__link">
+    <span class="md-ellipsis">Build a TRENTOS System</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-a-trentos-system" class="md-nav__link">
+    <span class="md-ellipsis">Run a TRENTOS System</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trentos-on-the-raspberry-pi-3-b" class="md-nav__link">
+    <span class="md-ellipsis">TRENTOS on the Raspberry Pi 3 B+</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TRENTOS on the Raspberry Pi 3 B+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id1" class="md-nav__link">
+    <span class="md-ellipsis">Build a TRENTOS System</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware-setup" class="md-nav__link">
+    <span class="md-ellipsis">Hardware Setup</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sd-card-setup" class="md-nav__link">
+    <span class="md-ellipsis">SD Card Setup</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id2" class="md-nav__link">
+    <span class="md-ellipsis">Run a TRENTOS System</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trentos-on-the-nitrogen6-solox" class="md-nav__link">
+    <span class="md-ellipsis">TRENTOS on the Nitrogen6_<wbr>Solo<wbr>X</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TRENTOS on the Nitrogen6_SoloX">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id3" class="md-nav__link">
+    <span class="md-ellipsis">Build a TRENTOS System</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id4" class="md-nav__link">
+    <span class="md-ellipsis">Hardware Setup</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id5" class="md-nav__link">
+    <span class="md-ellipsis">SD Card Setup</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-u-boot-in-flash" class="md-nav__link">
+    <span class="md-ellipsis">Upgrade U-<wbr>Boot in Flash</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id6" class="md-nav__link">
+    <span class="md-ellipsis">Run a TRENTOS System</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trentos-on-the-bd-sl-i-mx6" class="md-nav__link">
+    <span class="md-ellipsis">TRENTOS on the BD-<wbr>SL-<wbr>i.<wbr>MX6</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TRENTOS on the BD-SL-i.MX6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id7" class="md-nav__link">
+    <span class="md-ellipsis">Build a TRENTOS System</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id8" class="md-nav__link">
+    <span class="md-ellipsis">Hardware Setup</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id9" class="md-nav__link">
+    <span class="md-ellipsis">SD Card Setup</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id10" class="md-nav__link">
+    <span class="md-ellipsis">Upgrade U-<wbr>Boot in Flash</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id11" class="md-nav__link">
+    <span class="md-ellipsis">Run a TRENTOS System</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-steps" class="md-nav__link">
+    <span class="md-ellipsis">Further Steps</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sel4.html" class="md-nav__link">
+        <span class="md-ellipsis">se<wbr>L4 Microkernel</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="camkes.html" class="md-nav__link">
+        <span class="md-ellipsis">CAmk<wbr>ES Framework</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          <span class="md-ellipsis">API</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/cert-parser_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Parser API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/config-service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Config<wbr>Service API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/configuration_service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Service</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/crypto_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/file-system_api.html" class="md-nav__link">
+        <span class="md-ellipsis">File<wbr>System API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/key-store_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Key<wbr>Store API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/logger_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Logger API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/socket_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/tls_api.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          <span class="md-ellipsis">Components</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Components" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Components</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/cert-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/crypto-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/entropy-source.html" class="md-nav__link">
+        <span class="md-ellipsis">Entropy<wbr>Source</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/network-stack_pico-tcp.html" class="md-nav__link">
+        <span class="md-ellipsis">Network<wbr>Stack_<wbr>Pico<wbr>Tcp</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_dummy.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Dummy</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>i<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_rpi.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>RPi</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/ram-disk.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/rpi_spi_flash.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi_<wbr>SPI_<wbr>Flash</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/sd-host-controller.html" class="md-nav__link">
+        <span class="md-ellipsis">Sd<wbr>Host<wbr>Controller</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/storage_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/storage-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/time-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Time<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/tls-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Tls<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/uart.html" class="md-nav__link">
+        <span class="md-ellipsis">UART</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          <span class="md-ellipsis">Component Interfaces</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Component Interfaces" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Component Interfaces</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../component-interfaces/nic-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../component-interfaces/socket-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          <span class="md-ellipsis">Platform Support</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Platform Support" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Platform Support</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/using-sd-card-with-trentos.html" class="md-nav__link">
+        <span class="md-ellipsis">Using an SD Card with a TRENTOS System</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/rpi-3-model-b%2B/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi3B+ Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/nitrogen6-solo-x/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nitrogen6_<wbr>Solo<wbr>X Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/bd-sl-i.mx6/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">BD-<wbr>SL-<wbr>i.<wbr>MX6 Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/nvidia-tegra/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nvidia Tegra</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          <span class="md-ellipsis">Demos</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Demos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Demos</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for i.<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-tls.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API Demo</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-network-filter_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-network-filter_nitrogen6-solox.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for Nitrogen6_<wbr>Solo<wbr>X</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          <span class="md-ellipsis">Tools</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Tools</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/proxy-application.html" class="md-nav__link">
+        <span class="md-ellipsis">Proxy Application</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/configuration-provisioning-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Provisioning Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/ram-disk-generator-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk Generator Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/flasher-tool-rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Flasher Tool for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          <span class="md-ellipsis">Development</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Development" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Development</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/buildsystem.html" class="md-nav__link">
+        <span class="md-ellipsis">Buildsystem</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/function-call-tracing.html" class="md-nav__link">
+        <span class="md-ellipsis">Function Call Tracing</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/hardware-tools.html" class="md-nav__link">
+        <span class="md-ellipsis">Hardware Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/runtime-debugging.html" class="md-nav__link">
+        <span class="md-ellipsis">Runtime Debugging</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-hw-platforms_open-ocd.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Open<wbr>OCD</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-hw-platforms_segger.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Segger Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/object-oriented-c.html" class="md-nav__link">
+        <span class="md-ellipsis">Object Oriented C</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/known_issues.html" class="md-nav__link">
+        <span class="md-ellipsis">Known Issues</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          <span class="md-ellipsis">Glossary</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Glossary" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Glossary</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/acronyms.html" class="md-nav__link">
+        <span class="md-ellipsis">Acronyms</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/terms.html" class="md-nav__link">
+        <span class="md-ellipsis">Terms</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#scope" class="md-nav__link">
+    <span class="md-ellipsis">Scope</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#content" class="md-nav__link">
+    <span class="md-ellipsis">Content</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Content">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-the-sdk-package" class="md-nav__link">
+    <span class="md-ellipsis">Install the SDK Package</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdk-root-directory-structure" class="md-nav__link">
+    <span class="md-ellipsis">SDK Root Directory Structure</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">Setup</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-the-docker-images" class="md-nav__link">
+    <span class="md-ellipsis">Install the Docker Images</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Install the Docker Images">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-the-docker-images" class="md-nav__link">
+    <span class="md-ellipsis">Use the Docker Images</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use the Docker Images">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-container-in-interactive-mode" class="md-nav__link">
+    <span class="md-ellipsis">Use Container in Interactive Mode</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-container-in-non-interactive-mode" class="md-nav__link">
+    <span class="md-ellipsis">Use Container in Non-<wbr>Interactive Mode</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-the-network-of-the-test-container" class="md-nav__link">
+    <span class="md-ellipsis">Use the Network of the Test Container</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container-commands" class="md-nav__link">
+    <span class="md-ellipsis">Container Commands</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trentos-in-qemu" class="md-nav__link">
+    <span class="md-ellipsis">TRENTOS in QEMU</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TRENTOS in QEMU">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-a-trentos-system" class="md-nav__link">
+    <span class="md-ellipsis">Build a TRENTOS System</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-a-trentos-system" class="md-nav__link">
+    <span class="md-ellipsis">Run a TRENTOS System</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trentos-on-the-raspberry-pi-3-b" class="md-nav__link">
+    <span class="md-ellipsis">TRENTOS on the Raspberry Pi 3 B+</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TRENTOS on the Raspberry Pi 3 B+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id1" class="md-nav__link">
+    <span class="md-ellipsis">Build a TRENTOS System</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware-setup" class="md-nav__link">
+    <span class="md-ellipsis">Hardware Setup</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sd-card-setup" class="md-nav__link">
+    <span class="md-ellipsis">SD Card Setup</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id2" class="md-nav__link">
+    <span class="md-ellipsis">Run a TRENTOS System</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trentos-on-the-nitrogen6-solox" class="md-nav__link">
+    <span class="md-ellipsis">TRENTOS on the Nitrogen6_<wbr>Solo<wbr>X</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TRENTOS on the Nitrogen6_SoloX">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id3" class="md-nav__link">
+    <span class="md-ellipsis">Build a TRENTOS System</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id4" class="md-nav__link">
+    <span class="md-ellipsis">Hardware Setup</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id5" class="md-nav__link">
+    <span class="md-ellipsis">SD Card Setup</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-u-boot-in-flash" class="md-nav__link">
+    <span class="md-ellipsis">Upgrade U-<wbr>Boot in Flash</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id6" class="md-nav__link">
+    <span class="md-ellipsis">Run a TRENTOS System</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trentos-on-the-bd-sl-i-mx6" class="md-nav__link">
+    <span class="md-ellipsis">TRENTOS on the BD-<wbr>SL-<wbr>i.<wbr>MX6</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TRENTOS on the BD-SL-i.MX6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id7" class="md-nav__link">
+    <span class="md-ellipsis">Build a TRENTOS System</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id8" class="md-nav__link">
+    <span class="md-ellipsis">Hardware Setup</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id9" class="md-nav__link">
+    <span class="md-ellipsis">SD Card Setup</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id10" class="md-nav__link">
+    <span class="md-ellipsis">Upgrade U-<wbr>Boot in Flash</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id11" class="md-nav__link">
+    <span class="md-ellipsis">Run a TRENTOS System</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-steps" class="md-nav__link">
+    <span class="md-ellipsis">Further Steps</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+<h1 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="c1">########################################################</span>
+<span class="c1">#               DEPRECATION WARNING                    #</span>
+<span class="c1"># This section of the TRENTOS documentation is out of  # </span>
+<span class="c1"># sync and may contain no longer relevant information. #</span>
+<span class="c1">########################################################</span>
+</code></pre></div>
+</div>
+<p>Until this section is updated please refer to <a class="reference external" href="https://github.com/TRENT-OS/trentos/blob/integration/README.md">TRENTOS README</a></p>
+<h2 id="scope">Scope<a class="headerlink" href="#scope" title="Link to this heading">¶</a></h2>
+<p>This Getting Started will provide guidance for the first steps
+towards using the TRENTOS SDK. It covers:</p>
+<ul class="simple">
+<li><p>SDK package content</p></li>
+<li><p>Setup of the Docker environment</p></li>
+<li><p>How to build a TRENTOS based system</p></li>
+<li><p>How to run/test a TRENTOS based system</p></li>
+</ul>
+<h2 id="content">Content<a class="headerlink" href="#content" title="Link to this heading">¶</a></h2>
+<p>From a high-level point of view, the SDK provides all the tools required
+to build and run a custom TRENTOS based system:</p>
+<ul class="simple">
+<li><p>Source code for the seL4 microkernel &amp; the CAmkES framework</p></li>
+<li><p>Source code for all TRENTOS core system libraries and components,
+offering functionality for</p>
+<ul>
+<li><p>Exemplary driver setup based on the QEMU-Host bridge “ChanMux”
+interface, suitable for the Xilinx Zynq-7000 platform emulated
+by QEMU</p>
+<ul>
+<li><p>Network driver</p></li>
+<li><p>Storage driver</p></li>
+</ul>
+</li>
+<li><p>RPi3B+ drivers for</p>
+<ul>
+<li><p>Network driver</p></li>
+<li><p>SD Host controller</p></li>
+<li><p>SPI-based storage</p></li>
+<li><p>Timer</p></li>
+</ul>
+</li>
+<li><p>Nitrogen6_SoloX drivers for</p>
+<ul>
+<li><p>Network driver</p></li>
+<li><p>SD Host controller</p></li>
+<li><p>Timer</p></li>
+</ul>
+</li>
+<li><p>BD-SL-i.MX6 drivers for</p>
+<ul>
+<li><p>Network driver</p></li>
+<li><p>SD Host controller</p></li>
+<li><p>Timer</p></li>
+</ul>
+</li>
+<li><p>Networking (PicoTCP network stack)</p></li>
+<li><p>File system (FAT, SPIFFS and LittleFS)</p></li>
+<li><p>Logging</p></li>
+<li><p>Configuration</p></li>
+<li><p>Crypto</p>
+<ul>
+<li><p>Crypto server</p></li>
+<li><p>Keystore</p></li>
+</ul>
+</li>
+<li><p>Certificate parser</p></li>
+<li><p>TLS</p></li>
+<li><p>Various helper libraries</p></li>
+</ul>
+</li>
+<li><p>Runtime environments based on:</p>
+<ul>
+<li><p>Emulated hardware</p>
+<ul>
+<li><p>QEMU (emulating the Zynq-7000 hardware platform)</p></li>
+<li><p>Proxy application (both in source code and binary form)
+providing the required network and storage backends</p></li>
+</ul>
+</li>
+<li><p>Physical hardware</p>
+<ul>
+<li><p>RPi3B+</p></li>
+<li><p>Nitrogen6_SoloX</p></li>
+<li><p>BD-SL-i.MX6</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Firmware and bootloader files for the:</p>
+<ul>
+<li><p>RPi3B+</p></li>
+<li><p>Nitrogen6_SoloX</p></li>
+<li><p>BD-SL-i.MX6</p></li>
+</ul>
+</li>
+<li><p>Scripts for building and running, that can be used as a foundation
+for custom projects</p></li>
+<li><p>Docker-based working environment containing a Linux system that
+provides all tools required for</p>
+<ul>
+<li><p>Development (e.g. compiler toolchain for ARM) and</p></li>
+<li><p>Testing (e.g. QEMU)</p></li>
+</ul>
+</li>
+<li><p>Documentation</p>
+<ul>
+<li><p>TRENTOS Getting Started</p></li>
+<li><p>TRENTOS Handbook</p></li>
+<li><p>TRENTOS API Doxygen documentation</p></li>
+</ul>
+</li>
+<li><p>Demos</p>
+<ul>
+<li><p>Demo Hello World (print “hello world!” message)</p></li>
+<li><p>Demo IoT App (IoT use case that uses most of the components and
+APIs)</p></li>
+<li><p>Demo Network Filter (network filter use case utilizing two
+network ports)</p></li>
+<li><p>Demo TLS API (showcasing the TLS API by retrieving an HTTPS web
+page)</p></li>
+</ul>
+</li>
+</ul>
+<h3 id="install-the-sdk-package">Install the SDK Package<a class="headerlink" href="#install-the-sdk-package" title="Link to this heading">¶</a></h3>
+<p>Within the scope of this document, we assume that a Linux system is used
+since all the listed commands have been tested on Ubuntu 18.04 and 20.04
+LTS, as well as on Linux Mint 20. The TRENTOS SDK is provided in the
+form of a <strong>tar</strong> archive compressed with <strong>bzip2</strong> and thus needs to be
+extracted before use. Since the SDK is self-contained and works with
+relative paths it can be extracted in an arbitrary directory.</p>
+<p>For the purpose of this document, we will assume that the content of the
+archive is extracted in the directory <strong>TRENTOS_SDK_1.3</strong> as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>TRENTOS_SDK_1.3tar<span class="w"> </span>-xjv<span class="w"> </span>-f<span class="w"> </span>TRENTOS_SDK_1.3.tar.bz2<span class="w"> </span>-C<span class="w"> </span>TRENTOS_SDK_1.3
+</code></pre></div>
+</div>
+<p>Most of the commands used in later parts of the document assume a
+terminal is open in the <strong>TRENTOS_SDK_1.3</strong> directory and where this is
+not the case it will be explicitly stated. Also, we will refer to the
+<strong>TRENTOS_SDK_1.3</strong> directory as the <strong>SDK root directory</strong>.</p>
+<p>Finally, it is important to note that by default, all the build
+artifacts are stored in the SDK root directory which can be changed by
+the user by modifying arguments in the build script invocation. This is
+discussed in the <a class="reference internal" href="../development/buildsystem.html"><span class="std std-doc">Buildsystem</span></a> chapter of the
+TRENTOS Handbook. In the following section, we will go over the contents of the
+unpacked archive.</p>
+<h3 id="sdk-root-directory-structure">SDK Root Directory Structure<a class="headerlink" href="#sdk-root-directory-structure" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>GettingStarted.pdf</strong> → Link to
+<strong>sdk/doc/pdf/TRENTOS_GettingStarted_SDK_V1.3.pdf</strong></p></li>
+<li><p><strong>docker</strong> → Containers with toolchain to build and test TRENTOS systems</p>
+<ul>
+<li><p><strong>trentos_1.3.sha256sums</strong></p></li>
+<li><p><strong>trentos_build_20210503.bz2</strong></p></li>
+<li><p><strong>trentos_test_20211025.bz2</strong></p></li>
+</ul>
+</li>
+<li><p><strong>sdk</strong></p>
+<ul>
+<li><p><strong>build-system.sh</strong> → Master build script for building TRENTOS systems</p></li>
+<li><p><strong>CMakeLists.txt</strong> → Master CMake script for building TRENTOS systems</p></li>
+<li><p><strong>README.license</strong> → License information</p></li>
+<li><p><strong>bin</strong> → TRENTOS tools binaries for Linux</p>
+<ul>
+<li><p><strong>cpt</strong> → Configuration Provisioning Tool</p></li>
+<li><p><strong>proxy_app</strong> → Proxy Application</p></li>
+<li><p><strong>rdgen</strong> → RamDisk Generator</p></li>
+</ul>
+</li>
+<li><p><strong>components</strong> → TRENTOS components sources</p>
+<ul>
+<li><p><strong>CertServer</strong> → Component to offer “read access” to the set of trusted
+certificates (the “trusted chain”)</p></li>
+<li><p><strong>ChanMux</strong> → Channel Multiplexer component for communication with the
+Proxy Application</p></li>
+<li><p><strong>CryptoServer</strong> → CryptoServer+Keystore component</p></li>
+<li><p><strong>EntropySource</strong> → Dummy TRNG driver</p></li>
+<li><p><strong>NetworkStack_PicoTcp</strong> → Network stack component based on picoTCP</p></li>
+<li><p><strong>NIC_ChanMux</strong> → Network driver for a ChanMux NIC channel</p></li>
+<li><p><strong>NIC_Dummy</strong> → Dummy network driver</p></li>
+<li><p><strong>NIC_iMX6</strong> → Network driver for the iMX6 platform</p></li>
+<li><p><strong>NIC_RPi</strong> → Network driver for RPi3B+</p></li>
+<li><p><strong>RamDisk</strong> → RAM-based storage driver</p></li>
+<li><p><strong>RPi_SPI_Flash</strong> → Storage driver for SPI-based NOR flash memory for
+RPi3B+</p></li>
+<li><p><strong>SdHostController</strong> → Driver that implements the storage interface
+and allows accessing the SD card peripheral</p></li>
+<li><p><strong>Storage_ChanMux</strong> → Storage driver for a ChanMux storage channel</p></li>
+<li><p><strong>StorageServer</strong> → Providing access to storage for various clients</p></li>
+<li><p><strong>TimeServer</strong> → Providing access to timers for various clients</p></li>
+<li><p><strong>TlsServer</strong> → TLS client + networking component</p></li>
+<li><p><strong>UART</strong> → UART driver</p></li>
+</ul>
+</li>
+<li><p><strong>demos</strong></p>
+<ul>
+<li><p><strong>demo_hello_world</strong> → Hello World demo</p></li>
+<li><p><strong>demo_iot_app</strong> → IoT Demo (QEMU)</p></li>
+<li><p><strong>demo_iot_app_imx6</strong> → IoT Demo (Nitrogen6_SoloX, BD-SL-i.MX6)</p></li>
+<li><p><strong>demo_iot_app_rpi3</strong> → IoT Demo (RPi3B+)</p></li>
+<li><p><strong>demo_network_filter</strong> → Network Filter Demo (QEMU, Nitrogen6_SoloX)</p></li>
+<li><p><strong>demo_tls_api</strong> → Demo retrieving an HTTPS web page</p></li>
+</ul>
+</li>
+<li><p><strong>doc</strong></p>
+<ul>
+<li><p><strong>html</strong> →TRENTOS API Doxygen documentation</p></li>
+<li><p><strong>pdf</strong> → TRENTOS documentation</p>
+<ul>
+<li><p><strong>TRENTOS_GettingStarted_SDK_V1.3.pdf</strong></p></li>
+<li><p><strong>TRENTOS_Handbook_SDK_V1.3.pdf</strong></p></li>
+<li><p><strong>TRENTOS_ReleaseNotes_SDK_V1.3.pdf</strong></p></li>
+<li><p><strong>TRENTOS_MigrationNotes_SDK_V1.2_to_V1.3.pdf</strong></p></li>
+<li><p><strong>3rd_party</strong> → Supplemental documents</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>libs</strong> → TRENTOS libraries and core system sources</p>
+<ul>
+<li><p><strong>3rdParty</strong> → 3rd party libraries used by TRENTOS libraries
+internally</p></li>
+<li><p><strong>chanmux</strong> → ChanMux</p></li>
+<li><p><strong>chanmux_nic_driver</strong> → Network driver based on ChanMux</p></li>
+<li><p><strong>lib_compiler</strong> → Compiler abstraction utilities</p></li>
+<li><p><strong>lib_debug</strong> → Debugging facility macros and functions</p></li>
+<li><p><strong>lib_host</strong> → Host side utilities</p></li>
+<li><p><strong>lib_io</strong> → I/O operations</p></li>
+<li><p><strong>lib_logs</strong> → Logging utilities</p></li>
+<li><p><strong>lib_macros</strong> → Commonly used macros</p></li>
+<li><p><strong>lib_mem</strong> → Memory management utilities</p></li>
+<li><p><strong>lib_osal</strong> → Operating System abstraction library</p></li>
+<li><p><strong>lib_server</strong> → Server components utilities</p></li>
+<li><p><strong>lib_utils</strong> → Common useful utilities</p></li>
+<li><p><strong>os_cert</strong> → Certification parser library for x509
+certificates</p></li>
+<li><p><strong>os_configuration</strong> → Configuration server library</p></li>
+<li><p><strong>os_crypto</strong> → Crypto library</p></li>
+<li><p><strong>os_filesystem</strong> → File system library (FAT, SPIFFS, LittleFS)</p></li>
+<li><p><strong>os_keystore</strong> → Keystore library (file based, RAM based)</p></li>
+<li><p><strong>os_logger</strong> → Log server core library</p></li>
+<li><p><strong>os_socket</strong> → Socket library</p></li>
+<li><p><strong>os_tls</strong> → TLS client library</p></li>
+</ul>
+</li>
+<li><p><strong>os_core_api</strong> → TRENTOS APIs for all subsystems</p></li>
+<li><p><strong>resources</strong></p>
+<ul>
+<li><p><strong>nitrogen6sx_sd_card</strong> → SD card files with Nitrogen6_Solo bootloader</p></li>
+<li><p><strong>openocd_cfgs</strong> → Configuration files for debugging with OpenOCD</p></li>
+<li><p><strong>rpi3_sd_card</strong> → SD card files with RPi3B+ bootloader</p></li>
+<li><p><strong>sabre_sd_card</strong> → SD card files with BD-SL-i.MX6 bootloader</p></li>
+</ul>
+</li>
+<li><p><strong>scripts</strong> → Utility scripts</p></li>
+<li><p><strong>sdk-sel4-camkes</strong> → seL4 and CAmkES</p></li>
+<li><p><strong>tools</strong> → TRENTOS tools source code</p>
+<ul>
+<li><p><strong>cpt</strong> → Configuration Provisioning Tool</p></li>
+<li><p><strong>proxy</strong> → Proxy Application</p></li>
+<li><p><strong>rdgen</strong> → RamDisk Generator</p></li>
+<li><p><strong>rpi3_flasher</strong> → TRENTOS helper system for flashing an image
+on the RPi3B+ SPI-based NOR flash memory</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h2>
+<p>As a prerequisite, the docker engine needs to be installed on your development
+machine. An installation guide for the engine can be found at
+<a class="reference external" href="https://docs.docker.com/engine/install/">https://docs.docker.com/engine/install</a>.
+This tutorial assumes you have a working docker service installed on your
+machine and that your current user is a member of the <strong>docker</strong> and <strong>sudo</strong>
+group. The SDK provides two archives with docker containers:</p>
+<ul class="simple">
+<li><p><strong>trentos_build_20210503.bz2</strong>: the build container</p></li>
+<li><p><strong>trentos_test_20211025.bz2</strong>: the test container</p></li>
+</ul>
+<p>The rationale for splitting the containers is, that the test container is much
+more lightweight than the build container.</p>
+<h2 id="install-the-docker-images">Install the Docker Images<a class="headerlink" href="#install-the-docker-images" title="Link to this heading">¶</a></h2>
+<p>To install these docker images on your machine, open a terminal in the folder
+where the archives are located and run the commands below. Due to the size of
+the docker images, this will take several minutes.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># enter the SDK root directory</span>
+<span class="nb">cd</span><span class="w"> </span>&lt;sdk_root_directory&gt;
+
+<span class="c1"># load trentos_build docker image</span>
+docker<span class="w"> </span>load<span class="w"> </span>--input<span class="w"> </span>docker/trentos_build_20210503.bz2
+
+<span class="c1"># load trentos_test docker image</span>
+docker<span class="w"> </span>load<span class="w"> </span>--input<span class="w"> </span>docker/trentos_test_20211025.bz2
+</code></pre></div>
+</div>
+<p>Verify that the docker images are installed properly by running.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>images
+</code></pre></div>
+</div>
+<p>This should result in the following output, especially the values in the column
+<strong>IMAGE ID</strong> must match. The column <strong>CREATED</strong> may differ, since it gives the
+time delta since creation.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="go">REPOSITORY                    TAG       IMAGE ID         CREATED         SIZE</span>
+<span class="go">hensoldtcyber/trentos_test    latest    a8ce644de82c     3 weeks ago     1.79GB</span>
+<span class="go">hensoldtcyber/trentos_build   latest    d3dffe4123e3     2 months ago    8.69GB</span>
+</code></pre></div>
+</div>
+<h3 id="use-the-docker-images">Use the Docker Images<a class="headerlink" href="#use-the-docker-images" title="Link to this heading">¶</a></h3>
+<p>The docker containers based on the docker images can be used in two different
+ways:</p>
+<ul class="simple">
+<li><p>interactively, i.e. using a shell inside the container. This is the
+default mode if no further arguments are given.</p></li>
+<li><p>non-interactively, i.e. using the container to execute a command or
+a script. This is the recommended way for build pipelines.</p></li>
+</ul>
+<p>Note that containers are not persistent, i.e. all changes inside the container
+(except changes on the mounted folder from the host system) are lost once it is
+closed.</p>
+<h4 id="use-container-in-interactive-mode">Use Container in Interactive Mode<a class="headerlink" href="#use-container-in-interactive-mode" title="Link to this heading">¶</a></h4>
+<p>Note that the current working directory on the host is mounted into the docker
+container under <strong>/host</strong>, so subfolders are accessible within the container but
+not the parent folder.</p>
+<p>To open the <strong>trentos_build</strong> docker container in the interactive mode, run this
+command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># start bash in a new trentos_build container</span>
+sdk/scripts/open_trentos_build_env.sh
+</code></pre></div>
+</div>
+<p>To leave the container enter <strong>exit</strong>.</p>
+<p>Similarly, for the <strong>trentos_test</strong> docker container the command is:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># start bash in a new trentos_test container</span>
+sdk/scripts/open_trentos_test_env.sh
+</code></pre></div>
+</div>
+<p>To leave the container enter <strong>exit</strong>.</p>
+<p>Each of these commands <strong>starts a new container instance</strong> which allows further
+user interaction from within the container.</p>
+<h4 id="use-container-in-non-interactive-mode">Use Container in Non-Interactive Mode<a class="headerlink" href="#use-container-in-non-interactive-mode" title="Link to this heading">¶</a></h4>
+<p>Note that the current working directory on the host is mounted into the docker
+container under <strong>/host</strong>, so the command or script can access subfolders but
+not the parent folder.</p>
+<p>To run a command or a script in the <strong>trentos_build</strong> docker container, run this
+command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># execute a specific script in a new trentos_build container</span>
+sdk/scripts/open_trentos_build_env.sh<span class="w"> </span>&lt;path_to_build_script&gt;
+</code></pre></div>
+</div>
+<p>Similarly, for the <strong>trentos_test</strong> docker container the command is:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># execute a specific script in a new trentos_test container</span>
+sdk/scripts/open_trentos_test_env.sh<span class="w"> </span>&lt;path_to_test_script&gt;
+</code></pre></div>
+</div>
+<p>Each of these commands <strong>starts a new container instance</strong>, executes the command
+or script, and stops the container afterwards.</p>
+<h4 id="use-the-network-of-the-test-container">Use the Network of the Test Container<a class="headerlink" href="#use-the-network-of-the-test-container" title="Link to this heading">¶</a></h4>
+<p>The <strong>trentos_test</strong> docker container automatically sets up the network
+interface and configures access permissions. The IP address 172.17.0.x is
+assigned automatically to each <strong>trentos_test</strong> docker container, starting from
+x = 2 for the first started container.</p>
+<p>Additionally it creates an internal subnet with the address 10.0.0.0/24 and the
+IP address of the <strong>trentos_test</strong> docker container is 10.0.0.1. This network is
+hidden behind a NAT and the following port ranges are forwarded:</p>
+<ul class="simple">
+<li><p>Port range 10000:10999 for TCP and UDP is forwarded to 10.0.0.10</p></li>
+<li><p>Port range 11000:11999 for TCP and UDP is forwarded to 10.0.0.11</p></li>
+</ul>
+<p>Verify that network and internet access from within the container is possible by
+pinging a server in interactive mode:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># start bash in a new trentos_test container</span>
+sdk/scripts/open_trentos_test_env.sh
+
+<span class="c1"># execute ping</span>
+ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span>hensoldt-cyber.com
+</code></pre></div>
+</div>
+<p>To leave the container enter <strong>exit</strong>.</p>
+<h4 id="container-commands">Container Commands<a class="headerlink" href="#container-commands" title="Link to this heading">¶</a></h4>
+<p>For easier access to the containers it is also possible to add the folder
+<strong>sdk/scripts</strong> to your <strong>PATH</strong> variable and execute the
+<strong>sdk/scripts/install_bashrc.sh</strong> script. This adds <strong>open_trentos_build_env</strong>
+<strong>and open_trentos_test_env</strong> as commands to bash (i.e. it will copy the
+contents of <strong>bash_functions.def</strong> to your <strong>.bashrc</strong> file). The container
+commands can be used directly instead of calling the scripts with the path.</p>
+<h2 id="trentos-in-qemu">TRENTOS in QEMU<a class="headerlink" href="#trentos-in-qemu" title="Link to this heading">¶</a></h2>
+<h3 id="build-a-trentos-system">Build a TRENTOS System<a class="headerlink" href="#build-a-trentos-system" title="Link to this heading">¶</a></h3>
+<p>The following section demonstrates the general build process of a TRENTOS system
+for QEMU. The Hello World demo shipped with the SDK is used as an example use
+case. Building a TRENTOS system is done by executing the <strong>build-system.sh</strong>
+script within the <strong>trentos_build</strong> docker container. The <strong>build-system.sh</strong>
+script takes the following arguments:</p>
+<ul class="simple">
+<li><p>Project directory: the directory that contains the source files of
+the project to be built (here <strong>sdk/demos/demo_hello_world</strong> is the
+path to the Hello World source folder from the SDK root directory)</p></li>
+<li><p>Build platform: the underlying hardware platform, for which the
+TRENTOS system shall be built (here <strong>zynq7000</strong>, which targets the
+Xilinx Zynq-7000 SoC that can be emulated by QEMU)</p></li>
+<li><p>Output directory: the directory in which the built artifacts are
+stored (here <strong>build-zynq7000-Debug-demo_hello_world</strong>)</p></li>
+<li><p>Build type: the actual build type reflecting the purpose of the
+TRENTOS system to be built (here <strong>-DCMAKE_BUILD_TYPE=Debug</strong> that
+causes the CMake build system to create a <strong>Debug</strong> build)</p></li>
+</ul>
+<p>The following command will invoke the build script from inside the
+<strong>trentos_build</strong> docker container. Upon start, docker will mount the current
+working directory into the docker container under <strong>/host</strong>, execute the build,
+and then remove the container again. Then the script is executed in the
+container and the container is removed once the script finishes. For the Hello
+World demo, this call looks like the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>trentos/sdk/scripts/open_trentos_build_env.sh<span class="w"> </span>trentos/build.sh<span class="w"> </span>demo_hello_world
+</code></pre></div>
+</div>
+<p>If the build is successful, the console produces the following output:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">#</span><span class="c1">#------------------------------------------------------------------------------</span>
+<span class="gp">#</span><span class="c1"># build successful, output in build-zynq7000-Debug-demo_hello_world</span>
+<span class="gp">#</span><span class="c1">#==============================================================================</span>
+</code></pre></div>
+</div>
+<p>As a result, the folder <strong>build-zynq7000-Debug-demo_hello_world</strong> is
+created in the SDK root directory, containing all the build artifacts.</p>
+<p><strong>Congratulations, you have successfully built your first secure TRENTOS
+system!</strong></p>
+<p>More details on the build system can be found in the TRENTOS Handbook in
+the <a class="reference internal" href="../development/buildsystem.html"><span class="std std-doc">Buildsystem</span></a> chapter.</p>
+<h3 id="run-a-trentos-system">Run a TRENTOS System<a class="headerlink" href="#run-a-trentos-system" title="Link to this heading">¶</a></h3>
+<p>Similar to the build script above, the following command will invoke the
+run script from inside the <strong>trentos_test</strong> docker container. Upon
+start, docker will mount the current working directory  into the docker
+container under <strong>/host</strong>, execute the run script and then remove the
+container again. For the Hello World demo, this call looks like the
+following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># change to the build output folder</span>
+<span class="nb">cd</span><span class="w"> </span>build-zynq7000-Debug-demo_hello_world
+<span class="c1"># execute the Hello World demo in the trentos_test container</span>
+../sdk/scripts/open_trentos_test_env.sh<span class="w"> </span>./simulate
+</code></pre></div>
+</div>
+<p>Note that in this case the <strong>simulate</strong> run script must be invoked from
+within the build output folder <strong>build-zynq7000-Debug-demo_hello_world</strong>.
+This requires the change to this directory and the invocation of the
+test container there. Remember to change back to the SDK root directory
+for the following steps.</p>
+<p>After successful execution, the following output can be expected:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="go">Booting all finished, dropped to user space</span>
+<span class="go">main@main.c:2125 Starting CapDL Loader...</span>
+<span class="go">main@main.c:2127 CapDL Loader done, suspending...</span>
+<span class="go">hello world!</span>
+</code></pre></div>
+</div>
+<p><strong>Congratulations, you have successfully run your first secure TRENTOS
+system!</strong></p>
+<p>To exit QEMU and the container, press &lt;Ctrl-A&gt; and &lt;X&gt;.</p>
+<h2 id="trentos-on-the-raspberry-pi-3-b">TRENTOS on the Raspberry Pi 3 B+<a class="headerlink" href="#trentos-on-the-raspberry-pi-3-b" title="Link to this heading">¶</a></h2>
+<p>This chapter describes how to run the Hello World demo standalone on the
+Raspberry Pi 3 B+ (RPi3B+) without using the <strong>trentos_test</strong> docker
+container and QEMU.</p>
+<h3 id="id1">Build a TRENTOS System<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>The following section demonstrates the general build process of a
+TRENTOS system for the RPi3B+. The Hello World demo shipped with the SDK
+is used as an example use case.</p>
+<p>The build process is similar to the one for the <strong>zynq7000</strong> target as shown
+above. It only differs in the underlying hardware platform type, which
+in this case is the <strong>rpi3</strong> platform.</p>
+<p>The following command will invoke the build script from inside
+the <strong>trentos_build</strong> docker container. The container will mount the
+current working directory under <strong>/host</strong>, execute the script and then
+remove itself.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>sdk/scripts/open_trentos_build_env.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>sdk/build-system.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>sdk/demos/demo_hello_world<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>rpi3<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>build-rpi3-Debug-demo_hello_world<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug
+</code></pre></div>
+</div>
+<p>As a result, the folder <strong>build-rpi3-Debug-demo_hello_world</strong> is created in the
+SDK root directory, containing all the build artifacts.</p>
+<h3 id="hardware-setup">Hardware Setup<a class="headerlink" href="#hardware-setup" title="Link to this heading">¶</a></h3>
+<p>In order to run the demo, the following is required:</p>
+<ul class="simple">
+<li><p>RPi3B+ incl. power supply</p></li>
+<li><p>UART-to-USB adapter</p></li>
+<li><p>MicroSD card (formatted with MBR/DOS partitioning)</p></li>
+</ul>
+<p>Before building or executing the demo it is necessary to first properly
+connect all the hardware components:</p>
+<ul class="simple">
+<li><p>connect the UART-to-USB adapter to the RPi3B+ board</p></li>
+<li><p>connect the UART-to-USB adapter to your PC</p></li>
+<li><p>connect the RPi3B+ board to the power supply</p></li>
+</ul>
+<p>The following diagram shows the hardware setup:
+<img alt="&quot;Getting Started - RPi3B+ HW Setup&quot;" src="../_images/getting-started_rpi-hw-setup.png" /></p>
+<h3 id="sd-card-setup">SD Card Setup<a class="headerlink" href="#sd-card-setup" title="Link to this heading">¶</a></h3>
+<p><strong>Info:</strong> The RPi3B+ requires SD cards to use an MBR partition table. If this is
+not the case (e.g. partition table uses GPT format) the board will not boot at
+all. Thus, if your RPi3B+ does not boot or does not give you any output on the
+console interface even if the SD contains all required files, make sure to
+verify that the card is MBR (“MS-DOS”) formatted. A step-by-step guide on how to
+create an MBR partitioned SD card can be found in the
+<a class="reference internal" href="../platform-support/using-sd-card-with-trentos.html"><span class="std std-doc">Using an SD Card with a TRENTOS System</span></a>
+section in the TRENTOS Handbook.</p>
+<p>Before the TRENTOS image can be executed on the RPi3B+ platform it is necessary
+to first prepare the SD card with the necessary files provided as part of the
+SDK package. To do so, it is enough to do the following:</p>
+<ul class="simple">
+<li><p>Remove the SD card from the RPi3B+ and connect it to your PC. In the
+following steps, we assume that the SD card is mounted at
+<strong>&lt;sd_card_mount_point&gt;</strong>.</p></li>
+<li><p>Copy required files to the SD card (More information on each
+individual file and its role for the execution of a TRENTOS system
+can be found in the
+<a class="reference internal" href="../platform-support/rpi-3-model-b%2B/platform.html"><span class="std std-doc">Raspberry Pi 3 Model B+</span></a>
+section in the TRENTOS Handbook).</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># copy bootfiles to SD card</span>
+cp<span class="w"> </span>sdk/resources/rpi3_sd_card/*<span class="w"> </span>&lt;sd_card_mount_point&gt;/
+</code></pre></div>
+</div>
+<ul class="simple">
+<li><p>After copying the required bootfiles it is necessary to copy the
+TRENTOS image to the SD card as well.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># copy TRENTOS system image to SD card</span>
+cp<span class="w"> </span>build-rpi3-Debug-demo_hello_world/images/os_image.elf<span class="w"> </span>&lt;sd_card_mount_point&gt;/
+
+<span class="c1"># ensure files are written to the SD card</span>
+sync
+umount<span class="w"> </span>&lt;sd_card_mount_point&gt;
+</code></pre></div>
+</div>
+<h3 id="id2">Run a TRENTOS System<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>After preparing the SD card, we want to run the TRENTOS system on the RPi3B+. In
+order to observe the UART output from the RPi3B+, we have to start a serial
+monitor that shows the traffic received from the UART-to-USB adapter. One way of
+doing this is to use the <strong>picocom</strong> utility with the following command. If the
+<strong>picocom</strong> package is not already available on the system, it can be installed
+with a package manager (e.g. <strong>apt</strong>).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>picocom<span class="w"> </span>-b<span class="w"> </span><span class="m">115200</span><span class="w"> </span>/dev/&lt;ttyUSBX&gt;
+</code></pre></div>
+</div>
+<p>Hereby, <strong>&lt;ttyUSBX&gt;</strong> acts as a placeholder for the specific device
+representing the USB-to-UART adapter, e.g. <strong>ttyUSB0</strong>. Note that using <strong>sudo</strong>
+may not be required, this depends on your Linux group membership giving your
+account access to  <strong>/dev/&lt;ttyUSBX&gt;</strong>.</p>
+<p>Once the terminal is open, insert the SD card into the RPi3B+ and restart the
+board with a power cycle. The terminal should show the RPi3B+ booting and
+eventually running the Hello World demo saying “hello world!”.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="go">U-Boot 2020.07-rc3-00002-g4b6f96a0a6 (May 26 2020 - 18:38:13 +0200)...</span>
+<span class="go">Bootstrapping kernel</span>
+<span class="go">Booting all finished, dropped to user space</span>
+<span class="go">main@main.c:2125 Starting CapDL Loader...</span>
+<span class="go">main@main.c:2127 CapDL Loader done, suspending...</span>
+<span class="go">hello world!</span>
+</code></pre></div>
+</div>
+<p>To exit <strong>picocom</strong>, press &lt;Ctrl-A&gt; and &lt;Ctrl-X&gt;.</p>
+<h2 id="trentos-on-the-nitrogen6-solox">TRENTOS on the Nitrogen6_SoloX<a class="headerlink" href="#trentos-on-the-nitrogen6-solox" title="Link to this heading">¶</a></h2>
+<p>This chapter describes how to run the Hello World demo standalone on the
+Nitrogen6_SoloX without using the <strong>trentos_test</strong> docker container
+and QEMU.</p>
+<h3 id="id3">Build a TRENTOS System<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p>The following section demonstrates the general build process of a TRENTOS system
+for the Nitrogen6_SoloX. The Hello World demo shipped with the SDK is used as an
+example use case.</p>
+<p>The build process is similar to the one for the RPi3B+ target as shown above. It
+only differs in the underlying hardware platform type, which in this case is the
+<strong>nitrogen6sx</strong> platform.</p>
+<p>The following command will invoke the build script from inside the
+<strong>trentos_build</strong> docker container. The container will mount the current working
+directory under <strong>/host</strong>, execute the script and then remove itself.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>sdk/scripts/open_trentos_build_env.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>sdk/build-system.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>sdk/demos/demo_hello_world<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>nitrogen6sx<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>build-nitrogen6sx-Debug-demo_hello_world<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug
+</code></pre></div>
+</div>
+<p>As a result, the folder <strong>build-nitrogen6sx-Debug-demo_hello_world</strong> is created
+in the SDK root directory, containing all the build artifacts.</p>
+<h3 id="id4">Hardware Setup<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<p>In order to run the demo, the following is required:</p>
+<ul class="simple">
+<li><p>Nitrogen6_SoloX incl. power supply</p></li>
+<li><p>UART-to-USB adapter</p></li>
+<li><p>MicroSD card (formatted)</p></li>
+</ul>
+<p>Before building or executing the demo it is necessary to first properly connect
+all the hardware components:</p>
+<ul class="simple">
+<li><p>connect the UART-to-USB adapter to the Nitrogen6_SoloX</p></li>
+<li><p>connect the UART-to-USB adapter to your PC</p></li>
+<li><p>connect the Nitrogen6_SoloX board to the power supply</p></li>
+</ul>
+<p>The following diagram shows the hardware setup:</p>
+<p><img alt="&quot;Getting Started -Nitrogen6_SoloX HW Setup&quot;" src="../_images/getting-started_nitrogen6-solox-setup.png" /></p>
+<h3 id="id5">SD Card Setup<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<p>Before the TRENTOS image can be executed on the Nitrogen6_SoloX platform it is
+necessary to first prepare the SD card with the necessary files provided as part
+of the SDK package. To do so, it is enough to do the following.</p>
+<ul class="simple">
+<li><p>Remove the SD card from the Nitrogen6_SoloX and connect it to your PC. In the
+following steps, we assume that the SD card is mounted at
+<strong>&lt;sd_card_ount_point&gt;</strong>.</p></li>
+<li><p>Copy the required bootfiles to the SD card. (More information on each
+individual file and its role for the execution of a TRENTOS system can be
+found in the <a class="reference internal" href="../platform-support/nitrogen6-solo-x/platform.html"><span class="std std-doc">Nitrogen6_SoloX</span></a>
+section in the TRENTOS Handbook.)</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># copy bootfiles to SD card</span>
+cp<span class="w"> </span>sdk/resources/nitrogen6sx_sd_card/*<span class="w"> </span>&lt;sd_card_mount_point&gt;/
+</code></pre></div>
+</div>
+<ul class="simple">
+<li><p>After copying the required bootfiles it is necessary to copy the TRENTOS image
+to the SD card as well.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># copy TRENTOS system image to SD card</span>
+cp<span class="w"> </span>build-nitrogen6sx-Debug-demo_hello_world/images/os_image.elf<span class="w"> </span>&lt;sd_card_mount_point&gt;/
+
+<span class="c1"># ensure files are written to the SD card</span>
+sync
+umount<span class="w"> </span>&lt;sd_card_mount_point&gt;
+</code></pre></div>
+</div>
+<h3 id="upgrade-u-boot-in-flash">Upgrade U-Boot in Flash<a class="headerlink" href="#upgrade-u-boot-in-flash" title="Link to this heading">¶</a></h3>
+<p>The Nitrogen6_SoloX needs to be prepared with a specific U-Boot image to
+successfully boot a TRENTOS system. With the preparation of the previous step,
+the SD card now contains the required U-Boot image which needs to be installed
+into the board’s internal flash. This process requires to interact with the
+board through its UART port, so a serial monitor and the UART-to-USB adapter
+have to be used. One way of doing this is to use the <strong>picocom</strong> utility with
+the following command. If the <strong>picocom</strong> package is not already available on
+the system, it can be installed with a package manager (e.g. <strong>apt</strong>).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>picocom<span class="w"> </span>-b<span class="w"> </span><span class="m">115200</span><span class="w"> </span>/dev/&lt;ttyUSBX&gt;
+</code></pre></div>
+</div>
+<p>Hereby, <strong>&lt;ttyUSBX&gt;</strong> acts as a placeholder for the specific device
+representing the USB-to-UART adapter, e.g. <strong>ttyUSB0</strong>. Note that using <strong>sudo</strong>
+may not be required, this depends on your Linux group membership giving your
+account access to <strong>/dev/&lt;ttyUSBX&gt;</strong>.</p>
+<p>Once the terminal is open, insert the SD card into the Nitrogen6_SoloX board and
+restart the board with a power cycle.</p>
+<p>Observer the UART output in a terminal window running <strong>picocom</strong> as described
+above. Interrupt the boot process by pressing &lt;Enter&gt; when the console outputs
+“Hit any key to stop autoboot”.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="go">U-Boot 2018.07-36536-gb89e53e64c (Aug 31 2020 - 17:16:55 +0200)</span>
+<span class="go">CPU: Freescale i.MX6SX rev1.3 at 792 MHz</span>
+<span class="go">Reset cause: WDOG</span>
+<span class="go">Board: nitrogen6sx</span>
+<span class="go">I2C: ready</span>
+<span class="go">DRAM: 1 GiB</span>
+<span class="go">MMC: FSL_SDHC: 0, FSL_SDHC: 1</span>
+<span class="go">Loading Environment from SPI Flash...</span>
+<span class="go">SF: Detected sst25vf016b with page size 256 Bytes, erase size 4 KiB, total 2 MiB</span>
+<span class="go">OK</span>
+<span class="go">Display: lvds:tm070jdhg30 (1280x800)</span>
+<span class="go">In: serial</span>
+<span class="go">Out: serial</span>
+<span class="go">Err: serial</span>
+<span class="go">Net: AR8035 at 4</span>
+<span class="go">AR8035 at 5</span>
+<span class="go">FEC0 [PRIME], FEC1, usb_ether</span>
+<span class="go">Hit any key to stop autoboot: 1</span>
+</code></pre></div>
+</div>
+<p>Run the following command to upgrade U-Boot in the board’s internal
+flash (note the u at the end):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="o">=</span>&gt;<span class="w"> </span>run<span class="w"> </span>upgradeu
+</code></pre></div>
+</div>
+<p>This will run the <strong>upgrade.scr</strong> script found on the prepared SD card, search
+for the <strong>u-boot.imx</strong> file and flash it.</p>
+<p>Once the process has successfully completed, the board’s internal flash should
+now contain the new version of U-Boot. On success you should see the following
+output:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="go">switch to partitions #0, OK</span>
+<span class="go">mmc0 is current device</span>
+<span class="go">Scanning mmc 0:1...</span>
+<span class="go">Found U-Boot script /upgrade.scr</span>
+<span class="go">4199 bytes read in 25 ms (163.1 KiB/s)</span>
+<span class="gp">#</span><span class="c1"># Executing script at 80008000</span>
+<span class="go">Called gpio_direction_output() in mxc_gpio.c for gpio = 48 with value = 1.</span>
+<span class="go">SF: Detected sst25vf016b with page size 256 Bytes, erase size 4 KiB, total 2 MiB</span>
+<span class="go">probed SPI ROM</span>
+<span class="go">check U-Boot</span>
+<span class="go">490496 bytes read in 51 ms (9.2 MiB/s)</span>
+<span class="go">read 77c00 bytes from SD card</span>
+<span class="go">device 0 offset 0x400, size 0x77c00</span>
+<span class="go">SF: 490496 bytes @ 0x400 Read: OK</span>
+<span class="go">byte at 0x82000407 (0x17) != byte at 0x82400407 (0x87)</span>
+<span class="go">Total of 7 byte(s) were the same</span>
+<span class="go">Need U-Boot upgrade</span>
+<span class="go">Program in 5 seconds</span>
+<span class="go">5</span>
+<span class="go">4</span>
+<span class="go">3</span>
+<span class="go">2</span>
+<span class="go">1</span>
+<span class="go">erasing</span>
+<span class="go">SF: 786432 bytes @ 0x0 Erased: OK</span>
+<span class="go">programming</span>
+<span class="go">device 0 offset 0x800, size 0x77800</span>
+<span class="go">SF: 489472 bytes @ 0x800 Written: OK</span>
+<span class="go">device 0 offset 0x400, size 0x400</span>
+<span class="go">SF: 1024 bytes @ 0x400 Written: OK</span>
+<span class="go">verifying</span>
+<span class="go">device 0 offset 0x400, size 0x77c00</span>
+<span class="go">SF: 490496 bytes @ 0x400 Read: OK</span>
+<span class="go">Total of 490496 byte(s) were the same</span>
+<span class="go">--- U-Boot upgraded. reset</span>
+</code></pre></div>
+</div>
+<h3 id="id6">Run a TRENTOS System<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<p>After preparing the SD card and upgrading U-Boot in the board’s internal flash,
+we want to run the TRENTOS system on the Nitrogen6_SoloX.</p>
+<p>Restart the board with a power cycle or by pressing the restart button on the
+board. The terminal should show the board booting and eventually running the
+Hello World demo saying “hello world!”.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="go">U-Boot 2018.07-36539-ge26f5ffed7 (Nov 24 2020 - 20:36:55 +0100)...</span>
+<span class="go">Bootstrapping kernel</span>
+<span class="go">Booting all finished, dropped to user space</span>
+<span class="go">main@main.c:2125 Starting CapDL Loader...</span>
+<span class="go">main@main.c:2127 CapDL Loader done, suspending...</span>
+<span class="go">hello world!</span>
+</code></pre></div>
+</div>
+<p>To exit <strong>picocom</strong>, press &lt;Ctrl-A&gt; and &lt;Ctrl-X&gt;.</p>
+<h2 id="trentos-on-the-bd-sl-i-mx6">TRENTOS on the BD-SL-i.MX6<a class="headerlink" href="#trentos-on-the-bd-sl-i-mx6" title="Link to this heading">¶</a></h2>
+<p>This chapter describes how to run the Hello World demo standalone on the
+BD-SL-i.MX6 (also known as Sabre Lite) without using the <strong>trentos_test</strong> docker
+container and QEMU.</p>
+<h3 id="id7">Build a TRENTOS System<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<p>The following section demonstrates the general build process of a TRENTOS system
+for the BD-SL-i.MX6. The Hello World demo shipped with the SDK is used as an
+example use case.</p>
+<p>The build process is similar to the one for the RPi3B+ target as shown above. It
+only differs in the underlying hardware platform type, which in this case is the
+<strong>sabre</strong> platform.</p>
+<p>The following command will invoke the build script from inside the
+<strong>trentos_build</strong> docker container. The container will mount the current working
+directory under <strong>/host</strong>, execute the script and then remove itself.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>sdk/scripts/open_trentos_build_env.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>sdk/build-system.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>sdk/demos/demo_hello_world<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>sabre<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>build-sabre-Debug-demo_hello_world<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug
+</code></pre></div>
+</div>
+<p>As a result, the folder <strong>build-sabre-Debug-demo_hello_world</strong> is created in the
+SDK root directory, containing all the build artifacts.</p>
+<h3 id="id8">Hardware Setup<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<p>In order to run the demo, the following is required:</p>
+<ul class="simple">
+<li><p>BD-SL-i.MX6 incl. power supply</p></li>
+<li><p>UART-to-USB adapter</p></li>
+<li><p>MicroSD card (formatted)</p></li>
+</ul>
+<p>Before building or executing the demo it is necessary to first properly
+connect all the hardware components:</p>
+<ul class="simple">
+<li><p>connect the UART-to-USB adapter to the BD-SL-i.MX6</p></li>
+<li><p>connect the UART-to-USB adapter to your PC</p></li>
+<li><p>connect the BD-SL-i.MX6 board to the power supply</p></li>
+</ul>
+<p>The following diagram shows the hardware setup:</p>
+<p><img alt="&quot;Getting Started - BD-SL-i.MX6 HW Setup&quot;" src="../_images/getting-started_bd-sl-imx6.png" /></p>
+<h3 id="id9">SD Card Setup<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<p>Before the TRENTOS image can be executed on the BD-SL-i.MX6 platform it is
+necessary to first prepare the SD card with necessary files provided as part of
+the SDK package. To do so, it is enough to do the following:</p>
+<ul class="simple">
+<li><p>Remove the SD card from the BD-SL-i.MX6 and connect it to your PC.
+In the following steps, we assume that the SD card is mounted at
+<strong>&lt;sd_card_mount_point&gt;</strong>.</p></li>
+<li><p>Copy the required bootfiles to the SD card. (More information on
+each individual file and its role for the execution of a TRENTOS
+system can be found in
+the <a class="reference internal" href="../platform-support/bd-sl-i.mx6/platform.html"><span class="std std-doc">BD-SL-i.MX6</span></a> section
+in the TRENTOS Handbook.)</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># copy bootfiles to SD card</span>
+cp<span class="w"> </span>sdk/resources/sabre_sd_card/*<span class="w"> </span>&lt;sd_card_mount_point&gt;/
+</code></pre></div>
+</div>
+<ul class="simple">
+<li><p>After copying the required bootfiles it is necessary to copy the
+TRENTOS image to the SD card as well:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># copy TRENTOS system image to SD card</span>
+cp<span class="w"> </span>build-sabre-Debug-demo_hello_world/images/os_image.elf<span class="w"> </span>&lt;sd_card_mount_point&gt;/
+<span class="c1"># ensure files are written to the SD card</span>
+sync
+umount<span class="w"> </span>&lt;sd_card_mount_point&gt;
+</code></pre></div>
+</div>
+<h3 id="id10">Upgrade U-Boot in Flash<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<p>The BD-SL-i.MX6 needs to be prepared with a specific U-Boot image to
+successfully boot a TRENTOS system. With the preparation of the previous step,
+the SD card now contains the required U-Boot image which needs to be installed
+into the board’s internal flash. This process requires to interact with the
+board through its UART port, so a serial monitor and the UART-to-USB adapter
+have to be used. One way of doing this is to use the <strong>picocom</strong> utility with
+the following command. If the <strong>picocom</strong> package is not already available on
+the system, it can be installed with a package manager (e.g. <strong>apt</strong>).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>picocom<span class="w"> </span>-b<span class="w"> </span><span class="m">115200</span><span class="w"> </span>/dev/&lt;ttyUSBX&gt;
+</code></pre></div>
+</div>
+<p>Hereby, <strong>&lt;ttyUSBX&gt;</strong> acts as a placeholder for the specific device
+representing the USB-to-UART adapter, e.g. <strong>ttyUSB0</strong>. Note that using <strong>sudo</strong>
+may not be required, this depends on your Linux group membership giving your
+account access to <strong>/dev/&lt;ttyUSBX&gt;</strong>.</p>
+<p>Once the terminal is open, insert the SD card into the BD-SL-i.MX6 board and
+restart the board with a power cycle or by pressing the restart button on the
+board.</p>
+<p>Observer the UART output in a terminal window running <strong>picocom</strong> as described
+above. Interrupt the boot process by pressing &lt;Enter&gt; when the console outputs
+“Hit any key to stop autoboot”.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="go">U-Boot 2018.07-36539-ge26f5ffed7 (Nov 24 2020 - 20:32:25 +0100)</span>
+<span class="go">CPU: Freescale i.MX6Q rev1.2 at 792 MHz</span>
+<span class="go">Reset cause: POR</span>
+<span class="go">Board: sabrelite</span>
+<span class="go">I2C: ready</span>
+<span class="go">DRAM: 1 GiB</span>
+<span class="go">MMC: FSL_SDHC: 0, FSL_SDHC: 1</span>
+<span class="go">Loading Environment from SPI Flash...</span>
+<span class="go">SF: Detected gd25q16c with page size 256 Bytes, erase size 4 KiB, total 2 MiB</span>
+<span class="go">OK</span>
+<span class="go">Display: hdmi:1280x720M@60 (1280x720)</span>
+<span class="go">In: serial</span>
+<span class="go">Out: serial</span>
+<span class="go">Err: serial</span>
+<span class="go">Net: Micrel ksz9021 at 7</span>
+<span class="go">FEC [PRIME], usb_ether</span>
+<span class="go">Hit any key to stop autoboot: 0</span>
+</code></pre></div>
+</div>
+<p>Run the following command to upgrade U-Boot in the board’s internal flash (note
+the u at the end):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="o">=</span>&gt;<span class="w"> </span>run<span class="w"> </span>upgradeu
+</code></pre></div>
+</div>
+<p>This will run the upgrade.scr script found on the prepared SD card, search for
+the <strong>u-boot.imx</strong> file and flash it.</p>
+<p>Once the process has successfully completed, the board’s internal flash should
+now contain the new version of U-Boot. On success you should see the following
+output:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="go">MMC: no card present</span>
+<span class="go">mmc_init: -123, time 2</span>
+<span class="go">switch to partitions #0, OK</span>
+<span class="go">mmc1 is current device</span>
+<span class="go">Scanning mmc 1:1...</span>
+<span class="go">Found U-Boot script /upgrade.scr</span>
+<span class="go">4174 bytes read in 14 ms (291 KiB/s)</span>
+<span class="gp">#</span><span class="c1"># Executing script at 10008000</span>
+<span class="go">SF: Detected gd25q16c with page size 256 Bytes, erase size 4 KiB, total 2 MiB</span>
+<span class="go">probed SPI ROM</span>
+<span class="go">check U-Boot</span>
+<span class="go">568320 bytes read in 39 ms (13.9 MiB/s)</span>
+<span class="go">read 8ac00 bytes from SD card</span>
+<span class="go">device 0 offset 0x400, size 0x8ac00</span>
+<span class="go">SF: 568320 bytes @ 0x400 Read: OK</span>
+<span class="go">byte at 0x12000400 (0xd1) != byte at 0x12400400 (0xb8)</span>
+<span class="go">Total of 0 byte(s) were the same</span>
+<span class="go">Need U-Boot upgrade</span>
+<span class="go">Program in 5 seconds</span>
+<span class="go">5 4 3 2 1</span>
+<span class="go">erasing</span>
+<span class="go">SF: 786432 bytes @ 0x0 Erased: OK</span>
+<span class="go">programming</span>
+<span class="go">device 0 offset 0x800, size 0x8a800</span>
+<span class="go">SF: 567296 bytes @ 0x800 Written: OK</span>
+<span class="go">device 0 offset 0x400, size 0x400</span>
+<span class="go">SF: 1024 bytes @ 0x400 Written: OK</span>
+<span class="go">verifying</span>
+<span class="go">device 0 offset 0x400, size 0x8ac00</span>
+<span class="go">SF: 568320 bytes @ 0x400 Read: OK</span>
+<span class="go">Total of 568320 byte(s) were the same</span>
+<span class="go">--- U-Boot upgraded. reset</span>
+</code></pre></div>
+</div>
+<h3 id="id11">Run a TRENTOS System<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<p>After preparing the SD card and upgrading U-Boot in the board’s internal flash,
+we want to run the TRENTOS system on the BD-SL-i.MX6.</p>
+<p>Restart the board with a power cycle or by pressing the restart button on the
+board. The terminal should show the board booting and eventually running the
+Hello World demo saying “hello world!”.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="go">U-Boot 2018.07-36526-gdfb8018f53 (Aug 06 2020 - 18:57:51 +0200)...</span>
+<span class="go">Bootstrapping kernel</span>
+<span class="go">Booting all finished, dropped to user space</span>
+<span class="go">main@main.c:2125 Starting CapDL Loader...</span>
+<span class="go">main@main.c:2127 CapDL Loader done, suspending...</span>
+<span class="go">hello world!</span>
+</code></pre></div>
+</div>
+<p>To exit <strong>picocom</strong>, press &lt;Ctrl-A&gt; and &lt;Ctrl-X&gt;.</p>
+<h2 id="further-steps">Further Steps<a class="headerlink" href="#further-steps" title="Link to this heading">¶</a></h2>
+<p>Please have a look at the handbook at
+<strong>sdk/doc/pdf/TRENTOS_Handbook_SDK_V1.3.pdf</strong> for more information about the
+individual components and how to set up the other demo systems.</p>
+<p>You could start with:</p>
+<ul class="simple">
+<li><p>look into one of the demos, build and run it</p></li>
+<li><p>dive deeper into seL4 and CAmkES</p></li>
+<li><p>dive deeper into the TRENTOS components</p></li>
+</ul>
+<p>Once you have acquired the necessary understanding of the TRENTOS system, start
+developing your own applications and components.</p>
+<p>A detailed TRENTOS API Doxygen documentation is available at
+<strong>sdk/doc/html/index.html</strong>.</p>
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: " rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="sel4.html" class="md-footer__link md-footer__link--next" aria-label="Next: seL4 Microkernel" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              seL4 Microkernel
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2023-2024, HENSOLDT Cyber GmbH.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.1.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.tabs", "navigation.sections", "navigation.instant", "header.autohide", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "toc.follow", "toc.sticky"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": null}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=8ec58cb5"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

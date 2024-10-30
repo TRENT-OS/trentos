@@ -1,0 +1,2500 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>CAmkES Framework - Documentation</title>
+      
+    
+    
+      
+        
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.4b4a8c74e2ff2ab5b.min.css?v=afa97f93" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#conditional-compilation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CAmkES Framework
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="getting-started.html" class="md-tabs__link md-tabs__link--active">
+      <span class="md-ellipsis">Introduction</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../api/cert-parser_api.html" class="md-tabs__link">
+      <span class="md-ellipsis">API</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../components/cert-server.html" class="md-tabs__link">
+      <span class="md-ellipsis">Components</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../component-interfaces/nic-interface.html" class="md-tabs__link">
+      <span class="md-ellipsis">Component Interfaces</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../platform-support/using-sd-card-with-trentos.html" class="md-tabs__link">
+      <span class="md-ellipsis">Platform Support</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../demos/demo-iot_qemu.html" class="md-tabs__link">
+      <span class="md-ellipsis">Demos</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../tools/proxy-application.html" class="md-tabs__link">
+      <span class="md-ellipsis">Tools</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../development/buildsystem.html" class="md-tabs__link">
+      <span class="md-ellipsis">Development</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../glossary/acronyms.html" class="md-tabs__link">
+      <span class="md-ellipsis">Glossary</span>
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          <span class="md-ellipsis">Introduction</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Introduction</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting-started.html" class="md-nav__link">
+        <span class="md-ellipsis">Getting Started</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sel4.html" class="md-nav__link">
+        <span class="md-ellipsis">se<wbr>L4 Microkernel</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">CAmk<wbr>ES Framework</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">CAmk<wbr>ES Framework</span>
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conditional-compilation" class="md-nav__link">
+    <span class="md-ellipsis">Conditional Compilation</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialization" class="md-nav__link">
+    <span class="md-ellipsis">Initialization</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-initialization" class="md-nav__link">
+    <span class="md-ellipsis">System Initialization</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-initialization" class="md-nav__link">
+    <span class="md-ellipsis">Component Initialization</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-names-and-ids" class="md-nav__link">
+    <span class="md-ellipsis">Component Names and IDs</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yield" class="md-nav__link">
+    <span class="md-ellipsis">Yield</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit" class="md-nav__link">
+    <span class="md-ellipsis">Exit</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notifications-events-and-signals" class="md-nav__link">
+    <span class="md-ellipsis">Notifications, Events and Signals</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notifications, Events and Signals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connectors" class="md-nav__link">
+    <span class="md-ellipsis">Connectors</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Connectors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sel4notificationnative" class="md-nav__link">
+    <span class="md-ellipsis">se<wbr>L4Notification<wbr>Native</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sel4notification" class="md-nav__link">
+    <span class="md-ellipsis">se<wbr>L4Notification</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#waiting-for-multiple-events-sources" class="md-nav__link">
+    <span class="md-ellipsis">Waiting for Multiple Events Sources</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mutex-and-semaphore" class="md-nav__link">
+    <span class="md-ellipsis">Mutex and Semaphore</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mutex and Semaphore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mutex" class="md-nav__link">
+    <span class="md-ellipsis">Mutex</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semaphore" class="md-nav__link">
+    <span class="md-ellipsis">Semaphore</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binary-semaphore" class="md-nav__link">
+    <span class="md-ellipsis">Binary Semaphore</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rpc-connectors" class="md-nav__link">
+    <span class="md-ellipsis">RPC Connectors</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RPC Connectors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synchronizing-rpc-handlers-and-the-control-thread" class="md-nav__link">
+    <span class="md-ellipsis">Synchronizing RPC Handlers and the Control Thread</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sender-id-for-n-1-rpc-connectors" class="md-nav__link">
+    <span class="md-ellipsis">Sender ID for n:<wbr>1 RPC Connectors</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-custom-threads-in-one-component" class="md-nav__link">
+    <span class="md-ellipsis">Multiple Custom Threads in one Component</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dataports" class="md-nav__link">
+    <span class="md-ellipsis">Dataports</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    <span class="md-ellipsis">Resources</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source-code-repositories-on-github" class="md-nav__link">
+    <span class="md-ellipsis">Source Code Repositories on Github</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manuals" class="md-nav__link">
+    <span class="md-ellipsis">Manuals</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#literature" class="md-nav__link">
+    <span class="md-ellipsis">Literature</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          <span class="md-ellipsis">API</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/cert-parser_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Parser API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/config-service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Config<wbr>Service API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/configuration_service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Service</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/crypto_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/file-system_api.html" class="md-nav__link">
+        <span class="md-ellipsis">File<wbr>System API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/key-store_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Key<wbr>Store API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/logger_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Logger API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/socket_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/tls_api.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          <span class="md-ellipsis">Components</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Components" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Components</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/cert-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/crypto-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/entropy-source.html" class="md-nav__link">
+        <span class="md-ellipsis">Entropy<wbr>Source</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/network-stack_pico-tcp.html" class="md-nav__link">
+        <span class="md-ellipsis">Network<wbr>Stack_<wbr>Pico<wbr>Tcp</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_dummy.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Dummy</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>i<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_rpi.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>RPi</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/ram-disk.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/rpi_spi_flash.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi_<wbr>SPI_<wbr>Flash</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/sd-host-controller.html" class="md-nav__link">
+        <span class="md-ellipsis">Sd<wbr>Host<wbr>Controller</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/storage_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/storage-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/time-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Time<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/tls-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Tls<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/uart.html" class="md-nav__link">
+        <span class="md-ellipsis">UART</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          <span class="md-ellipsis">Component Interfaces</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Component Interfaces" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Component Interfaces</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../component-interfaces/nic-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../component-interfaces/socket-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          <span class="md-ellipsis">Platform Support</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Platform Support" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Platform Support</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/using-sd-card-with-trentos.html" class="md-nav__link">
+        <span class="md-ellipsis">Using an SD Card with a TRENTOS System</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/rpi-3-model-b%2B/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi3B+ Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/nitrogen6-solo-x/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nitrogen6_<wbr>Solo<wbr>X Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/bd-sl-i.mx6/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">BD-<wbr>SL-<wbr>i.<wbr>MX6 Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/nvidia-tegra/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nvidia Tegra</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          <span class="md-ellipsis">Demos</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Demos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Demos</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for i.<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-tls.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API Demo</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-network-filter_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-network-filter_nitrogen6-solox.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for Nitrogen6_<wbr>Solo<wbr>X</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          <span class="md-ellipsis">Tools</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Tools</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/proxy-application.html" class="md-nav__link">
+        <span class="md-ellipsis">Proxy Application</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/configuration-provisioning-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Provisioning Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/ram-disk-generator-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk Generator Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/flasher-tool-rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Flasher Tool for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          <span class="md-ellipsis">Development</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Development" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Development</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/buildsystem.html" class="md-nav__link">
+        <span class="md-ellipsis">Buildsystem</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/function-call-tracing.html" class="md-nav__link">
+        <span class="md-ellipsis">Function Call Tracing</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/hardware-tools.html" class="md-nav__link">
+        <span class="md-ellipsis">Hardware Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/runtime-debugging.html" class="md-nav__link">
+        <span class="md-ellipsis">Runtime Debugging</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-hw-platforms_open-ocd.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Open<wbr>OCD</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-hw-platforms_segger.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Segger Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/object-oriented-c.html" class="md-nav__link">
+        <span class="md-ellipsis">Object Oriented C</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/known_issues.html" class="md-nav__link">
+        <span class="md-ellipsis">Known Issues</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          <span class="md-ellipsis">Glossary</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Glossary" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Glossary</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/acronyms.html" class="md-nav__link">
+        <span class="md-ellipsis">Acronyms</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/terms.html" class="md-nav__link">
+        <span class="md-ellipsis">Terms</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conditional-compilation" class="md-nav__link">
+    <span class="md-ellipsis">Conditional Compilation</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialization" class="md-nav__link">
+    <span class="md-ellipsis">Initialization</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-initialization" class="md-nav__link">
+    <span class="md-ellipsis">System Initialization</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-initialization" class="md-nav__link">
+    <span class="md-ellipsis">Component Initialization</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-names-and-ids" class="md-nav__link">
+    <span class="md-ellipsis">Component Names and IDs</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yield" class="md-nav__link">
+    <span class="md-ellipsis">Yield</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit" class="md-nav__link">
+    <span class="md-ellipsis">Exit</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notifications-events-and-signals" class="md-nav__link">
+    <span class="md-ellipsis">Notifications, Events and Signals</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notifications, Events and Signals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connectors" class="md-nav__link">
+    <span class="md-ellipsis">Connectors</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Connectors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sel4notificationnative" class="md-nav__link">
+    <span class="md-ellipsis">se<wbr>L4Notification<wbr>Native</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sel4notification" class="md-nav__link">
+    <span class="md-ellipsis">se<wbr>L4Notification</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#waiting-for-multiple-events-sources" class="md-nav__link">
+    <span class="md-ellipsis">Waiting for Multiple Events Sources</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mutex-and-semaphore" class="md-nav__link">
+    <span class="md-ellipsis">Mutex and Semaphore</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mutex and Semaphore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mutex" class="md-nav__link">
+    <span class="md-ellipsis">Mutex</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semaphore" class="md-nav__link">
+    <span class="md-ellipsis">Semaphore</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binary-semaphore" class="md-nav__link">
+    <span class="md-ellipsis">Binary Semaphore</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rpc-connectors" class="md-nav__link">
+    <span class="md-ellipsis">RPC Connectors</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RPC Connectors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synchronizing-rpc-handlers-and-the-control-thread" class="md-nav__link">
+    <span class="md-ellipsis">Synchronizing RPC Handlers and the Control Thread</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sender-id-for-n-1-rpc-connectors" class="md-nav__link">
+    <span class="md-ellipsis">Sender ID for n:<wbr>1 RPC Connectors</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-custom-threads-in-one-component" class="md-nav__link">
+    <span class="md-ellipsis">Multiple Custom Threads in one Component</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dataports" class="md-nav__link">
+    <span class="md-ellipsis">Dataports</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    <span class="md-ellipsis">Resources</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source-code-repositories-on-github" class="md-nav__link">
+    <span class="md-ellipsis">Source Code Repositories on Github</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manuals" class="md-nav__link">
+    <span class="md-ellipsis">Manuals</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#literature" class="md-nav__link">
+    <span class="md-ellipsis">Literature</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+<h1 id="camkes-framework">CAmkES Framework<a class="headerlink" href="#camkes-framework" title="Link to this heading">¶</a></h1>
+<p>While developing systems purely on the bare metal seL4 API is possible,
+it is not recommended. Due to the low-level nature of the kernel APIs,
+this quickly becomes a time-consuming and error-prone process, in
+which largely similar steps with just subtle differences need to be done over
+and over again.</p>
+<p>This problem is well known and various tools and helper libraries have
+been created to make the development easier and automate many low-level
+management tasks. The CAmkES framework bundles such a set of tools. It
+allows architects to focus on the overall system design and developers
+to focus on the implementation of specific system components. All this
+can be accomplished without requiring a deep understanding of seL4’s
+inner working or the API.</p>
+<p>CAmkES provides synchronization primitives and component connectors
+implementing many common interconnection use cases.</p>
+<p>Detailed information about CAmkES can be found as
+<a class="reference external" href="https://docs.sel4.systems/projects/camkes/">https://docs.sel4.systems/projects/camkes</a>.
+An overview of the important CAmkES principles and building blocks is provided
+in the CAmkES manual at <a class="reference external" href="https://docs.sel4.systems/projects/camkes/manual.html">https://docs.sel4.systems/projects/camkes/manual.html</a>.</p>
+<h2 id="conditional-compilation">Conditional Compilation<a class="headerlink" href="#conditional-compilation" title="Link to this heading">¶</a></h2>
+<p>Adding C-like a conditional compilation (e.g. <strong><code class="docutils literal notranslate"><span class="pre">#if</span></code></strong>, <strong><code class="docutils literal notranslate"><span class="pre">#ifdef</span></code></strong> etc.) in
+<strong><code class="docutils literal notranslate"><span class="pre">.camkes</span></code></strong> files is possible, if the CAmkES processing is using the C
+preprocessor. This is enabled by default in the CAmkES CMake files and the SDK
+also ensures it is enabled via the following command:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="p">(</span><span class="s">CAmkESCPP</span><span class="w"> </span><span class="s">ON</span><span class="w"> </span><span class="s">CACHE</span><span class="w"> </span><span class="s">BOOL</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="s">FORCE</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Assuming a project has a header file like</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="p">...</span>
+<span class="cp">#define UART_ON    1</span>
+<span class="cp">#define TEST_LOG   0</span>
+<span class="p">...</span>
+</code></pre></div>
+</div>
+<p>then this can be used in a .camkes file as to enable and disable certain
+blocks.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;main.h&quot;</span>
+
+<span class="cp">#if UART_ON</span>
+<span class="w"> </span><span class="n">connection</span><span class="w"> </span><span class="n">seL4RPCCall</span><span class="w">    </span><span class="n">chanmux_uart</span><span class="w">        </span><span class="p">(</span><span class="n">from</span><span class="w"> </span><span class="n">chanMux</span><span class="p">.</span><span class="n">Output</span><span class="p">,</span>
+<span class="w">                                                </span><span class="n">to</span><span class="w"> </span><span class="n">uartDrv</span><span class="p">.</span><span class="n">UartDrv</span><span class="p">);</span>
+<span class="w"> </span><span class="n">connection</span><span class="w"> </span><span class="n">seL4SharedData</span><span class="w"> </span><span class="n">uart_dataConnection</span><span class="w"> </span><span class="p">(</span><span class="n">from</span><span class="w"> </span><span class="n">chanMux</span><span class="p">.</span><span class="n">outputDataPort</span><span class="p">,</span>
+<span class="w">                                                </span><span class="n">to</span><span class="w"> </span><span class="n">uartDrv</span><span class="p">.</span><span class="n">inputDataPort</span><span class="p">);</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#if TEST_LOG</span>
+<span class="w"> </span><span class="n">component</span><span class="w"> </span><span class="n">Log</span><span class="w"> </span><span class="n">TestLog</span><span class="p">;</span>
+<span class="cp">#endif</span>
+</code></pre></div>
+</div>
+<h2 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Link to this heading">¶</a></h2>
+<h3 id="system-initialization">System Initialization<a class="headerlink" href="#system-initialization" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>there is no explicit order how components are started, everything must be
+assumed to happen in parallel and in random order;</p></li>
+<li><p>since all CAmkES components run in threads, setting the thread priorities ,
+explicitly can enforce an order;</p></li>
+<li><p>there is no explicit way how to order the start of components, however, the
+seL4 signalling (emit, wait) mechanism or blocking RPC calls can be used to
+synchronize the startup.</p></li>
+</ul>
+<h3 id="component-initialization">Component Initialization<a class="headerlink" href="#component-initialization" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Flow for normal multi-threaded components</p>
+<ul>
+<li><p>the CAmkES component main thread calls <strong><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">pre_init(void)</span></code></strong></p></li>
+<li><p>on return, the main thread wakes up each interface thread, which then</p>
+<ul>
+<li><p>calls <strong><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">&lt;interface&gt;__init(void)</span></code></strong></p></li>
+<li><p>on return, reports init completion to the main thread.</p></li>
+<li><p>blocks until woken up the main thread again.</p></li>
+</ul>
+</li>
+<li><p>once all interface init threads have reported completion, the main thread
+calls <strong><code class="docutils literal notranslate"><span class="pre">void post_init(void)</span></code></strong></p></li>
+<li><p>on return, the main thread unblocks all interface threads.</p></li>
+<li><p>for components with a control thread, the main thread calls
+<strong><code class="docutils literal notranslate"><span class="pre">run(void)</span></code></strong>.</p></li>
+</ul>
+</li>
+<li><p>Flow for single-threaded components</p>
+<ul>
+<li><p>there is an implementation for <strong><code class="docutils literal notranslate"><span class="pre">pre_init()</span></code></strong>, the following
+macros allow registration of initialization functions, currently
+they are all called from <strong><code class="docutils literal notranslate"><span class="pre">pre_init()</span></code></strong> in the given order</p>
+<ul>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">CAMKES_ENV_INIT_MODULE_DEFINE()</span></code></strong></p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">CAMKES_PRE_INIT_MODULE_DEFINE()</span></code></strong></p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">CAMKES_POST_INIT_MODULE_DEFINE()</span></code></strong></p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">post_init()</span></code></strong> should not be implemented, it is reserved
+for future usage by the startup code.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">&lt;interface&gt;__init()</span></code></strong> for specific interfaces if required.</p></li>
+</ul>
+</li>
+<li><p>Notes</p>
+<ul>
+<li><p>none of the functions mentioned above must actually be
+implemented, they are called only if implemented.</p></li>
+<li><p>neither <strong><code class="docutils literal notranslate"><span class="pre">pre_init()</span></code></strong> nor <strong><code class="docutils literal notranslate"><span class="pre">&lt;interface&gt;__init()</span></code></strong> nor
+<strong><code class="docutils literal notranslate"><span class="pre">post_init()</span></code></strong> must block.</p></li>
+<li><p>code in <strong><code class="docutils literal notranslate"><span class="pre">pre_init()</span></code></strong> runs in a limited CAmkES runtime
+environment, so accesses to other components may not work and
+cause a dead-lock.</p></li>
+<li><p>component internal initialization should not happen in
+<strong><code class="docutils literal notranslate"><span class="pre">run()</span></code></strong>, it should happen in <strong><code class="docutils literal notranslate"><span class="pre">post_init()</span></code></strong>. Rationale
+is:</p>
+<ul>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">run()</span></code></strong> is executed in parallel to interface
+invocations from other components, which might lead to race
+conditions if the init is still ongoing.</p></li>
+<li><p>a CAmkES component should aim to be passive and use an
+internal state or lock to synchronize the interface
+accesses. There is no need to create a control thread in a
+component that just does initialization and synchronization.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="component-names-and-ids">Component Names and IDs<a class="headerlink" href="#component-names-and-ids" title="Link to this heading">¶</a></h2>
+<p>The name of a component can be obtained during runtime with the function:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">get_instance_name</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>There is also a process ID emulation, see
+<strong><code class="docutils literal notranslate"><span class="pre">&lt;SDK&gt;/sdk-sel4-camkes/tools/camkes/libsel4camkes/include/camkes/pid.h</span></code></strong>.</p>
+<h2 id="yield">Yield<a class="headerlink" href="#yield" title="Link to this heading">¶</a></h2>
+<p>Instead of calling</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="n">seL4_Yield</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>directly, there is</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="n">camkes_sys_sched_yield</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>made available via
+<strong><code class="docutils literal notranslate"><span class="pre">&lt;SDK&gt;/sdk-sel4-camkes/tools/camkes/libsel4camkes/include/camkes/syscalls.h</span></code></strong>
+and implemented in
+<strong><code class="docutils literal notranslate"><span class="pre">&lt;SDK&gt;/sdk-sel4-camkes/tools/camkes/libsel4camkes/src/sys_yield.c</span></code></strong>.</p>
+<h2 id="exit">Exit<a class="headerlink" href="#exit" title="Link to this heading">¶</a></h2>
+<p>CAmkES components and their threads are not supposed to terminate. For
+active components, the <strong><code class="docutils literal notranslate"><span class="pre">run()</span></code></strong> function can return an integer value,
+but this is currently discarded and the thread is halted. There is also
+an internal function</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">sel4_abort</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>in <strong><code class="docutils literal notranslate"><span class="pre">&lt;SDK&gt;/sdk-sel4-camkes/tools/camkes/libsel4camkes/src/sys_exit.c</span></code></strong> that
+basically suspends the current thread using the seL4 suspend API.</p>
+<h2 id="notifications-events-and-signals">Notifications, Events and Signals<a class="headerlink" href="#notifications-events-and-signals" title="Link to this heading">¶</a></h2>
+<h3 id="connectors">Connectors<a class="headerlink" href="#connectors" title="Link to this heading">¶</a></h3>
+<h4 id="sel4notificationnative">seL4NotificationNative<a class="headerlink" href="#sel4notificationnative" title="Link to this heading">¶</a></h4>
+<p>This is a wrapper around the seL4 notification syscalls. It can be used once the
+<a class="reference external" href="https://docs.sel4.systems/projects/capdl/">CapDL loader</a> has set up all
+capabilities, so it works in the <strong><code class="docutils literal notranslate"><span class="pre">pre_init()</span></code></strong> and <strong><code class="docutils literal notranslate"><span class="pre">post_init()</span></code></strong>
+functions.</p>
+<ul class="simple">
+<li><p>Sender: Simple wrapper around syscall <strong><code class="docutils literal notranslate"><span class="pre">seL4_Signal()</span></code></strong></p></li>
+<li><p>Receiver: Simple wrapper around syscall <strong><code class="docutils literal notranslate"><span class="pre">seL4_Poll()</span></code></strong> or <strong><code class="docutils literal notranslate"><span class="pre">seL4_Wait()</span></code></strong></p></li>
+</ul>
+<h4 id="sel4notification">seL4Notification<a class="headerlink" href="#sel4notification" title="Link to this heading">¶</a></h4>
+<p>This is an extended wrapper around the seL4 notification syscall that
+supports using a callback function. The receiver function uses a
+semaphore internally, thus this connector cannot be used in
+<strong><code class="docutils literal notranslate"><span class="pre">pre_init()</span></code></strong>  and <strong><code class="docutils literal notranslate"><span class="pre">post_init()</span></code></strong>, as its internal semaphore does
+not get released.</p>
+<p>It uses a secondary thread for receiving interrupts and this thread won’t be
+allowed to run until after <strong><code class="docutils literal notranslate"><span class="pre">post_init()</span></code></strong> returns.</p>
+<ul class="simple">
+<li><p>Sender: wrapper around syscall <strong><code class="docutils literal notranslate"><span class="pre">seL4_Signal()</span></code></strong> on the one end.</p></li>
+<li><p>Receiver:</p>
+<ul>
+<li><p>callback (and one argument) can be registered, will be called
+when the event arrives. Note that the callback is automatically
+unregistered once it got called and must be registered again
+manually</p></li>
+<li><p>there is an internal thread that loops blocking on
+<strong><code class="docutils literal notranslate"><span class="pre">seL4_Wait()</span></code></strong> and calls the callback</p></li>
+<li><p>explicit waiting instead of using the callback is also possible,
+but this will block on an internal semaphore then</p></li>
+<li><p>polling is a wrapper around the syscall <strong><code class="docutils literal notranslate"><span class="pre">seL4_Poll()</span></code></strong></p></li>
+</ul>
+</li>
+</ul>
+<h3 id="waiting-for-multiple-events-sources">Waiting for Multiple Events Sources<a class="headerlink" href="#waiting-for-multiple-events-sources" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Use Case:</p>
+<ul>
+<li><p>see discussion on the seL4 mailing list
+at <a class="reference external" href="https://lists.sel4.systems/hyperkitty/list/devel&#64;sel4.systems/thread/ATNQCV25M4NGVM3FHSGSTZHMKVQK24M2/">https://lists.sel4.systems/hyperkitty/list/devel&#64;sel4.systems/thread/ATNQCV25M4NGVM3FHSGSTZHMKVQK24M2</a></p></li>
+<li><p>the network stack must wait on 3 different events:</p>
+<ul>
+<li><p>timer</p></li>
+<li><p>incoming data from a network</p></li>
+<li><p>outgoing data from an application</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Solution 1:</p>
+<ul>
+<li><p>use one <strong><code class="docutils literal notranslate"><span class="pre">seL4NotificationNative</span></code></strong> with 3 producers and 1 consumer.</p></li>
+<li><p>The consumer will not know the exact event source, but that might not be
+necessary, one could just check all sources in a well-defined order</p></li>
+</ul>
+</li>
+<li><p>Solution 2:</p>
+<ul>
+<li><p>use the <strong><code class="docutils literal notranslate"><span class="pre">seL4NotificationQueue</span></code></strong></p></li>
+</ul>
+</li>
+<li><p>Solution 3</p>
+<ul>
+<li><p>use the <strong><code class="docutils literal notranslate"><span class="pre">seL4GlobalAsynchCallback</span></code></strong></p></li>
+</ul>
+</li>
+<li><p>Solution 4:</p>
+<ul>
+<li><p>extend <strong><code class="docutils literal notranslate"><span class="pre">seL4NotificationNative</span></code></strong> to return the “data word” that is
+returned by <strong><code class="docutils literal notranslate"><span class="pre">seL4_Wait()</span></code></strong>.</p></li>
+<li><p>when badges are power-of-two values, all events can be preserved, as when an
+event is signaled, the badge bitwise OR’ed with the notifications data word.</p></li>
+</ul>
+</li>
+</ul>
+<h2 id="mutex-and-semaphore">Mutex and Semaphore<a class="headerlink" href="#mutex-and-semaphore" title="Link to this heading">¶</a></h2>
+<h3 id="mutex">Mutex<a class="headerlink" href="#mutex" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>A mutex locks a code section (e.g. that accesses a shared resource).</p></li>
+<li><p>Multiple threads can acquire the mutex, but locking and unlocking should only
+happen pairwise in the same thread.</p></li>
+<li><p>The initial state is, that the mutex is available.</p></li>
+<li><p>Usage:</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">has</span><span class="w"> </span><span class="n">mutex</span><span class="w"> </span><span class="n">myMutex</span>
+</code></pre></div>
+</div>
+<ul class="simple">
+<li><p>Functions</p>
+<ul>
+<li><p>Lock: <strong><code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_lock()</span></code></strong></p></li>
+<li><p>Unlock: <strong><code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_unlock()</span></code></strong></p></li>
+</ul>
+</li>
+</ul>
+<h3 id="semaphore">Semaphore<a class="headerlink" href="#semaphore" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>A counting semaphores is used to lock a countable number of shared resources.</p></li>
+<li><p>Requesting and releasing can happen in different threads.</p></li>
+<li><p>Initialized to “1” by default, so one shared resource is available.</p></li>
+<li><p>Initialization can be customized with <strong><code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_value</span> <span class="pre">=</span> <span class="pre">n</span></code></strong>.</p></li>
+<li><p>Usage:</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">has</span><span class="w"> </span><span class="n">semaphore</span><span class="w"> </span><span class="n">mySemaphore</span>
+<span class="p">...</span>
+<span class="n">mySemaphore_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div>
+</div>
+<ul class="simple">
+<li><p>Functions</p>
+<ul>
+<li><p>Request: <strong><code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_wait()</span></code></strong></p></li>
+<li><p>Release: <strong><code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_post()</span></code></strong></p></li>
+</ul>
+</li>
+</ul>
+<h3 id="binary-semaphore">Binary Semaphore<a class="headerlink" href="#binary-semaphore" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>A binary semaphore behaves like a mutex but semantically it can be used to
+request and release one shared resource across multiple threads.</p></li>
+<li><p>Initialized to “0” by default, so the shared resource is locked.</p></li>
+<li><p>Initialization can be customized with <strong><code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_value</span> <span class="pre">=</span> <span class="pre">[0|1]</span></code></strong>.</p></li>
+<li><p>Usage:</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">has</span><span class="w"> </span><span class="n">binary_semaphore</span><span class="w"> </span><span class="n">myBinarySemaphore</span>
+<span class="p">...</span>
+<span class="n">myBinarySemaphore_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+</code></pre></div>
+</div>
+<ul class="simple">
+<li><p>Functions</p>
+<ul>
+<li><p>Request: <strong><code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_wait()</span></code></strong></p></li>
+<li><p>Release: <strong><code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_post()</span></code></strong></p></li>
+</ul>
+</li>
+</ul>
+<h2 id="rpc-connectors">RPC Connectors<a class="headerlink" href="#rpc-connectors" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Behavior depends on the actual connector that is used for the connection.</p></li>
+<li><p>The default assumption should be, that one thread for each interface is used,
+thus explicit synchronization is required.</p>
+<ul>
+<li><p>typically, a mutex should be used.</p></li>
+<li><p>thread priorities can be used to get implicit synchronization, but for this
+to work, the whole system must be well designed.</p></li>
+</ul>
+</li>
+<li><p>The connector type <strong><code class="docutils literal notranslate"><span class="pre">seL4RPCCall</span></code></strong> uses one thread per interface.</p></li>
+<li><p>A connector for the <a class="reference external" href="https://cakeml.org/">CakeML</a> component exists, that
+has one thread for multiple interfaces.</p></li>
+</ul>
+<h3 id="synchronizing-rpc-handlers-and-the-control-thread">Synchronizing RPC Handlers and the Control Thread<a class="headerlink" href="#synchronizing-rpc-handlers-and-the-control-thread" title="Link to this heading">¶</a></h3>
+<p>In general, CAmkES does not give any guarantees about synchronization
+between the control thread (i.e. the code in the <strong><code class="docutils literal notranslate"><span class="pre">run()</span></code></strong> function)
+and RPC interface handlers. In the current implementation of CAmkES, RPC
+handlers are implemented as separate threads, which run independently of
+the control thread of a component. Thus RPCs from other components can
+arrive while the control thread is executing and the scheduler interrupt
+it. Thus RPCs and the control thread must be synchronized explicitly.
+Component initialization should not happen in the <strong><code class="docutils literal notranslate"><span class="pre">run()</span></code></strong> function,
+but preferably in <strong><code class="docutils literal notranslate"><span class="pre">pre_init()</span></code></strong> or <strong><code class="docutils literal notranslate"><span class="pre">post_init()</span></code></strong>. Both
+functions are guaranteed to complete before an PRC handler is invoked.
+Note that in <strong><code class="docutils literal notranslate"><span class="pre">pre_init()</span></code></strong> no communication with other components is
+possible. During runtime, the control thread and RPC interface handler
+can be synchronized via semaphores, so no RPC is be processed in
+parallel to any other activity. Call <strong><code class="docutils literal notranslate"><span class="pre">&lt;sem&gt;_wait()</span></code></strong> in every
+handler function on entry and <strong><code class="docutils literal notranslate"><span class="pre">&lt;sem&gt;_post()</span></code></strong> when leaving the
+handler.</p>
+<h3 id="sender-id-for-n-1-rpc-connectors">Sender ID for n:1 RPC Connectors<a class="headerlink" href="#sender-id-for-n-1-rpc-connectors" title="Link to this heading">¶</a></h3>
+<p>RPC uses endpoint badges, which can be defined within the CAmkES
+configuration file:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="n">component</span><span class="o">&gt;</span><span class="p">.</span><span class="o">&lt;</span><span class="n">interface</span><span class="o">&gt;</span><span class="n">_attributes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">badge</span><span class="w"> </span><span class="n">ID</span><span class="o">&gt;</span>
+</code></pre></div>
+</div>
+<p>In the RPC handler, one can use this to get the sender endpoint badge
+ID:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">seL4_Word</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">interface</span><span class="o">&gt;</span><span class="n">_get_sender_id</span><span class="p">();</span>
+</code></pre></div>
+</div>
+<h2 id="multiple-custom-threads-in-one-component">Multiple Custom Threads in one Component<a class="headerlink" href="#multiple-custom-threads-in-one-component" title="Link to this heading">¶</a></h2>
+<p>The closest way to achieve this at the moment is setting this the CAmkES
+configuration:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="n">component</span><span class="o">&gt;</span><span class="p">.</span><span class="o">&lt;</span><span class="n">instance</span><span class="o">&gt;</span><span class="p">.</span><span class="n">tcb_pool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">num_extra_threads</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>During component init, a capability for the TCB can be obtained by
+calling:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">cap_tcb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">camkes_alloc</span><span class="p">(</span><span class="n">seL4_TCBObject</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">seL4_CanRead</span><span class="o">|</span><span class="n">seL4_CanWrite</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>The stack and an IPC buffer for the threads must be allocated manually.</p>
+<h2 id="dataports">Dataports<a class="headerlink" href="#dataports" title="Link to this heading">¶</a></h2>
+<p>Dataports are the CAmkES abstraction for shared memory. All components
+participating in a connection involving dataports get read/write access
+to the dataport by default. The default dataport type is <strong><code class="docutils literal notranslate"><span class="pre">Buf</span></code></strong> ,
+which is implemented as a byte array in C of size <strong><code class="docutils literal notranslate"><span class="pre">PAGE_SIZE</span></code></strong> .
+Alternatively you can specify a user-defined type for the shared memory
+region. Within TRENTOS, the default dataport size is set to 4096 bytes.
+More information on dataports in general and different usage examples
+are available in the CAmkES manual (see
+<a class="reference external" href="https://docs.sel4.systems/projects/camkes/manual.html#an-example-of-dataports">https://docs.sel4.systems/projects/camkes/manual.html#an-example-of-dataports</a>).</p>
+<h2 id="resources">Resources<a class="headerlink" href="#resources" title="Link to this heading">¶</a></h2>
+<h3 id="source-code-repositories-on-github">Source Code Repositories on Github<a class="headerlink" href="#source-code-repositories-on-github" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>seL4: <a class="reference external" href="https://github.com/seL4">https://github.com/seL4</a></p></li>
+<li><p>CAmkES: <a class="reference external" href="https://github.com/seL4/camkes">https://github.com/seL4/camkes</a></p></li>
+</ul>
+<h3 id="manuals">Manuals<a class="headerlink" href="#manuals" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>seL4: <a class="reference external" href="https://sel4.systems/Info/Docs/seL4-manual-latest.pdf">https://sel4.systems/Info/Docs/seL4-manual-latest.pdf</a></p></li>
+<li><p>CAmkES: <a class="reference external" href="https://docs.sel4.systems/projects/camkes/manual.html">https://docs.sel4.systems/projects/camkes/manual.html</a></p></li>
+</ul>
+<h3 id="literature">Literature<a class="headerlink" href="#literature" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>The seL4 Whitepaper: The seL4 microkernel - An Introduction:
+<a class="reference external" href="https://sel4.systems/About/seL4-whitepaper.pdf">https://sel4.systems/About/seL4-whitepaper.pdf</a></p></li>
+<li><p>seL4 kernel</p>
+<ul>
+<li><p>Building trustworthy systems on seL4
+(2019): <a class="reference external" href="https://trustworthy.systems/publications/papers/Kuz_19.abstract">https://trustworthy.systems/publications/papers/Kuz_19.abstract</a></p></li>
+<li><p>L4 microkernels: The lessons from 20 years of research and deployment
+(2016): <a class="reference external" href="https://trustworthy.systems/publications/nictaabstracts/Heiser_Elphinstone_16.abstract.pml">https://trustworthy.systems/publications/nictaabstracts/Heiser_Elphinstone_16.abstract.pml</a></p></li>
+<li><p>seL4: Formal verification of an OS kernel
+(2009): <a class="reference external" href="https://trustworthy.systems/publications/nictaabstracts/Klein_EHACDEEKNSTW_09.abstract.pml">https://trustworthy.systems/publications/nictaabstracts/Klein_EHACDEEKNSTW_09.abstract.pml</a></p></li>
+</ul>
+</li>
+<li><p>CAmkES</p>
+<ul>
+<li><p>CAmkES glue code semantics (2013): <a class="reference external" href="https://trustworthy.systems/publications/nictaabstracts/Fernandez_GAKK_13:tr.abstract.pml">https://trustworthy.systems/publications/nictaabstracts/Fernandez_GAKK_13:tr.abstract.pml</a></p></li>
+<li><p>CAmkES formalization of a component platform
+(2013): <a class="reference external" href="https://trustworthy.systems/publications/nictaabstracts/Fernandez_KKM_13:tr.abstract.pml">https://trustworthy.systems/publications/nictaabstracts/Fernandez_KKM_13:tr.abstract.pml</a></p></li>
+<li><p>capDL: A language for describing capability-based systems
+(2010): <a class="reference external" href="https://trustworthy.systems/publications/nictaabstracts/Kuz_KLW_10.abstract.pml">https://trustworthy.systems/publications/nictaabstracts/Kuz_KLW_10.abstract.pml</a></p></li>
+<li><p>CAmkES: A component model for secure microkernel-based embedded systems
+(2007): <a class="reference external" href="https://trustworthy.systems/publications/papers/Kuz_LGH_07.abstract">https://trustworthy.systems/publications/papers/Kuz_LGH_07.abstract</a></p></li>
+</ul>
+</li>
+<li><p>Formal verification</p>
+<ul>
+<li><p>Formally verified software in the real world (2018): <a class="reference external" href="https://trustworthy.systems/publications/csiroabstracts/Klein_AKMHF_18.abstract.pml">https://trustworthy.systems/publications/csiroabstracts/Klein_AKMHF_18.abstract.pml</a></p></li>
+<li><p>Mathematically verified software kernels: Raising the bar for
+high assurance implementations (2014): <a class="reference external" href="https://trustworthy.systems/publications/nictaabstracts/Potts_BAAKH_14:tr.abstract.pml">https://trustworthy.systems/publications/nictaabstracts/Potts_BAAKH_14:tr.abstract.pml</a></p></li>
+<li><p>Comprehensive formal verification of an OS microkernel
+(2014): <a class="reference external" href="https://trustworthy.systems/publications/nictaabstracts/Klein_AEMSKH_14.abstract.pml">https://trustworthy.systems/publications/nictaabstracts/Klein_AEMSKH_14.abstract.pml</a></p></li>
+<li><p>Towards a verified component platform(2013): <a class="reference external" href="https://trustworthy.systems/publications/nictaabstracts/Fernandez_KKA_13.abstract.pml">https://trustworthy.systems/publications/nictaabstracts/Fernandez_KKA_13.abstract.pml</a></p></li>
+<li><p>seL4: From general-purpose to a proof of information flow
+enforcement (2013): <a class="reference external" href="https://trustworthy.systems/publications/nictaabstracts/Murray_MBGBSLGK_13.abstract.pml">https://trustworthy.systems/publications/nictaabstracts/Murray_MBGBSLGK_13.abstract.pml</a></p></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="sel4.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: seL4 Microkernel" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              seL4 Microkernel
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../api/cert-parser_api.html" class="md-footer__link md-footer__link--next" aria-label="Next: CertParser API" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              CertParser API
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2023-2024, HENSOLDT Cyber GmbH.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.1.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.tabs", "navigation.sections", "navigation.instant", "header.autohide", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "toc.follow", "toc.sticky"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": null}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=8ec58cb5"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

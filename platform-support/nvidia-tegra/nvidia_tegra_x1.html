@@ -1,0 +1,3306 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>NVidia Tegra X1 - Documentation</title>
+      
+    
+    
+      
+        
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../../_static/sphinx_immaterial_theme.4b4a8c74e2ff2ab5b.min.css?v=afa97f93" />
+        <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#scope" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              NVidia Tegra X1
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../introduction/getting-started.html" class="md-tabs__link">
+      <span class="md-ellipsis">Introduction</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../api/cert-parser_api.html" class="md-tabs__link">
+      <span class="md-ellipsis">API</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../components/cert-server.html" class="md-tabs__link">
+      <span class="md-ellipsis">Components</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../component-interfaces/nic-interface.html" class="md-tabs__link">
+      <span class="md-ellipsis">Component Interfaces</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../using-sd-card-with-trentos.html" class="md-tabs__link md-tabs__link--active">
+      <span class="md-ellipsis">Platform Support</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../demos/demo-iot_qemu.html" class="md-tabs__link">
+      <span class="md-ellipsis">Demos</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../tools/proxy-application.html" class="md-tabs__link">
+      <span class="md-ellipsis">Tools</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../development/buildsystem.html" class="md-tabs__link">
+      <span class="md-ellipsis">Development</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../glossary/acronyms.html" class="md-tabs__link">
+      <span class="md-ellipsis">Glossary</span>
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          <span class="md-ellipsis">Introduction</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Introduction</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/getting-started.html" class="md-nav__link">
+        <span class="md-ellipsis">Getting Started</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/sel4.html" class="md-nav__link">
+        <span class="md-ellipsis">se<wbr>L4 Microkernel</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/camkes.html" class="md-nav__link">
+        <span class="md-ellipsis">CAmk<wbr>ES Framework</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          <span class="md-ellipsis">API</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/cert-parser_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Parser API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/config-service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Config<wbr>Service API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/configuration_service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Service</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/crypto_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/file-system_api.html" class="md-nav__link">
+        <span class="md-ellipsis">File<wbr>System API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/key-store_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Key<wbr>Store API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/logger_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Logger API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/socket_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/tls_api.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          <span class="md-ellipsis">Components</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Components" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Components</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/cert-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/crypto-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/entropy-source.html" class="md-nav__link">
+        <span class="md-ellipsis">Entropy<wbr>Source</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/network-stack_pico-tcp.html" class="md-nav__link">
+        <span class="md-ellipsis">Network<wbr>Stack_<wbr>Pico<wbr>Tcp</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/nic_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/nic_dummy.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Dummy</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/nic_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>i<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/nic_rpi.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>RPi</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/ram-disk.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/rpi_spi_flash.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi_<wbr>SPI_<wbr>Flash</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/sd-host-controller.html" class="md-nav__link">
+        <span class="md-ellipsis">Sd<wbr>Host<wbr>Controller</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/storage_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/storage-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/time-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Time<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/tls-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Tls<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/uart.html" class="md-nav__link">
+        <span class="md-ellipsis">UART</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          <span class="md-ellipsis">Component Interfaces</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Component Interfaces" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Component Interfaces</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../component-interfaces/nic-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../component-interfaces/socket-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          <span class="md-ellipsis">Platform Support</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Platform Support" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Platform Support</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../using-sd-card-with-trentos.html" class="md-nav__link">
+        <span class="md-ellipsis">Using an SD Card with a TRENTOS System</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rpi-3-model-b%2B/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi3B+ Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nitrogen6-solo-x/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nitrogen6_<wbr>Solo<wbr>X Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bd-sl-i.mx6/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">BD-<wbr>SL-<wbr>i.<wbr>MX6 Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" checked>
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="platform.html"><span class="md-ellipsis">Nvidia Tegra</span></a>
+          
+            <label for="__nav_5_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Nvidia Tegra" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Nvidia Tegra</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5_1" type="checkbox" id="__nav_5_5_1" checked>
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="platform.html#subpages"><span class="md-ellipsis">Subpages</span></a>
+          
+            <label for="__nav_5_5_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Subpages" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Subpages</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+    
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__current-nested md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5_1_1" type="checkbox" id="__nav_5_5_1_1" checked>
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index md-nav__link--active">
+          <a href="#"><span class="md-ellipsis">NVidia Tegra X1</span></a>
+          
+            <label for="__nav_5_5_1_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="NVidia Tegra X1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_5_5_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">NVidia Tegra X1</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nvidia_tegra_x1_bootflow.html" class="md-nav__link">
+        <span class="md-ellipsis">Tegra X1 Bootflow</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nvidia_tegra_x1_boot_setup.html" class="md-nav__link">
+        <span class="md-ellipsis">Tegra X1 Boot Setup</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+      
+    <li class="md-nav__item md-nav__item--active md-nav__current-toc">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">NVidia Tegra X1</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">NVidia Tegra X1</span>
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="nvidia_tegra_x1_bootflow.html" class="md-nav__link">
+    <span class="md-ellipsis">Tegra X1 Bootflow</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="nvidia_tegra_x1_boot_setup.html" class="md-nav__link">
+    <span class="md-ellipsis">Tegra X1 Boot Setup</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scope" class="md-nav__link">
+    <span class="md-ellipsis">Scope</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardware" class="md-nav__link">
+    <span class="md-ellipsis">Hardware</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hardware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tegra-x1-t210" class="md-nav__link">
+    <span class="md-ellipsis">Tegra X1 <wbr>(T210)</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variants-of-nvidia-tegra-x1" class="md-nav__link">
+    <span class="md-ellipsis">Variants of Nvidia Tegra X1</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#som" class="md-nav__link">
+    <span class="md-ellipsis">So<wbr>M</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nvidia-developer-resources" class="md-nav__link">
+    <span class="md-ellipsis">Nvidia Developer Resources</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Nvidia Developer Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jetson-nano-developer-kit" class="md-nav__link">
+    <span class="md-ellipsis">Jetson Nano Developer Kit</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetson-nano-2gb-developer-kit" class="md-nav__link">
+    <span class="md-ellipsis">Jetson Nano 2GB Developer Kit</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#third-party" class="md-nav__link">
+    <span class="md-ellipsis">Third-<wbr>Party</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Third-Party">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boot" class="md-nav__link">
+    <span class="md-ellipsis">Boot</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">Linux</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#existing-sel4-support" class="md-nav__link">
+    <span class="md-ellipsis">Existing se<wbr>L4 support</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Existing seL4 support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    <span class="md-ellipsis">Resources</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#existing-sel4-device-drivers" class="md-nav__link">
+    <span class="md-ellipsis">Existing se<wbr>L4 Device Drivers</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Existing seL4 Device Drivers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elfloader" class="md-nav__link">
+    <span class="md-ellipsis">Elfloader</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sel4" class="md-nav__link">
+    <span class="md-ellipsis">se<wbr>L4</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#libraries" class="md-nav__link">
+    <span class="md-ellipsis">Libraries</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Libraries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#projects-libs" class="md-nav__link">
+    <span class="md-ellipsis">projects_<wbr>libs</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="projects_libs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#libplatsupportports" class="md-nav__link">
+    <span class="md-ellipsis">libplatsupportports</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libsdhcdrivers" class="md-nav__link">
+    <span class="md-ellipsis">libsdhcdrivers</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libtx2bpmp" class="md-nav__link">
+    <span class="md-ellipsis">libtx2bpmp</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libusbdrivers" class="md-nav__link">
+    <span class="md-ellipsis">libusbdrivers</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sel4-projects-libs" class="md-nav__link">
+    <span class="md-ellipsis">sel4_<wbr>projects_<wbr>libs</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sel4_projects_libs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#libsel4vm" class="md-nav__link">
+    <span class="md-ellipsis">libsel4vm</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libsel4vmmplatsupport" class="md-nav__link">
+    <span class="md-ellipsis">libsel4vmmplatsupport</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sel4-util-libs" class="md-nav__link">
+    <span class="md-ellipsis">sel4_<wbr>util_<wbr>libs</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sel4_util_libs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#libethdrivers" class="md-nav__link">
+    <span class="md-ellipsis">libethdrivers</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libplatsupport" class="md-nav__link">
+    <span class="md-ellipsis">libplatsupport</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#camkes" class="md-nav__link">
+    <span class="md-ellipsis">CAmk<wbr>ES</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-components" class="md-nav__link">
+    <span class="md-ellipsis">Global Components</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#existing-linux-and-u-boot-device-drivers" class="md-nav__link">
+    <span class="md-ellipsis">Existing Linux and U-<wbr>boot device drivers</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#porting-efforts" class="md-nav__link">
+    <span class="md-ellipsis">Porting Efforts</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errata-vm-support" class="md-nav__link">
+    <span class="md-ellipsis">Errata VM support</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nvidia_tegra_x2.html" class="md-nav__link">
+        <span class="md-ellipsis">NVidia Tegra X2</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="arm_cores_comparison.html" class="md-nav__link">
+        <span class="md-ellipsis">ARM Cores Comparison</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="arm_trusted_firmware.html" class="md-nav__link">
+        <span class="md-ellipsis">ARM Trusted Firmware</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tegra_secure_boot.html" class="md-nav__link">
+        <span class="md-ellipsis">Tegra Secure Boot</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          <span class="md-ellipsis">Demos</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Demos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Demos</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-iot_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-iot_rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-iot_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for i.<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-tls.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API Demo</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-network-filter_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/demo-network-filter_nitrogen6-solox.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for Nitrogen6_<wbr>Solo<wbr>X</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          <span class="md-ellipsis">Tools</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Tools</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/proxy-application.html" class="md-nav__link">
+        <span class="md-ellipsis">Proxy Application</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/configuration-provisioning-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Provisioning Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/ram-disk-generator-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk Generator Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/flasher-tool-rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Flasher Tool for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          <span class="md-ellipsis">Development</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Development" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Development</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/buildsystem.html" class="md-nav__link">
+        <span class="md-ellipsis">Buildsystem</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/function-call-tracing.html" class="md-nav__link">
+        <span class="md-ellipsis">Function Call Tracing</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/hardware-tools.html" class="md-nav__link">
+        <span class="md-ellipsis">Hardware Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/runtime-debugging/runtime-debugging.html" class="md-nav__link">
+        <span class="md-ellipsis">Runtime Debugging</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/runtime-debugging/debugging-qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/runtime-debugging/debugging-hw-platforms_open-ocd.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Open<wbr>OCD</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/runtime-debugging/debugging-hw-platforms_segger.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Segger Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/object-oriented-c.html" class="md-nav__link">
+        <span class="md-ellipsis">Object Oriented C</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/known_issues.html" class="md-nav__link">
+        <span class="md-ellipsis">Known Issues</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          <span class="md-ellipsis">Glossary</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Glossary" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Glossary</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/acronyms.html" class="md-nav__link">
+        <span class="md-ellipsis">Acronyms</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/terms.html" class="md-nav__link">
+        <span class="md-ellipsis">Terms</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#scope" class="md-nav__link">
+    <span class="md-ellipsis">Scope</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardware" class="md-nav__link">
+    <span class="md-ellipsis">Hardware</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hardware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tegra-x1-t210" class="md-nav__link">
+    <span class="md-ellipsis">Tegra X1 <wbr>(T210)</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variants-of-nvidia-tegra-x1" class="md-nav__link">
+    <span class="md-ellipsis">Variants of Nvidia Tegra X1</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#som" class="md-nav__link">
+    <span class="md-ellipsis">So<wbr>M</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nvidia-developer-resources" class="md-nav__link">
+    <span class="md-ellipsis">Nvidia Developer Resources</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Nvidia Developer Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jetson-nano-developer-kit" class="md-nav__link">
+    <span class="md-ellipsis">Jetson Nano Developer Kit</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetson-nano-2gb-developer-kit" class="md-nav__link">
+    <span class="md-ellipsis">Jetson Nano 2GB Developer Kit</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#third-party" class="md-nav__link">
+    <span class="md-ellipsis">Third-<wbr>Party</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Third-Party">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boot" class="md-nav__link">
+    <span class="md-ellipsis">Boot</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">Linux</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#existing-sel4-support" class="md-nav__link">
+    <span class="md-ellipsis">Existing se<wbr>L4 support</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Existing seL4 support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    <span class="md-ellipsis">Resources</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#existing-sel4-device-drivers" class="md-nav__link">
+    <span class="md-ellipsis">Existing se<wbr>L4 Device Drivers</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Existing seL4 Device Drivers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elfloader" class="md-nav__link">
+    <span class="md-ellipsis">Elfloader</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sel4" class="md-nav__link">
+    <span class="md-ellipsis">se<wbr>L4</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#libraries" class="md-nav__link">
+    <span class="md-ellipsis">Libraries</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Libraries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#projects-libs" class="md-nav__link">
+    <span class="md-ellipsis">projects_<wbr>libs</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="projects_libs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#libplatsupportports" class="md-nav__link">
+    <span class="md-ellipsis">libplatsupportports</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libsdhcdrivers" class="md-nav__link">
+    <span class="md-ellipsis">libsdhcdrivers</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libtx2bpmp" class="md-nav__link">
+    <span class="md-ellipsis">libtx2bpmp</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libusbdrivers" class="md-nav__link">
+    <span class="md-ellipsis">libusbdrivers</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sel4-projects-libs" class="md-nav__link">
+    <span class="md-ellipsis">sel4_<wbr>projects_<wbr>libs</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sel4_projects_libs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#libsel4vm" class="md-nav__link">
+    <span class="md-ellipsis">libsel4vm</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libsel4vmmplatsupport" class="md-nav__link">
+    <span class="md-ellipsis">libsel4vmmplatsupport</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sel4-util-libs" class="md-nav__link">
+    <span class="md-ellipsis">sel4_<wbr>util_<wbr>libs</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sel4_util_libs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#libethdrivers" class="md-nav__link">
+    <span class="md-ellipsis">libethdrivers</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libplatsupport" class="md-nav__link">
+    <span class="md-ellipsis">libplatsupport</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#camkes" class="md-nav__link">
+    <span class="md-ellipsis">CAmk<wbr>ES</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-components" class="md-nav__link">
+    <span class="md-ellipsis">Global Components</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#existing-linux-and-u-boot-device-drivers" class="md-nav__link">
+    <span class="md-ellipsis">Existing Linux and U-<wbr>boot device drivers</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#porting-efforts" class="md-nav__link">
+    <span class="md-ellipsis">Porting Efforts</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errata-vm-support" class="md-nav__link">
+    <span class="md-ellipsis">Errata VM support</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+<h1 id="nvidia-tegra-x1">NVidia Tegra X1<a class="headerlink" href="#nvidia-tegra-x1" title="Link to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nvidia_tegra_x1_bootflow.html">Tegra X1 Bootflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nvidia_tegra_x1_boot_setup.html">Tegra X1 Boot Setup</a></li>
+</ul>
+</div>
+<h2 id="scope">Scope<a class="headerlink" href="#scope" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>This page shall be used to provide an overview of all work packages that are necessary for the porting of TRENTOS to the Nvidia Tegra X1 SoC.</p></li>
+<li><p>Main focus here is on supporting the specific Tegra X1 version that is used within the Nvidia Jetson Nano platform.</p></li>
+<li><p>for a general overview see also</p>
+<ul>
+<li><p>https://en.wikipedia.org/wiki/Tegra</p></li>
+<li><p>https://en.wikipedia.org/wiki/Nvidia_Jetson</p></li>
+</ul>
+</li>
+</ul>
+<h2 id="hardware">Hardware<a class="headerlink" href="#hardware" title="Link to this heading">¶</a></h2>
+<h3 id="tegra-x1-t210">Tegra X1 (T210)<a class="headerlink" href="#tegra-x1-t210" title="Link to this heading">¶</a></h3>
+<p>The following provides an overview about the default Nvidia Tegra X1 SoC configuration:</p>
+<ul class="simple">
+<li><p>CPU: 4x ARM Cortex-A57 + 4x ARM Cortex-A53, with the 4x ARM Cortex-A53 cores remaining unused/not accessible from an OS side</p></li>
+<li><p>RAM: up to 8 GiB LPDDR4</p></li>
+<li><p>GPU: 256-core Maxwell</p></li>
+</ul>
+<p>The Jetson Nano uses a reduced version of the Nvidia Tegra X1 SoC, containing the following hardware configuration:</p>
+<ul class="simple">
+<li><p>CPU: 4x ARM Cortex-A57</p></li>
+<li><p>RAM: up to 4 GiB LPDDR4</p></li>
+<li><p>GPU: 128-core Maxwell</p></li>
+</ul>
+<h2 id="variants-of-nvidia-tegra-x1">Variants of Nvidia Tegra X1<a class="headerlink" href="#variants-of-nvidia-tegra-x1" title="Link to this heading">¶</a></h2>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Jetson Nano Version</p></th>
+<th class="head"><p>Revision</p></th>
+<th class="head"><p>Reference Carrier Board</p></th>
+<th class="head"><p>Jetson Module</p></th>
+<th class="head"><p>Compatible property values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Jetson TX1 Developer Kit</p></td>
+<td><p>P2371-2180</p></td>
+<td><p>P2597-0000</p></td>
+<td><p>P2180-1000</p></td>
+<td><p>nvidia,p2597-0000+p2180-1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>Jetson Nano 2GB Developer Kit</p></td>
+<td><p>945-13541-0000-000 (P3541) [including 802.11ac wireless adapter and cable]</p></td>
+<td><p>P3542-0000</p></td>
+<td><p>P3448-0003 (includes 1x 2GIB QSPI)</p></td>
+<td><p>nvidia, p3542-0000+p3448-0003</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>945-13541-0001-000 (P3541) [NOT including adapter and cable]</p></td>
+<td><p>P3542-0000</p></td>
+<td><p>P3448-0003 (includes 1x 2GIB QSPI)</p></td>
+<td><p>nvidia, p3542-0000+p3448-0003</p></td>
+</tr>
+<tr class="row-odd"><td><p>Jetson Nano Developer Kit (A02)</p></td>
+<td><p>945-13450-0000-000 (P3450)</p></td>
+<td><p>P3449-0000</p></td>
+<td><p>P3448-0000 (includes 1x microSD)</p></td>
+<td><p>nvidia, p3449-0000-a02+p3448-0000-202</p></td>
+</tr>
+<tr class="row-even"><td><p>Jetson Nano Developer Kit (B0x)</p></td>
+<td><p>945-13450-0000-100 (P3450)</p></td>
+<td><p>P3449-0000</p></td>
+<td><p>P3448-0000 (includes 1x microSD)</p></td>
+<td><p>nvidia.p3449-0000-b00+p3448-0000-600</p></td>
+</tr>
+<tr class="row-odd"><td><p>Jetson Nana SoM</p></td>
+<td><p></p></td>
+<td><p>P3449-0000</p></td>
+<td><p>P3448-0002 (includes 1x 16GiB eMMC)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>SBC
+Nvidia offers the Jetson Nano in two SBC variants</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://developer.nvidia.com/embedded/jetson-nano-developer-kit">Jetson Nano Developer Kit</a> (p3450)</p>
+<ul>
+<li><p>4 GiB RAM</p></li>
+<li><p>1x microSD</p></li>
+<li><p>1x 10/100/1000 MBit Ethernet</p></li>
+<li><p>1x M.2 Key E</p></li>
+<li><p>1x HDMI</p></li>
+<li><p>1x Display Port</p></li>
+<li><p>2x Camera Conn. (MIPI-CSI2)</p></li>
+<li><p>4x USB 3.0</p></li>
+<li><p>1x USB 2.0 Micro B</p></li>
+<li><p>40-pin Exp Header (GPIO, I2C, I2S, SPI, UART)</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://developer.nvidia.com/embedded/jetson-nano-2gb-developer-kit">Jetson Nano 2GB Developer Kit</a> (p3451)</p>
+<ul>
+<li><p>2 GiB RAM</p></li>
+<li><p>1x microSD</p></li>
+<li><p>1x QSPI ???</p></li>
+<li><p>1x 10/100/1000 MBit Ethernet</p></li>
+<li><p>1x 802.11ac wireless</p></li>
+<li><p>2x USB 2.0 Type A</p></li>
+<li><p>1x USB 3.0 Type A</p></li>
+<li><p>1x USB Type C (Power Conn. 5V/3A)</p></li>
+<li><p>1x USB 2.0 Micro B</p></li>
+<li><p>1x HDMI Type A</p></li>
+<li><p>1x Camera Conn. (MIPI-CSI2)</p></li>
+<li><p>40-pin Exp Header (GPIO, 2x I2C, I2S, 2x SPI, UART)</p></li>
+</ul>
+</li>
+</ul>
+<h2 id="som">SoM<a class="headerlink" href="#som" title="Link to this heading">¶</a></h2>
+<p>Nvidia also offers the <a class="reference external" href="https://developer.nvidia.com/embedded/jetson-nano">Jetson Nano SoM</a> (p3448-0002) in a 4 GiB version:</p>
+<ul class="simple">
+<li><p>4 GiB RAM</p></li>
+<li><p>16 GiB eMMC 5.1</p></li>
+<li><p>1x 10/100/1000 MBit Ethernet</p></li>
+<li><p>1x M.2 Key E</p></li>
+<li><p>1x HDMI</p></li>
+<li><p>4x USB 3.0</p></li>
+<li><p>1x USB 2.0 Micro B</p></li>
+<li><p>Camera Conn. (MIPI-CSI2)</p></li>
+<li><p>40-pin Exp Header (GPIO, I2C, I2S, SPI, UART)</p></li>
+</ul>
+<h2 id="nvidia-developer-resources">Nvidia Developer Resources<a class="headerlink" href="#nvidia-developer-resources" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Nvidia JetPack SDK: https://developer.nvidia.com/jetpack-sdk-46</p></li>
+<li><p>Nvidia L4T</p>
+<ul>
+<li><p>Latest (including Jetson Nano): https://developer.nvidia.com/embedded/linux-tegra-r3261</p></li>
+<li><p>up to Jetson TK1: https://developer.nvidia.com/linux-tegra-r218</p></li>
+</ul>
+</li>
+<li><p>Nvidia Jetson Linux Developer Guide: https://docs.nvidia.com/jetson/l4t/index.html</p></li>
+<li><p>Nvidia Jetson Nano Community</p>
+<ul>
+<li><p>https://developer.nvidia.com/embedded/community/resources</p></li>
+<li><p>https://forums.developer.nvidia.com/c/agx-autonomous-machines/jetson-embedded-systems/jetson-nano/76</p></li>
+</ul>
+</li>
+</ul>
+<h3 id="jetson-nano-developer-kit">Jetson Nano Developer Kit<a class="headerlink" href="#jetson-nano-developer-kit" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>User Guide: https://developer.nvidia.com/embedded/downloads#?search=Jetson%20Nano%20Developer%20Kit%20User%20Guide</p></li>
+</ul>
+<h3 id="jetson-nano-2gb-developer-kit">Jetson Nano 2GB Developer Kit<a class="headerlink" href="#jetson-nano-2gb-developer-kit" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>User Guide: https://developer.nvidia.com/embedded/learn/jetson-nano-2gb-devkit-user-guide</p></li>
+</ul>
+<h2 id="third-party">Third-Party<a class="headerlink" href="#third-party" title="Link to this heading">¶</a></h2>
+<h3 id="boot">Boot<a class="headerlink" href="#boot" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>https://github.com/OE4T/u-boot-tegra</p></li>
+<li><p>https://github.com/OE4T/tegra-boot-tools</p></li>
+</ul>
+<h3 id="linux">Linux<a class="headerlink" href="#linux" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>https://github.com/OE4T/linux-tegra-4.9</p></li>
+<li><p>https://github.com/OE4T/meta-tegra</p></li>
+</ul>
+<h2 id="existing-sel4-support">Existing seL4 support<a class="headerlink" href="#existing-sel4-support" title="Link to this heading">¶</a></h2>
+<p>The mainline seL4 already provides support for the Nvidia Tegra X1 in a limited form and based on specific development boards. According to https://docs.sel4.systems/Hardware/, seL4 currently supports the following platforms:</p>
+<ul class="simple">
+<li><p>Nvidia Tegra K1</p>
+<ul>
+<li><p><a class="reference external" href="https://docs.sel4.systems/Hardware/jetsontk1.html">Jetson TK1</a> (Nvidia)</p></li>
+<li><p><a class="reference external" href="https://docs.sel4.systems/Hardware/CEI_TK1_SOM/">TK1 SOM</a> (Colorado Engineering)</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://docs.sel4.systems/Hardware/jetsontx1.html">Jetson TX1</a> (Nvidia)</p></li>
+<li><p><a class="reference external" href="https://docs.sel4.systems/Hardware/JetsonTX2.html">Jetson TX2</a> (Nvidia)</p></li>
+</ul>
+<h3 id="resources">Resources<a class="headerlink" href="#resources" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Technical Reference Manual (TRM): https://developer.nvidia.com/embedded/downloads#?tx=$product,jetson_tx1 (after registration)</p>
+<ul>
+<li><p>Tegra X1 TRM</p></li>
+<li><p>Tegra X1 TRM</p></li>
+<li><p>Nvidia Download Center: https://developer.nvidia.com/embedded/downloads</p></li>
+</ul>
+</li>
+</ul>
+<h2 id="existing-sel4-device-drivers">Existing seL4 Device Drivers<a class="headerlink" href="#existing-sel4-device-drivers" title="Link to this heading">¶</a></h2>
+<p>The seL4 already provides basic support for the Jetson TK1, the Jetson TX1 and the Jetson TX2 in a limited form. Support for the Jetson Nano SBC is generally based on the Jetson TX1 SoC, from which baseline support can be adopted.</p>
+<h3 id="elfloader">Elfloader<a class="headerlink" href="#elfloader" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Data61</p></th>
+<th class="head"><p>Comment</p></th>
+<th class="head"><p>Status</p></th>
+<th class="head"><p>Task</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>/tools/seL4/cmake-tool/helpers/application_settings.cmake</p></td>
+<td><p>-</p></td>
+<td><p>good</p></td>
+<td><p>adapt</p></td>
+</tr>
+<tr class="row-odd"><td><p>/tools/seL4/cmake-tool/helpers/simulation.cmake</p></td>
+<td><p>not required, as there doesn’t exist a respective QEMU platform</p></td>
+<td><p>okay</p></td>
+<td><p>nothing to do</p></td>
+</tr>
+<tr class="row-even"><td><p>/tools/seL4/elfloader-tool/src/arch-arm/smp_boot.c</p></td>
+<td><p>-</p></td>
+<td><p>unknown</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-odd"><td><p>/tools/seL4/elfloader-tool/src/arch-arm/drivers/smp-psci.c</p></td>
+<td><p>driver checks for compatibility String arm, psci-1.0, which is available in to be added Nvidia Jetson Nano .dts file</p></td>
+<td><p>unknown</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-even"><td><p>/tools/seL4/elfloader-tool/src/drivers/uart/8250-uart.c</p></td>
+<td><p>driver checks for compatibility String nvidia, tegra20-uart, which is available in to be added Nvidia Jetson Nano.dts file</p></td>
+<td><p>good</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-odd"><td><p>/tools/seL4/elfloader-tool/src/plat/tx1/platform_init.c</p></td>
+<td><p>-</p></td>
+<td><p>good</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-even"><td><p>/tools/seL4/elfloader-tool/src/plat/tx1/monitor.S</p></td>
+<td><p>adapt if required (see Jetson TK1)</p></td>
+<td><p>unknown</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="sel4">seL4<a class="headerlink" href="#sel4" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Data61</p></th>
+<th class="head"><p>Comment</p></th>
+<th class="head"><p>Status</p></th>
+<th class="head"><p>Task</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>/kernel/configs/seL4Config.cmake</p></td>
+<td><p>check if platform config is required (ARMv8-A, Cortex-A57, SMMU already there)</p></td>
+<td><p>good</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-odd"><td><p>/kernel/include/drivers/smmu/smmuv2.h</p></td>
+<td><p>check if additional config beyond standard ARM SMMUv2 is required</p></td>
+<td><p>good</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-even"><td><p>/kernel/include/drivers/timer/arm_generic.h</p></td>
+<td><p>check if additional config beyond standard ARM Generic Timer is required</p></td>
+<td><p>good</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-odd"><td><p>/kernel/libsel4/sel4_plat_include/tx1/sel4/plat/api/constants.h</p></td>
+<td><p>basic stub for TX1 already exists, nevertheless has to be checked if there is a difference between Jetson TX1 Dev Kit and Jetson Nano SBC</p></td>
+<td><p>good</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-even"><td><p>/kernel/src/arch/arm/machine/gic_v2.c</p></td>
+<td><p>driver is supporting ARM GICv2 standard, to which the TX1arm,cortex-a15-gic should adhere to</p></td>
+<td><p>good</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-odd"><td><p>/kernel/src/arch/arm/config.cmake</p></td>
+<td><p>check if platform config is required (Cortex-A57 already there)</p></td>
+<td><p>good</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-even"><td><p>/kernel/src/drivers/serial/tegra_omap3_dwapb.c</p></td>
+<td><p>driver checks for compatibility String nvidia,tegra20-uart, which is available in to be added Nvidia Jetson Nano .dts file</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-odd"><td><p>/kernel/src/drivers/serial/config.cmake</p></td>
+<td><p>includes the compatibility String nvidia,tegra20-uart for registering the driver available in tegra_omap3_dwapb.c</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-even"><td><p>/kernel/src/drivers/smmu/smmuv2.c</p></td>
+<td><p>-</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-odd"><td><p>/kernel/src/drivers/smmu/config.cmake</p></td>
+<td><p>includes the compatibility String arm,mmu-500 for registering the driver available in smmuv2.c</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-even"><td><p>/kernel/src/drivers/timer/generic_timer.c</p></td>
+<td><p>-</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-odd"><td><p>/kernel/src/drivers/timer/config.cmake</p></td>
+<td><p>includes compatibility String arm,armv8-timer for registering the driver available in generic_timer.c</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-even"><td><p>/kernel/src/plat/tx1/config.cmake</p></td>
+<td><p>- a new platform (KernelPlatformTx1, PLAT_TX1) was added <br> - usage of the <br> - tools/dts/tx1/tx1.dts <br> - src/plat/tx1/overlay-tx1.dts <br> - references <br> - arch/machine/gic_v2.h <br> - drivers/timer/arm_generic.h <br> - currently missing references <br> - drivers/smmu/smmuv2.h <br> includes references to <br> - ARM Generic Interrupt Controller: <br> - src/arch/arm/machine/gic_v2.c <br> - ARM L2 Cache Controller: src/arch/arm/machine/l2c_nop.c <br> According to the ARM documentation, the Cortex-A15 GIC implements the GICv2 architecture.</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-odd"><td><p>/kernel/src/plat/tx1/overlay-tx1.dts</p></td>
+<td><p>-</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-even"><td><p>/kernel/tools/dts/tx1.dts</p></td>
+<td><p>.dts file for the Nvidia Jetson TX1, currently suited for the Jetson TX1 Dev Kit</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-odd"><td><p>/kernel/tools/hardware.yaml</p></td>
+<td><p>- ARM PMU: arm,armv8-pmuv3 <br> - SMMU: arm,mmu-500 <br> - ARM Global Timer: arm,armv8-timer <br> - Serial: nvidia,tegra20-uart <br> - ARM PSCI: arm,psci-1.0</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-even"><td><p>/kernel/tools/hardware/irq.py</p></td>
+<td><p>check compatibility String in CONTROLLERS for <br> - arm,gic-400 <br> - arm,cortex-a15-gic <br> Question: which one is used here, as both variants a referenced in other files and .dts ???</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support</p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="libraries">Libraries<a class="headerlink" href="#libraries" title="Link to this heading">¶</a></h2>
+<p>The seL4 libraries can be split into</p>
+<ul class="simple">
+<li><p>libplatsupportports (projects_libs) → a collection of drivers ported from GPL-based sources such as U-boot and Linux</p></li>
+<li><p>libsdhcdrivers (projects_libs)</p></li>
+<li><p>libtx2bpmp (projects_libs) → a port of the Tegra186 Boot and Power Management Processor (BPMP) interfaces from U-boot to seL4</p></li>
+<li><p>libusbdrivers (projects_libs)</p></li>
+<li><p>libsel4vm (sel4_projects_libs)</p></li>
+<li><p>libsel4vmmplatsupport (sel4_projects_libs)</p></li>
+<li><p>libplatsupport (sel4_util_libs)</p></li>
+<li><p>libethdrivers (sel4_util_libs)</p></li>
+</ul>
+<h3 id="projects-libs">projects_libs<a class="headerlink" href="#projects-libs" title="Link to this heading">¶</a></h3>
+<h4 id="libplatsupportports">libplatsupportports<a class="headerlink" href="#libplatsupportports" title="Link to this heading">¶</a></h4>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Data61</p></th>
+<th class="head"><p>Comment</p></th>
+<th class="head"><p>Status</p></th>
+<th class="head"><p>Task</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>libs/projects_libs/libplatsupportports/plat_include/tx2/platsupportports/plat/</p></td>
+<td><p>Includes header files for drivers specific to the Nvidia Tegra X2 and ported from Linux or U-boot <br> - GPIO (nvidia,tegra186-gpio) <br>- Pinmux (nvidia,tegra186-pinmux)</p></td>
+<td><p>okay</p></td>
+<td><p>check if adaptation is required for TX1</p></td>
+</tr>
+<tr class="row-odd"><td><p>/libs/projects_libs/libplatsupportports/src/plat/tx2/</p></td>
+<td><p>Includes drivers that are specific to the Nvidia Tegra X2 and ported from Linux or U-boot <br> - Clock (nvidia,tegra186-car) <br>     - libplatsupport clock ID to TX2 BPMP clock ID bindings <br>    - Clock driver for the TX2 CAR (Clock And Reset) controller which relies on libtx2bpmp <br> - GPIO <br>     - GPIO driver for the TX2 GPIO controller based off on U-boot’s implementation <br> - Pinmux <br>    - Pin controller driver for the TX2 MUX based off on NVIDIA’s L4T implementation <br> - Reset <br>     - libplatsupport reset ID to TX2 BPMP reset ID bindings <br>    - Reset driver for the TX2 CAR (Clock And Reset) controller which relies on libtx2bpmp</p></td>
+<td><p>okay</p></td>
+<td><p>check if adaptation is required for TX1</p></td>
+</tr>
+</tbody>
+</table>
+<h4 id="libsdhcdrivers">libsdhcdrivers<a class="headerlink" href="#libsdhcdrivers" title="Link to this heading">¶</a></h4>
+<p>Currently, no Nvidia specific SDHCI driver is available. Maybe support from NXP i.MX6 could be adopted.</p>
+<h4 id="libtx2bpmp">libtx2bpmp<a class="headerlink" href="#libtx2bpmp" title="Link to this heading">¶</a></h4>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Data61</p></th>
+<th class="head"><p>Comment</p></th>
+<th class="head"><p>Status</p></th>
+<th class="head"><p>Task</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>/libs/projects_libs/libtx2bpmp/</p></td>
+<td><p>Includes header files for drivers and drivers that are specific to the Nvidia Tegra X2 and ported from U-boot <br> - BPMP <br>    - BPMP driver for the BPMP (Boot and Power Management Processor) co-processor on the TX2 based off on U-boot’s implementation <br> - HSP <br>     - HSP driver for the HSP (Hardware Synchronisation Primitives) module on the TX2 <br> - IVC <br>     - IVC implementation for the IVC (Inter-VM Communication) protocol used for communicating with the BPMP</p></td>
+<td><p>okay</p></td>
+<td><p>check if adaptation is required for TX1</p></td>
+</tr>
+</tbody>
+</table>
+<h4 id="libusbdrivers">libusbdrivers<a class="headerlink" href="#libusbdrivers" title="Link to this heading">¶</a></h4>
+<p>Currently, there is only support for the Jetson TK1. Nevertheless, USB might be similar on both Jetson TX1 and TX2. Current USB drivers seem to have USB EHCI support only.</p>
+<h3 id="sel4-projects-libs">sel4_projects_libs<a class="headerlink" href="#sel4-projects-libs" title="Link to this heading">¶</a></h3>
+<h4 id="libsel4vm">libsel4vm<a class="headerlink" href="#libsel4vm" title="Link to this heading">¶</a></h4>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Data61</p></th>
+<th class="head"><p>Comment</p></th>
+<th class="head"><p>Status</p></th>
+<th class="head"><p>Task</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>/libs/sel4_projects_libs/libsel4vm/src/arch/arm/vgic/vgic.c</p></td>
+<td><p>check for CONFIG_PLAT_TX2</p></td>
+<td><p>okay</p></td>
+<td><p>check the functionality of the drivers provided</p></td>
+</tr>
+</tbody>
+</table>
+<h4 id="libsel4vmmplatsupport">libsel4vmmplatsupport<a class="headerlink" href="#libsel4vmmplatsupport" title="Link to this heading">¶</a></h4>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Data61</p></th>
+<th class="head"><p>Comment</p></th>
+<th class="head"><p>Status</p></th>
+<th class="head"><p>Task</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>/libs/sel4_projects_libs/libsel4vmmplatsupport/src/arch/arm/guest_image.c</p></td>
+<td><p>check for CONFIG_PLAT_TX2</p></td>
+<td><p>okay</p></td>
+<td><p>check the functionality of the drivers provided</p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="sel4-util-libs">sel4_util_libs<a class="headerlink" href="#sel4-util-libs" title="Link to this heading">¶</a></h3>
+<h4 id="libethdrivers">libethdrivers<a class="headerlink" href="#libethdrivers" title="Link to this heading">¶</a></h4>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Data61</p></th>
+<th class="head"><p>Comment</p></th>
+<th class="head"><p>Status</p></th>
+<th class="head"><p>Task</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>/libs/sel4_util_libs/libethdrivers/CMakeLists.txt</p></td>
+<td><p>Specific to the Nvidia Tegra X2</p></td>
+<td><p>okay</p></td>
+<td><p>check the functionality of the drivers provided</p></td>
+</tr>
+<tr class="row-odd"><td><p>/libs/sel4_util_libs/libethdrivers/include/ethdrivers/raw.h</p></td>
+<td><p>-</p></td>
+<td><p>okay</p></td>
+<td><p>check if adaptation is required</p></td>
+</tr>
+<tr class="row-even"><td><p>/libs/sel4_util_libs/libethdrivers/include/ethdrivers/tx2.h</p></td>
+<td><p>Specific to the Nvidia Tegra X2</p></td>
+<td><p>okay</p></td>
+<td><p>check the functionality of the drivers provided</p></td>
+</tr>
+<tr class="row-odd"><td><p>/libs/sel4_util_libs/libethdrivers/src/plat/tx2</p></td>
+<td><p>Wrapper around the U-boot Ethernet driver for the Nvidia Tegra X2</p></td>
+<td><p>okay</p></td>
+<td><p>check the functionality of the drivers provided</p></td>
+</tr>
+</tbody>
+</table>
+<h4 id="libplatsupport">libplatsupport<a class="headerlink" href="#libplatsupport" title="Link to this heading">¶</a></h4>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Data61</p></th>
+<th class="head"><p>Comment</p></th>
+<th class="head"><p>Status</p></th>
+<th class="head"><p>Task</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>/libs/sel4_util_libs/libplatsupport/CMakeLists.txt</p></td>
+<td><p>-</p></td>
+<td><p>okay</p></td>
+<td><p>check if adaptation is required</p></td>
+</tr>
+<tr class="row-odd"><td><p>/libs/sel4_util_libs/libplatsupport/include/platsupport/interface_types.h</p></td>
+<td><p>TX2_BPMP_INTERFACE is mentioned here</p></td>
+<td><p>okay</p></td>
+<td><p>check if adaptation is required</p></td>
+</tr>
+<tr class="row-even"><td><p>/libs/sel4_util_libs/libplatsupport/mach_include/nvidia/platsupport/mach</p></td>
+<td><p>currently there seems to be support for the TK1</p></td>
+<td><p>okay</p></td>
+<td><p>check if adaptation is required specific to TX1</p></td>
+</tr>
+<tr class="row-odd"><td><p>/libs/sel4_util_libs/libplatsupport/plat_include/tx1/platsupport/plat/clock.h</p></td>
+<td><p>-</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support, especially as TX2 has a specific one</p></td>
+</tr>
+<tr class="row-even"><td><p>/libs/sel4_util_libs/libplatsupport/plat_include/tx1/platsupport/plat/gpio.h</p></td>
+<td><p>currently there only exists a driver for the TK1</p></td>
+<td><p>unknown</p></td>
+<td><p>check if driver can be adopted from TK1 to TX1</p></td>
+</tr>
+<tr class="row-odd"><td><p>/libs/sel4_util_libs/libplatsupport/plat_include/tx1/platsupport/plat/i2c.h</p></td>
+<td><p>-</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-even"><td><p>/libs/sel4_util_libs/libplatsupport/plat_include/tx1/platsupport/plat/mux.h</p></td>
+<td><p>currently there only exists a driver for the TK1</p></td>
+<td><p>unknown</p></td>
+<td><p>check if really required and in case yes, check if driver can be adopted from TK1 to TX1</p></td>
+</tr>
+<tr class="row-odd"><td><p>/libs/sel4_util_libs/libplatsupport/plat_include/tx1/platsupport/plat/reset.h</p></td>
+<td><p>currently there only exists a driver for the TX2</p></td>
+<td><p>unknown</p></td>
+<td><p>check if driver can be adopted from TX2 to TX1</p></td>
+</tr>
+<tr class="row-even"><td><p>/libs/sel4_util_libs/libplatsupport/plat_include/tx1/platsupport/plat/serial.h</p></td>
+<td><p>-</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support, especially as TX2 has a specific one</p></td>
+</tr>
+<tr class="row-odd"><td><p>/libs/sel4_util_libs/libplatsupport/plat_include/tx1/platsupport/plat/spi.h</p></td>
+<td><p>currently there only exists a driver for the TK1</p></td>
+<td><p>unknown</p></td>
+<td><p>check if driver can be adopted from TK1 to TX1</p></td>
+</tr>
+<tr class="row-even"><td><p>/libs/sel4_util_libs/libplatsupport/plat_include/tx1/platsupport/plat/timer.h</p></td>
+<td><p>-</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support, especially as TX2 has a specific one</p></td>
+</tr>
+<tr class="row-odd"><td><p>/libs/sel4_util_libs/libplatsupport/src/mach/nvidia/chardev.c</p></td>
+<td><p>Includes driver that is generic for the general Nvidia Tegra architecture, meaning the Nvidia Tegra K1, the Nvidia Tegra X1 and the Nvidia Tegra X2</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-even"><td><p>/libs/sel4_util_libs/libplatsupport/src/mach/nvidia/ltimer.c</p></td>
+<td><p>Includes driver that is generic for the general Nvidia Tegra architecture, meaning the Nvidia Tegra K1, the Nvidia Tegra X1 and the Nvidia Tegra X2</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-odd"><td><p>/libs/sel4_util_libs/libplatsupport/src/mach/nvidia/serial.c</p></td>
+<td><p>Includes driver that is generic for the general Nvidia Tegra architecture, meaning the Nvidia Tegra K1, the Nvidia Tegra X1 and the Nvidia Tegra X2</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-even"><td><p>/libs/sel4_util_libs/libplatsupport/src/mach/nvidia/timer.c</p></td>
+<td><p>Includes driver that is generic for the general Nvidia Tegra architecture, meaning the Nvidia Tegra K1, the Nvidia Tegra X1 and the Nvidia Tegra X2</p></td>
+<td><p>okay</p></td>
+<td><p>check existing support</p></td>
+</tr>
+<tr class="row-odd"><td><p>/libs/sel4_util_libs/libplatsupport/src/plat/tx1/</p></td>
+<td><p>currently, there exists no such folder (only for TK1 and TX2) <br> - clock <br> - gpio <br> - i2c <br> - mux <br> - spi</p></td>
+<td><p>unkown</p></td>
+<td><p>check if drivers can be adopted from TK1 and TX2</p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="camkes">CAmkES<a class="headerlink" href="#camkes" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Source</p></th>
+<th class="head"><p>Comment</p></th>
+<th class="head"><p>Status</p></th>
+<th class="head"><p>Task</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>/tools/camkes/libsel4camkes/src/sys_uname.c</p></td>
+<td><p>only support for CONFIG_PLAT_TK1</p></td>
+<td><p>okay</p></td>
+<td><p>check if support is also required for the Nvidia Tegra X1</p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="global-components">Global Components<a class="headerlink" href="#global-components" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Component</p></th>
+<th class="head"><p>Source</p></th>
+<th class="head"><p>Comment</p></th>
+<th class="head"><p>Status</p></th>
+<th class="head"><p>Task</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>BPMPServer</p></td>
+<td><p>/libs/sel4_global_components/plat_components/tx2/BPMPServer/</p></td>
+<td><p></p></td>
+<td><p>okay</p></td>
+<td><p>check the functionality of the drivers provided</p></td>
+</tr>
+<tr class="row-odd"><td><p>ClockServer</p></td>
+<td><p>/libs/sel4_global_components/components/ClockServer/include/plat/tx2/plat/clock.h</p></td>
+<td><p></p></td>
+<td><p>okay</p></td>
+<td><p>check the functionality of the drivers provided</p></td>
+</tr>
+<tr class="row-even"><td><p>Ethdriver</p></td>
+<td><p>/libs/sel4_global_components/components/Ethdriver/include/plat/tx2/plat/eth_devices.h</p></td>
+<td><p></p></td>
+<td><p>okay</p></td>
+<td><p>check the functionality of the drivers provided</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPIOMUXServer</p></td>
+<td><p>/libs/sel4_global_components/components/EGPIOMUXServer/include/plat/tx2/</p></td>
+<td><p></p></td>
+<td><p>okay</p></td>
+<td><p>check the functionality of the drivers provided</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>/libs/sel4_global_components/components/EGPIOMUXServer/libGPIOMUXServer-client/plat_include/tx2/</p></td>
+<td><p></p></td>
+<td><p>okay</p></td>
+<td><p>check the functionality of the drivers provided</p></td>
+</tr>
+<tr class="row-odd"><td><p>ResetServer</p></td>
+<td><p>/libs/sel4_global_components/components/ResetServer/include/plat/tx2/plat/reset.h</p></td>
+<td><p></p></td>
+<td><p>okay</p></td>
+<td><p>check the functionality of the drivers provided</p></td>
+</tr>
+<tr class="row-even"><td><p>SerialServer</p></td>
+<td><p>-</p></td>
+<td><p>ARM generic, if serial driver support is provided via libplatsupport</p></td>
+<td><p>okay</p></td>
+<td><p>check the functionality of the drivers provided</p></td>
+</tr>
+<tr class="row-odd"><td><p>TimeServer</p></td>
+<td><p>/libs/sel4_global_components/components/TimeServer/include/plat/tx1/plat/timers.h</p></td>
+<td><p></p></td>
+<td><p>okay</p></td>
+<td><p>check the functionality of the drivers provided</p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="existing-linux-and-u-boot-device-drivers">Existing Linux and U-boot device drivers<a class="headerlink" href="#existing-linux-and-u-boot-device-drivers" title="Link to this heading">¶</a></h2>
+<p>TODO: check driver support from U-boot (Nvidia specific) and Linux (here L4T)</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>HW Type</p></th>
+<th class="head"><p>Connected via</p></th>
+<th class="head"><p>Nvidia Tegra X1</p></th>
+<th class="head"><p>U-boot</p></th>
+<th class="head"><p>Linux</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Pinmux</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Timer</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Clock</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>UART</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Interrupt</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Reset</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Ethernet MAC</p></td>
+<td><p>PCI</p></td>
+<td><p>Realtek RTL8111 (no public documentation available, only via third-party)</p></td>
+<td><p>driver: r8169</p></td>
+<td><p>detected as: RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller <br> driver: r8169 (which is reported to be unstable, r8168-dkms recommended instead on the internet)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ethernet PHY</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>WiFi/BT</p></td>
+<td><p>external, via PCI/USB</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>SDHCI</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>(Optional) QSPI Flash</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>(Optional) eMMC</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>(Optional) GPIO</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>(Optional) I2C</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>(Optional) SPI</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>(Optional) USB</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Additional</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="porting-efforts">Porting Efforts<a class="headerlink" href="#porting-efforts" title="Link to this heading">¶</a></h2>
+<p>Baseline support for the Jetson TX1 is already available in seL4. Apart from that, seL4 also supports both the predecessor (Jetson TK1) and the successor (Jetson TX2) in a basic fashion. Support from these platforms might also be taken over to extend the existing Jetson TX1 port. The following parts of the seL4 ecosystem would be affected:</p>
+<ul class="simple">
+<li><p>Elfloader</p>
+<ul>
+<li><p>base support available for TX1 (and other Nvidia platforms)</p></li>
+<li><p>no real adaptation required</p></li>
+</ul>
+</li>
+<li><p>seL4</p>
+<ul>
+<li><p>Generic ARM support for Cortex-A57 cores, ARM Generic Timer, ARM GICv2 and Nvidia UART available</p></li>
+<li><p>SMMU support has to be checked (but support for Jetson TX2 available)</p></li>
+<li><p>separate .dts file for Jetson Nano might have to be provided, as existing TX1 support is suited to Jetson TX1 Dev Kit only</p></li>
+</ul>
+</li>
+<li><p>libplatsupport</p>
+<ul>
+<li><p>Clock, I2C, Serial and Timer drivers are available for the Jetson TX1</p></li>
+<li><p>GPIO, Mux and SPI drivers might be adopted from Jetson TK1</p></li>
+<li><p>Reset driver might be adopted from Jetson TX2</p></li>
+</ul>
+</li>
+<li><p>libethdrivers</p>
+<ul>
+<li><p>Ethernet driver support would require PCIe driver support, as the Realtek network hardware device is coupled via PCIe</p></li>
+<li><p>A driver for the Jetson TX2 NIC is available (ported from U-boot), but it seems as if this is a native Ethernet now (incompatibility to previous ones in Jetson TK1 and Jetson TX1)</p></li>
+<li><p>…</p></li>
+</ul>
+</li>
+<li><p>libsdhcdrivers</p>
+<ul>
+<li><p>currently, no support is available for Nvidia specific SDHCI support</p></li>
+<li><p>potentially take over and adapt the existing NXP i.MX6 SDHCI driver structure, in case it is SDHCI compliant in general</p></li>
+</ul>
+</li>
+<li><p>libusbdrivers</p>
+<ul>
+<li><p>currently, there is only support for the Jetson TK1; nevertheless, USB might be similar on both Jetson TX1 and TX2</p></li>
+<li><p>…</p></li>
+</ul>
+</li>
+<li><p>libpcie …</p>
+<ul>
+<li><p>PCI support seems to be available  for x86, nevertheless PCIe support is currently missing</p>
+<ul>
+<li><p>https://lists.sel4.systems/hyperkitty/list/devel&#64;sel4.systems/thread/YVIO4IFLJDKXQ3YUWUWXYPHVGYLGRGME/?sort=date</p></li>
+</ul>
+</li>
+<li><p>VirtIO PCIe driver available → check difference between PCIe and VirtIO PCIe driver ?</p></li>
+<li><p>…</p></li>
+</ul>
+</li>
+<li><p>libwifi, libbluetooth, …</p>
+<ul>
+<li><p>nothing similar to this currently exists, so no WiFi or BT support throughout all platforms available so far</p></li>
+<li><p>…</p></li>
+</ul>
+</li>
+<li><p>libsata</p>
+<ul>
+<li><p>There seems to exist something from DornerWorks, currently available as PR</p>
+<ul>
+<li><p>https://github.com/seL4/util_libs/pull/82</p></li>
+<li><p>https://github.com/seL4/seL4_projects_libs/pull/17</p></li>
+</ul>
+</li>
+<li><p>…</p></li>
+</ul>
+</li>
+</ul>
+<h2 id="errata-vm-support">Errata VM support<a class="headerlink" href="#errata-vm-support" title="Link to this heading">¶</a></h2>
+<p>Since Linux kernel version 5.1 if the the tegra pmc driver is not able to access registers directly it will try to use smc calls to get a higher privileged software to write to those registers. The VMM does not currently support these calls. This behaviour was introduced with commit e247deae1a550 of the LInux kernel.  It is currently (as of version 5.18) only enabled on the tegra 210 platform. We did not get the kernel to boot even if the behavior was disabled.  Typical symptom for this behaviour is this log entry</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="p">[</span>    <span class="mf">0.112447</span><span class="p">]</span> <span class="n">tegra</span><span class="o">-</span><span class="n">pmc</span><span class="p">:</span> <span class="n">access</span> <span class="n">to</span> <span class="n">PMC</span> <span class="ow">is</span> <span class="n">restricted</span> <span class="n">to</span> <span class="n">TZ</span>
+<span class="n">handle_smc</span><span class="nd">@smc</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">68</span> <span class="n">Got</span> <span class="n">SiP</span> <span class="n">service</span> <span class="n">call</span> <span class="mi">65024</span>
+ 
+<span class="o">=======</span> <span class="n">Unhandled</span> <span class="n">VCPU</span> <span class="n">fault</span> <span class="kn">from</span> <span class="p">[</span><span class="n">Linux</span><span class="p">]</span> <span class="o">=======</span>
+<span class="n">HSR</span> <span class="n">Value</span><span class="p">:</span> <span class="mh">0x5e000000</span>
+<span class="n">HSR</span> <span class="ne">Exception</span> <span class="n">Class</span><span class="p">:</span> <span class="n">HSR_SMC_64_EXCEPTION</span> <span class="p">[</span><span class="mh">0x17</span><span class="p">]</span>
+<span class="n">Instruction</span> <span class="n">Length</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">ISS</span> <span class="n">Value</span><span class="p">:</span> <span class="mh">0x0</span>
+<span class="o">==============================================</span>
+<span class="n">main_continued</span><span class="nd">@main</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">1176</span> <span class="n">VM</span> <span class="n">error</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">run</span><span class="nd">@main</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">1208</span> <span class="n">VM</span> <span class="n">error</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">Halting</span><span class="o">...</span>
+</code></pre></div>
+</div>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Data61</p></th>
+<th class="head"><p>Comment</p></th>
+<th class="head"><p>Status</p></th>
+<th class="head"><p>Task</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p></p></td>
+<td><p></p></td>
+<td><p>okay</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="platform.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Nvidia Tegra" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Nvidia Tegra
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="nvidia_tegra_x1_bootflow.html" class="md-footer__link md-footer__link--next" aria-label="Next: Tegra X1 Bootflow" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Tegra X1 Bootflow
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2023-2024, HENSOLDT Cyber GmbH.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.1.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.tabs", "navigation.sections", "navigation.instant", "header.autohide", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "toc.follow", "toc.sticky"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": null}}</script>
+    
+      
+        <script src="../../_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=8ec58cb5"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

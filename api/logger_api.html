@@ -1,0 +1,2394 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Logger API - Documentation</title>
+      
+    
+    
+      
+        
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.4b4a8c74e2ff2ab5b.min.css?v=afa97f93" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Logger API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../introduction/getting-started.html" class="md-tabs__link">
+      <span class="md-ellipsis">Introduction</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="cert-parser_api.html" class="md-tabs__link md-tabs__link--active">
+      <span class="md-ellipsis">API</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../components/cert-server.html" class="md-tabs__link">
+      <span class="md-ellipsis">Components</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../component-interfaces/nic-interface.html" class="md-tabs__link">
+      <span class="md-ellipsis">Component Interfaces</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../platform-support/using-sd-card-with-trentos.html" class="md-tabs__link">
+      <span class="md-ellipsis">Platform Support</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../demos/demo-iot_qemu.html" class="md-tabs__link">
+      <span class="md-ellipsis">Demos</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../tools/proxy-application.html" class="md-tabs__link">
+      <span class="md-ellipsis">Tools</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../development/buildsystem.html" class="md-tabs__link">
+      <span class="md-ellipsis">Development</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../glossary/acronyms.html" class="md-tabs__link">
+      <span class="md-ellipsis">Glossary</span>
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          <span class="md-ellipsis">Introduction</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Introduction</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/getting-started.html" class="md-nav__link">
+        <span class="md-ellipsis">Getting Started</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/sel4.html" class="md-nav__link">
+        <span class="md-ellipsis">se<wbr>L4 Microkernel</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/camkes.html" class="md-nav__link">
+        <span class="md-ellipsis">CAmk<wbr>ES Framework</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          <span class="md-ellipsis">API</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cert-parser_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Parser API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="config-service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Config<wbr>Service API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration_service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Service</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="crypto_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="file-system_api.html" class="md-nav__link">
+        <span class="md-ellipsis">File<wbr>System API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="key-store_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Key<wbr>Store API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">Logger API</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">Logger API</span>
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">Overview</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concepts" class="md-nav__link">
+    <span class="md-ellipsis">Concepts</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roles" class="md-nav__link">
+    <span class="md-ellipsis">Roles</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-filter" class="md-nav__link">
+    <span class="md-ellipsis">Log Filter</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-format" class="md-nav__link">
+    <span class="md-ellipsis">Log Format</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">Architecture</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-observer-pattern" class="md-nav__link">
+    <span class="md-ellipsis">The Observer Pattern</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emitter-consumer-pairs" class="md-nav__link">
+    <span class="md-ellipsis">Emitter -<wbr> Consumer Pairs</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Emitter - Consumer Pairs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#emitter" class="md-nav__link">
+    <span class="md-ellipsis">Emitter</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consumer" class="md-nav__link">
+    <span class="md-ellipsis">Consumer</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">Implementation</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">Usage</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-usage" class="md-nav__link">
+    <span class="md-ellipsis">Client Usage</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-usage" class="md-nav__link">
+    <span class="md-ellipsis">Server Usage</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#declaration-of-api-library-in-cmake" class="md-nav__link">
+    <span class="md-ellipsis">Declaration of API library in CMake</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">Example</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instantiation-of-api-in-cmake" class="md-nav__link">
+    <span class="md-ellipsis">Instantiation of API in CMake</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-api-in-c" class="md-nav__link">
+    <span class="md-ellipsis">Using the API in C</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the API in C">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client" class="md-nav__link">
+    <span class="md-ellipsis">Client</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server" class="md-nav__link">
+    <span class="md-ellipsis">Server</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="socket_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tls_api.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          <span class="md-ellipsis">Components</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Components" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Components</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/cert-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/crypto-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/entropy-source.html" class="md-nav__link">
+        <span class="md-ellipsis">Entropy<wbr>Source</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/network-stack_pico-tcp.html" class="md-nav__link">
+        <span class="md-ellipsis">Network<wbr>Stack_<wbr>Pico<wbr>Tcp</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_dummy.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Dummy</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>i<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_rpi.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>RPi</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/ram-disk.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/rpi_spi_flash.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi_<wbr>SPI_<wbr>Flash</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/sd-host-controller.html" class="md-nav__link">
+        <span class="md-ellipsis">Sd<wbr>Host<wbr>Controller</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/storage_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/storage-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/time-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Time<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/tls-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Tls<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/uart.html" class="md-nav__link">
+        <span class="md-ellipsis">UART</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          <span class="md-ellipsis">Component Interfaces</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Component Interfaces" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Component Interfaces</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../component-interfaces/nic-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../component-interfaces/socket-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          <span class="md-ellipsis">Platform Support</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Platform Support" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Platform Support</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/using-sd-card-with-trentos.html" class="md-nav__link">
+        <span class="md-ellipsis">Using an SD Card with a TRENTOS System</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/rpi-3-model-b%2B/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi3B+ Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/nitrogen6-solo-x/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nitrogen6_<wbr>Solo<wbr>X Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/bd-sl-i.mx6/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">BD-<wbr>SL-<wbr>i.<wbr>MX6 Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/nvidia-tegra/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nvidia Tegra</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          <span class="md-ellipsis">Demos</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Demos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Demos</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for i.<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-tls.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API Demo</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-network-filter_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-network-filter_nitrogen6-solox.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for Nitrogen6_<wbr>Solo<wbr>X</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          <span class="md-ellipsis">Tools</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Tools</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/proxy-application.html" class="md-nav__link">
+        <span class="md-ellipsis">Proxy Application</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/configuration-provisioning-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Provisioning Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/ram-disk-generator-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk Generator Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/flasher-tool-rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Flasher Tool for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          <span class="md-ellipsis">Development</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Development" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Development</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/buildsystem.html" class="md-nav__link">
+        <span class="md-ellipsis">Buildsystem</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/function-call-tracing.html" class="md-nav__link">
+        <span class="md-ellipsis">Function Call Tracing</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/hardware-tools.html" class="md-nav__link">
+        <span class="md-ellipsis">Hardware Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/runtime-debugging.html" class="md-nav__link">
+        <span class="md-ellipsis">Runtime Debugging</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-hw-platforms_open-ocd.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Open<wbr>OCD</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-hw-platforms_segger.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Segger Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/object-oriented-c.html" class="md-nav__link">
+        <span class="md-ellipsis">Object Oriented C</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/known_issues.html" class="md-nav__link">
+        <span class="md-ellipsis">Known Issues</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          <span class="md-ellipsis">Glossary</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Glossary" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Glossary</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/acronyms.html" class="md-nav__link">
+        <span class="md-ellipsis">Acronyms</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/terms.html" class="md-nav__link">
+        <span class="md-ellipsis">Terms</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">Overview</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concepts" class="md-nav__link">
+    <span class="md-ellipsis">Concepts</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roles" class="md-nav__link">
+    <span class="md-ellipsis">Roles</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-filter" class="md-nav__link">
+    <span class="md-ellipsis">Log Filter</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-format" class="md-nav__link">
+    <span class="md-ellipsis">Log Format</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">Architecture</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-observer-pattern" class="md-nav__link">
+    <span class="md-ellipsis">The Observer Pattern</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emitter-consumer-pairs" class="md-nav__link">
+    <span class="md-ellipsis">Emitter -<wbr> Consumer Pairs</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Emitter - Consumer Pairs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#emitter" class="md-nav__link">
+    <span class="md-ellipsis">Emitter</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consumer" class="md-nav__link">
+    <span class="md-ellipsis">Consumer</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">Implementation</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">Usage</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-usage" class="md-nav__link">
+    <span class="md-ellipsis">Client Usage</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-usage" class="md-nav__link">
+    <span class="md-ellipsis">Server Usage</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#declaration-of-api-library-in-cmake" class="md-nav__link">
+    <span class="md-ellipsis">Declaration of API library in CMake</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">Example</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instantiation-of-api-in-cmake" class="md-nav__link">
+    <span class="md-ellipsis">Instantiation of API in CMake</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-api-in-c" class="md-nav__link">
+    <span class="md-ellipsis">Using the API in C</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the API in C">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client" class="md-nav__link">
+    <span class="md-ellipsis">Client</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server" class="md-nav__link">
+    <span class="md-ellipsis">Server</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+<h1 id="logger-api">Logger API<a class="headerlink" href="#logger-api" title="Link to this heading">¶</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
+<p>This module is an abstraction of the logging functionality, that allows setting
+up a logger server to which clients can send logging entries.</p>
+<p>Logger library supports the following features:</p>
+<ul class="simple">
+<li><p>Different clients can add new entries to the log asynchronously
+without corrupting the output.</p></li>
+<li><p>Logs can be printed on the console (stdout).</p></li>
+<li><p>Logs can be printed to the file.</p></li>
+<li><p>Log level filter can be configured both on the client- and
+server-side.</p></li>
+<li><p>Log entry consists of the emitter and consumer metadata and log
+message. Log message can be of the maximum length of the default
+data-port size (page size) subtracted by the emitter and consumer
+metadata data structures stored before the log message entry. Any
+entry that exceeds this maximum length will still be logged but
+truncated.</p></li>
+<li><p>Each client has a unique ID which is appended to the log entry, and
+optionally a name.</p></li>
+<li><p>A custom logging format can be added.</p></li>
+</ul>
+<h3 id="concepts">Concepts<a class="headerlink" href="#concepts" title="Link to this heading">¶</a></h3>
+<h4 id="roles">Roles<a class="headerlink" href="#roles" title="Link to this heading">¶</a></h4>
+<p>The following roles are distinguished within the API:</p>
+<ul class="simple">
+<li><p>Client - the entity that wants to log the entries and send the log
+messages to the server.</p></li>
+<li><p>Server - receives the log entries and forwards them in the
+configured format to the configured outputs.</p></li>
+</ul>
+<h4 id="log-filter">Log Filter<a class="headerlink" href="#log-filter" title="Link to this heading">¶</a></h4>
+<p>On both the client- and server-side it is possible to configure a filter for the
+log level.</p>
+<p>If the entry-level is greater than the configured filtering level, it will be
+dropped without further processing.</p>
+<p>Please note that client-side filtering is done earlier before the entry data is
+copied to improve efficiency.</p>
+<h4 id="log-format">Log Format<a class="headerlink" href="#log-format" title="Link to this heading">¶</a></h4>
+<p>When the entry is about to be copied to the target directory, it can be
+formatted in any given way. The default log format can be found in
+<strong><code class="docutils literal notranslate"><span class="pre">OS_LoggerFormat</span></code></strong> and consists of:</p>
+<ul class="simple">
+<li><p>consumer id</p></li>
+<li><p>consumer name</p></li>
+<li><p>date and time</p></li>
+<li><p>emitter filtering level</p></li>
+<li><p>consumer filtering level</p></li>
+<li><p>message</p></li>
+</ul>
+<p>Adapting this default format can be done by overriding the
+<strong><code class="docutils literal notranslate"><span class="pre">OS_LoggerAbstractFormat_vtable_t::convert</span></code></strong> function. Beware that any
+customized format needs to respect the maximum log format buffer size of
+<strong><code class="docutils literal notranslate"><span class="pre">OS_Logger_FORMAT_BUFFER_SIZE</span></code></strong> as defined in the library since this is the
+buffer the final log message will be copied into.</p>
+<h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Link to this heading">¶</a></h3>
+<p>Due to the above-mentioned features, the following design patterns have been
+used in this library.</p>
+<h4 id="the-observer-pattern">The Observer Pattern<a class="headerlink" href="#the-observer-pattern" title="Link to this heading">¶</a></h4>
+<p>Log server contains one or more Views, i.e. a collection of Subjects to which
+Observers are connected.</p>
+<p>The typical example would be that Log Server has a “ViewA” (SubjectA with two
+Observers) with the entries being displayed in the default format
+(see <strong><code class="docutils literal notranslate"><span class="pre">OSLoggerFormat.h</span></code></strong>) and printed on the console and <strong><code class="docutils literal notranslate"><span class="pre">full_log.txt</span></code></strong>
+(i.e. the two Observers are console and <strong><code class="docutils literal notranslate"><span class="pre">full_log.txt</span></code></strong>), and a “ViewB” with
+the entries being displayed in the custom format (e.g. lite one with less data)
+stored in the file <strong><code class="docutils literal notranslate"><span class="pre">critical_log.txt</span></code></strong>.</p>
+<p>Log clients are now mapped to the proper views based on the requirements.</p>
+<p>See the below diagram for a better understanding:</p>
+<pre  class="mermaid">
+        flowchart TD
+    %% Actors
+    ClientA1(ClientA1)
+    ClientA2(ClientA2)
+    ClientB(ClientB)
+
+    %% Server Components
+    subgraph Server
+        %% View A Components
+        subgraph View_A[View A]
+            Subject_A(Subject A)
+            Observer_A_console(Observer A Console)
+            Observer_A_file(Observer A File)
+        end
+
+        %% View B Components
+        subgraph View_B[View B]
+            Subject_B(Subject B)
+            Observer_B_file(Observer B File)
+        end
+
+        %% Artifacts
+        console(console)
+        full_log_txt[full log.txt]
+        critical_log_txt[critical log.txt]
+
+        %% Relationships within View A
+        Observer_A_console -. &quot;update&quot; .- Subject_A
+        Observer_A_file -. &quot;update&quot; .- Subject_A
+        Observer_A_console -- &quot;default_format&quot; --&gt; console
+        Observer_A_file -- &quot;default_format&quot; --&gt; full_log_txt
+
+        %% Relationships within View B
+        Observer_B_file -. &quot;update&quot; .- Subject_B
+        Observer_B_file -- &quot;lite_format&quot; --&gt; critical_log_txt
+    end
+
+    %% Client to Subject Relationships
+    ClientA1 -.-&gt; Subject_A
+    ClientA2 -.-&gt; Subject_A
+    ClientB -.-&gt; Subject_B
+
+    %% Style and Layout Adjustments
+    style Server fill:#f9f,stroke:#333,stroke-width:2px;
+    style View_A fill:#ccf,stroke:#333,stroke-width:2px;
+    style View_B fill:#ccf,stroke:#333,stroke-width:2px;
+    </pre><h4 id="emitter-consumer-pairs">Emitter - Consumer Pairs<a class="headerlink" href="#emitter-consumer-pairs" title="Link to this heading">¶</a></h4>
+<p>The Client-Server model is implemented by the introduction of log entry
+emitters and consumers.</p>
+<pre  class="mermaid">
+        flowchart TB
+    %% Emitter Nodes
+    EmitterA1[Emitter A1]
+    EmitterA2[Emitter A2]
+    EmitterB[Emitter B]
+
+    %% Queue Nodes
+    bufferA1[queue bufferA1]
+    bufferA2[queue bufferA2]
+    bufferB[queue bufferB]
+
+    %% Server and Internal Components
+    subgraph Server
+        emit[emit]
+        subgraph Consumers
+            ConsumerA1[Consumer A1]
+            ConsumerA2[Consumer A2]
+            ConsumerB[Consumer B]
+        end
+        subgraph Subjects
+            SubjectA[Subject A]
+            SubjectB[Subject B]
+        end
+    end
+
+    %% Connections
+    EmitterA1 -. &quot;up&quot; .- emit
+    EmitterA2 -- &quot;do&quot; --&gt; emit
+    EmitterB -. &quot;up&quot; .- emit
+
+    ConsumerA1 -.-&gt; SubjectA
+    ConsumerA2 -.-&gt; SubjectA
+    ConsumerB -.-&gt; SubjectB
+
+    EmitterA1 --&gt; bufferA1
+    EmitterA2 --&gt; bufferA2
+    EmitterB --&gt; bufferB
+
+    bufferA1 --&gt; ConsumerA1
+    bufferA2 --&gt; ConsumerA2
+    bufferB --&gt; ConsumerB
+
+    %% Style and Layout Adjustments
+    style Consumers fill:#f9f,stroke:#333,stroke-width:2px
+    style Subjects fill:#ccf,stroke:#333,stroke-width:2px
+    </pre><h5 id="emitter">Emitter<a class="headerlink" href="#emitter" title="Link to this heading">¶</a></h5>
+<p>If an Emitter wants to log a new entry, it copies the data to the
+exchange buffer (Client-Server shared memory) and it uses the RPC call
+<strong><code class="docutils literal notranslate"><span class="pre">emit</span></code></strong> .</p>
+<h5 id="consumer">Consumer<a class="headerlink" href="#consumer" title="Link to this heading">¶</a></h5>
+<p>On the server-side, there exists a list of consumers. Each consumer is
+assigned to one client (1-to-1 consumer-emitter pair).</p>
+<p>When <strong><code class="docutils literal notranslate"><span class="pre">emit</span></code></strong> was called, a Server iterates over the consumer list and
+finds the one that corresponds to the emitter. The selected consumer
+processes and forwards the log entry to the corresponding Subject.</p>
+<h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Link to this heading">¶</a></h3>
+<p>For the logging system being able to work, the log server must be
+configured properly and has to be connected to the clients.</p>
+<p>Each client emits an entry and the server does the proper filtering and
+dispatching of messages to the pre-configured outputs.</p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
+<p>Create a server component that links the logger library, and also link
+the logger library to the desired clients.</p>
+<p><strong>Info:</strong> There is no separate build configuration of the library for
+the client and server.</p>
+<p>Later connect the server and clients with the <strong><code class="docutils literal notranslate"><span class="pre">if_OS_Logger</span></code></strong> interface, and
+configure the server.</p>
+<h3 id="client-usage">Client Usage<a class="headerlink" href="#client-usage" title="Link to this heading">¶</a></h3>
+<p>On the client-side, the logger library requires a call to
+<strong><code class="docutils literal notranslate"><span class="pre">OS_LoggerEmitter_getInstance()</span></code></strong> for initialization, with a reference to a
+filter instance, shared buffer, and the emit RPC.</p>
+<p><strong>Info:</strong> The filter is optional and can be NULL if no filtering is desired.</p>
+<p>After the initialization, the system is ready for logging. For logging, the
+macros from <strong><code class="docutils literal notranslate"><span class="pre">LibDebug/Debug.h</span></code></strong> shall be used.</p>
+<h3 id="server-usage">Server Usage<a class="headerlink" href="#server-usage" title="Link to this heading">¶</a></h3>
+<p>On the server-side, there is much more to initialize.</p>
+<p>Important to know is, that each client needs an instance of the consumer on the
+server-side with:</p>
+<ol class="arabic simple">
+<li><p>Reference to the shared buffer.</p></li>
+<li><p>Optional filter - pass a NULL pointer if not needed.</p></li>
+<li><p>Reference to the consumer callback.</p></li>
+<li><p>Reference to the <strong><code class="docutils literal notranslate"><span class="pre">Subject</span></code></strong> which is connected to the desired views.</p></li>
+<li><p>Optional file - pass a NULL pointer if not needed.</p></li>
+<li><p>An ID of the client.</p></li>
+<li><p>Desired client’s name.</p></li>
+</ol>
+<p>So the order of initialization shall be the following:</p>
+<ul class="simple">
+<li><p>STEP1: Initialize the Chain of Consumers.</p></li>
+<li><p>STEP2: Create the View consisting of the Subject, Format, and the Output.</p></li>
+<li><p>STEP3: Initialize the filter (optional step).</p></li>
+<li><p>STEP4: Initialize the Consumer callback.</p></li>
+<li><p>STEP5: Initialize the Consumer.</p></li>
+<li><p>STEP6: Append the Consumer to the Chain.</p></li>
+<li><p>STEP7: Initialize the log file (optional step).</p></li>
+</ul>
+<p>Once the server is initialized, there is nothing more to be done. The
+server will wait for the incoming <strong><code class="docutils literal notranslate"><span class="pre">emit</span></code></strong> RPC calls and serve them.</p>
+<p>The <strong><code class="docutils literal notranslate"><span class="pre">demo_iot_app</span></code></strong> integrates the logging system with a client and a server
+implementation. Please refer to this as a complete example implementation.</p>
+<h3 id="declaration-of-api-library-in-cmake">Declaration of API library in CMake<a class="headerlink" href="#declaration-of-api-library-in-cmake" title="Link to this heading">¶</a></h3>
+<p>The libraries <strong><code class="docutils literal notranslate"><span class="pre">os_core_api</span></code></strong>, <strong><code class="docutils literal notranslate"><span class="pre">os_logger</span></code></strong> and <strong><code class="docutils literal notranslate"><span class="pre">lib_debug</span></code></strong> need to be
+linked to the component.</p>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Link to this heading">¶</a></h2>
+<h3 id="instantiation-of-api-in-cmake">Instantiation of API in CMake<a class="headerlink" href="#instantiation-of-api-in-cmake" title="Link to this heading">¶</a></h3>
+<div class="highlight-CMake notranslate"><div class="highlight"><pre><span></span><code><span class="nb">DeclareCAmkESComponent</span><span class="p">(</span>
+<span class="w">    </span><span class="s">Foo</span>
+<span class="w">    </span><span class="s">SOURCES</span>
+<span class="w">        </span><span class="s">...</span>
+<span class="w">    </span><span class="s">C_FLAGS</span>
+<span class="w">        </span><span class="s">...</span>
+<span class="w">    </span><span class="s">LIBS</span>
+<span class="w">        </span><span class="s">...</span>
+<span class="w">        </span><span class="s">os_core_api</span>
+<span class="w">        </span><span class="s">lib_debug</span>
+<span class="w">        </span><span class="s">os_logger</span>
+<span class="w">        </span><span class="s">...</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<h3 id="using-the-api-in-c">Using the API in C<a class="headerlink" href="#using-the-api-in-c" title="Link to this heading">¶</a></h3>
+<h4 id="client">Client<a class="headerlink" href="#client" title="Link to this heading">¶</a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;lib_debug/Debug.h&quot;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">OS_LoggerFilter_Handle_t</span><span class="w"> </span><span class="n">filter</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">post_init</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">NO_FILTER</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">OS_LoggerEmitter_getInstance</span><span class="p">(</span><span class="n">logServer_buf</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">API_LOG_SERVER_EMIT</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">OS_LoggerFilter_ctor</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filter</span><span class="p">,</span><span class="w"> </span><span class="n">log_lvl</span><span class="p">);</span>
+<span class="w">        </span><span class="n">OS_LoggerEmitter_getInstance</span><span class="p">(</span><span class="n">logServer_buf</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">filter</span><span class="p">,</span><span class="w"> </span><span class="n">API_LOG_SERVER_EMIT</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">run</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Debug_LOG_INFO</span><span class="p">(</span><span class="s">&quot;Hello, world!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<h4 id="server">Server<a class="headerlink" href="#server" title="Link to this heading">¶</a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Logger/Server/OS_LoggerFile.h&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Logger/Server/OS_LoggerConsumerChain.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Logger/Server/OS_LoggerConsumer.h&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Logger/Server/OS_LoggerOutputConsole.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Logger/Server/OS_LoggerOutputFileSystem.h&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Logger/Client/OS_LoggerEmitter.h&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;OS_FileSystem.h&quot;</span>
+
+<span class="c1">// Required objects for the server to operate correctly.</span>
+<span class="k">static</span><span class="w"> </span><span class="n">OS_LoggerConsumer_Handle_t</span><span class="w">       </span><span class="n">consumer</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="n">OS_LoggerConsumerCallback_t</span><span class="w">      </span><span class="n">log_consumer_callback</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="n">OS_LoggerFilter_Handle_t</span><span class="w">         </span><span class="n">filter</span><span class="p">;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">OS_LoggerFormat_Handle_t</span><span class="w">         </span><span class="n">format</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="n">OS_LoggerSubject_Handle_t</span><span class="w">        </span><span class="n">subject</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="n">OS_LoggerOutput_Handle_t</span><span class="w">         </span><span class="n">filesystem</span><span class="p">,</span><span class="w"> </span><span class="n">console</span><span class="p">;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">OS_LoggerFile_Handle_t</span><span class="w">           </span><span class="n">logFile</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">pre_init</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// STEP1: Initialize the Chain of Consumers.</span>
+<span class="w">    </span><span class="n">OS_LoggerConsumerChain_getInstance</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// STEP2: Create the View consisting of the Subject, Format, and the Output.</span>
+<span class="w">    </span><span class="n">OS_LoggerFormat_ctor</span><span class="p">(</span><span class="o">&amp;</span><span class="n">format</span><span class="p">);</span>
+<span class="w">    </span><span class="n">OS_LoggerSubject_ctor</span><span class="p">(</span><span class="o">&amp;</span><span class="n">subject</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">OS_LoggerOutputFileSystem_ctor</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filesystem</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">format</span><span class="p">);</span>
+<span class="w">    </span><span class="n">OS_LoggerOutputConsole_ctor</span><span class="p">(</span><span class="o">&amp;</span><span class="n">console</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">format</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Subject is now connected with the Output</span>
+<span class="w">    </span><span class="c1">// i.e. View initialization is done.</span>
+<span class="w">    </span><span class="n">OS_LoggerSubject_attach</span><span class="p">(</span>
+<span class="w">        </span><span class="p">(</span><span class="n">OS_LoggerAbstractSubject_Handle_t</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">subject</span><span class="p">,</span>
+<span class="w">        </span><span class="o">&amp;</span><span class="n">filesystem</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">OS_LoggerSubject_attach</span><span class="p">(</span>
+<span class="w">        </span><span class="p">(</span><span class="n">OS_LoggerAbstractSubject_Handle_t</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">subject</span><span class="p">,</span>
+<span class="w">        </span><span class="o">&amp;</span><span class="n">console</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// STEP3: Initialize the filter (optional step).</span>
+<span class="w">    </span><span class="n">OS_LoggerFilter_ctor</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filter</span><span class="p">,</span><span class="w"> </span><span class="n">Debug_LOG_LEVEL_DEBUG</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// STEP4: Initialize the Consumer callback.</span>
+<span class="w">    </span><span class="n">OS_LoggerConsumerCallback_ctor</span><span class="p">(</span>
+<span class="w">        </span><span class="o">&amp;</span><span class="n">log_consumer_callback</span><span class="p">,</span>
+<span class="w">        </span><span class="n">API_LOG_SERVER_GET_SENDER_ID</span><span class="p">,</span>
+<span class="w">        </span><span class="n">get_time_sec</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// STEP5: Initialize the Consumer.</span>
+<span class="w">    </span><span class="n">OS_LoggerConsumer_ctor</span><span class="p">(</span>
+<span class="w">       </span><span class="o">&amp;</span><span class="n">consumer</span><span class="p">,</span>
+<span class="w">       </span><span class="n">buffer</span><span class="p">,</span><span class="w">                 </span><span class="c1">// 1. Reference to the shared buffer.</span>
+<span class="w">       </span><span class="o">&amp;</span><span class="n">filter</span><span class="p">,</span><span class="w">                </span><span class="c1">// 2. Pointer to the filter (can be NULL if not needed).</span>
+<span class="w">       </span><span class="o">&amp;</span><span class="n">log_consumer_callback</span><span class="p">,</span><span class="w"> </span><span class="c1">// 3. Reference to the consumer callback.</span>
+<span class="w">       </span><span class="o">&amp;</span><span class="n">subject</span><span class="p">,</span><span class="w">               </span><span class="c1">// 4. Reference to the `Subject`.</span>
+<span class="w">       </span><span class="o">&amp;</span><span class="n">logFile</span><span class="p">,</span><span class="w">               </span><span class="c1">// 5. Reference to the file (can be NULL if not needed).</span>
+<span class="w">       </span><span class="n">id</span><span class="p">,</span><span class="w">                     </span><span class="c1">// 6. Client&#39;s id.</span>
+<span class="w">       </span><span class="s">&quot;Emitter_Name&quot;</span><span class="w">          </span><span class="c1">// 7. Client&#39;s name</span>
+<span class="w">    </span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// STEP6: Append the Consumer to the Chain.</span>
+<span class="w">    </span><span class="n">OS_LoggerConsumerChain_append</span><span class="p">(</span><span class="o">&amp;</span><span class="n">consumer</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// STEP7: Initialize the log file (optional step).</span>
+<span class="w">    </span><span class="n">OS_LoggerFile_ctor</span><span class="p">(</span><span class="o">&amp;</span><span class="n">logFile</span><span class="p">,</span><span class="w"> </span><span class="n">hFs</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Log_File_Name&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">OS_LoggerFile_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">logFile</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">run</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="cm">/* Not needed as server is event driven */</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="key-store_api.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: KeyStore API" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              KeyStore API
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="socket_api.html" class="md-footer__link md-footer__link--next" aria-label="Next: Socket API" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Socket API
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2023-2024, HENSOLDT Cyber GmbH.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.1.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.tabs", "navigation.sections", "navigation.instant", "header.autohide", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "toc.follow", "toc.sticky"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": null}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=8ec58cb5"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+        <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+        <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+        <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+        <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+        <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
+    
+  </body>
+</html>

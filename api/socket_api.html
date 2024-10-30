@@ -1,0 +1,3713 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Socket API - Documentation</title>
+      
+    
+    
+      
+        
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.4b4a8c74e2ff2ab5b.min.css?v=afa97f93" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Socket API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../introduction/getting-started.html" class="md-tabs__link">
+      <span class="md-ellipsis">Introduction</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="cert-parser_api.html" class="md-tabs__link md-tabs__link--active">
+      <span class="md-ellipsis">API</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../components/cert-server.html" class="md-tabs__link">
+      <span class="md-ellipsis">Components</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../component-interfaces/nic-interface.html" class="md-tabs__link">
+      <span class="md-ellipsis">Component Interfaces</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../platform-support/using-sd-card-with-trentos.html" class="md-tabs__link">
+      <span class="md-ellipsis">Platform Support</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../demos/demo-iot_qemu.html" class="md-tabs__link">
+      <span class="md-ellipsis">Demos</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../tools/proxy-application.html" class="md-tabs__link">
+      <span class="md-ellipsis">Tools</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../development/buildsystem.html" class="md-tabs__link">
+      <span class="md-ellipsis">Development</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../glossary/acronyms.html" class="md-tabs__link">
+      <span class="md-ellipsis">Glossary</span>
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          <span class="md-ellipsis">Introduction</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Introduction</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/getting-started.html" class="md-nav__link">
+        <span class="md-ellipsis">Getting Started</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/sel4.html" class="md-nav__link">
+        <span class="md-ellipsis">se<wbr>L4 Microkernel</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/camkes.html" class="md-nav__link">
+        <span class="md-ellipsis">CAmk<wbr>ES Framework</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          <span class="md-ellipsis">API</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cert-parser_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Parser API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="config-service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Config<wbr>Service API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration_service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Service</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="crypto_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="file-system_api.html" class="md-nav__link">
+        <span class="md-ellipsis">File<wbr>System API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="key-store_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Key<wbr>Store API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logger_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Logger API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">Socket API</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">Socket API</span>
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">Overview</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">Architecture</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">Limitations</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">Usage</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#declaration-of-api-library-in-cmake" class="md-nav__link">
+    <span class="md-ellipsis">Declaration of API Library in CMake</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#including-camkes-connectors-in-the-component-definition" class="md-nav__link">
+    <span class="md-ellipsis">Including CAmk<wbr>ES Connectors in the Component Definition</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-api-in-c" class="md-nav__link">
+    <span class="md-ellipsis">Using the API in C</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-functions-overview" class="md-nav__link">
+    <span class="md-ellipsis">API Functions Overview</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Functions Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-create" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>create</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-connect" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>connect</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-bind" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>bind</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-listen" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>listen</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-accept" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>accept</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-read" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>read</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-write" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>write</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-recvfrom" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>recvfrom</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-sendto" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>sendto</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-close" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>close</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-getpendingevents" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>get<wbr>Pending<wbr>Events</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-getstatus" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>get<wbr>Status</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-poll" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>poll</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-wait" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>wait</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-regcallback" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>reg<wbr>Callback</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-blocking-strategies" class="md-nav__link">
+    <span class="md-ellipsis">Non-<wbr>Blocking Strategies</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Non-Blocking Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#socket-handling-by-polling" class="md-nav__link">
+    <span class="md-ellipsis">Socket Handling by Polling</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#socket-handling-by-main-event-loop" class="md-nav__link">
+    <span class="md-ellipsis">Socket Handling by Main Event Loop</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#socket-handling-by-notification-callback" class="md-nav__link">
+    <span class="md-ellipsis">Socket Handling by Notification Callback</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-examples" class="md-nav__link">
+    <span class="md-ellipsis">Further Examples</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tls_api.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          <span class="md-ellipsis">Components</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Components" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Components</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/cert-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/crypto-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/entropy-source.html" class="md-nav__link">
+        <span class="md-ellipsis">Entropy<wbr>Source</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/network-stack_pico-tcp.html" class="md-nav__link">
+        <span class="md-ellipsis">Network<wbr>Stack_<wbr>Pico<wbr>Tcp</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_dummy.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Dummy</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>i<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_rpi.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>RPi</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/ram-disk.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/rpi_spi_flash.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi_<wbr>SPI_<wbr>Flash</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/sd-host-controller.html" class="md-nav__link">
+        <span class="md-ellipsis">Sd<wbr>Host<wbr>Controller</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/storage_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/storage-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/time-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Time<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/tls-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Tls<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/uart.html" class="md-nav__link">
+        <span class="md-ellipsis">UART</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          <span class="md-ellipsis">Component Interfaces</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Component Interfaces" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Component Interfaces</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../component-interfaces/nic-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../component-interfaces/socket-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          <span class="md-ellipsis">Platform Support</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Platform Support" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Platform Support</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/using-sd-card-with-trentos.html" class="md-nav__link">
+        <span class="md-ellipsis">Using an SD Card with a TRENTOS System</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/rpi-3-model-b%2B/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi3B+ Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/nitrogen6-solo-x/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nitrogen6_<wbr>Solo<wbr>X Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/bd-sl-i.mx6/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">BD-<wbr>SL-<wbr>i.<wbr>MX6 Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/nvidia-tegra/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nvidia Tegra</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          <span class="md-ellipsis">Demos</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Demos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Demos</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-iot_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for i.<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-tls.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API Demo</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-network-filter_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/demo-network-filter_nitrogen6-solox.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for Nitrogen6_<wbr>Solo<wbr>X</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          <span class="md-ellipsis">Tools</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Tools</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/proxy-application.html" class="md-nav__link">
+        <span class="md-ellipsis">Proxy Application</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/configuration-provisioning-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Provisioning Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/ram-disk-generator-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk Generator Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/flasher-tool-rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Flasher Tool for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          <span class="md-ellipsis">Development</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Development" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Development</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/buildsystem.html" class="md-nav__link">
+        <span class="md-ellipsis">Buildsystem</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/function-call-tracing.html" class="md-nav__link">
+        <span class="md-ellipsis">Function Call Tracing</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/hardware-tools.html" class="md-nav__link">
+        <span class="md-ellipsis">Hardware Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/runtime-debugging.html" class="md-nav__link">
+        <span class="md-ellipsis">Runtime Debugging</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-hw-platforms_open-ocd.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Open<wbr>OCD</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-hw-platforms_segger.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Segger Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/object-oriented-c.html" class="md-nav__link">
+        <span class="md-ellipsis">Object Oriented C</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/known_issues.html" class="md-nav__link">
+        <span class="md-ellipsis">Known Issues</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          <span class="md-ellipsis">Glossary</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Glossary" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Glossary</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/acronyms.html" class="md-nav__link">
+        <span class="md-ellipsis">Acronyms</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/terms.html" class="md-nav__link">
+        <span class="md-ellipsis">Terms</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">Overview</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">Architecture</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">Limitations</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">Usage</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#declaration-of-api-library-in-cmake" class="md-nav__link">
+    <span class="md-ellipsis">Declaration of API Library in CMake</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#including-camkes-connectors-in-the-component-definition" class="md-nav__link">
+    <span class="md-ellipsis">Including CAmk<wbr>ES Connectors in the Component Definition</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-api-in-c" class="md-nav__link">
+    <span class="md-ellipsis">Using the API in C</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-functions-overview" class="md-nav__link">
+    <span class="md-ellipsis">API Functions Overview</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Functions Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-create" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>create</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-connect" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>connect</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-bind" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>bind</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-listen" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>listen</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-accept" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>accept</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-read" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>read</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-write" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>write</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-recvfrom" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>recvfrom</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-sendto" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>sendto</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-close" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>close</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-getpendingevents" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>get<wbr>Pending<wbr>Events</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-getstatus" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>get<wbr>Status</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-poll" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>poll</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-wait" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>wait</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-socket-regcallback" class="md-nav__link">
+    <span class="md-ellipsis">OS_<wbr>Socket_<wbr>reg<wbr>Callback</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-blocking-strategies" class="md-nav__link">
+    <span class="md-ellipsis">Non-<wbr>Blocking Strategies</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Non-Blocking Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#socket-handling-by-polling" class="md-nav__link">
+    <span class="md-ellipsis">Socket Handling by Polling</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#socket-handling-by-main-event-loop" class="md-nav__link">
+    <span class="md-ellipsis">Socket Handling by Main Event Loop</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#socket-handling-by-notification-callback" class="md-nav__link">
+    <span class="md-ellipsis">Socket Handling by Notification Callback</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-examples" class="md-nav__link">
+    <span class="md-ellipsis">Further Examples</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+<h1 id="socket-api">Socket API<a class="headerlink" href="#socket-api" title="Link to this heading">¶</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
+<p>The Socket API provides functions to establish and use TCP and UDP communication
+channels. The implementation has similarities to BSD Sockets but is not fully
+compatible.</p>
+<p>The API includes client-side function implementations to communicate with a
+Network Stack CAmkES component via the <strong><code class="docutils literal notranslate"><span class="pre">if_OS_Socket</span></code></strong> interface.</p>
+<h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Link to this heading">¶</a></h3>
+<p>Within TRENTOS networking functionality is realized the following way:</p>
+<ul class="simple">
+<li><p>NIC driver CAmkES components implement the driver to the ethernet
+hardware. These components provide the <strong><code class="docutils literal notranslate"><span class="pre">if_OS_Nic</span></code></strong> interface.</p></li>
+<li><p>A Network Stack CAmkES component implements the IP Stack
+functionality.</p>
+<ul>
+<li><p>It uses the interface <strong><code class="docutils literal notranslate"><span class="pre">if_OS_Nic</span></code></strong> to communicate to a NIC
+driver. There is a 1:1 relationship between those components.</p></li>
+<li><p>It provides the interface <strong><code class="docutils literal notranslate"><span class="pre">if_OS_Socket</span></code></strong> to client CAmkES
+components, that require network functionality. The interface is
+designed so that up to 8 clients can connect to one Network
+Stack. The specific capabilities and client numbers depend on
+the Network Stack component implementation.</p></li>
+</ul>
+</li>
+<li><p>A client CAmkES component that requires network functionality</p>
+<ul>
+<li><p>uses the interface <strong><code class="docutils literal notranslate"><span class="pre">if_OS_Socket</span></code></strong> to communicate with the Network Stack
+component.</p></li>
+<li><p>Instead of directly using the functions of <strong><code class="docutils literal notranslate"><span class="pre">if_OS_Socket</span></code></strong>, it uses the
+Socket API to do so.</p></li>
+<li><p>Clients can open several sockets at a time.</p></li>
+<li><p>A client could be connected to several Network Stacks at the same time.</p></li>
+</ul>
+</li>
+</ul>
+<p>The Socket API is implemented in a non-blocking way. That means that
+every API call will return immediately, but some calls will have a
+delayed response. An example of this is <strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_connect()</span></code></strong>.</p>
+<p>To avoid polling strategies together with the non-blocking API,
+<strong><code class="docutils literal notranslate"><span class="pre">if_OS_Socket</span></code></strong> implements a notification scheme. The Network Stack
+will inform each client about new events related to sockets this client
+opened. The clients can retrieve a list of pending events for their
+sockets from the Network Stack and react to them accordingly.</p>
+<p>The following diagram shows a simplified architecture of a networked
+application running on an i.MX6 platform.</p>
+<pre  class="mermaid">
+        flowchart TD
+    subgraph trentos [&quot;TRENTOS networked application on i.MX6&quot;]
+        client1[client1:ClientApp]
+        client2[client2:ClientApp]
+
+        nwStack[nwStack:NetworkStack_PicoTcp]
+        timeserver[timeServer:Timeserver]
+        nicDriver[nic:NIC_iMX6]
+
+        client1 --&gt;|if_OS_Socket| nwStack
+        client2 --&gt;|if_OS_Socket| nwStack
+        nwStack --&gt;|if_OS_Nic| nicDriver
+        nwStack --&gt;|if_OS_Timer| timeserver
+    end
+    </pre><p>The following diagram shows a simplified diagram of a networked application
+running in QEMU.</p>
+<pre  class="mermaid">
+        flowchart TD
+    subgraph trentos [&quot;TRENTOS networked application on QEMU with ChanMux&quot;]
+        subgraph clientApps [&quot;Clients&quot;]
+            Client_1[client1:ClientApp]
+            Client_2[client2:ClientApp]
+        end
+        subgraph nwStacks [&quot;Network Stacks&quot;]
+            NwStack_1[nwStack1:NetworkStack_PicoTcp]
+            NwStack_2[nwStack2:NetworkStack_PicoTcp]
+        end
+        NIC_Driver_1[nic1:NIC_ChanMux]
+        NIC_Driver_2[nic2:NIC_ChanMux]
+        Timeserver[timeServer:Timeserver]
+        subgraph chanMuxBridge [&quot;ChanMux UART Bridge&quot;]
+            ChanMux[chanmux:ChanMux]
+        end
+
+        Client_1 --&gt;|if_OS_Socket| NwStack_1
+        Client_2 --&gt;|if_OS_Socket| NwStack_2
+        NwStack_1 --&gt;|if_OS_Timer| Timeserver
+        NwStack_2 --&gt;|if_OS_Timer| Timeserver
+        NwStack_1 --&gt;|if_OS_Nic| NIC_Driver_1
+        NwStack_2 --&gt;|if_OS_Nic| NIC_Driver_2
+        NIC_Driver_1 &lt;--&gt;|Ctrl and Data Channel\nfor TAP Device 1| ChanMux
+        NIC_Driver_2 &lt;--&gt;|Ctrl and Data Channel\nfor TAP Device 2| ChanMux
+    end
+
+    subgraph linuxHost [&quot;Linux on Host PC&quot;]
+        subgraph proxyApp [&quot;Proxy Application&quot;]
+            tap_1[TAP Device 1]
+            tap_2[TAP Device 2]
+            proxy[Proxy]
+            proxy &lt;--&gt; tap_1
+            proxy &lt;--&gt; tap_2
+        end
+        LinuxTAP[Linux network subsystem]
+        tap_1 &lt;--&gt; LinuxTAP
+        tap_2 &lt;--&gt; LinuxTAP
+    end
+
+    ChanMux -.-&gt; proxy
+    </pre><h3 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Only IPv4 connections are supported</p></li>
+</ul>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
+<p>This is how the API can be used by a user component.</p>
+<h3 id="declaration-of-api-library-in-cmake">Declaration of API Library in CMake<a class="headerlink" href="#declaration-of-api-library-in-cmake" title="Link to this heading">¶</a></h3>
+<p>To use the Socket API, a client needs to link the following project
+libraries in the CMake file.</p>
+<ul class="simple">
+<li><p><strong>os_core_api</strong>: Generic build target to include the TRENTOS core API</p></li>
+<li><p><strong>os_socket_client</strong>: Generic build target to include the Socket API client
+implementation</p></li>
+</ul>
+<div class="highlight-CMake notranslate"><div class="highlight"><pre><span></span><code><span class="nb">DeclareCAmkESComponent</span><span class="p">(</span>
+<span class="w">    </span><span class="s">UserComponent</span>
+<span class="w">    </span><span class="s">INCLUDES</span>
+<span class="w">        </span><span class="s">...</span>
+<span class="w">    </span><span class="s">SOURCES</span>
+<span class="w">        </span><span class="s">...</span>
+<span class="w">    </span><span class="s">C_FLAGS</span>
+<span class="w">        </span><span class="s">...</span>
+<span class="w">    </span><span class="s">LIBS</span>
+<span class="w">        </span><span class="s">os_core_api</span>
+<span class="w">        </span><span class="s">os_socket_client</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<h3 id="including-camkes-connectors-in-the-component-definition">Including CAmkES Connectors in the Component Definition<a class="headerlink" href="#including-camkes-connectors-in-the-component-definition" title="Link to this heading">¶</a></h3>
+<p>The CAmkES component that wants to use the Socket API needs to include the macro
+<strong><code class="docutils literal notranslate"><span class="pre">IF_OS_SOCKET_USE</span></code></strong> in its component definition together with a prefix. The
+prefix is a unique identifier for that client connection to a specific Network
+Stack instance. It needs to be used consistently also in other macros like
+<strong><code class="docutils literal notranslate"><span class="pre">IF_OS_SOCKET_ASSIGN</span></code></strong> and the macros that connect the client component to
+the Network Stack component like
+<strong><code class="docutils literal notranslate"><span class="pre">NetworkStack_PicoTcp_INSTANCE_CONNECT_CLIENTS</span></code></strong>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;if_OS_Socket.camkes&gt;</span>
+
+<span class="n">component</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">IF_OS_SOCKET_USE</span><span class="p">(</span><span class="o">&lt;</span><span class="n">if_OS_Socket_prefix</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<h3 id="using-the-api-in-c">Using the API in C<a class="headerlink" href="#using-the-api-in-c" title="Link to this heading">¶</a></h3>
+<p>In the implementation, the client needs to set up the RPC lookup table with the
+macro <strong><code class="docutils literal notranslate"><span class="pre">IF_OS_SOCKET_ASSIGN</span></code></strong> and the &lt;prefix&gt; the client used for
+<strong><code class="docutils literal notranslate"><span class="pre">IF_OS_SOCKET_USE</span></code></strong> .</p>
+<p>The created variable (in the example below called <strong><code class="docutils literal notranslate"><span class="pre">networkStackCtx</span></code></strong>) can
+then be used in the <strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_xxx()</span></code></strong> functions provided by the Socket API
+as the ctx parameter.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;OS_Error.h&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;OS_Socket.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;interfaces/if_OS_Socket.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;camkes.h&gt;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">if_OS_Socket_t</span><span class="w"> </span><span class="n">networkStackCtx</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">IF_OS_SOCKET_ASSIGN</span><span class="p">(</span><span class="o">&lt;</span><span class="n">if_OS_Socket_prefix</span><span class="o">&gt;</span><span class="p">);</span>
+
+<span class="p">...</span>
+
+<span class="n">OS_Error_t</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="n">OS_Socket_Handle_t</span><span class="w"> </span><span class="n">hsocket</span><span class="p">;</span>
+
+<span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OS_Socket_create</span><span class="p">(</span>
+<span class="w">         </span><span class="o">&amp;</span><span class="n">networkStackCtx</span><span class="p">,</span>
+<span class="w">         </span><span class="o">&amp;</span><span class="n">hsocket</span><span class="p">,</span>
+<span class="w">         </span><span class="n">OS_AF_INET</span><span class="p">,</span>
+<span class="w">         </span><span class="n">OS_SOCK_STREAM</span><span class="p">);</span>
+
+<span class="p">...</span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">OS_Socket_Addr_t</span><span class="w"> </span><span class="n">dstAddr</span><span class="w"> </span><span class="o">=</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;192.168.1.42&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12345</span>
+<span class="p">};</span>
+
+<span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OS_Socket_connect</span><span class="p">(</span><span class="n">hsocket</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dstAddr</span><span class="p">);</span>
+
+<span class="p">...</span>
+
+<span class="n">OS_Socket_close</span><span class="p">(</span><span class="n">hsocket</span><span class="p">);</span>
+
+<span class="p">...</span>
+</code></pre></div>
+</div>
+<h3 id="api-functions-overview">API Functions Overview<a class="headerlink" href="#api-functions-overview" title="Link to this heading">¶</a></h3>
+<p>In the following overview, the API functions will be briefly explained.</p>
+<h4 id="os-socket-create">OS_Socket_create<a class="headerlink" href="#os-socket-create" title="Link to this heading">¶</a></h4>
+<p>This function will create a new socket handle and connect it to a Network Stack
+context.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">OS_Error_t</span>
+<span class="nf">OS_Socket_create</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">if_OS_Socket_t</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ctx</span><span class="p">,</span>
+<span class="w">    </span><span class="n">OS_Socket_Handle_t</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w">   </span><span class="n">phandle</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w">                   </span><span class="n">domain</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w">                   </span><span class="n">type</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Parameters:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Supported Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ctx</p></td>
+<td><p>Interface context that should be used with the handle.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>phandle</p></td>
+<td><p>Handle that will be assigned to the created socket.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>domain</p></td>
+<td><p>Domain of the socket that should be created.</p></td>
+<td><p>OS_AF_INET</p></td>
+</tr>
+<tr class="row-odd"><td><p>type</p></td>
+<td><p>Type of the socket that should be created.</p></td>
+<td><p>OS_SOCK_STREAM - for TCP sockets<br>OS_SOCK_DGRAM - for UDP sockets</p></td>
+</tr>
+</tbody>
+</table>
+<p>Return values:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error Code</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OS_SUCCESS</p></td>
+<td><p>Operation was successful.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_ABORTED</p></td>
+<td><p>If the Network Stack has experienced a fatal error.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NOT_INITIALIZED</p></td>
+<td><p>If the function was called before the Network Stack was fully initialized.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_INVALID_PARAMETER</p></td>
+<td><p>If an invalid parameter or NULL pointer was passed.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NETWORK_PROTO_NO_SUPPORT</p></td>
+<td><p>If the passed domain or type is unsupported.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_NETWORK_UNREACHABLE</p></td>
+<td><p>If the network is unreachable.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_INSUFFICIENT_SPACE</p></td>
+<td><p>If no free sockets could be found.</p></td>
+</tr>
+<tr class="row-odd"><td><p>other</p></td>
+<td><p>Each component implementing this might have additional error codes.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Particularities:</p>
+<ul class="simple">
+<li><p>None</p></li>
+</ul>
+<h4 id="os-socket-connect">OS_Socket_connect<a class="headerlink" href="#os-socket-connect" title="Link to this heading">¶</a></h4>
+<p>This function will initiate a connection to a remote server.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">OS_Error_t</span>
+<span class="nf">OS_Socket_connect</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OS_Socket_Handle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OS_Socket_Addr_t</span><span class="o">*</span><span class="w">  </span><span class="n">dstAddr</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Parameters:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head text-center"><p>Description</p></th>
+<th class="head text-center"><p>Supported Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>handle</p></td>
+<td class="text-center"><p>Handle of the socket to connect.</p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>dstAddr</p></td>
+<td class="text-center"><p>Address of the destination to connect to.</p></td>
+<td class="text-center"><p>Only IPv4 Addresses are supported.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Return values:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error Code</p></th>
+<th class="head text-center"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OS_SUCCESS</p></td>
+<td class="text-center"><p>Operation was successful.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_ABORTED</p></td>
+<td class="text-center"><p>If the Network Stack has experienced a fatal error.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NOT_INITIALIZED</p></td>
+<td class="text-center"><p>If the function was called before the Network Stack was fully initialized.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_INVALID_HANDLE</p></td>
+<td class="text-center"><p>If an invalid handle was passed.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_INVALID_PARAMETER</p></td>
+<td class="text-center"><p>If an invalid parameter or NULL pointer was passed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_CONNECTION_CLOSED</p></td>
+<td class="text-center"><p>If the socket connection was previously shut down.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NETWORK_PROTO_NO_SUPPORT</p></td>
+<td class="text-center"><p>If the protocol is not supported.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_NETWORK_HOST_UNREACHABLE</p></td>
+<td class="text-center"><p>If the host is not unreachable.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NETWORK_PROTO</p></td>
+<td class="text-center"><p>If the function is called on the wrong socket type.</p></td>
+</tr>
+<tr class="row-odd"><td><p>other</p></td>
+<td class="text-center"><p>Each component implementing this might have additional error codes.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Particularities:</p>
+<ul class="simple">
+<li><p>A return value of <strong><code class="docutils literal notranslate"><span class="pre">OS_SUCCESS</span></code></strong> does not mean, that the
+connection is established, but that the connection process was
+successfully initiated.</p></li>
+<li><p>The Network Stack will inform the client with a notification about
+the connection process result.</p>
+<ul>
+<li><p>A successful connection process will be reported with
+<strong><code class="docutils literal notranslate"><span class="pre">OS_SOCK_EV_CONN_EST</span></code></strong> .</p></li>
+<li><p>An unsuccessful connection attempt will be reported with
+<strong><code class="docutils literal notranslate"><span class="pre">OS_SOCK_EV_FIN</span></code></strong> or <strong><code class="docutils literal notranslate"><span class="pre">OS_SOCK_EV_ERROR</span></code></strong> .</p></li>
+</ul>
+</li>
+<li><p>If during the connection process <strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_read()</span></code></strong> or
+<strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_write()</span></code></strong> are called, the functions will return with
+<strong><code class="docutils literal notranslate"><span class="pre">OS_ERROR_NETWORK_CONN_NONE</span></code></strong> .</p></li>
+<li><p>If after an unsuccessful connection process <strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_read()</span></code></strong>
+or <strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_write()</span></code></strong> are called, the functions will return
+with <strong><code class="docutils literal notranslate"><span class="pre">OS_ERROR_CONNECTION_CLOSED</span></code></strong> .</p></li>
+<li><p>Following an unsuccessful connection process, the socket handle is
+not usable anymore and needs to be closed with
+<strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_close()</span></code></strong> .</p></li>
+<li><p>If during the connection process <strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_close()</span></code></strong> is called,
+the connection attempt will be canceled.</p></li>
+</ul>
+<h4 id="os-socket-bind">OS_Socket_bind<a class="headerlink" href="#os-socket-bind" title="Link to this heading">¶</a></h4>
+<p>This function will bind a specified local IP address and port to a
+socket.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">OS_Error_t</span>
+<span class="nf">OS_Socket_bind</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OS_Socket_Handle_t</span><span class="w">      </span><span class="n">handle</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OS_Socket_Addr_t</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">localAddr</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Parameters:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Supported Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>handle</p></td>
+<td><p>Handle of the socket to bind.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>localAddr</p></td>
+<td><p>Local address to bind the socket to.</p></td>
+<td><p>Only IPv4 Addresses are supported.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Return values:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error Code</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OS_SUCCESS</p></td>
+<td><p>Operation was successful.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_ABORTED</p></td>
+<td><p>If the Network Stack has experienced a fatal error.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NOT_INITIALIZED</p></td>
+<td><p>If the function was called before the Network Stack was fully initialized.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_INVALID_HANDLE</p></td>
+<td><p>If an invalid handle was passed.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_INVALID_PARAMETER</p></td>
+<td><p>If an invalid parameter or NULL pointer was passed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_IO</p></td>
+<td><p>If the specified address can not be found.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_INSUFFICIENT_SPACE</p></td>
+<td><p>If there is not enough space.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_CONNECTION_CLOSED</p></td>
+<td><p>If the connection is in a closed state.</p></td>
+</tr>
+<tr class="row-even"><td><p>other</p></td>
+<td><p>Each component implementing this might have additional error codes.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Particularities:</p>
+<ul class="simple">
+<li><p>None</p></li>
+</ul>
+<h4 id="os-socket-listen">OS_Socket_listen<a class="headerlink" href="#os-socket-listen" title="Link to this heading">¶</a></h4>
+<p>This function will listen for incoming connections on an opened and
+bound socket.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">OS_Error_t</span>
+<span class="nf">OS_Socket_listen</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OS_Socket_Handle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w">                </span><span class="n">backlog</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Parameters:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Supported Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>handle</p></td>
+<td><p>Handle of the socket to listen on.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>backlog</p></td>
+<td><p>Sets the maximum size to which the queue of pending connections may grow.</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>Return values:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error Code</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OS_SUCCESS</p></td>
+<td><p>Operation was successful.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_ABORTED</p></td>
+<td><p>If the Network Stack has experienced a fatal error.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NOT_INITIALIZED</p></td>
+<td><p>If the function was called before the Network Stack was fully initialized.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_INVALID_HANDLE</p></td>
+<td><p>If an invalid handle was passed.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_INVALID_PARAMETER</p></td>
+<td><p>If an invalid parameter or NULL pointer was passed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_CONNECTION_CLOSED</p></td>
+<td><p>If the connection is in a closed state.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NETWORK_CONN_ALREADY_BOUND</p></td>
+<td><p>If the socket is already connected.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_NETWORK_PROTO</p></td>
+<td><p>If the function is called on the wrong socket type.</p></td>
+</tr>
+<tr class="row-even"><td><p>other</p></td>
+<td><p>Each component implementing this might have additional error codes.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Particularities:</p>
+<ul class="simple">
+<li><p>None</p></li>
+</ul>
+<h4 id="os-socket-accept">OS_Socket_accept<a class="headerlink" href="#os-socket-accept" title="Link to this heading">¶</a></h4>
+<p>Accept the next connection request on the queue of pending connections
+for the listening socket.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">OS_Error_t</span>
+<span class="nf">OS_Socket_accept</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OS_Socket_Handle_t</span><span class="w">  </span><span class="n">handle</span><span class="p">,</span>
+<span class="w">    </span><span class="n">OS_Socket_Handle_t</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">pClientHandle</span><span class="p">,</span>
+<span class="w">    </span><span class="n">OS_Socket_Addr_t</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w">   </span><span class="n">srcAddr</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Parameters:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Supported Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>handle</p></td>
+<td><p>Handle of the listening socket.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>pClientHandle</p></td>
+<td><p>Handle that will be used to map the accepted connection to.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>srcAddr</p></td>
+<td><p>Address of the accepted socket.</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>Return values:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error Code</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OS_SUCCESS</p></td>
+<td><p>Operation was successful.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_ABORTED</p></td>
+<td><p>If the Network Stack has experienced a fatal error.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NOT_INITIALIZED</p></td>
+<td><p>If the function was called before the Network Stack was fully initialized.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_INVALID_HANDLE</p></td>
+<td><p>If an invalid handle was passed.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_INVALID_PARAMETER</p></td>
+<td><p>If an invalid parameter or NULL pointer was passed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_TRY_AGAIN</p></td>
+<td><p>If the resource is temporarily unavailable and the caller should try again.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NETWORK_PROTO</p></td>
+<td><p>If the function is called on the wrong socket type.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_INSUFFICIENT_SPACE</p></td>
+<td><p>If no free sockets could be found.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_CONNECTION_CLOSED</p></td>
+<td><p>If the connection was closed by remote before it was accepted by the localhost.</p></td>
+</tr>
+<tr class="row-odd"><td><p>other</p></td>
+<td><p>Each component implementing this might have additional error codes.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Particularities:</p>
+<ul class="simple">
+<li><p>None</p></li>
+</ul>
+<h4 id="os-socket-read">OS_Socket_read<a class="headerlink" href="#os-socket-read" title="Link to this heading">¶</a></h4>
+<p>This function will read data from a socket. This function checks whether
+or not the socket is bound and connected before it attempts to receive
+data.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">OS_Error_t</span>
+<span class="nf">OS_Socket_read</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OS_Socket_Handle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w">              </span><span class="n">buf</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">                   </span><span class="n">requestedLen</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w">            </span><span class="n">actualLen</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Parameters:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Supported Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>handle</p></td>
+<td><p>Handle of the socket to read from.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>buf</p></td>
+<td><p>Buffer to store the read data.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>requestedLen</p></td>
+<td><p>Length of the data that should be read.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>actualLen</p></td>
+<td><p>Actual length that was read from the socket.</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>Return values:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error Code</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OS_SUCCESS</p></td>
+<td><p>Operation was successful.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_ABORTED</p></td>
+<td><p>If the Network Stack has experienced a fatal error.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NOT_INITIALIZED</p></td>
+<td><p>If the function was called before the Network Stack was fully initialized.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_INVALID_HANDLE</p></td>
+<td><p>If an invalid handle was passed.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_INVALID_PARAMETER</p></td>
+<td><p>If an invalid parameter or NULL pointer was passed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_IO</p></td>
+<td><p>If there is an input/output error.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NETWORK_CONN_NONE</p></td>
+<td><p>If no connection is established when calling this function.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_NETWORK_PROTO</p></td>
+<td><p>If the function is called on the wrong socket type.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_TRY_AGAIN</p></td>
+<td><p>If the resource is temporarily unavailable or the request would block and the caller should try again.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_CONNECTION_CLOSED</p></td>
+<td><p>If the connection is in a closed state.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NETWORK_CONN_SHUTDOWN</p></td>
+<td><p>If the connection got shut down.</p></td>
+</tr>
+<tr class="row-odd"><td><p>other</p></td>
+<td><p>Each component implementing this might have additional error codes.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Particularities:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_read()</span></code></strong> will return as many bytes as have been received from
+the remote host, up to <strong><code class="docutils literal notranslate"><span class="pre">requestedLen</span></code></strong>. This may also include data
+received over several ethernet frames.</p></li>
+</ul>
+<h4 id="os-socket-write">OS_Socket_write<a class="headerlink" href="#os-socket-write" title="Link to this heading">¶</a></h4>
+<p>This function will write data on a socket. This function checks if the
+socket is bound, connected and that it isn’t shut down locally.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">OS_Error_t</span>
+<span class="nf">OS_Socket_write</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OS_Socket_Handle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w">        </span><span class="n">buf</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w">             </span><span class="n">requestedLen</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w">            </span><span class="n">actualLen</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Parameters:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Supported Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>handle</p></td>
+<td><p>Handle of the socket to write on.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>buf</p></td>
+<td><p>Buffer containing data that should be sent.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>requestedLen</p></td>
+<td><p>Amount of data that should be written.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>actualLen</p></td>
+<td><p>Actual length that was written on the socket.</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>Return values:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error Code</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OS_SUCCESS</p></td>
+<td><p>Operation was successful.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_ABORTED</p></td>
+<td><p>If the Network Stack has experienced a fatal error.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NOT_INITIALIZED</p></td>
+<td><p>If the function was called before the Network Stack was fully initialized.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_INVALID_HANDLE</p></td>
+<td><p>If an invalid handle was passed.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_INVALID_PARAMETER</p></td>
+<td><p>If an invalid parameter or NULL pointer was passed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_IO</p></td>
+<td><p>If there is an input/output error.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NETWORK_PROTO</p></td>
+<td><p>If the function is called on the wrong socket type.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_INSUFFICIENT_SPACE</p></td>
+<td><p>If there is not enough space.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_TRY_AGAIN</p></td>
+<td><p>If the resource is temporarily unavailable or the request would block and the caller should try again.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_CONNECTION_CLOSED</p></td>
+<td><p>If the connection is in a closed state.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NETWORK_CONN_NONE</p></td>
+<td><p>If the socket is not connected.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_NETWORK_CONN_SHUTDOWN</p></td>
+<td><p>If the connection got shut down.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NETWORK_ADDR_NOT_AVAILABLE</p></td>
+<td><p>If the address is not available.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_NETWORK_HOST_UNREACHABLE</p></td>
+<td><p>If the host is not unreachable.</p></td>
+</tr>
+<tr class="row-even"><td><p>other</p></td>
+<td><p>Each component implementing this might have additional error codes.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Particularities:</p>
+<ul class="simple">
+<li><p>With <strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_write()</span></code></strong> the network stack will copy data to be sent into
+it’s internal buffers and schedule it for actual transmission later. If
+errors occur during the actual transmission, those will be reported by
+<strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_getPendingEvents()</span></code></strong> / <strong><code class="docutils literal notranslate"><span class="pre">OS_SOCK_EV_ERROR</span></code></strong>.</p></li>
+<li><p>Depending on the internal buffer capacity of the network stack,
+<strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_write()</span></code></strong> may accept only partially the data
+in buf. It will return the number of successfully accepted bytes in
+<strong><code class="docutils literal notranslate"><span class="pre">actualLen</span></code></strong>.</p></li>
+</ul>
+<h4 id="os-socket-recvfrom">OS_Socket_recvfrom<a class="headerlink" href="#os-socket-recvfrom" title="Link to this heading">¶</a></h4>
+<p>This function will receive data from a specified socket. This operation
+checks if the socket is bound but not if it is connected and is
+therefore not connection-oriented.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">OS_Error_t</span>
+<span class="nf">OS_Socket_recvfrom</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OS_Socket_Handle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w">              </span><span class="n">buf</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">                   </span><span class="n">requestedLen</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w">            </span><span class="n">actualLen</span><span class="p">,</span>
+<span class="w">    </span><span class="n">OS_Socket_Addr_t</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w">  </span><span class="n">srcAddr</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Parameters:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Supported Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>handle</p></td>
+<td><p>Handle to a previously created socket.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>buf</p></td>
+<td><p>Buffer to store the read data.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>requestedLen</p></td>
+<td><p>Length of the data that should be read.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>actualLen</p></td>
+<td><p>Actual length that was read from the socket.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>srcAddr</p></td>
+<td><p>Address of the source socket that data was received from.</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>Return values:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error Code</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OS_SUCCESS</p></td>
+<td><p>Operation was successful.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_ABORTED</p></td>
+<td><p>If the Network Stack has experienced a fatal error.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NOT_INITIALIZED</p></td>
+<td><p>If the function was called before the Network Stack was fully initialized.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_INVALID_HANDLE</p></td>
+<td><p>If an invalid handle was passed.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_INVALID_PARAMETER</p></td>
+<td><p>If an invalid parameter or NULL pointer was passed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_NETWORK_PROTO</p></td>
+<td><p>If the function is called on the wrong socket type.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_TRY_AGAIN</p></td>
+<td><p>If the resource is temporarily unavailable or the request would block and the caller should try again.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_CONNECTION_CLOSED</p></td>
+<td><p>If no further communication is possible on the socket.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NETWORK_CONN_SHUTDOWN</p></td>
+<td><p>If the connection got shut down.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_NETWORK_ADDR_NOT_AVAILABLE</p></td>
+<td><p>If the address is not available.</p></td>
+</tr>
+<tr class="row-even"><td><p>other</p></td>
+<td><p>Each component implementing this might have additional error codes.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Particularities:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_recvfrom()</span></code></strong> will return the contents of one
+received UDP datagram.</p></li>
+<li><p>If the datagram had a payload size of 0, <strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_recvfrom()</span></code></strong> will
+return with <strong><code class="docutils literal notranslate"><span class="pre">OS_SUCCESS</span></code></strong> and <strong><code class="docutils literal notranslate"><span class="pre">actualLen</span></code></strong> of 0.</p></li>
+<li><p>If requestedLen is smaller then the the payload size of the datagram,
+<strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_recvfrom()</span></code></strong> will return the partial data as requested.
+Following calls to <strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_recvfrom()</span></code></strong> will return the remaining data
+of the partially read datagram.</p></li>
+</ul>
+<h4 id="os-socket-sendto">OS_Socket_sendto<a class="headerlink" href="#os-socket-sendto" title="Link to this heading">¶</a></h4>
+<p>This function will send data on a destination socket without checking if
+the destination is connected or not and is therefore not
+connection-oriented.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">OS_Error_t</span>
+<span class="nf">OS_Socket_sendto</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OS_Socket_Handle_t</span><span class="w">      </span><span class="n">handle</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w">             </span><span class="n">buf</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">                        </span><span class="n">requestedLen</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w">                 </span><span class="n">actualLen</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OS_Socket_Addr_t</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">dstAddr</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Parameters:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Supported Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>handle</p></td>
+<td><p>Handle to a previously created socket.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>buf</p></td>
+<td><p>Buffer containing data to be written.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>requestedLen</p></td>
+<td><p>Length of the data that should be written on the destination socket.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>actualLen</p></td>
+<td><p>Actual length that was written on the socket.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>dstAddr</p></td>
+<td><p>Address of the destination socket to send data on.</p></td>
+<td><p>Only IPv4 Addresses are supported.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Return values:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error Code</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OS_SUCCESS</p></td>
+<td><p>Operation was successful.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_ABORTED</p></td>
+<td><p>If the Network Stack has experienced a fatal error.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NOT_INITIALIZED</p></td>
+<td><p>If the function was called before the Network Stack was fully initialized.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_INVALID_HANDLE</p></td>
+<td><p>If an invalid handle was passed.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_INVALID_PARAMETER</p></td>
+<td><p>If an invalid parameter or NULL pointer was passed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_INSUFFICIENT_SPACE</p></td>
+<td><p>If there is not enough space.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NETWORK_PROTO</p></td>
+<td><p>If the function is called on the wrong socket type.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_TRY_AGAIN</p></td>
+<td><p>If the resource is temporarily unavailable or the request would block and the caller should try again.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_CONNECTION_CLOSED</p></td>
+<td><p>If no further communication is possible on the socket.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_NETWORK_ADDR_NOT_AVAILABLE</p></td>
+<td><p>If the address is not available.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NETWORK_HOST_UNREACHABLE</p></td>
+<td><p>If the host is not unreachable.</p></td>
+</tr>
+<tr class="row-odd"><td><p>other</p></td>
+<td><p>Each component implementing this might have additional error codes.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Particularities:</p>
+<ul class="simple">
+<li><p>With <strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_sendto()</span></code></strong> the network stack will copy data to be sent into
+it’s internal buffers and schedule it for actual transmission later. If
+errors occur during the actual transmission, those will be reported by
+<strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_getPendingEvents()</span></code></strong> / <strong><code class="docutils literal notranslate"><span class="pre">OS_SOCK_EV_ERROR</span></code></strong>.</p></li>
+<li><p>Depending on the internal buffer capacity of the network stack,
+<strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_sendto()</span></code></strong> may accept only partially the data
+in buf. It will return the number of successfully accepted bytes in
+<strong><code class="docutils literal notranslate"><span class="pre">actualLen</span></code></strong>.</p></li>
+</ul>
+<h4 id="os-socket-close">OS_Socket_close<a class="headerlink" href="#os-socket-close" title="Link to this heading">¶</a></h4>
+<p>This function will close a network socket. No further socket
+communication is possible after closure.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">OS_Error_t</span>
+<span class="nf">OS_Socket_close</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OS_Socket_Handle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Parameters:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Supported Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>handle</p></td>
+<td><p>Handle of the socket that should be closed.</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>Return values:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error Code</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OS_SUCCESS</p></td>
+<td><p>Operation was successful.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_ABORTED</p></td>
+<td><p>If the Network Stack has experienced a fatal error.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NOT_INITIALIZED</p></td>
+<td><p>If the function was called before the Network Stack was fully initialized.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_INVALID_HANDLE</p></td>
+<td><p>If an invalid handle was passed.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_INVALID_PARAMETER</p></td>
+<td><p>If the handle context is invalid.</p></td>
+</tr>
+<tr class="row-odd"><td><p>other</p></td>
+<td><p>Each component implementing this might have additional error codes.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Particularities:</p>
+<ul class="simple">
+<li><p>None</p></li>
+</ul>
+<h4 id="os-socket-getpendingevents">OS_Socket_getPendingEvents<a class="headerlink" href="#os-socket-getpendingevents" title="Link to this heading">¶</a></h4>
+<p>This function will get the pending events for the opened sockets.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">OS_Error_t</span>
+<span class="nf">OS_Socket_getPendingEvents</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">if_OS_Socket_t</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ctx</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w">                 </span><span class="n">buf</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w">                </span><span class="n">bufSize</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w">                  </span><span class="n">numberOfEvents</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Parameters:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Supported Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ctx</p></td>
+<td><p>Interface context that should be used.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>buf</p></td>
+<td><p>Buffer to store the event data.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>bufSize</p></td>
+<td><p>Size of the buffer to store the event data.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>numberOfEvents</p></td>
+<td><p>Will be overwritten with the number of events.</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>Return values:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error Code</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OS_SUCCESS</p></td>
+<td><p>Operation was successful.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_ABORTED</p></td>
+<td><p>If the Network Stack has experienced a fatal error.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_NOT_INITIALIZED</p></td>
+<td><p>If the function was called before the Network Stack was fully initialized.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_INVALID_HANDLE</p></td>
+<td><p>If an invalid handle was passed.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_INVALID_PARAMETER</p></td>
+<td><p>If an invalid parameter or NULL pointer was passed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_BUFFER_TOO_SMALL</p></td>
+<td><p>If the buffer is not even large enough for one event.</p></td>
+</tr>
+<tr class="row-even"><td><p>other</p></td>
+<td><p>Each component implementing this might have additional error codes.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The events that this function will place in the passed buffer are all of
+type <strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_Evt_t</span></code></strong>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">__attribute__</span><span class="p">((</span><span class="n">packed</span><span class="p">))</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">        </span><span class="n">socketHandle</span><span class="p">;</span><span class="w"> </span><span class="c1">//!&lt; Handle ID of the socket.</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">        </span><span class="n">parentSocketHandle</span><span class="p">;</span><span class="w"> </span><span class="c1">//!&lt; Handle ID of the parent socket.</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w">    </span><span class="n">eventMask</span><span class="p">;</span><span class="w"> </span><span class="c1">//!&lt; Event mask of the socket.</span>
+<span class="w">    </span><span class="n">OS_Error_t</span><span class="w"> </span><span class="n">currentError</span><span class="p">;</span><span class="w"> </span><span class="c1">//!&lt; Current error of the socket.</span>
+<span class="p">}</span>
+<span class="n">OS_Socket_Evt_t</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>The event flags that can be set for the <strong><code class="docutils literal notranslate"><span class="pre">eventMask</span></code></strong> member of this
+struct and that can be evaluated by the user are listed below.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="cp">#define OS_SOCK_EV_NONE      (0)</span>
+<span class="cp">#define OS_SOCK_EV_CONN_EST  (1&lt;&lt;0) </span><span class="c1">//!&lt; Connection established (TCP only).</span>
+<span class="cp">#define OS_SOCK_EV_CONN_ACPT (1&lt;&lt;1) </span><span class="c1">//!&lt; Connection accepted (TCP only).</span>
+<span class="cp">#define OS_SOCK_EV_READ      (1&lt;&lt;2) </span><span class="c1">//!&lt; Data arrived on the socket.</span>
+<span class="cp">#define OS_SOCK_EV_WRITE     (1&lt;&lt;3) </span><span class="c1">//!&lt; Ready to write to the socket (TCP only).</span>
+<span class="cp">#define OS_SOCK_EV_FIN       (1&lt;&lt;4) </span><span class="c1">//!&lt; FIN segment received (TCP only).</span>
+<span class="cp">#define OS_SOCK_EV_CLOSE     (1&lt;&lt;5) </span><span class="c1">//!&lt; Socket is closed (TCP only). No further communication is possible from this point on the socket.</span>
+<span class="cp">#define OS_SOCK_EV_ERROR     (1&lt;&lt;6) </span><span class="c1">//!&lt; An error occurred.</span>
+</code></pre></div>
+</div>
+<p>Particularities:</p>
+<ul class="simple">
+<li><p>None</p></li>
+</ul>
+<h4 id="os-socket-getstatus">OS_Socket_getStatus<a class="headerlink" href="#os-socket-getstatus" title="Link to this heading">¶</a></h4>
+<p>This function queries the current state of the Network Stack component.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">OS_NetworkStack_State_t</span>
+<span class="nf">OS_Socket_getStatus</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">if_OS_Socket_t</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ctx</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Parameters:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Supported Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ctx</p></td>
+<td><p>Interface context that should be used.</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>Return values:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Network Stack State</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>UNINITIALIZED</p></td>
+<td><p>Network Stack is uninitialized.</p></td>
+</tr>
+<tr class="row-odd"><td><p>INITIALIZED</p></td>
+<td><p>Network Stack is initialized.</p></td>
+</tr>
+<tr class="row-even"><td><p>RUNNING</p></td>
+<td><p>Network Stack is running.</p></td>
+</tr>
+<tr class="row-odd"><td><p>FATAL_ERROR</p></td>
+<td><p>Network Stack has experienced a fatal error.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Particularities:</p>
+<ul class="simple">
+<li><p>None</p></li>
+</ul>
+<h4 id="os-socket-poll">OS_Socket_poll<a class="headerlink" href="#os-socket-poll" title="Link to this heading">¶</a></h4>
+<p>This function checks, if a notification was received from the Network Stack
+before.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">OS_Error_t</span>
+<span class="nf">OS_Socket_poll</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">if_OS_Socket_t</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ctx</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Parameters:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Supported Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ctx</p></td>
+<td><p>Interface context that should be used with the handle.</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>Return values:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error Code</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OS_SUCCESS</p></td>
+<td><p>Notification event found.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_INVALID_PARAMETER</p></td>
+<td><p>If the handle context is invalid.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_TRY_AGAIN</p></td>
+<td><p>If no notification event was found.</p></td>
+</tr>
+<tr class="row-odd"><td><p>other</p></td>
+<td><p>Each component implementing this might have additional error codes.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Particularities:</p>
+<ul class="simple">
+<li><p>None</p></li>
+</ul>
+<h4 id="os-socket-wait">OS_Socket_wait<a class="headerlink" href="#os-socket-wait" title="Link to this heading">¶</a></h4>
+<p>This function blocks until a notification is received from the Network Stack. If
+a notification was received before, this function will return immediately.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">OS_Error_t</span>
+<span class="nf">OS_Socket_wait</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">if_OS_Socket_t</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ctx</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Parameters:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Supported Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ctx</p></td>
+<td><p>Interface context that should be used with the handle.</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>Return values:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error Code</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OS_SUCCESS</p></td>
+<td><p>Notification event found.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_INVALID_PARAMETER</p></td>
+<td><p>If the handle context is invalid.</p></td>
+</tr>
+<tr class="row-even"><td><p>other</p></td>
+<td><p>Each component implementing this might have additional error codes.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Particularities:</p>
+<ul class="simple">
+<li><p>None</p></li>
+</ul>
+<h4 id="os-socket-regcallback">OS_Socket_regCallback<a class="headerlink" href="#os-socket-regcallback" title="Link to this heading">¶</a></h4>
+<p>This function will register a callback function, that is executed once the
+Network Stack sends a notification.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="n">OS_Error_t</span>
+<span class="nf">OS_Socket_regCallback</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">if_OS_Socket_t</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ctx</span><span class="p">,</span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">callback</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">),</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Parameters:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Supported Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ctx</p></td>
+<td><p>Interface context that should be used.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>callback</p></td>
+<td><p>A function pointer to the callback function.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>arg</p></td>
+<td><p>The arguments for the callback functions.</p></td>
+<td><p>Can also be NULL.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Return values:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error Code</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OS_SUCCESS</p></td>
+<td><p>Callback function successfully registered.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS_ERROR_INVALID_PARAMETER</p></td>
+<td><p>If an invalid parameter or NULL pointer was passed.</p></td>
+</tr>
+<tr class="row-even"><td><p>OS_ERROR_GENERIC</p></td>
+<td><p>If the callback could not be registered.</p></td>
+</tr>
+<tr class="row-odd"><td><p>other</p></td>
+<td><p>Each component implementing this might have additional error codes.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Particularities:</p>
+<ul class="simple">
+<li><p>Upon execution of the callback function, the callback is automatically
+unregistered.</p></li>
+<li><p>If the callback function is to be executed again for the next notification,
+the callback function needs to re-register itself within its function body.</p></li>
+</ul>
+<h3 id="non-blocking-strategies">Non-Blocking Strategies<a class="headerlink" href="#non-blocking-strategies" title="Link to this heading">¶</a></h3>
+<h4 id="socket-handling-by-polling">Socket Handling by Polling<a class="headerlink" href="#socket-handling-by-polling" title="Link to this heading">¶</a></h4>
+<p>In case you have a simple application with a single client connection, you can
+omit using the notification sent out by the Network Stack and just use the
+Socket API in polling mode.  All functions are non-blocking, so a user needs to
+read the return values and react properly.</p>
+<p>For example, <strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_connect()</span></code></strong> will return with <strong><code class="docutils literal notranslate"><span class="pre">OS_SUCCESS</span></code></strong> in case
+the connection process could be initiated successfully. Read and write calls
+will be returned with <strong><code class="docutils literal notranslate"><span class="pre">OS_ERROR_NETWORK_CONN_NONE</span></code></strong> until the connection is
+established. The code example below shows how this could be realized in a
+simplified way.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="p">...</span>
+
+<span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OS_Socket_create</span><span class="p">(</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="n">networkStackCtx</span><span class="p">,</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="n">socket</span><span class="p">,</span>
+<span class="w">    </span><span class="n">OS_AF_INET</span><span class="p">,</span>
+<span class="w">    </span><span class="n">OS_SOCK_STREAM</span><span class="p">);</span>
+
+<span class="p">...</span>
+
+
+<span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OS_Socket_connect</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dstAddr</span><span class="p">);</span>
+
+<span class="p">...</span>
+
+
+<span class="kt">size_t</span><span class="w"> </span><span class="n">offs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">do</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">lenRemaining</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">len_request</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">offs</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">       </span><span class="n">len_io</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="n">lenRemaining</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OS_Socket_write</span><span class="p">(</span>
+<span class="w">              </span><span class="n">socket</span><span class="p">,</span>
+<span class="w">              </span><span class="o">&amp;</span><span class="n">request</span><span class="p">[</span><span class="n">offs</span><span class="p">],</span>
+<span class="w">              </span><span class="n">len_io</span><span class="p">,</span>
+<span class="w">              </span><span class="o">&amp;</span><span class="n">len_io</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OS_SUCCESS</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OS_ERROR_TRY_AGAIN</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OS_ERROR_NETWORK_CONN_NONE</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">   </span><span class="c1">// Try again.</span>
+<span class="w">   </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Debug_LOG_ERROR</span><span class="p">(</span><span class="s">&quot;OS_Socket_write() failed, code %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">            </span><span class="n">OS_Socket_close</span><span class="p">(</span><span class="n">socket</span><span class="p">);</span>
+<span class="w">            </span><span class="k">return</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">offs</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">len_io</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">offs</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">len_request</span><span class="p">);</span>
+
+<span class="p">...</span>
+</code></pre></div>
+</div>
+<h4 id="socket-handling-by-main-event-loop">Socket Handling by Main Event Loop<a class="headerlink" href="#socket-handling-by-main-event-loop" title="Link to this heading">¶</a></h4>
+<p>For more complex implementations it is advised to use the notification sent out
+by the Network Stack and retrieve the details about all pending events via
+<strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_getPendingEvents()</span></code></strong>.</p>
+<p>The NetworkStack_PicoTcp will cyclically process all incoming data and existing
+connections. When an update happens for any of the open sockets, it will send a
+notification to the client that the socket belongs to. Please note, that no
+individual notifications are sent for each socket. Instead, only one
+notification is sent after each processing cycle of the Network Stack.</p>
+<p>A client can retrieve a list of all events from the Network Stack by calling
+<strong><code class="docutils literal notranslate"><span class="pre">OS_Socket_getPendingEvents()</span></code></strong>. This will return an array of events for all
+updated sockets. The client can then process each event and react appropriately.</p>
+<p>One strategy to make use of this is to include an endless loop in the run()
+function and wait for the notification to be triggered. After receiving the
+notification we retrieve the pending events, act on all events, tidy up tasks,
+and wait again on the notification.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="p">...</span>
+
+<span class="kt">int</span>
+<span class="n">run</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(;;)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Wait until we get an event for the listening socket.</span>
+<span class="w">        </span><span class="n">OS_Socket_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">networkStackCtx</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OS_Socket_getPendingEvents</span><span class="p">(</span>
+<span class="w">                </span><span class="o">&amp;</span><span class="n">network_stack</span><span class="p">,</span>
+<span class="w">                </span><span class="n">evtBuffer</span><span class="p">,</span>
+<span class="w">                </span><span class="n">evtBufferSize</span><span class="p">,</span>
+<span class="w">                </span><span class="o">&amp;</span><span class="n">numberOfSocketsWithEvents</span><span class="p">);</span>
+
+<span class="w">        </span><span class="p">...</span>
+
+<span class="w">        </span><span class="c1">// Verify that the received number of sockets with events is within expected</span>
+<span class="w">        </span><span class="c1">// bounds.</span>
+
+<span class="w">     </span><span class="p">...</span>
+
+<span class="w">  </span><span class="c1">// Iterate through the received socket events and handle them according to the application logic.</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numberOfSocketsWithEvents</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">   </span><span class="n">OS_Socket_Evt_t</span><span class="w"> </span><span class="n">event</span><span class="p">;</span>
+<span class="w">            </span><span class="n">memcpy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">evtBuffer</span><span class="p">[</span><span class="n">offset</span><span class="p">],</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">event</span><span class="p">));</span>
+<span class="w">            </span><span class="n">offset</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">event</span><span class="p">);</span>
+
+<span class="w">   </span><span class="c1">// Socket has been closed by the network stack - close socket.</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">eventMask</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">OS_SOCK_EV_FIN</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">OS_Socket_close</span><span class="p">(</span><span class="n">socket</span><span class="p">);</span>
+<span class="w">       </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">          </span><span class="p">...</span>
+
+<span class="w">  </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="p">...</span>
+
+<span class="p">}</span>
+
+<span class="p">...</span>
+</code></pre></div>
+</div>
+<h4 id="socket-handling-by-notification-callback">Socket Handling by Notification Callback<a class="headerlink" href="#socket-handling-by-notification-callback" title="Link to this heading">¶</a></h4>
+<p>The CAmkES infrastructure for the <strong><code class="docutils literal notranslate"><span class="pre">if_OS_Socket</span></code></strong> interface provides the
+functionality to register a callback function that is executed once the Network
+Stack sends a notification (see also the API documentation above for more
+details on how to register a callback function). It is therefore possible to
+also implement a scheme to handle the socket events that rely on this mechanism
+to update the current event state for all sockets a client is managing.</p>
+<p>While this strategy can provide certain benefits it should also be noted that
+this typically results in a more complex solution, since the callback function
+is executed in a separate thread and can result in concurrency issues.
+Additional synchronization primitives will therefore be necessary on the user
+application side.</p>
+<p>The example below provides a sketch of how this strategy can be implemented and
+what API functions would need to be involved for this approach.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><code><span class="p">...</span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">OS_Socket_Evt_t</span><span class="w"> </span><span class="n">eventCollection</span><span class="p">[</span><span class="n">OS_NETWORK_MAXIMUM_SOCKET_NO</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+
+<span class="p">...</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span>
+<span class="n">cb_nwStackNotification</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span>
+<span class="p">{</span>
+
+<span class="w">    </span><span class="p">...</span>
+
+<span class="w">    </span><span class="n">OS_Error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OS_Socket_getPendingEvents</span><span class="p">(</span>
+<span class="w">                         </span><span class="n">ctx</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">eventBuffer</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">bufferSize</span><span class="p">,</span>
+<span class="w">                         </span><span class="o">&amp;</span><span class="n">numberOfSocketsWithEvents</span><span class="p">);</span>
+
+<span class="w"> </span><span class="p">...</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numberOfSocketsWithEvents</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Update local eventCollection[OS_NETWORK_MAXIMUM_SOCKET_NO] array</span>
+<span class="w">        </span><span class="c1">// with the latest events for the sockets. The update of this shared</span>
+<span class="w">  </span><span class="c1">// ressource should be mutex protected in case the run() thread is</span>
+<span class="w">        </span><span class="c1">// currently also trying to access it.</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Unblock any caller of the functions below waiting for new events to</span>
+<span class="w">    </span><span class="c1">// arrive.</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">numberOfSocketsWithEvents</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">notify_about_new_events</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Re-register the callback function as it should be executed again for the</span>
+<span class="w">    </span><span class="c1">// next notification.</span>
+<span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OS_Socket_regCallback</span><span class="p">(</span>
+<span class="w">              </span><span class="n">ctx</span><span class="p">,</span>
+<span class="w">              </span><span class="o">&amp;</span><span class="n">cb_nwStackNotification</span><span class="p">,</span>
+<span class="w">              </span><span class="n">ctx</span><span class="p">);</span>
+<span class="w"> </span><span class="p">...</span>
+
+<span class="p">}</span>
+
+<span class="p">...</span>
+
+<span class="n">OS_Error_t</span>
+<span class="n">waitForConnectionEstOnSocket</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OS_Socket_Handle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+
+<span class="w">    </span><span class="k">for</span><span class="p">(;;)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Lock mutex for shared eventCollection ressource</span>
+
+<span class="w">        </span><span class="n">eventMask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eventCollection</span><span class="p">[</span><span class="n">handle</span><span class="p">.</span><span class="n">handleID</span><span class="p">].</span><span class="n">eventMask</span><span class="p">;</span>
+<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eventCollection</span><span class="p">[</span><span class="n">handle</span><span class="p">.</span><span class="n">handleID</span><span class="p">].</span><span class="n">currentError</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// Unlock mutex for shared eventCollection ressource</span>
+
+<span class="w">  </span><span class="c1">// Check eventMask for the specific events that might be relevant</span>
+<span class="w">        </span><span class="c1">// to evaluate.</span>
+
+<span class="w">  </span><span class="c1">// If a relevant event is found to be set in the eventMask</span>
+<span class="w">        </span><span class="c1">// (e.g. OS_SOCK_EV_CONN_EST) return OS_SUCCESS. If and error</span>
+<span class="w">        </span><span class="c1">// is found with OS_SOCK_EV_ERROR, return err.</span>
+
+<span class="w">  </span><span class="c1">// Else if no relevant event is found, wait on the arrival of new events.</span>
+<span class="w">        </span><span class="c1">// The signal would be emitted by the callback function in this example.</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="p">...</span>
+
+<span class="kt">int</span>
+<span class="n">run</span><span class="p">()</span>
+<span class="p">{</span>
+
+<span class="w">    </span><span class="p">...</span>
+
+<span class="w">    </span><span class="c1">// Set up callback for new received socket events.</span>
+<span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OS_Socket_regCallback</span><span class="p">(</span>
+<span class="w">              </span><span class="o">&amp;</span><span class="n">networkStackCtx</span><span class="p">,</span>
+<span class="w">              </span><span class="o">&amp;</span><span class="n">cb_nwStackNotification</span><span class="p">,</span>
+<span class="w">              </span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="n">networkStackCtx</span><span class="p">);</span>
+<span class="w">    </span><span class="p">...</span>
+
+<span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OS_Socket_create</span><span class="p">(</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="n">networkStackCtx</span><span class="p">,</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="n">socket</span><span class="p">,</span>
+<span class="w">    </span><span class="n">OS_AF_INET</span><span class="p">,</span>
+<span class="w">    </span><span class="n">OS_SOCK_STREAM</span><span class="p">);</span>
+
+<span class="w">    </span><span class="p">...</span>
+
+<span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OS_Socket_connect</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dstAddr</span><span class="p">);</span>
+
+<span class="w">    </span><span class="p">...</span>
+
+<span class="w"> </span><span class="c1">// Wait until the socket is successfully connected.</span>
+<span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">waitForConnectionEstOnSocket</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+
+<span class="w">    </span><span class="p">...</span>
+
+<span class="p">}</span>
+
+<span class="p">...</span>
+</code></pre></div>
+</div>
+<h2 id="further-examples">Further Examples<a class="headerlink" href="#further-examples" title="Link to this heading">¶</a></h2>
+<p>To get a better understanding of how the Network Stack can be utilized in a
+system, it is recommended to take a look at the demos provided by the SDK.</p>
+<p>In the IoT Demos, a Cloud Connector component is connected to a Network Stack
+component as a TCP client and uses the networking functionalities to publish
+MQTT messages from a Sensor component connected to it.</p>
+<p>In the demo_tls_api a TLS connection is established, in which the main component
+needs to setup the TCP connection to a remote server.</p>
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="logger_api.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Logger API" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Logger API
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="tls_api.html" class="md-footer__link md-footer__link--next" aria-label="Next: TLS API" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              TLS API
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2023-2024, HENSOLDT Cyber GmbH.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.1.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.tabs", "navigation.sections", "navigation.instant", "header.autohide", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "toc.follow", "toc.sticky"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": null}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=8ec58cb5"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+        <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+        <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+        <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+        <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+        <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
+    
+  </body>
+</html>

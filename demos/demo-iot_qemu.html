@@ -1,0 +1,2116 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>IoT Demo App for QEMU - Documentation</title>
+      
+    
+    
+      
+        
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.4b4a8c74e2ff2ab5b.min.css?v=afa97f93" />
+        <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#general" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              IoT Demo App for QEMU
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../introduction/getting-started.html" class="md-tabs__link">
+      <span class="md-ellipsis">Introduction</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../api/cert-parser_api.html" class="md-tabs__link">
+      <span class="md-ellipsis">API</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../components/cert-server.html" class="md-tabs__link">
+      <span class="md-ellipsis">Components</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../component-interfaces/nic-interface.html" class="md-tabs__link">
+      <span class="md-ellipsis">Component Interfaces</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../platform-support/using-sd-card-with-trentos.html" class="md-tabs__link">
+      <span class="md-ellipsis">Platform Support</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="#" class="md-tabs__link md-tabs__link--active">
+      <span class="md-ellipsis">Demos</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../tools/proxy-application.html" class="md-tabs__link">
+      <span class="md-ellipsis">Tools</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../development/buildsystem.html" class="md-tabs__link">
+      <span class="md-ellipsis">Development</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../glossary/acronyms.html" class="md-tabs__link">
+      <span class="md-ellipsis">Glossary</span>
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      <img src="../_static/MC_Produkt_Logo_Trentos_gray.png" alt="logo">
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/TRENT-OS/trentos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trentos
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          <span class="md-ellipsis">Introduction</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Introduction</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/getting-started.html" class="md-nav__link">
+        <span class="md-ellipsis">Getting Started</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/sel4.html" class="md-nav__link">
+        <span class="md-ellipsis">se<wbr>L4 Microkernel</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/camkes.html" class="md-nav__link">
+        <span class="md-ellipsis">CAmk<wbr>ES Framework</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          <span class="md-ellipsis">API</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/cert-parser_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Parser API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/config-service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Config<wbr>Service API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/configuration_service_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Service</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/crypto_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/file-system_api.html" class="md-nav__link">
+        <span class="md-ellipsis">File<wbr>System API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/key-store_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Key<wbr>Store API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/logger_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Logger API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/socket_api.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket API</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/tls_api.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          <span class="md-ellipsis">Components</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Components" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Components</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/cert-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Cert<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/crypto-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Crypto<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/entropy-source.html" class="md-nav__link">
+        <span class="md-ellipsis">Entropy<wbr>Source</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/network-stack_pico-tcp.html" class="md-nav__link">
+        <span class="md-ellipsis">Network<wbr>Stack_<wbr>Pico<wbr>Tcp</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_dummy.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>Dummy</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>i<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/nic_rpi.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC_<wbr>RPi</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/ram-disk.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/rpi_spi_flash.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi_<wbr>SPI_<wbr>Flash</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/sd-host-controller.html" class="md-nav__link">
+        <span class="md-ellipsis">Sd<wbr>Host<wbr>Controller</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/storage_chan-mux.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage_<wbr>Chan<wbr>Mux</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/storage-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Storage<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/time-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Time<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/tls-server.html" class="md-nav__link">
+        <span class="md-ellipsis">Tls<wbr>Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/uart.html" class="md-nav__link">
+        <span class="md-ellipsis">UART</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          <span class="md-ellipsis">Component Interfaces</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Component Interfaces" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Component Interfaces</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../component-interfaces/nic-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">NIC Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../component-interfaces/socket-interface.html" class="md-nav__link">
+        <span class="md-ellipsis">Socket Interface</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          <span class="md-ellipsis">Platform Support</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Platform Support" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Platform Support</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/using-sd-card-with-trentos.html" class="md-nav__link">
+        <span class="md-ellipsis">Using an SD Card with a TRENTOS System</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/rpi-3-model-b%2B/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">RPi3B+ Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/nitrogen6-solo-x/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nitrogen6_<wbr>Solo<wbr>X Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/bd-sl-i.mx6/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">BD-<wbr>SL-<wbr>i.<wbr>MX6 Platform</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-support/nvidia-tegra/platform.html" class="md-nav__link">
+        <span class="md-ellipsis">Nvidia Tegra</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          <span class="md-ellipsis">Demos</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Demos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Demos</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">Io<wbr>T Demo App for QEMU</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">Io<wbr>T Demo App for QEMU</span>
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general" class="md-nav__link">
+    <span class="md-ellipsis">General</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#camkes-component-architecture" class="md-nav__link">
+    <span class="md-ellipsis">CAmk<wbr>ES Component Architecture</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-the-demo" class="md-nav__link">
+    <span class="md-ellipsis">Building the Demo</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-demo" class="md-nav__link">
+    <span class="md-ellipsis">Running the Demo</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-the-demo-to-connect-to-the-azure-iot-hub" class="md-nav__link">
+    <span class="md-ellipsis">Setting up the Demo to Connect to the Azure Io<wbr>T Hub</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up the Demo to Connect to the Azure IoT Hub">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sensor-configuration" class="md-nav__link">
+    <span class="md-ellipsis">Sensor Configuration</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-the-payload-and-the-mqtt-topic" class="md-nav__link">
+    <span class="md-ellipsis">Set the Payload and the MQTT Topic</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloud-connector-configuration" class="md-nav__link">
+    <span class="md-ellipsis">Cloud Connector Configuration</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloud Connector Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-the-correct-ip-address-of-the-iot-hub-instance" class="md-nav__link">
+    <span class="md-ellipsis">Set the Correct IP Address of the Io<wbr>T Hub Instance</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-the-ca-certificate-used-by-the-server-the-hub-is-running-on" class="md-nav__link">
+    <span class="md-ellipsis">Download the CA Certificate Used by the Server the Hub is Running on</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-the-clientid-username-and-password" class="md-nav__link">
+    <span class="md-ellipsis">Set the Client<wbr>ID, Username and Password</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="demo-iot_rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="demo-iot_imx6.html" class="md-nav__link">
+        <span class="md-ellipsis">Io<wbr>T Demo App for i.<wbr>MX6</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="demo-tls.html" class="md-nav__link">
+        <span class="md-ellipsis">TLS API Demo</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="demo-network-filter_qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="demo-network-filter_nitrogen6-solox.html" class="md-nav__link">
+        <span class="md-ellipsis">Network Filter Demo for Nitrogen6_<wbr>Solo<wbr>X</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          <span class="md-ellipsis">Tools</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Tools</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/proxy-application.html" class="md-nav__link">
+        <span class="md-ellipsis">Proxy Application</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/configuration-provisioning-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Configuration Provisioning Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/ram-disk-generator-tool.html" class="md-nav__link">
+        <span class="md-ellipsis">Ram<wbr>Disk Generator Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/flasher-tool-rpi3b%2B.html" class="md-nav__link">
+        <span class="md-ellipsis">Flasher Tool for RPi3B+</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          <span class="md-ellipsis">Development</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Development" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Development</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/buildsystem.html" class="md-nav__link">
+        <span class="md-ellipsis">Buildsystem</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/function-call-tracing.html" class="md-nav__link">
+        <span class="md-ellipsis">Function Call Tracing</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/hardware-tools.html" class="md-nav__link">
+        <span class="md-ellipsis">Hardware Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/runtime-debugging.html" class="md-nav__link">
+        <span class="md-ellipsis">Runtime Debugging</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-qemu.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging QEMU</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-hw-platforms_open-ocd.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Open<wbr>OCD</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/runtime-debugging/debugging-hw-platforms_segger.html" class="md-nav__link">
+        <span class="md-ellipsis">Debugging HW Platforms Using Segger Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/object-oriented-c.html" class="md-nav__link">
+        <span class="md-ellipsis">Object Oriented C</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/known_issues.html" class="md-nav__link">
+        <span class="md-ellipsis">Known Issues</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          <span class="md-ellipsis">Glossary</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Glossary" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Glossary</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/acronyms.html" class="md-nav__link">
+        <span class="md-ellipsis">Acronyms</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/terms.html" class="md-nav__link">
+        <span class="md-ellipsis">Terms</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general" class="md-nav__link">
+    <span class="md-ellipsis">General</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#camkes-component-architecture" class="md-nav__link">
+    <span class="md-ellipsis">CAmk<wbr>ES Component Architecture</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-the-demo" class="md-nav__link">
+    <span class="md-ellipsis">Building the Demo</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-demo" class="md-nav__link">
+    <span class="md-ellipsis">Running the Demo</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-the-demo-to-connect-to-the-azure-iot-hub" class="md-nav__link">
+    <span class="md-ellipsis">Setting up the Demo to Connect to the Azure Io<wbr>T Hub</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up the Demo to Connect to the Azure IoT Hub">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sensor-configuration" class="md-nav__link">
+    <span class="md-ellipsis">Sensor Configuration</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-the-payload-and-the-mqtt-topic" class="md-nav__link">
+    <span class="md-ellipsis">Set the Payload and the MQTT Topic</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloud-connector-configuration" class="md-nav__link">
+    <span class="md-ellipsis">Cloud Connector Configuration</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloud Connector Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-the-correct-ip-address-of-the-iot-hub-instance" class="md-nav__link">
+    <span class="md-ellipsis">Set the Correct IP Address of the Io<wbr>T Hub Instance</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-the-ca-certificate-used-by-the-server-the-hub-is-running-on" class="md-nav__link">
+    <span class="md-ellipsis">Download the CA Certificate Used by the Server the Hub is Running on</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-the-clientid-username-and-password" class="md-nav__link">
+    <span class="md-ellipsis">Set the Client<wbr>ID, Username and Password</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+<h1 id="iot-demo-app-for-qemu">IoT Demo App for QEMU<a class="headerlink" href="#iot-demo-app-for-qemu" title="Link to this heading">¶</a></h1>
+<h2 id="general">General<a class="headerlink" href="#general" title="Link to this heading">¶</a></h2>
+<p>This demo application showcases a rather typical IoT use case. A Sensor
+component cyclically publishes a temperature update via MQTT to a Cloud
+Connector component. This component is securely communicating with an
+MQTT broker (IoT Hub in case of the Microsoft Azure Cloud) using a TLS
+connection and, in turn, forwards the MQTT message from the sensor to
+the broker. The configuration for the Network Stack Configurator, the
+Sensor, and the Cloud Connector components can be set in an XML
+formatted configuration file, which is processed by the
+<a class="reference internal" href="../tools/configuration-provisioning-tool.html"><span class="std std-doc">Configuration Provisioning Tool</span></a>
+before the demo starts up.</p>
+<p>When the demo is run, the Config Server component will mount the
+provisioned storage partition with the configuration parameters and make
+them available to the connected clients. The Network Stack Configurator,
+the Sensor, and the Cloud Connector components will all contact the
+Config Server and retrieve their required configuration parameters
+through it. Once all components are initialized, the Sensor will proceed
+to contact the Cloud Connector every few seconds to send its data string
+to the configured cloud service. In the delivered initial configuration,
+the demo is set to connect to a Mosquitto MQTT broker running inside the
+test container of the SDK but, as explained below, these settings can
+easily be reconfigured to connect to an external MQTT broker such as
+Microsoft’s Azure IoT-Hub.</p>
+<h2 id="camkes-component-architecture">CAmkES Component Architecture<a class="headerlink" href="#camkes-component-architecture" title="Link to this heading">¶</a></h2>
+<p><img alt="&quot;IoT Demo for QEMU - CAmkES Architecture&quot;" src="../_images/demo-iot_qemu-camkes-architecture.png" /></p>
+<h2 id="building-the-demo">Building the Demo<a class="headerlink" href="#building-the-demo" title="Link to this heading">¶</a></h2>
+<p>For building the IoT demo, the <strong><code class="docutils literal notranslate"><span class="pre">build-system.sh</span></code></strong> script has to be
+used and executed within the <strong>trentos_build</strong> docker container. The
+following command will invoke this build script from inside the
+<strong>trentos_build</strong> docker container. The container will bind the current
+working folder to a volume mounted under <strong><code class="docutils literal notranslate"><span class="pre">/host</span></code></strong>, execute the script
+and then self remove.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># Entering the SDK root directory</span>
+<span class="nb">cd</span><span class="w"> </span>&lt;sdk_root_directory&gt;
+
+<span class="c1"># Building the demo</span>
+sdk/scripts/open_trentos_build_env.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>sdk/build-system.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>sdk/demos/demo_iot_app<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>zynq7000<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>build-zynq7000-Debug-demo_iot_app<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug
+</code></pre></div>
+</div>
+<p>As a result, the folder <strong><code class="docutils literal notranslate"><span class="pre">build-zynq7000-Debug-demo_iot_app</span></code></strong>  is
+created, containing all the build artifacts.</p>
+<p>For an in-depth discussion about building TRENTOS systems, different
+possible configurations and parameters, please refer to the
+<a class="reference internal" href="../development/buildsystem.html"><span class="std std-doc">Buildsystem</span></a> section.</p>
+<h2 id="running-the-demo">Running the Demo<a class="headerlink" href="#running-the-demo" title="Link to this heading">¶</a></h2>
+<p>Call the <strong><code class="docutils literal notranslate"><span class="pre">run_demo.sh</span></code></strong> script found in the root folder of the demo from
+within the <strong>trentos_test</strong> docker container and pass it the relative paths of
+the demo build directory (<strong><code class="docutils literal notranslate"><span class="pre">build-zynq7000-Debug-demo_iot_app</span></code></strong>) and the
+<strong><code class="docutils literal notranslate"><span class="pre">sdk</span></code></strong> folder inside the SDK root directory.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># The run_demo.sh script takes in 2 arguments:</span>
+<span class="c1">#   - the path to the build directory of the IoT demo</span>
+<span class="c1">#   - the path to the sdk directory</span>
+sdk/scripts/open_trentos_test_env.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>sdk/demos/demo_iot_app/run_demo.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>build-zynq7000-Debug-demo_iot_app<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>sdk
+</code></pre></div>
+</div>
+<p>This script will first run the provisioning tool and pick up the default
+settings, which are stored in the
+<strong><code class="docutils literal notranslate"><span class="pre">sdk/demos/demo_iot_app/configuration</span></code></strong> folder. The tool will create
+a disk image with a partition containing the specified settings. The
+script will then proceed to start up the Mosquitto MQTT Broker inside
+the test container and run the image in QEMU together with the
+<a class="reference internal" href="../tools/proxy-application.html"><span class="std std-doc">Proxy Application</span></a>.
+Also note, that in the folder from which you call the
+<strong><code class="docutils literal notranslate"><span class="pre">open_trentos_test_env.sh</span></code></strong> script, the demo will create the following files:
+<strong><code class="docutils literal notranslate"><span class="pre">nvm_06</span></code></strong>, <strong><code class="docutils literal notranslate"><span class="pre">qemu_stderr.txt</span></code></strong> and <strong><code class="docutils literal notranslate"><span class="pre">proxy_app.out</span></code></strong>.</p>
+<p>If all went well, after the initial setup messages, the console should
+be periodically printing the following messages notifying the user that
+the MQTT messages are sent successfully.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="go">0000000020 CLOUDCONNECTO 00:01:05   6   5    INFO: /host/sdk/demos/demo_iot_app/components/CloudConnector/src/CloudConnector.c:382: MQTT publish on WAN successful</span>
+<span class="go">0000000020 CLOUDCONNECTO 00:01:05   6   5    INFO: /host/sdk/demos/demo_iot_app/components/CloudConnector/src/CloudConnector.c:613: Waiting for new message from client...</span>
+<span class="go">0000000020 CLOUDCONNECTO 00:01:10   6   5    INFO: /host/sdk/demos/demo_iot_app/components/CloudConnector/src/CloudConnector.c:481: New message received from client</span>
+<span class="go">0000000020 CLOUDCONNECTO 00:01:10   6   5    INFO: /host/sdk/demos/demo_iot_app/components/CloudConnector/src/MQTT_client.c:415: checkPublishQos(): got PUBACK</span>
+</code></pre></div>
+</div>
+<h2 id="setting-up-the-demo-to-connect-to-the-azure-iot-hub">Setting up the Demo to Connect to the Azure IoT Hub<a class="headerlink" href="#setting-up-the-demo-to-connect-to-the-azure-iot-hub" title="Link to this heading">¶</a></h2>
+<p>As outlined in the general overview of the demo, the system is initially
+configured with all relevant parameters and credentials to connect to a
+Mosquitto MQTT broker running inside the <strong>trentos_test</strong> docker container. To
+gain a better understanding of how TRENTOS systems can be configured using the
+tools and components from the SDK ecosystem, the following section will provide
+a guide on how to reconfigure this demo system to connect to an external broker,
+which in this example will be the Microsoft’s Azure IoT Hub. It should
+be mentioned that setting up an Azure account and creating an IoT Hub
+instance with at least one IoT device is not within the scope of this
+guide, as there are already helpful guides available e.g.
+<a class="reference external" href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-create-through-portal">https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-create-through-portal</a>.</p>
+<p>Therefore at this point, it is assumed that you:</p>
+<ul class="simple">
+<li><p>have access to a Microsoft Azure Account,</p></li>
+<li><p>have set up an Azure IoT Hub,</p></li>
+<li><p>have at least created one device in the Hub so that the demo can use
+this device ID and the shared access signature to authenticate
+against the Azure IoT Hub.</p></li>
+</ul>
+<p>To provide a somewhat more concrete example setup throughout this guide,
+we will assume that the created IoT Hub instance has the following
+properties:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>IoT Hub Host Name</p></td>
+<td><p>TRENTOS-HUB.azure-devices.net</p></td>
+</tr>
+<tr class="row-odd"><td><p>Device ID</p></td>
+<td><p>TempSensor_01</p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="sensor-configuration">Sensor Configuration<a class="headerlink" href="#sensor-configuration" title="Link to this heading">¶</a></h3>
+<h3 id="set-the-payload-and-the-mqtt-topic">Set the Payload and the MQTT Topic<a class="headerlink" href="#set-the-payload-and-the-mqtt-topic" title="Link to this heading">¶</a></h3>
+<p>In the configuration folder of the demo, you will find two files (both
+prefixed with <strong><code class="docutils literal notranslate"><span class="pre">sensor_</span></code></strong> ) that can be used to configure the Sensor
+component. As their names already indicate, the
+<strong><code class="docutils literal notranslate"><span class="pre">sensor_mqtt_payload</span></code></strong> can be used to set the payload the sensor
+should be sending to the Cloud Connector component and the
+<strong><code class="docutils literal notranslate"><span class="pre">sensor_mqtt_topic</span></code></strong> file can be used to set the MQTT topic.</p>
+<p>While the payload can basically be any input string (in the demo it is
+only constrained by the arbitrary maximum payload size of 128 bytes set
+in the Sensor component), the MQTT topic needs to match a certain
+expected pattern based on the device ID that was set in the IoT Hub
+device setup. For our example which has an IoT Hub with the earlier mentioned
+device with an ID <strong>TempSensor_01</strong>, the required topic would result in:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="go">devices/TempSensor_01/messages/events/</span>
+</code></pre></div>
+</div>
+<h3 id="cloud-connector-configuration">Cloud Connector Configuration<a class="headerlink" href="#cloud-connector-configuration" title="Link to this heading">¶</a></h3>
+<h4 id="set-the-correct-ip-address-of-the-iot-hub-instance">Set the Correct IP Address of the IoT Hub Instance<a class="headerlink" href="#set-the-correct-ip-address-of-the-iot-hub-instance" title="Link to this heading">¶</a></h4>
+<p>As the main purpose of the Cloud Connector component is to relay the
+messages received from the sensor to a server running an MQTT broker, we first
+need to configure the IP address that this component should connect to.</p>
+<p>In Linux, the IP of your IoT Hub can be retrieved by executing the following
+command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>host<span class="w"> </span>TRENTOS-HUB.azure-devices.net
+</code></pre></div>
+</div>
+<p>After obtaining the IP address of the Hub, set the corresponding value
+in the  <strong><code class="docutils literal notranslate"><span class="pre">CloudServiceIP</span></code></strong> tag in the
+<strong><code class="docutils literal notranslate"><span class="pre">sdk/demos/demo_iot_app/configuration/config.xml</span></code></strong> file. In this
+example, we will just assume the address is <strong><code class="docutils literal notranslate"><span class="pre">51.144.118.31</span></code></strong>.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">&lt;param_name&gt;</span>CloudServiceIP<span class="nt">&lt;/param_name&gt;</span>
+<span class="w">   </span><span class="nt">&lt;type&gt;</span>string<span class="nt">&lt;/type&gt;</span>
+<span class="w">   </span><span class="nt">&lt;access_policy&gt;</span>
+<span class="w">     </span><span class="nt">&lt;read&gt;</span>true<span class="nt">&lt;/read&gt;</span>
+<span class="w">     </span><span class="nt">&lt;write&gt;</span>false<span class="nt">&lt;/write&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/access_policy&gt;</span>
+<span class="w">   </span><span class="nt">&lt;value&gt;</span>51.144.118.31<span class="nt">&lt;/value&gt;</span>
+</code></pre></div>
+</div>
+<p>We can store this setting directly in the configuration file of the
+parameter type string as we do not expect the IP address to exceed the
+possible maximum configuration string size of 32 bytes (including nul
+terminator). Any setting that goes beyond this size needs to be stored
+in a separate blob file. More background information on the different
+parameter types, their defined sizes, and their usage examples can be
+found in the chapters about the <a class="reference internal" href="../api/config-service_api.html"><span class="std std-doc">ConfigService API</span></a>
+and the <a class="reference internal" href="../tools/configuration-provisioning-tool.html"><span class="std std-doc">Configuration Provisioning Tool</span></a>
+of this handbook.</p>
+<h3 id="download-the-ca-certificate-used-by-the-server-the-hub-is-running-on">Download the CA Certificate Used by the Server the Hub is Running on<a class="headerlink" href="#download-the-ca-certificate-used-by-the-server-the-hub-is-running-on" title="Link to this heading">¶</a></h3>
+<p>Since the demo system will initiate a secure connection with the IoT
+Hub, we need to make sure to provide the system with the required
+certificate to verify the server’s identity. The servers hosting the
+IoT Hub instances typically either use the <strong>Microsoft IT TLS CA 4</strong> or
+<strong>Microsoft IT TLS CA 2</strong> certificate. To verify which one is used by
+your instance,  go to <a class="reference external" href="https://www.ssllabs.com/ssltest/">https://www.ssllabs.com/ssltest/</a>, enter the IoT
+Hub Host Name and check which issuer is listed for your IoT Hub server.
+The site usually also provides a link to the certificate just below the
+issuer’s name. You can either follow this path to download the
+certificate or head over to
+<a class="reference external" href="https://www.microsoft.com/pki/mscorp/cps/default.htm">https://www.microsoft.com/pki/mscorp/cps/default.htm</a> where you should
+also find all relevant certificates for this use case.</p>
+<p>The certificates passed to the demo system are required to be PEM
+formatted. On Linux, you can easily convert them with the following
+command (in this example converting the <strong>Microsoft IT TLS CA 2</strong>):</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-inform<span class="w"> </span>DER<span class="w"> </span>-outform<span class="w"> </span>PEM<span class="w"> </span>-in<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>Microsoft<span class="se">\ </span>IT<span class="se">\ </span>TLS<span class="se">\ </span>CA<span class="se">\ </span><span class="m">2</span>.crt<span class="w"> </span>-out<span class="w"> </span>AzureCACert.pem
+</code></pre></div>
+</div>
+<p>Place the certificate file in the configuration folder and make sure the
+configuration file path in the
+<strong><code class="docutils literal notranslate"><span class="pre">sdk/demos/demo_iot_app/configuration/config.xml</span></code></strong> file is updated
+with the path to this new certificate:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">&lt;param_name&gt;</span>ServerCaCert<span class="nt">&lt;/param_name&gt;</span>
+<span class="w">   </span><span class="nt">&lt;type&gt;</span>blob<span class="nt">&lt;/type&gt;</span>
+<span class="w">   </span><span class="nt">&lt;access_policy&gt;</span>
+<span class="w">     </span><span class="nt">&lt;read&gt;</span>true<span class="nt">&lt;/read&gt;</span>
+<span class="w">     </span><span class="nt">&lt;write&gt;</span>false<span class="nt">&lt;/write&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/access_policy&gt;</span>
+<span class="w">   </span><span class="nt">&lt;value&gt;</span>/AzureCACert.pem<span class="nt">&lt;/value&gt;</span>
+</code></pre></div>
+</div>
+<h3 id="set-the-clientid-username-and-password">Set the ClientID, Username and Password<a class="headerlink" href="#set-the-clientid-username-and-password" title="Link to this heading">¶</a></h3>
+<p>To connect to the public device endpoints that the Azure IoT Hub
+provides, the necessary credentials have to be set in the demo
+configuration. A helpful guide to better understand the required
+parameters of the Hub can be found at
+<a class="reference external" href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-mqtt-support#using-the-mqtt-protocol-directly-as-a-device">https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-mqtt-support#using-the-mqtt-protocol-directly-as-a-device.</a></p>
+<p>As explained in this guide, we first need to adapt the device ID to
+match the device ID that was set up for the device related to our Hub.
+In our example setup with the <strong>TempSensor_01</strong> device, this will
+result in modifying the IoT-Device parameter in the
+<strong><code class="docutils literal notranslate"><span class="pre">sdk/demos/demo_iot_app/configuration/config.xml</span></code></strong> file as follows:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">&lt;param_name&gt;</span>IoT-Device<span class="nt">&lt;/param_name&gt;</span>
+<span class="w">   </span><span class="nt">&lt;type&gt;</span>string<span class="nt">&lt;/type&gt;</span>
+<span class="w">   </span><span class="nt">&lt;access_policy&gt;</span>
+<span class="w">     </span><span class="nt">&lt;read&gt;</span>true<span class="nt">&lt;/read&gt;</span>
+<span class="w">     </span><span class="nt">&lt;write&gt;</span>false<span class="nt">&lt;/write&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/access_policy&gt;</span>
+<span class="w">   </span><span class="nt">&lt;value&gt;</span>TempSensor_01<span class="nt">&lt;/value&gt;</span>
+</code></pre></div>
+</div>
+<p>Next, we need to adapt the username as specified in the guide. So for
+our example IoT Hub instance, we would place the following string in
+the  <strong><code class="docutils literal notranslate"><span class="pre">configuration/cloudConnector_cloudDomain</span></code></strong> file (should be
+replaced with the actual value):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="go">TRENTOS-HUB.azure-devices.net/TempSensor_01/?api-version=2018-06-30</span>
+</code></pre></div>
+</div>
+<p>In the final configuration step, we need to set the required
+SharedAccessSignature (SAS) token in the
+<strong><code class="docutils literal notranslate"><span class="pre">cloudConnector_SharedAccessSignature</span></code></strong> file to authenticate our
+device. Creating such a token can be either done directly from the
+Visual Studio Code extension
+(<a class="reference external" href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-mqtt-support#for-azure-iot-tools">https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-mqtt-support#for-azure-iot-tools</a>)
+or the CLI extension
+(<a class="reference external" href="https://docs.microsoft.com/en-us/cli/azure/ext/azure-iot/iot/hub?view=azure-cli-latest#ext-azure-iot-az-iot-hub-generate-sas-token">https://docs.microsoft.com/en-us/cli/azure/ext/azure-iot/iot/hub?view=azure-cli-latest#ext-azure-iot-az-iot-hub-generate-sas-token</a>).
+For our example IoT Hub the generated token would result in something
+like:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="go">SharedAccessSignature sr=TRENTOS-HUB.azure-devices.net%2Fdevices%2FTempSensor_01%2Fapi-version%3D2016-11-14&amp;sig=vSgHBMUG.....Ntg%3d&amp;se=1456481802</span>
+</code></pre></div>
+</div>
+<p>With all these settings adapted, the demo should now be ready to connect
+to the Azure IoT Hub. Simply run the demo again with the provided script
+as explained in the Running the Demo section. Once the demo is running
+and successfully sending the MQTT messages to the Azure IoT Hub, you
+will be able to see the string you set as the payload of the Sensor
+component as the incoming message when monitoring the built-in event
+endpoints
+(<a class="reference external" href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-endpoints">https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-endpoints</a>)
+for the device in the Azure IoT Hub. Helpful information for setting up
+monitoring of incoming messages can be found at
+<a class="reference external" href="https://devblogs.microsoft.com/iotdev/azure-iot-tools-make-it-easy-to-monitor-custom-event-hub-endpoints/">https://devblogs.microsoft.com/iotdev/azure-iot-tools-make-it-easy-to-monitor-custom-event-hub-endpoints/.</a>
+Also, as was the case for running the demo with a local instance of the
+MQTT broker, if everything goes correctly you should be able to see the
+following messages repeatedly printed in the console:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="go">INFO: .../CloudConnector.c:387: MQTT publish on WAN successful</span>
+<span class="go">INFO: .../CloudConnector.c:621: Waiting for new message from client...</span>
+<span class="go">INFO: .../CloudConnector.c:489: New message received from client</span>
+<span class="go">INFO: .../MQTT_client.c:415: checkPublishQos(): got PUBACK</span>
+</code></pre></div>
+</div>
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../platform-support/nvidia-tegra/tegra_secure_boot.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Tegra Secure Boot" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Tegra Secure Boot
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="demo-iot_rpi3b%2B.html" class="md-footer__link md-footer__link--next" aria-label="Next: IoT Demo App for RPi3B+" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              IoT Demo App for RPi3B+
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2023-2024, HENSOLDT Cyber GmbH.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.1.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.tabs", "navigation.sections", "navigation.instant", "header.autohide", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "toc.follow", "toc.sticky"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": null}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=8ec58cb5"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>
