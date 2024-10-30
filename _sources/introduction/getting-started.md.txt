@@ -4,8 +4,9 @@
 ##########################################################
 #                     Information                        #
 # Due to a change in the delivery format of TRENTOS some # 
-# some shown paths have changed.                         #
+# shown paths have changed.                              #
 # Unfortunaltely not all documentation is yet updated.   #
+# Please feel free to open an issue if problems arise.   #
 ##########################################################
 ```
 
