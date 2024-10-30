@@ -30,13 +30,11 @@ src/build.sh test-prepare
 src/build.sh build-and-test demo_hello_world
 ```
 
-TODO: Link getting started documentation page
+[TRENTOS Getting Started](https://trent-os.github.io/trentos/introduction/getting-started.html)
 
 ## Documentation
 
-TODO: ADD TRENTOS DOCS LINK
-
-Please refer to our [TRENTOS Docs]().
+Please refer to our [TRENTOS Docs](https://trent-os.github.io/trentos).
 
 ## Supported Platforms
 
@@ -70,9 +68,9 @@ Currently TRENTOS
 * jetson-xavier-nx-dev-kit
 * aetina-an110-xnx
 
-TODO: Curate list and give small comment to current status of platform
-TODO: (Maybe) Change names or add comment which is better telling
-TODO: Maybe seperate this into its own more detailed page
+<!-- TODO: Curate list and give small comment to current status of platform-->
+<!-- TODO: (Maybe) Change names or add comment which is better telling -->
+<!-- TODO: Maybe seperate this into its own more detailed page -->
 
 
 ## TRENTOS Demos
@@ -97,6 +95,8 @@ src/build.sh build-and-test <name of demo>
 
 Even more demos are available as [submodules](https://github.com/orgs/TRENT-OS/repositories?q=demo).
 
+_Please ensure that the selected `DEFAULT_BUILD_PLATFORM` in `trentos/build.sh` is compatible with the selected demonstrator._
+
 ## Contributing
 
 Contributions are always welcome. 
@@ -106,7 +106,7 @@ To get started please read our [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Docker Images
 
-Our Docker images are hosted on [DockerHub](https://hub.docker.com/orgs/hensoldtcyber/repositories).
+Our Docker images are hosted on [DockerHub](https://hub.docker.com/orgs/hensoldtcyber/repositories). <br />
 Dockerfiles are hosted in [Docker Images](https://github.com/TRENT-OS/docker_images).
 
 ## Licensing
@@ -116,15 +116,18 @@ Upon request commercial licensing options are available.
 Please contact: [info.cyber@hensoldt.net](mailto:info.cyber@hensoldt.net?subject=TRENTOS:%20Commercial%20Licensing) for more information.
 
 A select few components are only available under different licensing terms.
-Due to the microkernel concept this may not be an issue as long as these are used as a distinct TRENTOS component.
-
-TODO: Link documentation explaining the seL4 component concept.
+Due to the microkernel concept this may not be an issue as long as these are used as a distinct [TRENTOS components](https://trent-os.github.io/trentos/introduction/camkes.html).
 
 ## Testing
 
-Please refer to ...
+TRENTOS comes with a testframework built with pytest and can be found at [`trentos/ta/tests/`](https://github.com/TRENT-OS/tests).
 
-TODO: Link wiki page explaining the test framework
+Tests exists for all [tests](https://github.com/orgs/TRENT-OS/repositories?q=test) and for most [demos](https://github.com/orgs/TRENT-OS/repositories?q=demo).
+
+Examle usage: Building and testing `demo_hello_world`:
+```sh
+src/build.sh build-and-test demo_hello_world
+```
 
 
 ## Dependencies

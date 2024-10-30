@@ -1,11 +1,13 @@
 # Getting Started
 
 ```
-########################################################
-#               DEPRECATION WARNING                    #
-# This section of the TRENTOS documentation is out of  # 
-# sync and may contain no longer relevant information. #
-########################################################
+##########################################################
+#                     Information                        #
+# Due to a change in the delivery format of TRENTOS some # 
+# shown paths have changed.                              #
+# Unfortunaltely not all documentation is yet updated.   #
+# Please feel free to open an issue if problems arise.   #
+##########################################################
 ```
 
 Until this section is updated please refer to [TRENTOS README](https://github.com/TRENT-OS/trentos/blob/integration/README.md)
@@ -144,26 +146,24 @@ to build and run a custom TRENTOS based system:
   - Demo TLS API (showcasing the TLS API by retrieving an HTTPS web
         page)
 
-### Install the SDK Package
+### Setup your TRENTOS Workspace
 
 Within the scope of this document, we assume that a Linux system is used
-since all the listed commands have been tested on Ubuntu 18.04 and 20.04
-LTS, as well as on Linux Mint 20. The TRENTOS SDK is provided in the
-form of a **tar** archive compressed with **bzip2** and thus needs to be
-extracted before use. Since the SDK is self-contained and works with
-relative paths it can be extracted in an arbitrary directory.
+since all the listed commands have been tested on Ubuntu 20.04
+LTS or newer. TRENTOS is hosted on [GitHub](https://github.com/TRENT-OS/trentos) and the required docker containers are available via DockerHub:
 
-For the purpose of this document, we will assume that the content of the
-archive is extracted in the directory **TRENTOS_SDK_1.3** as follows:
+```sh
+# Create a new folder for TRENTOS
+mkdir trentos && cd trentos
 
-```bash
-mkdir TRENTOS_SDK_1.3tar -xjv -f TRENTOS_SDK_1.3.tar.bz2 -C TRENTOS_SDK_1.3
+# Recursively clone the TRENTOS project
+git clone --recursive git@github.com:TRENT-OS/trentos.git src
 ```
 
 Most of the commands used in later parts of the document assume a
-terminal is open in the **TRENTOS_SDK_1.3** directory and where this is
+terminal is open in the **trentos** directory and where this is
 not the case it will be explicitly stated. Also, we will refer to the
-**TRENTOS_SDK_1.3** directory as the **SDK root directory**.
+**trentos** directory as the **SDK root directory**.
 
 Finally, it is important to note that by default, all the build
 artifacts are stored in the SDK root directory which can be changed by
@@ -174,24 +174,21 @@ unpacked archive.
 
 ### SDK Root Directory Structure
 
-- **GettingStarted.pdf** → Link to
-            **sdk/doc/pdf/TRENTOS_GettingStarted_SDK_V1.3.pdf**
+- **docs**
 
-- **docker** → Containers with toolchain to build and test TRENTOS systems
+  - **source** → Source for this documentation in Markdown
 
-  - **trentos_1.3.sha256sums**
+- **ta**
 
-  - **trentos_build_20210503.bz2**
+  - **common** → test framework & board automation infrastructure
 
-  - **trentos_test_20211025.bz2**
+  - **tests** → trentos pytest tests
 
 - **sdk**
 
   - **build-system.sh** → Master build script for building TRENTOS systems
 
   - **CMakeLists.txt** → Master CMake script for building TRENTOS systems
-
-  - **README.license** → License information
 
   - **bin** → TRENTOS tools binaries for Linux
 
@@ -254,22 +251,6 @@ unpacked archive.
     - **demo_network_filter** → Network Filter Demo (QEMU, Nitrogen6_SoloX)
 
     - **demo_tls_api** → Demo retrieving an HTTPS web page
-
-  - **doc**
-
-    - **html** →TRENTOS API Doxygen documentation
-
-    - **pdf** → TRENTOS documentation
-
-      - **TRENTOS_GettingStarted_SDK_V1.3.pdf**
-
-      - **TRENTOS_Handbook_SDK_V1.3.pdf**
-
-      - **TRENTOS_ReleaseNotes_SDK_V1.3.pdf**
-
-      - **TRENTOS_MigrationNotes_SDK_V1.2_to_V1.3.pdf**
-
-      - **3rd_party** → Supplemental documents
 
   - **libs** → TRENTOS libraries and core system sources
 
@@ -351,35 +332,21 @@ machine. An installation guide for the engine can be found at
 [https://docs.docker.com/engine/install](https://docs.docker.com/engine/install/).
 This tutorial assumes you have a working docker service installed on your
 machine and that your current user is a member of the **docker** and **sudo**
-group. The SDK provides two archives with docker containers:
-
-- **trentos_build_20210503.bz2**: the build container
-
-- **trentos_test_20211025.bz2**: the test container
-
-The rationale for splitting the containers is, that the test container is much
-more lightweight than the build container.
+group.
 
 ## Install the Docker Images
 
-To install these docker images on your machine, open a terminal in the folder
-where the archives are located and run the commands below. Due to the size of
-the docker images, this will take several minutes.
+To install these docker images on your machine, open a terminal and run the commands below.
+Due to the size of the docker images, this can take several minutes.
 
-```bash
-# enter the SDK root directory
-cd <sdk_root_directory>
-
-# load trentos_build docker image
-docker load --input docker/trentos_build_20210503.bz2
-
-# load trentos_test docker image
-docker load --input docker/trentos_test_20211025.bz2
+```sh
+docker pull hensoldtcyber/trentos_build:latest
+docker pull hensoldtcyber/trentos_test:latest
 ```
 
 Verify that the docker images are installed properly by running.
 
-```bash
+```sh
 docker images
 ```
 
@@ -419,7 +386,7 @@ command:
 
 ```bash
 # start bash in a new trentos_build container
-sdk/scripts/open_trentos_build_env.sh
+src/sdk/scripts/open_trentos_build_env.sh
 ```
 
 To leave the container enter **exit**.
@@ -428,7 +395,7 @@ Similarly, for the **trentos_test** docker container the command is:
 
 ```bash
 # start bash in a new trentos_test container
-sdk/scripts/open_trentos_test_env.sh
+src/sdk/scripts/open_trentos_test_env.sh
 ```
 
 To leave the container enter **exit**.
@@ -447,14 +414,14 @@ command:
 
 ```bash
 # execute a specific script in a new trentos_build container
-sdk/scripts/open_trentos_build_env.sh <path_to_build_script>
+src/sdk/scripts/open_trentos_build_env.sh <path_to_build_script>
 ```
 
 Similarly, for the **trentos_test** docker container the command is:
 
 ```bash
 # execute a specific script in a new trentos_test container
-sdk/scripts/open_trentos_test_env.sh <path_to_test_script>
+src/sdk/scripts/open_trentos_test_env.sh <path_to_test_script>
 ```
 
 Each of these commands **starts a new container instance**, executes the command
@@ -480,7 +447,7 @@ pinging a server in interactive mode:
 
 ```bash
 # start bash in a new trentos_test container
-sdk/scripts/open_trentos_test_env.sh
+src/sdk/scripts/open_trentos_test_env.sh
 
 # execute ping
 ping -c 3 hensoldt-cyber.com
@@ -530,7 +497,7 @@ container and the container is removed once the script finishes. For the Hello
 World demo, this call looks like the following:
 
 ```bash
-trentos/sdk/scripts/open_trentos_build_env.sh trentos/build.sh demo_hello_world
+src/sdk/scripts/open_trentos_build_env.sh src/build.sh demo_hello_world
 ```
 
 If the build is successful, the console produces the following output:
@@ -563,7 +530,7 @@ following:
 # change to the build output folder
 cd build-zynq7000-Debug-demo_hello_world
 # execute the Hello World demo in the trentos_test container
-../sdk/scripts/open_trentos_test_env.sh ./simulate
+../src/sdk/scripts/open_trentos_test_env.sh ./simulate
 ```
 
 Note that in this case the **simulate** run script must be invoked from
@@ -608,9 +575,9 @@ current working directory under **/host**, execute the script and then
 remove itself.
 
 ```bash
-sdk/scripts/open_trentos_build_env.sh \
-    sdk/build-system.sh \
-    sdk/demos/demo_hello_world \
+src/sdk/scripts/open_trentos_build_env.sh \
+    src/sdk/build-system.sh \
+    src/sdk/demos/demo_hello_world \
     rpi3 \
     build-rpi3-Debug-demo_hello_world \
     -DCMAKE_BUILD_TYPE=Debug
@@ -668,7 +635,7 @@ SDK package. To do so, it is enough to do the following:
 
 ```bash
 # copy bootfiles to SD card
-cp sdk/resources/rpi3_sd_card/* <sd_card_mount_point>/
+cp src/sdk/resources/rpi3_sd_card/* <sd_card_mount_point>/
 ```
 
 - After copying the required bootfiles it is necessary to copy the
@@ -737,9 +704,9 @@ The following command will invoke the build script from inside the
 directory under **/host**, execute the script and then remove itself.
 
 ```bash
-sdk/scripts/open_trentos_build_env.sh \
-    sdk/build-system.sh \
-    sdk/demos/demo_hello_world \
+src/sdk/scripts/open_trentos_build_env.sh \
+    src/sdk/build-system.sh \
+    src/sdk/demos/demo_hello_world \
     nitrogen6sx \
     build-nitrogen6sx-Debug-demo_hello_world \
     -DCMAKE_BUILD_TYPE=Debug
@@ -788,7 +755,7 @@ of the SDK package. To do so, it is enough to do the following.
 
 ```bash
 # copy bootfiles to SD card
-cp sdk/resources/nitrogen6sx_sd_card/* <sd_card_mount_point>/
+cp src/sdk/resources/nitrogen6sx_sd_card/* <sd_card_mount_point>/
 ```
 
 - After copying the required bootfiles it is necessary to copy the TRENTOS image
@@ -796,7 +763,7 @@ cp sdk/resources/nitrogen6sx_sd_card/* <sd_card_mount_point>/
 
 ```bash
 # copy TRENTOS system image to SD card
-cp build-nitrogen6sx-Debug-demo_hello_world/images/os_image.elf <sd_card_mount_point>/
+cp src/build-nitrogen6sx-Debug-demo_hello_world/images/os_image.elf <sd_card_mount_point>/
 
 # ensure files are written to the SD card
 sync
@@ -944,9 +911,9 @@ The following command will invoke the build script from inside the
 directory under **/host**, execute the script and then remove itself.
 
 ```bash
-sdk/scripts/open_trentos_build_env.sh \
-    sdk/build-system.sh \
-    sdk/demos/demo_hello_world \
+src/sdk/scripts/open_trentos_build_env.sh \
+    src/sdk/build-system.sh \
+    src/sdk/demos/demo_hello_world \
     sabre \
     build-sabre-Debug-demo_hello_world \
     -DCMAKE_BUILD_TYPE=Debug
@@ -996,7 +963,7 @@ the SDK package. To do so, it is enough to do the following:
 
 ```bash
 # copy bootfiles to SD card
-cp sdk/resources/sabre_sd_card/* <sd_card_mount_point>/
+cp src/sdk/resources/sabre_sd_card/* <sd_card_mount_point>/
 ```
 
 - After copying the required bootfiles it is necessary to copy the
@@ -1143,6 +1110,3 @@ You could start with:
 
 Once you have acquired the necessary understanding of the TRENTOS system, start
 developing your own applications and components.
-
-A detailed TRENTOS API Doxygen documentation is available at
-**sdk/doc/html/index.html**.

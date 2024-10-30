@@ -1,5 +1,15 @@
 # !["TRENTOS - Banner"](_static/trentos_burning-banner.png)
 
+```
+##########################################################
+#                     Information                        #
+# Due to a change in the delivery format of TRENTOS some # 
+# shown paths have changed.                              #
+# Unfortunaltely not all documentation is yet updated.   #
+# Please feel free to open an issue if problems arise.   #
+##########################################################
+```
+
 ## Overview
 
 TRENTOS is an operating system based on the seL4 microkernel and the

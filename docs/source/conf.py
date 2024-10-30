@@ -12,7 +12,7 @@ author = "HENSOLDT Cyber GmbH"
 release = "2023"
 
 html_title = "Documentation"
-
+html_favicon = '_static/favicon.ico'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
