@@ -1,0 +1,45 @@
+name: Build and Deploy Docs
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - integration
+    paths:
+      - 'docs/**'
+
+permissions:
+  contents: write 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y make
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install myst_parser sphinx_copybutton sphinx_immaterial sphinxcontrib.mermaid
+
+    - name: Build documentation
+      run: |
+        cd docs
+        make html  # Assumes a Makefile setup, adjust if using Sphinx directly
+
+    - name: Deploy to GitHub Pages
+      if: success()
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: docs/build/html
